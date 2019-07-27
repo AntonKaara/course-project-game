@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    tst_tilebase \
-    tst_workerbase \
-    tst_buildingbase
+    coordinate_tests \
+    playerbase_tests \
+    gameobject_tests

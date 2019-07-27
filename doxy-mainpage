@@ -15,6 +15,12 @@
  * Make sure that the project compiles
  *
  *
+ * \section faq Frequently Asked Questions
+ *
+ * \subsection faq_comp Compiling errors
+ *
+ *  - Invalid us of incomplete type ...
+ *    - Possible reason: Missing include for forward declaration.
  */
 
 

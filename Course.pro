@@ -1,9 +1,8 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    BGBase \
     UnitTests \
-    source
+    CourseLib
 
 DISTFILES += \
     doxy-mainpage \
