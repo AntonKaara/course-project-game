@@ -170,7 +170,7 @@ std::string GameObject::getType() const
 bool GameObject::hasSameOwnerAs(
         const std::shared_ptr<GameObject> &other) const
 {
-    return (getOwner().get() != other->getOwner().get());
+    return (getOwner().get() == other->getOwner().get());
 }
 
 

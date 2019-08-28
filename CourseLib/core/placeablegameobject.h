@@ -2,7 +2,6 @@
 #define PLACEABLEGAMEOBJECT_H
 
 #include "gameobject.h"
-#include "basicresources.h"
 
 
 namespace Course {
@@ -82,6 +81,13 @@ public:
      * @note nullptr can be used to clear the location.
      */
     virtual void setLocationTile(const std::shared_ptr<TileBase>& tile) final;
+
+    /**
+     * @brief Returns a shared_ptr to current lcoation-tile.
+     * @return
+     * @post Exception guarantee: No-throw
+     */
+    virtual std::shared_ptr<TileBase> currentLocationTile() const final;
 
 private:
     std::weak_ptr<TileBase> m_location;

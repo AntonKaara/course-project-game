@@ -2,6 +2,7 @@
 #define WORKERBASE_H
 
 #include "core/placeablegameobject.h"
+#include "core/basicresources.h"
 
 
 namespace Course {

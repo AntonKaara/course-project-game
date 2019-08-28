@@ -1,5 +1,4 @@
 #include "placeablegameobject.h"
-#include "exceptions/expiredpointer.h"
 #include "tiles/tilebase.h"
 
 
@@ -32,7 +31,12 @@ int PlaceableGameObject::spacesInTileCapacity() const
 bool PlaceableGameObject::canPlaceOnTile(
         const std::shared_ptr<TileBase>& target) const
 {
-    return hasSameOwnerAs(target) or not target->getOwner();
+    if( target->getOwner() == nullptr or getOwner() == nullptr )
+    {
+        return true;
+    }
+
+    return hasSameOwnerAs(target);
 }
 
 void PlaceableGameObject::setLocationTile(const std::shared_ptr<TileBase>& tile)
@@ -46,6 +50,11 @@ void PlaceableGameObject::setLocationTile(const std::shared_ptr<TileBase>& tile)
     {
         unsetCoordinate();
     }
+}
+
+std::shared_ptr<TileBase> PlaceableGameObject::currentLocationTile() const
+{
+    return m_location.lock();
 }
 
 
