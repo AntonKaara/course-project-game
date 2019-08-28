@@ -14,10 +14,9 @@ TileBase::TileBase(const Coordinate& location,
                    const std::shared_ptr<iGameEventHandler> &eventhandler,
                    const std::shared_ptr<iObjectManager>& objectmanager,
                    const ProductionMap& base_production,
-                   const DescriptionMap& descriptions,
                    unsigned int max_buildings,
                    unsigned int max_workers):
-    GameObject(location, eventhandler, objectmanager, descriptions),
+    GameObject(location, eventhandler, objectmanager),
     MAX_BUILDINGS(max_buildings),
     MAX_WORKERS(max_workers),
     BASE_PRODUCTION(base_production)

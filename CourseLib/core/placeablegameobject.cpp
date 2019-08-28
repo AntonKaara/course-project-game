@@ -11,11 +11,10 @@ PlaceableGameObject::PlaceableGameObject(
         const std::shared_ptr<iGameEventHandler>& eventhandler,
         const std::shared_ptr<iObjectManager>& objectmanager,
         const std::shared_ptr<PlayerBase>& owner,
-        const DescriptionMap& descriptions,
         const std::shared_ptr<TileBase>& tile):
     // TODO: tile defaults to nullptr and we dereference it, fix plz
     GameObject(*tile->getCoordinate(), owner, eventhandler,
-               objectmanager, descriptions),
+               objectmanager),
     m_location(tile)
 {
 }

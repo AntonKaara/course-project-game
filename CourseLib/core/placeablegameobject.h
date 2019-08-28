@@ -38,7 +38,6 @@ public:
             const std::shared_ptr<iGameEventHandler>& eventhandler,
             const std::shared_ptr<iObjectManager>& objectmanager,
             const std::shared_ptr<PlayerBase>& owner,
-            const DescriptionMap& descriptions = {},
             const std::shared_ptr<TileBase>& tile = {}
             );
 

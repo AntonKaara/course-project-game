@@ -23,28 +23,26 @@ GameObject::GameObject(const GameObject &original):
 }
 
 GameObject::GameObject(const std::shared_ptr<iGameEventHandler>& eventhandler,
-                       const std::shared_ptr<iObjectManager>& objectmanager,
-                       const DescriptionMap& descriptions):
+                       const std::shared_ptr<iObjectManager>& objectmanager):
     ID(GameObject::c_next_id),
     EVENTHANDLER(eventhandler),
     OBJECTMANAGER(objectmanager),
     m_owner(std::shared_ptr<PlayerBase>(nullptr)),
     m_coordinate(),
-    m_descriptions(descriptions)
+    m_descriptions({})
 {
     ++c_next_id;
 }
 
 GameObject::GameObject(const std::shared_ptr<PlayerBase>& owner,
                        const std::shared_ptr<iGameEventHandler>& eventhandler,
-                       const std::shared_ptr<iObjectManager>& objectmanager,
-                       const DescriptionMap& descriptions):
+                       const std::shared_ptr<iObjectManager>& objectmanager):
     ID(GameObject::c_next_id),
     EVENTHANDLER(eventhandler),
     OBJECTMANAGER(objectmanager),
     m_owner(owner),
     m_coordinate(),
-    m_descriptions(descriptions)
+    m_descriptions({})
 {
     ++c_next_id;
 }
@@ -52,28 +50,26 @@ GameObject::GameObject(const std::shared_ptr<PlayerBase>& owner,
 GameObject::GameObject(const Coordinate& coordinate,
                        const std::shared_ptr<PlayerBase>& owner,
                        const std::shared_ptr<iGameEventHandler>& eventhandler,
-                       const std::shared_ptr<iObjectManager>& objectmanager,
-                       const DescriptionMap& descriptions):
+                       const std::shared_ptr<iObjectManager>& objectmanager):
     ID(GameObject::c_next_id),
     EVENTHANDLER(eventhandler),
     OBJECTMANAGER(objectmanager),
     m_owner(owner),
     m_coordinate(),
-    m_descriptions(descriptions)
+    m_descriptions({})
 {
     m_coordinate = std::make_unique<Coordinate>(coordinate);
     ++c_next_id;
 }
 
-GameObject::GameObject(const Coordinate &coordinate,
-                       const std::shared_ptr<iGameEventHandler> &eventhandler,
-                       const std::shared_ptr<iObjectManager> &objectmanager,
-                       const DescriptionMap &descriptions):
+GameObject::GameObject(const Coordinate& coordinate,
+                       const std::shared_ptr<iGameEventHandler>& eventhandler,
+                       const std::shared_ptr<iObjectManager>& objectmanager):
     ID(GameObject::c_next_id),
     EVENTHANDLER(eventhandler),
     OBJECTMANAGER(objectmanager),
     m_coordinate(),
-    m_descriptions(descriptions)
+    m_descriptions({})
 {
     m_coordinate = std::make_unique<Coordinate>(coordinate);
     ++c_next_id;

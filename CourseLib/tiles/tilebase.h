@@ -66,7 +66,6 @@ public:
              const std::shared_ptr<iGameEventHandler>& eventhandler,
              const std::shared_ptr<iObjectManager>& objectmanager,
              const ProductionMap& base_production = ZERO_BASE_PRODUCTION,
-             const DescriptionMap& descriptions = {},
              unsigned int max_buildings = 3,
              unsigned int max_workers = 6);
 

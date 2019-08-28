@@ -10,7 +10,7 @@ HeadQuarters::HeadQuarters(
         const std::shared_ptr<PlayerBase>& owner,
         const std::shared_ptr<TileBase>& tile
         ):
-    BuildingBase(eventhandler, objectmanager, owner, {}, tile, 0)
+    BuildingBase(eventhandler, objectmanager, owner, tile)
 {
 }
 

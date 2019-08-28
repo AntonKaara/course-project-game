@@ -47,8 +47,7 @@ public:
      * @param descriptions A map of strings referring to strings
      */
     GameObject(const std::shared_ptr<iGameEventHandler>& eventhandler={nullptr},
-               const std::shared_ptr<iObjectManager>& objectmanager={nullptr},
-               const DescriptionMap& descriptions={});
+               const std::shared_ptr<iObjectManager>& objectmanager={nullptr});
 
     /**
      * @brief GameObject constructor that can create objects with owner
@@ -57,8 +56,7 @@ public:
      */
     GameObject(const std::shared_ptr<PlayerBase>& owner,
                const std::shared_ptr<iGameEventHandler>& eventhandler={nullptr},
-               const std::shared_ptr<iObjectManager>& objectmanager={nullptr},
-               const DescriptionMap& descriptions={});
+               const std::shared_ptr<iObjectManager>& objectmanager={nullptr});
 
     /**
      * @brief GameObject constructor that can create objects with
@@ -70,8 +68,7 @@ public:
     GameObject(const Coordinate& coordinate,
                const std::shared_ptr<PlayerBase>& owner,
                const std::shared_ptr<iGameEventHandler>& eventhandler={nullptr},
-               const std::shared_ptr<iObjectManager>& objectmanager={nullptr},
-               const DescriptionMap& descriptions={});
+               const std::shared_ptr<iObjectManager>& objectmanager={nullptr});
 
     /**
      *
@@ -80,8 +77,7 @@ public:
      */
     GameObject(const Coordinate& coordinate,
                const std::shared_ptr<iGameEventHandler>& eventhandler={nullptr},
-               const std::shared_ptr<iObjectManager>& objectmanager={nullptr},
-               const DescriptionMap& descriptions={});
+               const std::shared_ptr<iObjectManager>& objectmanager={nullptr});
 
 
     /**
