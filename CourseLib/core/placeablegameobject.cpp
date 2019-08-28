@@ -12,11 +12,13 @@ PlaceableGameObject::PlaceableGameObject(
         const std::shared_ptr<iObjectManager>& objectmanager,
         const std::shared_ptr<PlayerBase>& owner,
         const std::shared_ptr<TileBase>& tile):
-    // TODO: tile defaults to nullptr and we dereference it, fix plz
-    GameObject(*tile->getCoordinate(), owner, eventhandler,
-               objectmanager),
+    GameObject(owner, eventhandler, objectmanager),
     m_location(tile)
 {
+    if( tile )
+    {
+        setCoordinate(tile->getCoordinate());
+    }
 }
 
 std::string PlaceableGameObject::getType() const
