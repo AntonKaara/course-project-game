@@ -14,10 +14,10 @@ SimpleGameScene::SimpleGameScene(QWidget* parent,
                                  int height,
                                  int scale):
     QGraphicsScene(parent),
+    m_mapBoundRect(nullptr),
     m_width(width),
     m_height(height),
-    m_scale(scale),
-    m_mapBoundRect(nullptr)
+    m_scale(scale)
 {
     resize();
 }
