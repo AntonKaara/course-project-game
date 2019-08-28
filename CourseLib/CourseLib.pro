@@ -2,6 +2,8 @@ TEMPLATE = lib
 
 CONFIG += c++14 staticlib
 
+QT += core gui widgets
+
 HEADERS += \
     buildings/buildingbase.h \
     buildings/farm.h \
@@ -13,6 +15,8 @@ HEADERS += \
     exceptions/resourceerror.h \
     exceptions/ownerconflict.h \
     exceptions/nospace.h \
+    graphics/simplemapitem.h \
+    graphics/simplegamescene.h \
     interfaces/iobjectmanager.h \
     interfaces/igameeventhandler.h \
     tiles/grassland.h \
@@ -34,6 +38,8 @@ SOURCES += \
     buildings/outpost.cpp \
     buildings/farm.cpp \
     tiles/grassland.cpp \
+    graphics/simplemapitem.cpp \
+    graphics/simplegamescene.cpp \
     tiles/forest.cpp \
     tiles/tilebase.cpp \
     workers/basicworker.cpp \
