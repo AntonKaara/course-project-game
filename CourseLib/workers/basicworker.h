@@ -57,6 +57,17 @@ public:
     double getMultiplier() const override;
 
     /**
+     * @brief canPlaceOnTile
+     * @param target is the Tile that worker is being placed on.
+     * @return
+     * True - If baseclass' method return true and target Tile has space
+     * for worker.
+     * False - If both conditions aren't met.
+     * @note Override to change placement rules for derived worker.
+     */
+    virtual bool canPlaceOnTile(const std::shared_ptr<TileBase> &target) const;
+
+    /**
      * @brief Performs the Worker's default action.
      */
     void doAction() override;

@@ -207,7 +207,7 @@ public:
      * @post Excepetion guarantee: Strong
      * @exception ExpiredPointer - If any owner weak_ptr has expired.
      */
-    virtual bool has_same_owner_as(
+    virtual bool hasSameOwnerAs(
             const std::shared_ptr<GameObject>& other) const final;
 
     /**
@@ -217,7 +217,7 @@ public:
      * False - If the coordinates don't match
      * @post Exception guarantee: Strong
      */
-    virtual bool has_same_coordinate_as(
+    virtual bool hasSameCoordinateAs(
             const std::shared_ptr<GameObject>& other) const final;
 
 protected:

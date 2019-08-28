@@ -2,8 +2,6 @@
 #include "exceptions/expiredpointer.h"
 #include "tiles/tilebase.h"
 
-#include <QtGlobal> // For Q_ASSERT
-
 
 namespace Course {
 
@@ -26,7 +24,7 @@ std::string PlaceableGameObject::getType() const
     return "PlaceableGameObject";
 }
 
-unsigned int PlaceableGameObject::spacesInTileCapacity() const
+int PlaceableGameObject::spacesInTileCapacity() const
 {
     return 1;
 }
@@ -34,7 +32,7 @@ unsigned int PlaceableGameObject::spacesInTileCapacity() const
 bool PlaceableGameObject::canPlaceOnTile(
         const std::shared_ptr<TileBase>& target) const
 {
-    return has_same_owner_as(target);
+    return hasSameOwnerAs(target) or not target->getOwner();
 }
 
 void PlaceableGameObject::setLocationTile(const std::shared_ptr<TileBase>& tile)

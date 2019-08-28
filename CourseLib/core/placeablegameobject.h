@@ -13,10 +13,14 @@ class TileBase;
  * @brief The PlaceableGameObject class represents GameObjects that can be
  * placed on Tile Objects.
  *
- * Main purpose for this class is to wrap location-setting and
- * GameEventHandler locking/invariant -checking.
+ * Contains methods for automatically checking if a GameObject can be placed
+ * on a Tile.
  *
- * @invariant Weak-pointer to GameEventHandler hasn't expired.
+ * Override functions spacesInTileCapacity and canPlaceOnTile to change
+ * rules for class-specific placement-rules.
+ *
+ * @note Overridable methods have strong exception guarantees. So you don't
+ * have to force no-throw in your own implementations.
  */
 class PlaceableGameObject : public GameObject
 {
@@ -54,17 +58,20 @@ public:
     /**
      * @brief How many spaces does the GameObject take from a Tile's capacity.
      * @return Amount of spaces that are taken.
-     * @post Exception guarantee: No-throw
+     * @post Exception guarantee: Strong
+     * @note Override to change the amount of space being taken by a derived
+     * class.
      */
-    virtual unsigned int spacesInTileCapacity() const;
+    virtual int spacesInTileCapacity() const;
 
     /**
      * @brief Check if the object can be placed on the target tile.
-     * @param target points to the tile that is being checked.
+     * @param target is a pointer to the tile that is being checked.
      * @return
-     * True - Building can be placed on the target \n
-     * False - Building can't be placed on the target
+     * True - Object has same owner as the tile.
+     * False - If condition doesn't match.
      * @post Exception guarantee: Strong
+     * @note Override to change default behaviour
      */
     virtual bool canPlaceOnTile(const std::shared_ptr<TileBase>& target) const;
 

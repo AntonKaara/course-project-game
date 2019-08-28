@@ -191,6 +191,10 @@ public:
      */
     virtual unsigned int getWorkerCount() const final;
 
+
+    virtual bool hasSpaceForWorkers(int amount) const final;
+    virtual bool hasSpaceForBuildings(int amount) const final;
+
 protected:
     /**
      * @brief Clears the production multiplier and pile.

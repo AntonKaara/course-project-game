@@ -182,6 +182,7 @@ void TileBase::increaseMultiplier(BasicResource type, int amount)
     m_resource_production_multipliers[type] += amount;
 }
 
+
 unsigned int TileBase::getBuildingCount() const
 {
     unsigned taken = 0;
@@ -206,6 +207,16 @@ unsigned int TileBase::getWorkerCount() const
         }
     }
     return taken;
+}
+
+bool TileBase::hasSpaceForWorkers(int amount) const
+{
+    return amount + getWorkerCount() <= MAX_WORKERS;
+}
+
+bool TileBase::hasSpaceForBuildings(int amount) const
+{
+    return amount + getBuildingCount() <= MAX_BUILDINGS;
 }
 
 void TileBase::clearProduction()

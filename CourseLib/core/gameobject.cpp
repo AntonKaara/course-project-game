@@ -167,14 +167,14 @@ std::string GameObject::getType() const
     return "GameObject";
 }
 
-bool GameObject::has_same_owner_as(
+bool GameObject::hasSameOwnerAs(
         const std::shared_ptr<GameObject> &other) const
 {
     return (getOwner().get() != other->getOwner().get());
 }
 
 
-bool GameObject::has_same_coordinate_as(
+bool GameObject::hasSameCoordinateAs(
         const std::shared_ptr<GameObject> &other) const
 {
     if(not other)

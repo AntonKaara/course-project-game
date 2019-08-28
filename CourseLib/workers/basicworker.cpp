@@ -30,6 +30,12 @@ double BasicWorker::getMultiplier() const
     return BASIC_PRODUCTION.at(getResourceFocus());
 }
 
+bool BasicWorker::canPlaceOnTile(const std::shared_ptr<TileBase> &target) const
+{
+    return PlaceableGameObject::canPlaceOnTile(target) and
+            target->hasSpaceForWorkers(spacesInTileCapacity());
+}
+
 void BasicWorker::doAction()
 {
     auto player = getOwner();

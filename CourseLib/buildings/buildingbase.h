@@ -98,6 +98,17 @@ public:
      */
     virtual int holdCount() const final;
 
+    /**
+     * @brief Returns boolean based on wheter the building can or can't be
+     * placed on a Tile-object.
+     * @param target is a pointer to the target Tile.
+     * @return
+     * True - Base class' method return true and Tile has space for building.
+     * False - If both conditions are not met.
+     * @note Override to modify placementrules for derived classes.
+     */
+    virtual bool canPlaceOnTile(const std::shared_ptr<TileBase> &target) const;
+
 private:
     int m_hold;
 
