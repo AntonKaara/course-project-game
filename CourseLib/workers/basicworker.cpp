@@ -14,9 +14,10 @@ static const std::map<BasicResource, double> BASIC_PRODUCTION = {
 
 BasicWorker::BasicWorker(const std::shared_ptr<iGameEventHandler>& eventhandler,
                          const std::shared_ptr<iObjectManager>& objectmanager,
-                         const std::shared_ptr<PlayerBase>& owner
+                         const std::shared_ptr<PlayerBase>& owner,
+                         const int& tilespaces
                          ):
-    WorkerBase(eventhandler, objectmanager, owner)
+    WorkerBase(eventhandler, objectmanager, owner, tilespaces)
 {
 }
 

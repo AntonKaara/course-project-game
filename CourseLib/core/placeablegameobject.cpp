@@ -1,6 +1,7 @@
 #include "placeablegameobject.h"
 #include "tiles/tilebase.h"
 
+#include "exceptions/ownerconflict.h"
 
 namespace Course {
 
@@ -8,14 +9,12 @@ PlaceableGameObject::PlaceableGameObject(
         const std::shared_ptr<iGameEventHandler>& eventhandler,
         const std::shared_ptr<iObjectManager>& objectmanager,
         const std::shared_ptr<PlayerBase>& owner,
-        const std::shared_ptr<TileBase>& tile):
+        const int& tilespace
+        ):
     GameObject(owner, eventhandler, objectmanager),
-    m_location(tile)
+    TILESPACES(tilespace),
+    m_location({})
 {
-    if( tile )
-    {
-        setCoordinate(tile->getCoordinate());
-    }
 }
 
 std::string PlaceableGameObject::getType() const
@@ -25,7 +24,7 @@ std::string PlaceableGameObject::getType() const
 
 int PlaceableGameObject::spacesInTileCapacity() const
 {
-    return 1;
+    return TILESPACES;
 }
 
 bool PlaceableGameObject::canPlaceOnTile(
@@ -41,15 +40,22 @@ bool PlaceableGameObject::canPlaceOnTile(
 
 void PlaceableGameObject::setLocationTile(const std::shared_ptr<TileBase>& tile)
 {
-    m_location = tile;
-    if (tile)
+    if( tile )
     {
+        if( not canPlaceOnTile(tile) )
+        {
+            std::string msg = "Object: " + std::to_string(ID) +
+                    "  can't be placed on Tile: " + std::to_string(tile->ID);
+
+            throw OwnerConflict(msg);
+        }
         setCoordinate(tile->getCoordinate());
     }
     else
     {
         unsetCoordinate();
     }
+    m_location = tile;
 }
 
 std::shared_ptr<TileBase> PlaceableGameObject::currentLocationTile() const

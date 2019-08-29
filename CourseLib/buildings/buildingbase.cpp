@@ -7,15 +7,11 @@ namespace Course {
 
 BuildingBase::BuildingBase(const std::shared_ptr<iGameEventHandler>& eventhandler, const std::shared_ptr<iObjectManager> &objectmanager,
         const std::shared_ptr<PlayerBase>& owner,
-        const std::shared_ptr<TileBase>& tile,
-        int hold):
-    PlaceableGameObject(eventhandler, objectmanager, owner, tile),
+        const int& tilespaces,
+        const int& hold):
+    PlaceableGameObject(eventhandler, objectmanager, owner, tilespaces),
     m_hold(hold)
 {
-    if (not canPlaceOnTile(tile))
-    {
-        throw OwnerConflict("Another player owns this tile!");
-    }
 }
 
 std::string BuildingBase::getType() const

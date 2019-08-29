@@ -6,8 +6,8 @@ namespace Course {
 WorkerBase::WorkerBase(const std::shared_ptr<iGameEventHandler>& eventhandler,
                        const std::shared_ptr<iObjectManager>& objectmanager,
                        const std::shared_ptr<PlayerBase>& owner,
-                       const std::shared_ptr<TileBase>& tile):
-    PlaceableGameObject(eventhandler, objectmanager, owner, tile),
+                       const int& tilespaces):
+    PlaceableGameObject(eventhandler, objectmanager, owner, tilespaces),
     m_resource_focus(NONE)
 {
 }

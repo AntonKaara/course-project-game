@@ -6,6 +6,7 @@
 #include "core/coordinate.h"
 #include "tiles/tilebase.h"
 #include "core/placeablegameobject.h"
+#include "exceptions/ownerconflict.h"
 
 
 using namespace Course;
@@ -28,6 +29,7 @@ private Q_SLOTS:
 
     void test_setLocationTile();
     void test_unsetLocationTile();
+    void test_setLocationTile_exception();
 
     void test_currentLocationTile_expired_ptr();
 
@@ -49,7 +51,7 @@ default_test::default_test()
     player2 = std::make_shared<PlayerBase>("player2");
     tile = std::make_shared<TileBase>(tile_coordinate, nullptr, nullptr);
     default_object = std::make_shared<PlaceableGameObject>(
-                nullptr, nullptr, nullptr, nullptr);
+                nullptr, nullptr, nullptr, 1);
 }
 
 
@@ -57,7 +59,7 @@ void default_test::cleanup()
 {
     tile = std::make_shared<TileBase>(tile_coordinate, nullptr, nullptr);
     default_object = std::make_shared<PlaceableGameObject>(
-                nullptr, nullptr, nullptr, nullptr);
+                nullptr, nullptr, nullptr, 1);
 }
 
 void default_test::test_canPlaceOnTile_same_owner()
@@ -120,6 +122,17 @@ void default_test::test_unsetLocationTile()
     default_object->setLocationTile(nullptr);
     QVERIFY(default_object->currentLocationTile() == nullptr);
 }
+
+void default_test::test_setLocationTile_exception()
+{
+    default_object->setOwner(player1);
+    tile->setOwner(player2);
+
+    QVERIFY(not default_object->canPlaceOnTile(tile));
+    QVERIFY_EXCEPTION_THROWN(default_object->setLocationTile(tile),
+                             OwnerConflict);
+}
+
 
 void default_test::test_currentLocationTile_expired_ptr()
 {

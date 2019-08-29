@@ -7,10 +7,9 @@ namespace Course {
 HeadQuarters::HeadQuarters(
         const std::shared_ptr<iGameEventHandler>& eventhandler,
         const std::shared_ptr<iObjectManager>& objectmanager,
-        const std::shared_ptr<PlayerBase>& owner,
-        const std::shared_ptr<TileBase>& tile
+        const std::shared_ptr<PlayerBase>& owner
         ):
-    BuildingBase(eventhandler, objectmanager, owner, tile)
+    BuildingBase(eventhandler, objectmanager, owner, 1)
 {
 }
 
