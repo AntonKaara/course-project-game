@@ -52,7 +52,19 @@ public:
     /**
      * @brief This building has no action.
      */
-    void doAction() override;
+    virtual void doAction() override;
+
+    /**
+     * @brief Sets neighbouring Tiles' ownership to this building's
+     * ownership in 1 tile-radius, if the Tiles don't already have an owner.
+     */
+    virtual void buildAction() override;
+
+
+    /**
+     * @brief returns a map of building's build cost.
+     */
+    virtual const std::map<BasicResource, int> buildingCost() const override;
 
 }; // class Outpost
 

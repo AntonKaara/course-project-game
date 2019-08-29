@@ -5,7 +5,9 @@
 
 namespace Course {
 
-BuildingBase::BuildingBase(const std::shared_ptr<iGameEventHandler>& eventhandler, const std::shared_ptr<iObjectManager> &objectmanager,
+BuildingBase::BuildingBase(
+        const std::shared_ptr<iGameEventHandler>& eventhandler,
+        const std::shared_ptr<iObjectManager> &objectmanager,
         const std::shared_ptr<PlayerBase>& owner,
         const int& tilespaces,
         const int& hold):

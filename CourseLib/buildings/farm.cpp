@@ -30,4 +30,13 @@ int Farm::getProduction(BasicResource resource) const
     return (resource == BasicResource::FOOD ? 2 : 0);
 }
 
+const std::map<BasicResource, int> Farm::buildingCost() const
+{
+    return std::map<BasicResource, int>({
+                    {BasicResource::FOOD, 50},
+                    {BasicResource::WOOD, 50},
+                    {BasicResource::STONE, 10}
+    });
+}
+
 } // namespace Course

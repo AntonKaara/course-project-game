@@ -50,10 +50,12 @@ public:
     std::string getType() const override;
 
     /**
-     * @brief Set's 3 neighbouring Tiles' ownership to this building's
-     * ownership if the Tiles don't already have an owner.
+     * @brief Sets neighbouring Tiles' ownership to this building's
+     * ownership in 3 tile-radius, if the Tiles don't already have an owner.
      */
-    void buildAction() override;
+    virtual void buildAction() override;
+
+    virtual const std::map<BasicResource, int> buildingCost() const override;
 
 }; // class HeadQuarters
 

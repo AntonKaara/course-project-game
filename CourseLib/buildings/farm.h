@@ -65,6 +65,12 @@ public:
      */
     int getProduction(BasicResource resource) const override;
 
+
+    /**
+     * @brief returns a map of building's build cost.
+     */
+    virtual const std::map<BasicResource, int> buildingCost() const override;
+
 }; // class Farm
 
 } // namespace Course

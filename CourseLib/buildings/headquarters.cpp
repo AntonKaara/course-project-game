@@ -34,4 +34,14 @@ void HeadQuarters::buildAction()
     }
 }
 
+const std::map<BasicResource, int> HeadQuarters::buildingCost() const
+{
+    return std::map<BasicResource, int>({
+                    {BasicResource::FOOD, 500},
+                    {BasicResource::WOOD, 300},
+                    {BasicResource::STONE, 150},
+                    {BasicResource::ORE, 50}
+    });
+}
+
 } // namespace Course

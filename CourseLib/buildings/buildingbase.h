@@ -109,6 +109,12 @@ public:
      */
     virtual bool canPlaceOnTile(const std::shared_ptr<TileBase> &target) const;
 
+    /**
+     * @brief Return a map of building's build cost.
+     * @note Override and implement this function!
+     */
+    virtual const std::map<BasicResource, int> buildingCost() const = 0;
+
 private:
     int m_hold;
 
