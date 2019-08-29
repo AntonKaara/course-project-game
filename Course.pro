@@ -5,5 +5,5 @@ SUBDIRS += \
     CourseLib
 
 DISTFILES += \
-    doxy-mainpage \
+    _doxyassist/doxy-mainpage \
     Doxyfile
