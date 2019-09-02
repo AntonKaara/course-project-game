@@ -22,6 +22,10 @@ class TileBase;
 class BuildingBase : public PlaceableGameObject
 {
 public:
+
+    static const ResourceMap BUILD_COST;
+    static const ResourceMap PRODUCTION_EFFECT;
+
     /**
      * @brief Disabled default constructor.
      */
@@ -44,8 +48,7 @@ public:
             const std::shared_ptr<iGameEventHandler>& eventhandler,
             const std::shared_ptr<iObjectManager>& objectmanager,
             const std::shared_ptr<PlayerBase>& owner,
-            const int& tilespaces = 1,
-            const int& hold = 0
+            const int& tilespaces = 1
             );
 
     /**
@@ -56,32 +59,27 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    std::string getType() const override;
+    static std::string getType();
 
     /**
      * @brief Performs building's default action.
      */
-    virtual void doAction();
+    virtual void doSpecialAction();
 
     /**
      * @brief Performs building's possible action after construction.
      */
-    virtual void buildAction();
+    virtual void onBuildAction();
 
     /**
-     * @brief Returns the building's multiplier for the requested resource.
-     * @param resource is the resource type whose production the building is
-     * enhancing.
-     * @return The multiplier-value.
+     * @brief Return's building's production as a ResourceMap.\n
+     *
+     * @note
+     * Used by TileBase to get buildings production effect
+     * on Tile's production.
+     *
      */
-    virtual double getMultiplier(BasicResource resource) const;
-
-    /**
-     * @brief Return the building's multiplier for the requested resource.
-     * @param resource is the resource type that the building is producing.
-     * @return The base-production bonus.
-     */
-    virtual int getProduction(BasicResource resource) const;
+    virtual const ResourceMap getProduction() = 0;
 
     /**
      * @brief Adds the amount to hold-markers.
@@ -108,12 +106,6 @@ public:
      * @note Override to modify placementrules for derived classes.
      */
     virtual bool canPlaceOnTile(const std::shared_ptr<TileBase> &target) const;
-
-    /**
-     * @brief Return a map of building's build cost.
-     * @note Override and implement this function!
-     */
-    virtual const std::map<BasicResource, int> buildingCost() const = 0;
 
 private:
     int m_hold;

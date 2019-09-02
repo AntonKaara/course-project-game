@@ -6,17 +6,26 @@
 
 namespace Course {
 
+static const ResourceMap OUTPOST_PRODUCTIONMAP = {
+  {BasicResource::MONEY, -10}
+};
+
 /**
  * @brief The Outpost class represents a player's Outpost-building.
  *
  * It can be constructed on any tile that has not been claimed by any other
  * player. \n
  * Effects: Claims surrounding unclaimed tiles. \n
- * Radius: 2 tiles
+ * Radius: 1 tiles\n
+ * Production: -10 money (upkeep)\n
+ *
  */
 class Outpost : public BuildingBase
 {
 public:
+    static const ResourceMap BUILD_COST;
+    static const ResourceMap PRODUCTION_EFFECT;
+
     /**
      * @brief Disabled default constructor.
      */
@@ -47,24 +56,20 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    std::string getType() const override;
+    static std::string getType();
 
     /**
      * @brief This building has no action.
      */
-    virtual void doAction() override;
+    virtual void doSpecialAction() override;
 
     /**
      * @brief Sets neighbouring Tiles' ownership to this building's
      * ownership in 1 tile-radius, if the Tiles don't already have an owner.
      */
-    virtual void buildAction() override;
+    virtual void onBuildAction() override;
 
-
-    /**
-     * @brief returns a map of building's build cost.
-     */
-    virtual const std::map<BasicResource, int> buildingCost() const override;
+    virtual const ResourceMap getProduction() override;
 
 }; // class Outpost
 

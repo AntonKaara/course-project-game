@@ -3,6 +3,18 @@
 
 namespace Course {
 
+
+const ResourceMap Outpost::BUILD_COST = {
+    {BasicResource::MONEY, 250},
+    {BasicResource::FOOD, 100},
+    {BasicResource::WOOD, 75},
+    {BasicResource::STONE, 25}
+};
+
+const ResourceMap Outpost::PRODUCTION_EFFECT = {
+    {BasicResource::MONEY, -10}
+};
+
 Outpost::Outpost(
         const std::shared_ptr<iGameEventHandler>& eventhandler,
         const std::shared_ptr<iObjectManager>& objectmanager,
@@ -12,16 +24,16 @@ Outpost::Outpost(
 {
 }
 
-std::string Outpost::getType() const
+std::string Outpost::getType()
 {
     return "Outpost";
 }
 
-void Outpost::doAction()
+void Outpost::doSpecialAction()
 {
 }
 
-void Outpost::buildAction()
+void Outpost::onBuildAction()
 {
     std::vector< std::shared_ptr<TileBase> > neighbours;
 
@@ -37,13 +49,14 @@ void Outpost::buildAction()
     }
 }
 
-const std::map<BasicResource, int> Outpost::buildingCost() const
+const ResourceMap Outpost::getProduction()
 {
-    return std::map<BasicResource, int>({
-                    {BasicResource::FOOD, 100},
-                    {BasicResource::WOOD, 75},
-                    {BasicResource::STONE, 25}
-    });
+    if( holdCount() < 0)
+    {
+        addHoldMarkers(-1);
+        return {};
+    }
+    return Outpost::PRODUCTION_EFFECT;
 }
 
 } // namespace Course

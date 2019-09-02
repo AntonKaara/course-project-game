@@ -21,14 +21,14 @@ BasicWorker::BasicWorker(const std::shared_ptr<iGameEventHandler>& eventhandler,
 {
 }
 
-std::string BasicWorker::getType() const
+std::string BasicWorker::getType()
 {
     return "BasicWorker";
 }
 
 double BasicWorker::getMultiplier() const
 {
-    return BASIC_PRODUCTION.at(getResourceFocus());
+    return BASIC_PRODUCTION.at(getResourceFocus()) * m_satisfaction;
 }
 
 bool BasicWorker::canPlaceOnTile(const std::shared_ptr<TileBase> &target) const
@@ -41,12 +41,13 @@ void BasicWorker::doAction()
 {
     auto player = getOwner();
     auto events = lockEventHandler();
+    m_satisfaction = 0;
     if (events->modifyResource(player, BasicResource::FOOD, -1))
     {
-        // TODO: Action
+        m_satisfaction = 0.5;
         if (events->modifyResource(player, BasicResource::MONEY, -1))
         {
-            // TODO: 50 % efficiency
+            m_satisfaction = 1;
         }
     }
 }

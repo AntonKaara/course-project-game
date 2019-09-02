@@ -14,6 +14,9 @@ namespace Course {
 class Farm : public BuildingBase
 {
 public:
+    static const ResourceMap BUILD_COST;
+    static const ResourceMap PRODUCTION_EFFECT;
+
     /**
      * @brief Disabled default constructor.
      */
@@ -30,10 +33,11 @@ public:
      * @exception OwnerConflict - if the building conflicts with tile's
      * ownership.
      */
-    explicit Farm(const std::shared_ptr<iGameEventHandler>& eventhandler,
-                  const std::shared_ptr<iObjectManager>& objectmanager,
-                  const std::shared_ptr<PlayerBase>& owner
-                  );
+    explicit Farm(
+            const std::shared_ptr<iGameEventHandler>& eventhandler,
+            const std::shared_ptr<iObjectManager>& objectmanager,
+            const std::shared_ptr<PlayerBase>& owner
+            );
 
     /**
      * @brief Default destructor.
@@ -43,33 +47,9 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    std::string getType() const override;
+    static std::string getType();
 
-    /**
-     * @brief This building has no action.
-     */
-    void doAction() override;
-
-    /**
-     * @brief Returns the building's multiplier for the requested resource.
-     * @param resource is the resource type whose production the building is
-     * enhancing.
-     * @return The multiplier-value
-     */
-    double getMultiplier(BasicResource resource) const override;
-
-    /**
-     * @brief Return the building's multiplier for the requested resource.
-     * @param resource is the resource type that the building is producing.
-     * @return The base-production bonus.
-     */
-    int getProduction(BasicResource resource) const override;
-
-
-    /**
-     * @brief returns a map of building's build cost.
-     */
-    virtual const std::map<BasicResource, int> buildingCost() const override;
+    virtual const ResourceMap getProduction() override;
 
 }; // class Farm
 

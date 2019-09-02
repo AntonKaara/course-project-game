@@ -12,7 +12,12 @@ WorkerBase::WorkerBase(const std::shared_ptr<iGameEventHandler>& eventhandler,
 {
 }
 
-std::string WorkerBase::getType() const
+const ResourceMapDouble WorkerBase::getMultiplierAsMap() const
+{
+    return ResourceMapDouble({{getResourceFocus(), getMultiplier()}});
+}
+
+std::string WorkerBase::getType()
 {
     return "WorkerBase";
 }

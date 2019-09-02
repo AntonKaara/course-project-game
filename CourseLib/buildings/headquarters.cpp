@@ -4,6 +4,20 @@
 
 namespace Course {
 
+
+const ResourceMap HeadQuarters::BUILD_COST = {
+    {BasicResource::MONEY, 1000},
+    {BasicResource::FOOD, 500},
+    {BasicResource::WOOD, 300},
+    {BasicResource::STONE, 200},
+    {BasicResource::ORE, 100}
+};
+
+const ResourceMap HeadQuarters::PRODUCTION_EFFECT = {
+    {BasicResource::MONEY, 50}
+};
+
+
 HeadQuarters::HeadQuarters(
         const std::shared_ptr<iGameEventHandler>& eventhandler,
         const std::shared_ptr<iObjectManager>& objectmanager,
@@ -13,12 +27,12 @@ HeadQuarters::HeadQuarters(
 {
 }
 
-std::string HeadQuarters::getType() const
+std::string HeadQuarters::getType()
 {
     return "HeadQuarters";
 }
 
-void HeadQuarters::buildAction()
+void HeadQuarters::onBuildAction()
 {
     std::vector< std::shared_ptr<TileBase> > neighbours;
 
@@ -34,14 +48,15 @@ void HeadQuarters::buildAction()
     }
 }
 
-const std::map<BasicResource, int> HeadQuarters::buildingCost() const
+const ResourceMap HeadQuarters::getProduction()
 {
-    return std::map<BasicResource, int>({
-                    {BasicResource::FOOD, 500},
-                    {BasicResource::WOOD, 300},
-                    {BasicResource::STONE, 150},
-                    {BasicResource::ORE, 50}
-    });
+    if( holdCount() > 0)
+    {
+        addHoldMarkers(-1);
+        return {};
+    }
+    return HeadQuarters::PRODUCTION_EFFECT;
 }
+
 
 } // namespace Course

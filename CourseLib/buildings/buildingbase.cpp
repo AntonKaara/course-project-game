@@ -5,42 +5,33 @@
 
 namespace Course {
 
-BuildingBase::BuildingBase(
-        const std::shared_ptr<iGameEventHandler>& eventhandler,
+const ResourceMap BuildingBase::BUILD_COST = {};
+const ResourceMap BuildingBase::PRODUCTION_EFFECT = {};
+
+
+
+BuildingBase::BuildingBase(const std::shared_ptr<iGameEventHandler>& eventhandler,
         const std::shared_ptr<iObjectManager> &objectmanager,
         const std::shared_ptr<PlayerBase>& owner,
-        const int& tilespaces,
-        const int& hold):
+        const int& tilespaces):
     PlaceableGameObject(eventhandler, objectmanager, owner, tilespaces),
-    m_hold(hold)
+    m_hold(0)
 {
 }
 
-std::string BuildingBase::getType() const
+std::string BuildingBase::getType()
 {
     return "BuildingBase";
 }
 
-void BuildingBase::doAction()
+void BuildingBase::doSpecialAction()
 {
     // By default buildings have no actions.
 }
 
-void BuildingBase::buildAction()
+void BuildingBase::onBuildAction()
 {
     // By default buildings have no actions after building.
-}
-
-double BuildingBase::getMultiplier(BasicResource) const
-{
-    // By default buildings don't have any effect on production.
-    return 0;
-}
-
-int BuildingBase::getProduction(BasicResource) const
-{
-    // By default buildings don't have any effect on production.
-    return 0;
 }
 
 void BuildingBase::addHoldMarkers(int amount)

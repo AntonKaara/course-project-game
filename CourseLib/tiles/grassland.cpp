@@ -3,7 +3,7 @@
 
 namespace Course {
 
-static const ProductionMap GRASSLAND_PRODUCTION = {
+static const ResourceMap GRASSLAND_PRODUCTION = {
     {MONEY, 1},
     {FOOD, 2},
     {WOOD, 1},
@@ -18,7 +18,7 @@ Grassland::Grassland(const Coordinate& location,
 {
 }
 
-std::string Grassland::getType() const
+std::string Grassland::getType()
 {
     return "Grassland";
 }

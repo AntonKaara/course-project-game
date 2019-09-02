@@ -1,6 +1,7 @@
 #ifndef BASICRESOURCES_H
 #define BASICRESOURCES_H
 
+#include <map>
 namespace Course {
 
 enum BasicResource {
@@ -12,7 +13,8 @@ enum BasicResource {
     ORE = 5,
 };
 
-
+using ResourceMap = std::map<BasicResource, int>;
+using ResourceMapDouble = std::map<BasicResource, double>;
 
 }
 

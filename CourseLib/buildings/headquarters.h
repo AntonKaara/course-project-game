@@ -17,6 +17,9 @@ namespace Course {
 class HeadQuarters : public BuildingBase
 {
 public:
+    static const ResourceMap BUILD_COST;
+    static const ResourceMap PRODUCTION_EFFECT;
+
     /**
      * @brief Disabled default constructor.
      */
@@ -47,15 +50,16 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    std::string getType() const override;
+    static std::string getType();
 
     /**
      * @brief Sets neighbouring Tiles' ownership to this building's
      * ownership in 3 tile-radius, if the Tiles don't already have an owner.
      */
-    virtual void buildAction() override;
+    virtual void onBuildAction() override;
 
-    virtual const std::map<BasicResource, int> buildingCost() const override;
+
+    virtual const ResourceMap getProduction() override;
 
 }; // class HeadQuarters
 

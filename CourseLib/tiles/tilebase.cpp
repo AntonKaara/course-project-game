@@ -13,7 +13,7 @@ namespace Course {
 TileBase::TileBase(const Coordinate& location,
                    const std::shared_ptr<iGameEventHandler> &eventhandler,
                    const std::shared_ptr<iObjectManager>& objectmanager,
-                   const ProductionMap& base_production,
+                   const ResourceMap& base_production,
                    unsigned int max_buildings,
                    unsigned int max_workers):
     GameObject(location, eventhandler, objectmanager),
@@ -23,7 +23,7 @@ TileBase::TileBase(const Coordinate& location,
 {
 }
 
-std::string TileBase::getType() const
+std::string TileBase::getType()
 {
     return "TileBase";
 }
@@ -141,8 +141,6 @@ bool TileBase::generateResources()
         for (int br = BasicResource::NONE; br <= BasicResource::ORE; ++br)
         {
             auto r_type = static_cast<BasicResource>(br);
-            increaseMultiplier(r_type, building->getMultiplier(r_type));
-            increasePile(r_type, building->getProduction(r_type));
         }
     }
 

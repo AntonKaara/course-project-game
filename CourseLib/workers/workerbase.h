@@ -46,6 +46,8 @@ public:
      */
     virtual double getMultiplier() const = 0;
 
+    virtual const ResourceMapDouble getMultiplierAsMap() const final;
+
     /**
      * @brief Performs the Worker's default action.
      */
@@ -54,7 +56,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    std::string getType() const override;
+    static std::string getType();
 
     /**
      * @brief Switch the Worker's focus to some resource.

@@ -49,13 +49,15 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    std::string getType() const override;
+    static std::string getType();
 
     /**
      * @brief Returns the worker's multiplier for the requested resource.
      * @return The multiplier-value
      */
     double getMultiplier() const override;
+
+    const ResourceMapDouble getMultipliers() const;
 
     /**
      * @brief canPlaceOnTile
@@ -72,6 +74,10 @@ public:
      * @brief Performs the Worker's default action.
      */
     void doAction() override;
+
+private:
+
+    double m_satisfaction;
 
 }; // class BasicWorker
 

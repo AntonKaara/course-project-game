@@ -16,8 +16,7 @@ namespace Course {
 
 // This is also an example on how you can create base-production maps
 //  through initialization lists. :)
-using ProductionMap = std::map<BasicResource, int>;
-static const ProductionMap ZERO_BASE_PRODUCTION = {
+static const ResourceMap ZERO_BASE_PRODUCTION = {
     {MONEY, 0},
     {FOOD, 0},
     {WOOD, 0},
@@ -45,7 +44,7 @@ class TileBase : public GameObject
 public:
     const unsigned int MAX_BUILDINGS;       /**< Max room for buildings */
     const unsigned int MAX_WORKERS;         /**< Max room for workers */
-    const ProductionMap BASE_PRODUCTION;    /**< Base productions before mods */
+    const ResourceMap BASE_PRODUCTION;    /**< Base productions before mods */
 
     /**
      * @brief Disabled default constructor.
@@ -65,7 +64,7 @@ public:
     TileBase(const Coordinate& location,
              const std::shared_ptr<iGameEventHandler>& eventhandler,
              const std::shared_ptr<iObjectManager>& objectmanager,
-             const ProductionMap& base_production = ZERO_BASE_PRODUCTION,
+             const ResourceMap& base_production = ZERO_BASE_PRODUCTION,
              unsigned int max_buildings = 3,
              unsigned int max_workers = 6);
 
@@ -77,7 +76,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    std::string getType() const override;
+    static std::string getType();
 
     /**
      * @brief Adds a new Building-object to the tile.
@@ -213,7 +212,7 @@ private:
 
     // Production pile represents the values for different resource types
     //  before applying a production multiplier.
-    ProductionMap m_resource_production_pile;
+    ResourceMap m_resource_production_pile;
 
 }; // class TileBase
 

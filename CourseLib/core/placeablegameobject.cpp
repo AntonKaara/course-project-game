@@ -17,7 +17,7 @@ PlaceableGameObject::PlaceableGameObject(
 {
 }
 
-std::string PlaceableGameObject::getType() const
+std::string PlaceableGameObject::getType()
 {
     return "PlaceableGameObject";
 }
