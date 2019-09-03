@@ -27,7 +27,7 @@ int PlaceableGameObject::spacesInTileCapacity() const
     return TILESPACES;
 }
 
-bool PlaceableGameObject::canPlaceOnTile(
+bool PlaceableGameObject::canBePlacedOnTile(
         const std::shared_ptr<TileBase>& target) const
 {
     if( target->getOwner() == nullptr or getOwner() == nullptr )
@@ -42,7 +42,7 @@ void PlaceableGameObject::setLocationTile(const std::shared_ptr<TileBase>& tile)
 {
     if( tile )
     {
-        if( not canPlaceOnTile(tile) )
+        if( not canBePlacedOnTile(tile) )
         {
             std::string msg = "Object: " + std::to_string(ID) +
                     "  can't be placed on Tile: " + std::to_string(tile->ID);

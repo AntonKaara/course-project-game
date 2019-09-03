@@ -1,4 +1,5 @@
 #include "workerbase.h"
+#include "tiles/tilebase.h"
 
 
 namespace Course {
@@ -12,24 +13,25 @@ WorkerBase::WorkerBase(const std::shared_ptr<iGameEventHandler>& eventhandler,
 {
 }
 
-const ResourceMapDouble WorkerBase::getMultiplierAsMap() const
-{
-    return ResourceMapDouble({{getResourceFocus(), getMultiplier()}});
-}
-
 std::string WorkerBase::getType()
 {
     return "WorkerBase";
 }
 
-void WorkerBase::switchResourceFocus(BasicResource target)
+void WorkerBase::setResourceFocus(BasicResource new_focus)
 {
-    m_resource_focus = target;
+    m_resource_focus = new_focus;
 }
 
 BasicResource WorkerBase::getResourceFocus() const
 {
     return m_resource_focus;
+}
+
+bool WorkerBase::canBePlacedOnTile(const std::shared_ptr<TileBase>& target) const
+{
+    return PlaceableGameObject::canBePlacedOnTile(target) and
+            target->hasSpaceForWorkers(spacesInTileCapacity());
 }
 
 } // namespace Course

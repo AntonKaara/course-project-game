@@ -105,7 +105,7 @@ public:
      * False - If both conditions are not met.
      * @note Override to modify placementrules for derived classes.
      */
-    virtual bool canPlaceOnTile(const std::shared_ptr<TileBase> &target) const;
+    virtual bool canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const;
 
 private:
     int m_hold;

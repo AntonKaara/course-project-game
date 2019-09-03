@@ -16,6 +16,9 @@ namespace Course {
 class WorkerBase : public PlaceableGameObject
 {
 public:
+
+    static const ResourceMapDouble WORKER_EFFICIENCY;
+    static const ResourceMap RECRUITMENT_COST;
     /**
      * @brief Disabled default constructor.
      */
@@ -41,39 +44,52 @@ public:
     virtual ~WorkerBase() = default;
 
     /**
-     * @brief Returns the worker's multiplier for the requested resource.
-     * @return The multiplier-value
+     * @brief Performs worker's action when working a Tile for resources.
+     * @return Returns the final working efficiency of a worker.
+     * @note This is called by a Tile when it generates resources.
      */
-    virtual double getMultiplier() const = 0;
-
-    virtual const ResourceMapDouble getMultiplierAsMap() const final;
+    virtual const ResourceMapDouble tileWorkAction() = 0;
 
     /**
-     * @brief Performs the Worker's default action.
+     * @brief Performs the Worker's special action. (If any)
+     *
+     * @note Hint: You can use game-eventhandler for more creative solutions.
      */
-    virtual void doAction() = 0;
+    virtual void doSpecialAction() = 0;
+
+    /**
+     * @brief Sets new resourcetype for the worker to focus on.
+     * @param new_focus the new resource focus.
+     * @post Exception guarantee: No-throw
+     */
+    virtual void setResourceFocus(BasicResource new_focus) final;
+
+    /**
+     * @brief Returns the currently focused resourcetype.
+     */
+    virtual BasicResource getResourceFocus() const final;
+    
+    /**
+     * @brief Default placement rule for workers:\n
+     * * Tile must have space for the worker
+     * * Tile must have same owner as the worker
+     * @param target is the Tile that worker is being placed on.
+     * @return
+     * True - Only if both conditions are met.
+     * @post Exception guarantee: No-throw
+     * @note
+     * Override to change placement rules for derived worker.
+     */
+    virtual bool canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const;
 
     /**
      * @copydoc GameObject::getType()
      */
     static std::string getType();
 
-    /**
-     * @brief Switch the Worker's focus to some resource.
-     * @param target is the newly focused resource.
-     * @post Exception guarantee: No throw
-     */
-    virtual void switchResourceFocus(BasicResource target) final;
-
-    /**
-     * @brief Get the resource-type the Worker is currently focusing.
-     * @return The focused resource-type.
-     * @post Exception guarantee: No throw
-     */
-    virtual BasicResource getResourceFocus() const final;
-
 private:
     BasicResource m_resource_focus;
+
 
 }; // class WorkerBase
 

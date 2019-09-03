@@ -9,7 +9,7 @@ namespace Course {
 /**
  * @brief The BasicWorker class represents a "normal worker" in the game.
  *
- * Worker has following production-multipliers: \n
+ * Worker has following production-efficiency: \n
  * * Money - 0.25 \n
  * * Food - 1.00 \n
  * * Wood - 0.75 \n
@@ -23,6 +23,8 @@ namespace Course {
 class BasicWorker : public WorkerBase
 {
 public:
+    static const ResourceMapDouble WORKER_EFFICIENCY;
+    static const ResourceMap RECRUITMENT_COST;
     /**
      * @brief Disabled default constructor.
      */
@@ -52,32 +54,13 @@ public:
     static std::string getType();
 
     /**
-     * @brief Returns the worker's multiplier for the requested resource.
-     * @return The multiplier-value
-     */
-    double getMultiplier() const override;
-
-    const ResourceMapDouble getMultipliers() const;
-
-    /**
-     * @brief canPlaceOnTile
-     * @param target is the Tile that worker is being placed on.
-     * @return
-     * True - If baseclass' method return true and target Tile has space
-     * for worker.
-     * False - If both conditions aren't met.
-     * @note Override to change placement rules for derived worker.
-     */
-    virtual bool canPlaceOnTile(const std::shared_ptr<TileBase> &target) const;
-
-    /**
      * @brief Performs the Worker's default action.
      */
-    void doAction() override;
+    virtual void doSpecialAction() override;
+
+    virtual const ResourceMapDouble tileWorkAction() override;
 
 private:
-
-    double m_satisfaction;
 
 }; // class BasicWorker
 

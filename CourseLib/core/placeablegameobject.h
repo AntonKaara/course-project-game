@@ -71,7 +71,7 @@ public:
      * @post Exception guarantee: Strong
      * @note Override to change default behaviour
      */
-    virtual bool canPlaceOnTile(const std::shared_ptr<TileBase>& target) const;
+    virtual bool canBePlacedOnTile(const std::shared_ptr<TileBase>& target) const;
 
     /**
      * @brief Set the PlaceableGameObject's location.

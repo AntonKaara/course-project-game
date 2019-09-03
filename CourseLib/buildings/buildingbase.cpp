@@ -44,9 +44,9 @@ int BuildingBase::holdCount() const
     return m_hold;
 }
 
-bool BuildingBase::canPlaceOnTile(const std::shared_ptr<TileBase> &target) const
+bool BuildingBase::canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const
 {
-    return PlaceableGameObject::canPlaceOnTile(target) and
+    return PlaceableGameObject::canBePlacedOnTile(target) and
             target->hasSpaceForBuildings(spacesInTileCapacity());
 }
 

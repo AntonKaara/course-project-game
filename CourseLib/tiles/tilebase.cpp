@@ -44,7 +44,7 @@ void TileBase::addBuilding(const std::shared_ptr<BuildingBase>& building)
         //throw KeyError("");
     }
 
-    if (not building->canPlaceOnTile(tile))
+    if (not building->canBePlacedOnTile(tile))
     {
         throw OwnerConflict("Can't place Building on Tile!");
     }
@@ -85,7 +85,7 @@ void TileBase::addWorker(const std::shared_ptr<WorkerBase>& worker)
         //throw KeyError("");
     }
 
-    if (not worker->canPlaceOnTile(std::make_shared<TileBase>(*this)))
+    if (not worker->canBePlacedOnTile(std::make_shared<TileBase>(*this)))
     {
         throw OwnerConflict("Can't place Worker on Tile!");
     }
@@ -124,10 +124,6 @@ bool TileBase::generateResources()
             ++expired_worker_count;
             continue;
         }
-        auto worker = weak_worker.lock();
-        auto r_type = worker->getResourceFocus();
-        auto multiplier = worker->getMultiplier();
-        increaseMultiplier(r_type, multiplier);
     }
 
     for (const auto& weak_building : m_buildings)
