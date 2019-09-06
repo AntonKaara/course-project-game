@@ -32,9 +32,9 @@ public:
             const std::vector<std::shared_ptr<TileBase>>& tiles) = 0;
 
 
-    virtual void getTile(const Coordinate& cooridnate) = 0;
+    virtual std::shared_ptr<TileBase> getTile(const Coordinate& cooridnate) = 0;
 
-    virtual void getTiles(const std::vector<Coordinate>& coordinates) = 0;
+    virtual std::vector<std::shared_ptr<TileBase>> getTiles(const std::vector<Coordinate>& coordinates) = 0;
 
 }; // class iObjectManager
 
