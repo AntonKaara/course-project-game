@@ -37,7 +37,6 @@ public:
     virtual void addTiles(
             const std::vector<std::shared_ptr<TileBase>>& tiles) = 0;
 
-
     /**
      * @brief Returns a pointer to a Tile that has specified coordinate.
      * @param coordinate
