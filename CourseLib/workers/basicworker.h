@@ -51,7 +51,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    static std::string getType();
+    virtual std::string getType() const override;
 
     /**
      * @brief Performs the Worker's default action.

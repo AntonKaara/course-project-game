@@ -24,7 +24,7 @@ Outpost::Outpost(
 {
 }
 
-std::string Outpost::getType()
+std::string Outpost::getType() const
 {
     return "Outpost";
 }

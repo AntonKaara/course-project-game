@@ -197,7 +197,7 @@ public:
      * @return std::string that represents Object's type.
      * @post Exception guarantee: No-throw
      */
-    static std::string getType();
+    virtual std::string getType() const;
 
     /**
      * @brief Function to compare if objects have same owner.

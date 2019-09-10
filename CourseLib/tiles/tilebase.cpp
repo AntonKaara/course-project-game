@@ -23,7 +23,7 @@ TileBase::TileBase(const Coordinate& location,
 {
 }
 
-std::string TileBase::getType()
+std::string TileBase::getType() const
 {
     return "TileBase";
 }

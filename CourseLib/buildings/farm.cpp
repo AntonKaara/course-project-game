@@ -27,7 +27,7 @@ Farm::Farm(const std::shared_ptr<iGameEventHandler>& eventhandler,
 {
 }
 
-std::string Farm::getType()
+std::string Farm::getType() const
 {
     return "Farm";
 }

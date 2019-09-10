@@ -27,7 +27,7 @@ HeadQuarters::HeadQuarters(
 {
 }
 
-std::string HeadQuarters::getType()
+std::string HeadQuarters::getType() const
 {
     return "HeadQuarters";
 }

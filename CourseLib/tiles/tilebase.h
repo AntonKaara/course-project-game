@@ -76,7 +76,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    static std::string getType();
+    virtual std::string getType() const;
 
     /**
      * @brief Adds a new Building-object to the tile.

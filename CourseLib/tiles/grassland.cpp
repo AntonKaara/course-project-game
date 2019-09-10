@@ -18,7 +18,7 @@ Grassland::Grassland(const Coordinate& location,
 {
 }
 
-std::string Grassland::getType()
+std::string Grassland::getType() const
 {
     return "Grassland";
 }

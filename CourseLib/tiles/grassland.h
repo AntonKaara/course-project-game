@@ -48,7 +48,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    static std::string getType();
+    virtual std::string getType() const;
 
 }; // class Grassland
 

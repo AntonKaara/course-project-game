@@ -162,7 +162,7 @@ std::map<std::string, std::string> GameObject::getDescriptions() const
     return m_descriptions;
 }
 
-std::string GameObject::getType()
+std::string GameObject::getType() const
 {
     return "GameObject";
 }

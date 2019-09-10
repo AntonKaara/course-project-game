@@ -50,7 +50,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    static std::string getType();
+    virtual std::string getType() const override;
 
     /**
      * @brief Sets neighbouring Tiles' ownership to this building's

@@ -19,7 +19,7 @@ BuildingBase::BuildingBase(const std::shared_ptr<iGameEventHandler>& eventhandle
 {
 }
 
-std::string BuildingBase::getType()
+std::string BuildingBase::getType() const
 {
     return "BuildingBase";
 }

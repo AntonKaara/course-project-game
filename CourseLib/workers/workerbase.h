@@ -85,7 +85,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    static std::string getType();
+    virtual std::string getType() const override;
 
 private:
     BasicResource m_resource_focus;

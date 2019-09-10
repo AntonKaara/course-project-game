@@ -53,7 +53,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    static std::string getType();
+    virtual std::string getType() const override;
 
     /**
      * @brief How many spaces does the GameObject take from a Tile's capacity.

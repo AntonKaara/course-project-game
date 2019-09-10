@@ -26,7 +26,7 @@ BasicWorker::BasicWorker(const std::shared_ptr<iGameEventHandler>& eventhandler,
 {
 }
 
-std::string BasicWorker::getType()
+std::string BasicWorker::getType() const
 {
     return "BasicWorker";
 }

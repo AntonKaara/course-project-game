@@ -13,7 +13,7 @@ WorkerBase::WorkerBase(const std::shared_ptr<iGameEventHandler>& eventhandler,
 {
 }
 
-std::string WorkerBase::getType()
+std::string WorkerBase::getType() const
 {
     return "WorkerBase";
 }

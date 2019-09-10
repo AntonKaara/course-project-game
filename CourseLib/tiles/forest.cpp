@@ -18,7 +18,7 @@ Forest::Forest(const Coordinate& location,
 {
 }
 
-std::string Forest::getType()
+std::string Forest::getType() const
 {
     return "Forest";
 }

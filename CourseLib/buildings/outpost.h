@@ -56,7 +56,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    static std::string getType();
+    virtual std::string getType() const override;
 
     /**
      * @brief This building has no action.

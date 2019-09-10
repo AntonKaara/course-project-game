@@ -49,7 +49,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    static std::string getType();
+    virtual std::string getType() const override;
 
     /**
      * @brief Adds a new building-object to the tile.
