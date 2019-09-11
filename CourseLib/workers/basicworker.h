@@ -2,6 +2,7 @@
 #define BASICWORKER_H
 
 #include "workerbase.h"
+#include "core/resourcemaps.h"
 
 
 namespace Course {
@@ -23,8 +24,6 @@ namespace Course {
 class BasicWorker : public WorkerBase
 {
 public:
-    static const ResourceMapDouble WORKER_EFFICIENCY;
-    static const ResourceMap RECRUITMENT_COST;
     /**
      * @brief Disabled default constructor.
      */
@@ -40,7 +39,11 @@ public:
     BasicWorker(const std::shared_ptr<iGameEventHandler>& eventhandler,
                 const std::shared_ptr<iObjectManager>& objectmanager,
                 const std::shared_ptr<PlayerBase>& owner,
-                const int& tilespaces
+                const int& tilespaces = 1,
+                const ResourceMap& cost =
+                    ConstResourceMaps::BW_RECRUITMENT_COST,
+                const ResourceMapDouble& efficiency =
+                    ConstResourceMaps::BW_WORKER_EFFICIENCY
                 );
 
     /**

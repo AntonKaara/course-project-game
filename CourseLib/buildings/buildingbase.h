@@ -13,7 +13,6 @@ class TileBase;
  * @brief The BuildingBase class is a base-class for
  * different buildings in the game.
  *
- * * Can increase production multiplier for a Tile.
  * * Can increase base-production for a Tile.
  * * Can call functions from GameEventHandler.
  *
@@ -23,8 +22,8 @@ class BuildingBase : public PlaceableGameObject
 {
 public:
 
-    static const ResourceMap BUILD_COST;
-    static const ResourceMap PRODUCTION_EFFECT;
+    const ResourceMap BUILD_COST;
+    const ResourceMap PRODUCTION_EFFECT;
 
     /**
      * @brief Disabled default constructor.
@@ -48,7 +47,9 @@ public:
             const std::shared_ptr<iGameEventHandler>& eventhandler,
             const std::shared_ptr<iObjectManager>& objectmanager,
             const std::shared_ptr<PlayerBase>& owner,
-            const int& tilespaces = 1
+            const int& tilespaces = 1,
+            const ResourceMap& buildcost = {},
+            const ResourceMap& production = {}
             );
 
     /**
@@ -79,7 +80,7 @@ public:
      * on Tile's production.
      *
      */
-    virtual const ResourceMap getProduction() = 0;
+    virtual const ResourceMap getProduction();
 
     /**
      * @brief Adds the amount to hold-markers.

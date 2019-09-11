@@ -6,6 +6,7 @@
 
 #include "core/gameobject.h"
 #include "core/basicresources.h"
+#include "core/resourcemaps.h"
 #include "buildings/buildingbase.h"
 #include "interfaces/igameeventhandler.h"
 #include "interfaces/iobjectmanager.h"
@@ -13,16 +14,6 @@
 
 
 namespace Course {
-
-// This is also an example on how you can create base-production maps
-//  through initialization lists. :)
-static const ResourceMap ZERO_BASE_PRODUCTION = {
-    {MONEY, 0},
-    {FOOD, 0},
-    {WOOD, 0},
-    {STONE, 0},
-    {ORE, 0},
-};
 
 /**
  * @brief The TileBase class is a base-class for different Tile-objects
@@ -42,9 +33,9 @@ static const ResourceMap ZERO_BASE_PRODUCTION = {
 class TileBase : public GameObject
 {
 public:
-    const unsigned int MAX_BUILDINGS;       /**< Max room for buildings */
-    const unsigned int MAX_WORKERS;         /**< Max room for workers */
-    const ResourceMap BASE_PRODUCTION;    /**< Base productions before mods */
+    const unsigned int MAX_BUILDINGS;
+    const unsigned int MAX_WORKERS;
+    const ResourceMap BASE_PRODUCTION;
 
     /**
      * @brief Disabled default constructor.
@@ -54,19 +45,14 @@ public:
     /**
      * @brief Constructor for the class.
      *
-     * @param location is the Coordinate where the Tile is located in the game.
-     * @param eventhandler points to the student's GameEventHandler.
-     * @param base_production contains the base production amounts of resources.
-     * @param descriptions contains descriptions and flavor texts.
-     * @param max_buildings is the building limit on this Tile.
-     * @param max_workers is the worker limit on this Tile.
      */
     TileBase(const Coordinate& location,
              const std::shared_ptr<iGameEventHandler>& eventhandler,
              const std::shared_ptr<iObjectManager>& objectmanager,
-             const ResourceMap& base_production = ZERO_BASE_PRODUCTION,
-             unsigned int max_buildings = 3,
-             unsigned int max_workers = 6);
+             const unsigned int& max_build = 2,
+             const unsigned int& max_work = 3,
+             const ResourceMap& production = {}
+             );
 
     /**
      * @brief Default destructor.
@@ -76,7 +62,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    virtual std::string getType() const;
+    virtual std::string getType() const override;
 
     /**
      * @brief Adds a new Building-object to the tile.
@@ -143,38 +129,17 @@ public:
     /**
      * @brief Sends information to the EventHandler on
      * what resources were generated and to whom. \n
-     * 1. Checks worker multipliers. \n
-     * 2. Checks building multipliers. \n
-     * 3. Adds building's production value. \n
-     * 4. Multiplies the base + building -production value with
-     * the calculated multiplier.
+     * 1. Calls workers' tileWorkAction(). \n
+     * 2. Calculate's Tile's production based on workers' efficiency. \n
+     * 3. Calls buildings' getProduction(). \n
+     * 4. Adds buildings' bonus production to final resource output.\n
+     * 5. Sends information to GameEventHandler. \n
+     * 6. Returns GameEventHandler's response.
      *
-     * @return
-     * True - Resources were generated. \n
-     * False - Nothing was generated.
      * @post Exception guarantee: Basic guarantee
-     * @exception
-     * ExpiredPointer - If any building or worker pointers have expired.
      */
     virtual bool generateResources();
 
-    /**
-     * @brief Increase the amount of resources in the production-pile.
-     * @param type is the type of the Resource being added.
-     * @param amount is the amount being added.
-     * @note Can use negative values to decrease.
-     * @post Exception guarantee: No-throw
-     */
-    virtual void increasePile(BasicResource type, int amount) final;
-
-    /**
-     * @brief Increase the producton-multiplier.
-     * @param type is the Resource type whose multiplier is being modified.
-     * @param amount is the amount being added.
-     * @note Can use negative values to decrease.
-     * @post Exception guarantee: No-throw
-     */
-    virtual void increaseMultiplier(BasicResource type, int amount) final;
 
     /**
      * @brief Returns the amount of spaces that are being taken from the
@@ -190,29 +155,25 @@ public:
      */
     virtual unsigned int getWorkerCount() const final;
 
-
-    virtual bool hasSpaceForWorkers(int amount) const final;
-    virtual bool hasSpaceForBuildings(int amount) const final;
-
-protected:
     /**
-     * @brief Clears the production multiplier and pile.
+     * @brief Checks if the tile has enough space for workers.
+     * @param amount Amount of workerspace wanted.
+     * @note Uses getMaxWorkers()
      */
-    virtual void clearProduction();
+    virtual bool hasSpaceForWorkers(int amount) const final;
+
+    /**
+     * @brief Checks if the tile has enough space for buildings.
+     * @param amount Amount of buildingspace wanted.
+     * @note Uses getMaxBuildings()
+     */
+    virtual bool hasSpaceForBuildings(int amount) const final;
 
 private:
     // Each GameObject-derived class with separate container
     // for easier handling.
     std::vector<std::weak_ptr<WorkerBase>> m_workers;
     std::vector<std::weak_ptr<BuildingBase>> m_buildings;
-
-    // Production multipliers represent the different percentual modification
-    //  to production.
-    std::map<BasicResource, double> m_resource_production_multipliers;
-
-    // Production pile represents the values for different resource types
-    //  before applying a production multiplier.
-    ResourceMap m_resource_production_pile;
 
 }; // class TileBase
 

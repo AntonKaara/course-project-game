@@ -4,10 +4,16 @@
 #include <memory>
 #include <vector>
 
-#include "../tiles/tilebase.h"
-
 
 namespace Course {
+
+class TileBase;
+class Coordinate;
+
+#ifndef COURSE_OBJECTID
+#define COURSE_OBJECTID
+using ObjectId = unsigned int;
+#endif
 
 /**
  * @brief The iObjectManager class is an interface which the Course-side
@@ -32,9 +38,14 @@ public:
             const std::vector<std::shared_ptr<TileBase>>& tiles) = 0;
 
 
-    virtual std::shared_ptr<TileBase> getTile(const Coordinate& cooridnate) = 0;
+    virtual std::shared_ptr<TileBase> getTile(
+            const Coordinate& coordinate) = 0;
 
-    virtual std::vector<std::shared_ptr<TileBase>> getTiles(const std::vector<Coordinate>& coordinates) = 0;
+    virtual std::shared_ptr<TileBase> getTile(const ObjectId& id) = 0;
+
+    virtual std::vector<std::shared_ptr<TileBase>> getTiles(
+            const std::vector<Coordinate>& coordinates) = 0;
+
 
 }; // class iObjectManager
 

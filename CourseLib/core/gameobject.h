@@ -16,16 +16,25 @@ class iObjectManager;
 class iGameEventHandler;
 
 // Some aliases to make things easier
+#ifndef COURSE_OBJECTID
+#define COURSE_OBJECTID
 using ObjectId = unsigned int;
+#endif
 using DescriptionMap = std::map<std::string, std::string>;
 
 /**
- * @brief The GameObject class acts as a datastructure for different data
- * that can be stored in GameObjects and as a BaseClass for easier
- * resource-management.
- * @note The functions consist mainly of get and set -functions that don't do
- * any checking on wheter some actions are legal or not. This is supposed to be
- * handled by inherited classes.
+ * @brief The GameObject class is base-class that contain's general information
+ * on different Objects in game.
+ *
+ * * ID
+ * * Possible owner
+ * * Possible location coordinate
+ * * Metadata in a string->string map
+ * * Pointers to GameEventHandler and ObjectManager
+ *
+ * @note The functions consist mainly of get and set -functions that are used
+ * to access and store the information specified above.
+ *
  */
 class GameObject
 {
@@ -37,33 +46,36 @@ public:
     const ObjectId ID;
 
     /**
-     * @brief GameObject copy-constructor
-     * @param original GameObject
+     * @brief A simple copy-constructor for GameObject
+     * @param original is the original GameObject
      */
     GameObject(const GameObject& original);
 
     /**
-     * @brief GameObject constructor that requires optional map of descriptions.
-     * @param descriptions A map of strings referring to strings
+     * @brief Constructor that only specifies GameEventHandler and ObjectManager
+     * @param eventhandler a shared pointer to Game's GameEventHandler.
+     * @param objectmanager a shared pointer to Game's ObjectManager.
      */
     GameObject(const std::shared_ptr<iGameEventHandler>& eventhandler={nullptr},
                const std::shared_ptr<iObjectManager>& objectmanager={nullptr});
 
     /**
-     * @brief GameObject constructor that can create objects with owner
-     * @param owner A weak-pointer to "owner" player
-     * @param descriptions A map of strings referring to strings
+     * @brief GameObject constructor that can specify an owner.
+     * @param owner a shared pointer to player that "owns" the object.
+     * @param eventhandler a shared pointer to Game's GameEventHandler.
+     * @param objectmanager a shared pointer to Game's ObjectManager.
      */
     GameObject(const std::shared_ptr<PlayerBase>& owner,
                const std::shared_ptr<iGameEventHandler>& eventhandler={nullptr},
                const std::shared_ptr<iObjectManager>& objectmanager={nullptr});
 
     /**
-     * @brief GameObject constructor that can create objects with
-     * owner and coordinate
-     * @param coordinate A Coordinate-Object that is being stored.
-     * @param owner A weak-pointer to "owner" player
-     * @param descriptions A map of strings referring to strings
+     * @brief GameObject constructor that can specify a coordinate and an owner.
+     * @param coordinate a shared pointer to coordinates where the object is
+     * located.
+     * @param owner a shared pointer to player that "owns" the object.
+     * @param eventhandler a shared pointer to Game's GameEventHandler.
+     * @param objectmanager a shared pointer to Game's ObjectManager.
      */
     GameObject(const Coordinate& coordinate,
                const std::shared_ptr<PlayerBase>& owner,
@@ -71,9 +83,11 @@ public:
                const std::shared_ptr<iObjectManager>& objectmanager={nullptr});
 
     /**
-     *
-     *
-     *
+     * @brief GameObject constructor that can specify a coordinate.
+     * @param coordinate a shared pointer to coordinates where the object is
+     * located.
+     * @param eventhandler a shared pointer to Game's GameEventHandler.
+     * @param objectmanager a shared pointer to Game's ObjectManager.
      */
     GameObject(const Coordinate& coordinate,
                const std::shared_ptr<iGameEventHandler>& eventhandler={nullptr},
@@ -87,16 +101,18 @@ public:
 
     /**
      * @brief Change GameObject's "owner".
-     * @param owner Weak-pointer to the new "owner".
+     * @param owner a shared pointer to the new "owner".
      * @post Exception guarantee: No-throw
      */
     virtual void setOwner(const std::shared_ptr<PlayerBase>& owner) final;
+
     /**
-     * @brief Change GameObject's coordinate with shared pointer to a
+     * @brief Change GameObject's coordinate with a shared pointer to a
      * coordinate.
      * @param coordinate A shared-pointer to the new coordinate.
      * @post Exception guarantee: No-throw
-     * @note This creates new Coordinate based on the coordinate
+     * @note This creates new Coordinate based on the coordinate.
+     * The Coordinate can't be modified from outside of the class.
      * @note Can be used to unset coordinate with null-shared-pointer.
      */
     virtual void setCoordinate(
@@ -181,7 +197,15 @@ public:
      * @note To change GameObject's coordinate you must use setCoordinate.
      * This prevent unwanted alterations by accident.
      */
-    virtual std::shared_ptr<Coordinate> getCoordinate() const final;
+    virtual std::shared_ptr<Coordinate> getCoordinatePtr() const final;
+
+    /**
+     * @brief Returns GameObject's current coordinate.
+     * @post Exception guaranee: Strong
+     * @exception
+     * InvalidPointer - If the GameObject doesn't have a coordinate.
+     */
+    virtual Coordinate getCoordinate() const final;
 
     /**
      * @brief Returns the map of descriptions in GameObject.
@@ -196,6 +220,7 @@ public:
      * Makes checking object's type easier for students.
      * @return std::string that represents Object's type.
      * @post Exception guarantee: No-throw
+     * @note You can use this in e.g. debugging and similar printing.
      */
     virtual std::string getType() const;
 
@@ -213,8 +238,9 @@ public:
     /**
      * @brief has_same_coordinate
      * @param other The other GameObject
-     * @return True - If coordinates match or both are null
-     * False - If the coordinates don't match
+     * @return \n
+     * True - If coordinates match or both are null \n
+     * False - If the coordinates don't match \n
      * @post Exception guarantee: Strong
      */
     virtual bool hasSameCoordinateAs(
@@ -222,7 +248,19 @@ public:
 
 protected:
 
+    /**
+     * @brief This is the primary method for locking GameEventHandler inside
+     * different GameObject-classes.
+     * @return shared pointer to the GameEventHandler
+     * @post Exception guarantee: No-throw
+     */
     virtual std::shared_ptr<iGameEventHandler> lockEventHandler() const final;
+    /**
+     * @brief This is the primary method for locking ObjectManager inside
+     * different GameObject classes.
+     * @return shared pointer to the ObjectManager
+     * @post Exception guarantee: No-throw
+     */
     virtual std::shared_ptr<iObjectManager> lockObjectManager() const final;
 
 private:

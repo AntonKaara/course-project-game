@@ -4,25 +4,21 @@
 
 namespace Course {
 
-const ResourceMapDouble BasicWorker::WORKER_EFFICIENCY = {
-    {MONEY, 0.25},
-    {FOOD, 1.00},
-    {WOOD, 0.75},
-    {STONE, 0.50},
-    {ORE, 0.125}
-};
 
-const ResourceMap BasicWorker::RECRUITMENT_COST = {
-    {MONEY, 100},
-    {FOOD, 25}
-};
 
 BasicWorker::BasicWorker(const std::shared_ptr<iGameEventHandler>& eventhandler,
                          const std::shared_ptr<iObjectManager>& objectmanager,
                          const std::shared_ptr<PlayerBase>& owner,
-                         const int& tilespaces
-                         ):
-    WorkerBase(eventhandler, objectmanager, owner, tilespaces)
+                         const int& tilespaces,
+                         const ResourceMap& cost,
+                         const ResourceMapDouble& efficiency):
+    WorkerBase(
+        eventhandler,
+        objectmanager,
+        owner,
+        tilespaces,
+        cost,
+        efficiency)
 {
 }
 

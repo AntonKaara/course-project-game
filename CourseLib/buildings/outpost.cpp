@@ -1,26 +1,23 @@
 #include "outpost.h"
 #include "interfaces/iobjectmanager.h"
+#include "tiles/tilebase.h"
 
 namespace Course {
-
-
-const ResourceMap Outpost::BUILD_COST = {
-    {BasicResource::MONEY, 250},
-    {BasicResource::FOOD, 100},
-    {BasicResource::WOOD, 75},
-    {BasicResource::STONE, 25}
-};
-
-const ResourceMap Outpost::PRODUCTION_EFFECT = {
-    {BasicResource::MONEY, -10}
-};
 
 Outpost::Outpost(
         const std::shared_ptr<iGameEventHandler>& eventhandler,
         const std::shared_ptr<iObjectManager>& objectmanager,
-        const std::shared_ptr<PlayerBase>& owner
+        const std::shared_ptr<PlayerBase>& owner,
+        const int& tilespaces,
+        const ResourceMap& buildcost,
+        const ResourceMap& production
         ):
-    BuildingBase(eventhandler, objectmanager, owner, 1)
+    BuildingBase(eventhandler,
+                 objectmanager,
+                 owner,
+                 tilespaces,
+                 buildcost,
+                 production)
 {
 }
 
@@ -29,15 +26,11 @@ std::string Outpost::getType() const
     return "Outpost";
 }
 
-void Outpost::doSpecialAction()
-{
-}
-
 void Outpost::onBuildAction()
 {
     std::vector< std::shared_ptr<TileBase> > neighbours;
 
-    lockObjectManager()->getTiles(getCoordinate()->neighbours(1));
+    lockObjectManager()->getTiles(getCoordinatePtr()->neighbours(1));
 
     for(auto it = neighbours.begin(); it != neighbours.end(); ++it)
     {
@@ -51,12 +44,9 @@ void Outpost::onBuildAction()
 
 const ResourceMap Outpost::getProduction()
 {
-    if( holdCount() < 0)
-    {
-        addHoldMarkers(-1);
-        return {};
-    }
-    return Outpost::PRODUCTION_EFFECT;
+    // Outpost has only negative production effect.
+    // Ze hold markerz, zey do nothing.
+    return PRODUCTION_EFFECT;
 }
 
 } // namespace Course

@@ -2,7 +2,11 @@
 #include "interfaces/igameeventhandler.h"
 #include "interfaces/iobjectmanager.h"
 #include "exceptions/keyerror.h"
-#include "exceptions/expiredpointer.h"
+#include "exceptions/invalidpointer.h"
+#include "playerbase.h"
+
+#include <QDebug>
+
 
 #include <algorithm>
 
@@ -68,6 +72,7 @@ GameObject::GameObject(const Coordinate& coordinate,
     ID(GameObject::c_next_id),
     EVENTHANDLER(eventhandler),
     OBJECTMANAGER(objectmanager),
+    m_owner(std::shared_ptr<PlayerBase>(nullptr)),
     m_coordinate(),
     m_descriptions({})
 {
@@ -138,13 +143,22 @@ std::shared_ptr<PlayerBase> GameObject::getOwner() const
     return m_owner.lock();
 }
 
-std::shared_ptr<Coordinate> GameObject::getCoordinate() const
+std::shared_ptr<Coordinate> GameObject::getCoordinatePtr() const
 {
     if(m_coordinate)
     {
         return std::make_shared<Coordinate>(*m_coordinate);
     }
     return nullptr;
+}
+
+Coordinate GameObject::getCoordinate() const
+{
+    if( not m_coordinate )
+    {
+        throw InvalidPointer("GameObject has no Coordinate.");
+    }
+    return Coordinate(*m_coordinate);
 }
 
 std::string GameObject::getDescription(const std::string& key) const
@@ -183,14 +197,14 @@ bool GameObject::hasSameCoordinateAs(
     }
     if(not m_coordinate)
     {
-        if(not other->getCoordinate())
+        if(not other->getCoordinatePtr())
         {
             return true;
         }
         return false;
     }
 
-    return m_coordinate->operator ==(*(other->getCoordinate().get()));
+    return m_coordinate->operator ==(*(other->getCoordinatePtr().get()));
 }
 
 std::shared_ptr<iGameEventHandler> GameObject::lockEventHandler() const

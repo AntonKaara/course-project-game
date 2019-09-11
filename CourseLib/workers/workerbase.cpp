@@ -4,18 +4,35 @@
 
 namespace Course {
 
+
+
+
 WorkerBase::WorkerBase(const std::shared_ptr<iGameEventHandler>& eventhandler,
                        const std::shared_ptr<iObjectManager>& objectmanager,
                        const std::shared_ptr<PlayerBase>& owner,
-                       const int& tilespaces):
-    PlaceableGameObject(eventhandler, objectmanager, owner, tilespaces),
-    m_resource_focus(NONE)
+                       const int& tilespaces,
+                       const ResourceMap& cost,
+                       const ResourceMapDouble& efficiency
+                       ):
+    PlaceableGameObject(eventhandler,
+                        objectmanager,
+                        owner,
+                        tilespaces),
+    WORKER_EFFICIENCY(efficiency),
+    RECRUITMENT_COST(cost),
+    m_resource_focus(BasicResource::NONE)
 {
 }
 
 std::string WorkerBase::getType() const
 {
     return "WorkerBase";
+}
+
+
+const ResourceMapDouble WorkerBase::tileWorkAction()
+{
+    return WORKER_EFFICIENCY;
 }
 
 void WorkerBase::setResourceFocus(BasicResource new_focus)

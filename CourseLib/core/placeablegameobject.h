@@ -12,13 +12,11 @@ class TileBase;
  * @brief The PlaceableGameObject class represents GameObjects that can be
  * placed on Tile Objects.
  *
- * Contains methods for automatically checking if a GameObject can be placed
- * on a Tile.
+ * Handles placement on a Tile and throws exception if the placement would
+ * violate PlaceableGameObjects own placement rules.
  *
- * Override functions canPlaceOnTile to change class-specific placement-rules.
- *
- * @note Overridable methods have strong exception guarantees. So you don't
- * have to force no-throw in your own implementations.
+ * @note One new overridable method: canBePlacedOnTile - Can be used to
+ * re-specify placement-rules.
  */
 class PlaceableGameObject : public GameObject
 {
@@ -34,9 +32,10 @@ public:
      * @brief Constructor for the class.
      *
      * @param eventhandler points to the student's GameEventHandler.
+     * @param objectmanager points to the studtent's ObjectManager
      * @param owner points to the owning player.
-     * @param descriptions contains descriptions and flavor texts.
-     * @param tile points to the tile upon which the building is constructed.
+     * @param tilespace indicates the amount of tilespace the object would
+     * take when placed on a tile.
      */
     explicit PlaceableGameObject(
             const std::shared_ptr<iGameEventHandler>& eventhandler,
@@ -63,12 +62,13 @@ public:
     virtual int spacesInTileCapacity() const final;
 
     /**
-     * @brief Check if the object can be placed on the target tile.
-     * @param target is a pointer to the tile that is being checked.
-     * @return
-     * True - Object has same owner as the tile.
-     * False - If condition doesn't match.
-     * @post Exception guarantee: Strong
+     * @brief Check if the object's own placement rules allow placement on the
+     * specified tile.
+     * @param target is a pointer to the tile that is being targeted.
+     * @return \n
+     * True - Object has same owner as the tile.\n
+     * False - If condition doesn't match.\n
+     * @post Exception guarantee: Basic
      * @note Override to change default behaviour
      */
     virtual bool canBePlacedOnTile(const std::shared_ptr<TileBase>& target) const;
@@ -79,9 +79,9 @@ public:
      * @post Exception guarantee: Strong
      * @note nullptr can be used to clear the location.
      * @exception
-     * OwnerConflict - If the object't and tile's ownership conflicted.
+     * IllegalAction - If canBePlacedOnTile returns False.
      */
-    virtual void setLocationTile(const std::shared_ptr<TileBase>& tile);
+    virtual void setLocationTile(const std::shared_ptr<TileBase>& tile) final;
 
     /**
      * @brief Returns a shared_ptr to current lcoation-tile.

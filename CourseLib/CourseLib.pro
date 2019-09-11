@@ -11,10 +11,10 @@ HEADERS += \
     buildings/outpost.h \
     exceptions/baseexception.h \
     exceptions/keyerror.h \
-    exceptions/expiredpointer.h \
-    exceptions/resourceerror.h \
     exceptions/ownerconflict.h \
-    exceptions/nospace.h \
+    exceptions/invalidpointer.h \
+    exceptions/illegalaction.h \
+    exceptions/notenoughspace.h \
     graphics/simplemapitem.h \
     graphics/simplegamescene.h \
     interfaces/iobjectmanager.h \
@@ -29,7 +29,8 @@ HEADERS += \
     core/worldgenerator.h \
     core/coordinate.h \
     core/playerbase.h \
-    core/gameobject.h
+    core/gameobject.h \
+    core/resourcemaps.h
 
 
 SOURCES += \

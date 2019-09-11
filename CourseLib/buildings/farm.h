@@ -2,6 +2,7 @@
 #define FARM_H
 
 #include "buildingbase.h"
+#include "core/resourcemaps.h"
 
 
 namespace Course {
@@ -14,9 +15,6 @@ namespace Course {
 class Farm : public BuildingBase
 {
 public:
-    static const ResourceMap BUILD_COST;
-    static const ResourceMap PRODUCTION_EFFECT;
-
     /**
      * @brief Disabled default constructor.
      */
@@ -36,7 +34,10 @@ public:
     explicit Farm(
             const std::shared_ptr<iGameEventHandler>& eventhandler,
             const std::shared_ptr<iObjectManager>& objectmanager,
-            const std::shared_ptr<PlayerBase>& owner
+            const std::shared_ptr<PlayerBase>& owner,
+            const int& tilespaces = 1,
+            const ResourceMap& buildcost = ConstResourceMaps::FARM_BUILD_COST,
+            const ResourceMap& production = ConstResourceMaps::FARM_PRODUCTION
             );
 
     /**
@@ -48,8 +49,6 @@ public:
      * @copydoc GameObject::getType()
      */
     virtual std::string getType() const override;
-
-    virtual const ResourceMap getProduction() override;
 
 }; // class Farm
 

@@ -59,7 +59,7 @@ void PlayerBase::removeObject(const ObjectId& id)
             {
                 return true;
             }
-            if( locked.get()->ID == id )
+            if( locked->ID == id )
             {
                 found = true;
                 return true;

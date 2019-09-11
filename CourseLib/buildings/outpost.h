@@ -2,6 +2,7 @@
 #define OUTPOST_H
 
 #include "buildingbase.h"
+#include "core/resourcemaps.h"
 
 
 namespace Course {
@@ -23,9 +24,6 @@ static const ResourceMap OUTPOST_PRODUCTIONMAP = {
 class Outpost : public BuildingBase
 {
 public:
-    static const ResourceMap BUILD_COST;
-    static const ResourceMap PRODUCTION_EFFECT;
-
     /**
      * @brief Disabled default constructor.
      */
@@ -45,7 +43,10 @@ public:
     explicit Outpost(
             const std::shared_ptr<iGameEventHandler>& eventhandler,
             const std::shared_ptr<iObjectManager>& objectmanager,
-            const std::shared_ptr<PlayerBase>& owner
+            const std::shared_ptr<PlayerBase>& owner,
+            const int& tilespaces = 1,
+            const ResourceMap& buildcost = ConstResourceMaps::OUTPOST_BUILD_COST,
+            const ResourceMap& production = ConstResourceMaps::OUTPOST_PRODUCTION
             );
 
     /**
@@ -57,11 +58,6 @@ public:
      * @copydoc GameObject::getType()
      */
     virtual std::string getType() const override;
-
-    /**
-     * @brief This building has no action.
-     */
-    virtual void doSpecialAction() override;
 
     /**
      * @brief Sets neighbouring Tiles' ownership to this building's

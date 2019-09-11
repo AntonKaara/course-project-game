@@ -44,10 +44,7 @@ void PlaceableGameObject::setLocationTile(const std::shared_ptr<TileBase>& tile)
     {
         if( not canBePlacedOnTile(tile) )
         {
-            std::string msg = "Object: " + std::to_string(ID) +
-                    "  can't be placed on Tile: " + std::to_string(tile->ID);
-
-            throw OwnerConflict(msg);
+            throw IllegalAction("Illegal action for " + getType());
         }
         setCoordinate(tile->getCoordinate());
     }

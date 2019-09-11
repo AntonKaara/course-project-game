@@ -2,9 +2,9 @@
 
 #include <QtGlobal> // For Q_ASSERT
 
-#include "exceptions/expiredpointer.h"
-#include "exceptions/nospace.h"
+#include "exceptions/notenoughspace.h"
 #include "exceptions/ownerconflict.h"
+#include "exceptions/invalidpointer.h"
 #include "core/playerbase.h"
 
 
@@ -13,13 +13,13 @@ namespace Course {
 TileBase::TileBase(const Coordinate& location,
                    const std::shared_ptr<iGameEventHandler> &eventhandler,
                    const std::shared_ptr<iObjectManager>& objectmanager,
-                   const ResourceMap& base_production,
-                   unsigned int max_buildings,
-                   unsigned int max_workers):
+                   const unsigned int& max_build,
+                   const unsigned int& max_work,
+                   const ResourceMap& production):
     GameObject(location, eventhandler, objectmanager),
-    MAX_BUILDINGS(max_buildings),
-    MAX_WORKERS(max_workers),
-    BASE_PRODUCTION(base_production)
+    MAX_BUILDINGS(max_build),
+    MAX_WORKERS(max_work),
+    BASE_PRODUCTION(production)
 {
 }
 
@@ -31,17 +31,11 @@ std::string TileBase::getType() const
 void TileBase::addBuilding(const std::shared_ptr<BuildingBase>& building)
 {
     std::shared_ptr<TileBase> tile;
-    for (const auto& obj : getOwner()->getObjects())
-    {
-        if (obj.get() == this)
-        {
-            tile = std::dynamic_pointer_cast<TileBase>(obj);
-        }
-    }
+    tile = lockObjectManager()->getTile(ID);
     if (not tile)
     {
-        // TODO: Throw? Which exception?
-        //throw KeyError("");
+        throw InvalidPointer("Objectmanager didn't find ID: " +
+                             std::to_string(ID));
     }
 
     if (not building->canBePlacedOnTile(tile))
@@ -50,7 +44,7 @@ void TileBase::addBuilding(const std::shared_ptr<BuildingBase>& building)
     }
     if (getBuildingCount() + building->spacesInTileCapacity() > MAX_BUILDINGS)
     {
-        throw NoSpace("Tile has no more room for Buildings!");
+        throw NotEnoughSpace("Tile has no more room for Buildings!");
     }
     m_buildings.push_back(building);
     building->setLocationTile(tile);
@@ -91,7 +85,7 @@ void TileBase::addWorker(const std::shared_ptr<WorkerBase>& worker)
     }
     if (getWorkerCount() + worker->spacesInTileCapacity() > MAX_WORKERS)
     {
-        throw NoSpace("Tile has no more room for Workers!");
+        throw NotEnoughSpace("Tile has no more room for Workers!");
     }
     m_workers.push_back(worker);
     worker->setLocationTile(tile);
@@ -112,68 +106,7 @@ void TileBase::removeWorker(const std::shared_ptr<WorkerBase>& worker)
 
 bool TileBase::generateResources()
 {
-    unsigned int expired_worker_count = 0;
-    unsigned int expired_building_count = 0;
-    bool produced_something = false;
-    m_resource_production_pile = BASE_PRODUCTION;
 
-    for (const auto& weak_worker : m_workers)
-    {
-        if (weak_worker.expired())
-        {
-            ++expired_worker_count;
-            continue;
-        }
-    }
-
-    for (const auto& weak_building : m_buildings)
-    {
-        if (weak_building.expired())
-        {
-            ++expired_building_count;
-            continue;
-        }
-        auto building = weak_building.lock();
-        for (int br = BasicResource::NONE; br <= BasicResource::ORE; ++br)
-        {
-            auto r_type = static_cast<BasicResource>(br);
-        }
-    }
-
-    if (expired_worker_count or expired_building_count)
-    {
-        std::string msg = "Tile (ID: " + std::to_string(ID) + ") had " +
-                std::to_string(expired_building_count) +
-                " expired building-pointers and " +
-                std::to_string(expired_worker_count) +
-                " expired worker-pointers.";
-        throw ExpiredPointer(msg);
-    }
-
-    for (int br = BasicResource::NONE; br != BasicResource::ORE; ++br)
-    {
-        auto r_type = static_cast<BasicResource>(br);
-        auto base = m_resource_production_pile.at(r_type);
-        auto multiplier = m_resource_production_multipliers.at(r_type);
-        auto production = static_cast<int>(base * multiplier);
-        if (production)
-        {
-            lockEventHandler()->modifyResource(getOwner(), r_type, production);
-            produced_something = true;
-        }
-    }
-
-    return produced_something;
-}
-
-void TileBase::increasePile(BasicResource type, int amount)
-{
-    m_resource_production_pile[type] += amount;
-}
-
-void TileBase::increaseMultiplier(BasicResource type, int amount)
-{
-    m_resource_production_multipliers[type] += amount;
 }
 
 
@@ -203,6 +136,7 @@ unsigned int TileBase::getWorkerCount() const
     return taken;
 }
 
+
 bool TileBase::hasSpaceForWorkers(int amount) const
 {
     return amount + getWorkerCount() <= MAX_WORKERS;
@@ -211,12 +145,6 @@ bool TileBase::hasSpaceForWorkers(int amount) const
 bool TileBase::hasSpaceForBuildings(int amount) const
 {
     return amount + getBuildingCount() <= MAX_BUILDINGS;
-}
-
-void TileBase::clearProduction()
-{
-    m_resource_production_multipliers.clear();
-    m_resource_production_pile.clear();
 }
 
 } // namespace Course

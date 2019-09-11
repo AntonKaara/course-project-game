@@ -17,26 +17,23 @@ class WorkerBase : public PlaceableGameObject
 {
 public:
 
-    static const ResourceMapDouble WORKER_EFFICIENCY;
-    static const ResourceMap RECRUITMENT_COST;
+    const ResourceMapDouble WORKER_EFFICIENCY;
+    const ResourceMap RECRUITMENT_COST;
+
     /**
      * @brief Disabled default constructor.
      */
     WorkerBase() = delete;
 
     /**
-     * @brief Constructor for the class.
      *
-     * @param eventhandler points to the student's GameEventHandler.
-     * @param owner points to the owning player.
-     * @param descriptions contains descriptions and flavor texts.
-     * @param tile points to the tile upon which the building is constructed.
      */
     WorkerBase(const std::shared_ptr<iGameEventHandler>& eventhandler,
                const std::shared_ptr<iObjectManager>& objectmanager,
                const std::shared_ptr<PlayerBase>& owner,
-               const int& tilespaces = 1
-               );
+               const int& tilespaces = 1,
+               const ResourceMap& cost = {},
+               const ResourceMapDouble& efficiency = {});
 
     /**
      * @brief Default destructor.
@@ -48,7 +45,7 @@ public:
      * @return Returns the final working efficiency of a worker.
      * @note This is called by a Tile when it generates resources.
      */
-    virtual const ResourceMapDouble tileWorkAction() = 0;
+    virtual const ResourceMapDouble tileWorkAction();
 
     /**
      * @brief Performs the Worker's special action. (If any)

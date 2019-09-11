@@ -1,7 +1,7 @@
 #ifndef OWNERCONFLICT_H
 #define OWNERCONFLICT_H
 
-#include "exceptions/baseexception.h"
+#include "illegalaction.h"
 
 
 namespace Course {
@@ -10,14 +10,14 @@ namespace Course {
  * @brief The OwnerConflict class is an Exception-class for
  * errors where an operation is conflicting with a GameObject's ownership.
  */
-class OwnerConflict : public BaseException
+class OwnerConflict : public IllegalAction
 {
 public:
     /**
      * @copydoc BaseException::BaseException
      */
     explicit OwnerConflict(const std::string& msg = ""):
-        BaseException(msg) {}
+        IllegalAction(msg) {}
 
     /**
      * @copydoc BaseException::~BaseException

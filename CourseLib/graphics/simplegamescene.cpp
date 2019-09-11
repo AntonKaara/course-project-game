@@ -75,7 +75,7 @@ std::pair<int, int> SimpleGameScene::getSize() const
 
 void SimpleGameScene::updateItem(std::shared_ptr<Course::GameObject> obj)
 {
-    QList<QGraphicsItem*> items_list = items(obj->getCoordinate()->asQpoint());
+    QList<QGraphicsItem*> items_list = items(obj->getCoordinate().asQpoint());
     if ( items_list.size() == 1 ){
         qDebug() << "Nothing to be updated at the location pointed by given obj.";
     } else {
@@ -119,7 +119,7 @@ bool SimpleGameScene::event(QEvent *event)
 
 void SimpleGameScene::removeItem(std::shared_ptr<Course::GameObject> obj)
 {
-    QList<QGraphicsItem*> items_list = items(obj->getCoordinate()->asQpoint());
+    QList<QGraphicsItem*> items_list = items(obj->getCoordinate().asQpoint());
     if ( items_list.size() == 1 ){
         qDebug() << "Nothing to be removed at the location pointed by given obj.";
     } else {

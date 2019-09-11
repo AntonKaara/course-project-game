@@ -39,7 +39,10 @@ public:
      */
     Forest(const Coordinate& location,
            const std::shared_ptr<iGameEventHandler>& eventhandler,
-           const std::shared_ptr<iObjectManager>& objectmanager);
+           const std::shared_ptr<iObjectManager>& objectmanager,
+           const unsigned int& max_build = 2,
+           const unsigned int& max_work = 3,
+           const ResourceMap& production = ConstResourceMaps::FOREST_BP);
 
     /**
      * @brief Default destructor.

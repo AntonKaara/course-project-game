@@ -25,6 +25,9 @@ namespace Course {
 class Grassland : public TileBase
 {
 public:
+    static const unsigned int MAX_BUILDINGS;
+    static const unsigned int MAX_WORKERS;
+    static const ResourceMap BASE_PRODUCTION;
     /**
      * @brief Disabled default constructor.
      */
@@ -48,7 +51,7 @@ public:
     /**
      * @copydoc GameObject::getType()
      */
-    virtual std::string getType() const;
+    virtual std::string getType() const override;
 
 }; // class Grassland
 

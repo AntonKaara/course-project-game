@@ -6,7 +6,7 @@ namespace Course {
 std::map<std::string, QColor> SimpleMapItem::c_mapcolors = {};
 
 SimpleMapItem::SimpleMapItem(const std::shared_ptr<Course::GameObject> &obj, int size ):
-    m_gameobject(obj), m_scenelocation(m_gameobject->getCoordinate()->asQpoint()), m_size(size)
+    m_gameobject(obj), m_scenelocation(m_gameobject->getCoordinatePtr()->asQpoint()), m_size(size)
 {
     addNewColor(m_gameobject->getType());
 }
@@ -36,7 +36,7 @@ void SimpleMapItem::updated()
         delete this;
     } else {
         update(boundingRect()); // Test if necessary
-        m_scenelocation = m_gameobject->getCoordinate()->asQpoint();
+        m_scenelocation = m_gameobject->getCoordinate().asQpoint();
     }
 }
 
