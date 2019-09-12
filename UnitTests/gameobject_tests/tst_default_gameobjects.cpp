@@ -117,44 +117,44 @@ void default_gameobjects::test_setOwner()
 
 void default_gameobjects::test_setCoordinate_from_shared_ptr()
 {
-    QVERIFY(not default_instance->getCoordinate());
+    QVERIFY(not default_instance->getCoordinatePtr());
     default_instance->setCoordinate(def_coordinate);
-    QVERIFY(*(default_instance->getCoordinate().get()) ==
+    QVERIFY(*(default_instance->getCoordinatePtr().get()) ==
             *(def_coordinate.get()));
 
     auto other_coordinate = std::make_shared<Coordinate>(5,2);
     default_instance->setCoordinate(other_coordinate);
-    QVERIFY(*(default_instance->getCoordinate().get()) ==
+    QVERIFY(*(default_instance->getCoordinatePtr().get()) ==
             *(other_coordinate.get()));
 
 }
 
 void default_gameobjects::test_setCoordinate_from_instance()
 {
-    QVERIFY(not default_instance->getCoordinate());
+    QVERIFY(not default_instance->getCoordinatePtr());
 
     Coordinate new_coordinate = Coordinate(1,2);
     Coordinate other_coordinate = Coordinate(3,5);
 
     default_instance->setCoordinate(new_coordinate);
 
-    QVERIFY(*(default_instance->getCoordinate().get()) ==
+    QVERIFY(*(default_instance->getCoordinatePtr().get()) ==
             new_coordinate);
 
     default_instance->setCoordinate(other_coordinate);
 
-    QVERIFY(*(default_instance->getCoordinate().get()) ==
+    QVERIFY(*(default_instance->getCoordinatePtr().get()) ==
             other_coordinate);
 }
 
 void default_gameobjects::test_unsetCoordinate()
 {
-    QVERIFY(not default_instance->getCoordinate());
+    QVERIFY(not default_instance->getCoordinatePtr());
     default_instance->setCoordinate(def_coordinate);
-    QVERIFY(*(default_instance->getCoordinate().get()) ==
+    QVERIFY(*(default_instance->getCoordinatePtr().get()) ==
             *(def_coordinate.get()));
     default_instance->unsetCoordinate();
-    QVERIFY(not default_instance->getCoordinate());
+    QVERIFY(not default_instance->getCoordinatePtr());
 }
 
 void default_gameobjects::test_setDescription()

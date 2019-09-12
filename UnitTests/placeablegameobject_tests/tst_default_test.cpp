@@ -20,11 +20,11 @@ public:
     default_test();
 
 private Q_SLOTS:
-    void test_canPlaceOnTile_same_owner();
-    void test_canPlaceOnTile_ownerconflict();
-    void test_canPlaceOnTile_no_owner_for_tile();
-    void test_canPlaceOnTile_no_owner_for_object();
-    void test_canPlaceOnTile_no_owners();
+    void test_canBePlacedOnTile_same_owner();
+    void test_canBePlacedOnTile_ownerconflict();
+    void test_canBePlacedOnTile_no_owner_for_tile();
+    void test_canBePlacedOnTile_no_owner_for_object();
+    void test_canBePlacedOnTile_no_owners();
 
 
     void test_setLocationTile();
@@ -62,49 +62,49 @@ void default_test::cleanup()
                 nullptr, nullptr, nullptr, 1);
 }
 
-void default_test::test_canPlaceOnTile_same_owner()
+void default_test::test_canBePlacedOnTile_same_owner()
 {
     tile->setOwner(player1);
     default_object->setOwner(player1);
 
     QVERIFY(default_object->getOwner() == player1);
     QVERIFY(tile->getOwner() == player1);
-    QVERIFY(default_object->canPlaceOnTile(tile));
+    QVERIFY(default_object->canBePlacedOnTile(tile));
 }
 
-void default_test::test_canPlaceOnTile_ownerconflict()
+void default_test::test_canBePlacedOnTile_ownerconflict()
 {
     tile->setOwner(player1);
     default_object->setOwner(player2);
 
     QVERIFY(default_object->getOwner() == player2);
     QVERIFY(tile->getOwner() == player1);
-    QVERIFY(not default_object->canPlaceOnTile(tile));
+    QVERIFY(not default_object->canBePlacedOnTile(tile));
 }
 
-void default_test::test_canPlaceOnTile_no_owner_for_tile()
+void default_test::test_canBePlacedOnTile_no_owner_for_tile()
 {
     default_object->setOwner(player1);
 
     QVERIFY(default_object->getOwner() == player1);
     QVERIFY(tile->getOwner() == nullptr);
-    QVERIFY(default_object->canPlaceOnTile(tile));
+    QVERIFY(default_object->canBePlacedOnTile(tile));
 }
 
-void default_test::test_canPlaceOnTile_no_owner_for_object()
+void default_test::test_canBePlacedOnTile_no_owner_for_object()
 {
     tile->setOwner(player1);
 
     QVERIFY(default_object->getOwner() == nullptr);
     QVERIFY(tile->getOwner() == player1);
-    QVERIFY(default_object->canPlaceOnTile(tile));
+    QVERIFY(default_object->canBePlacedOnTile(tile));
 }
 
-void default_test::test_canPlaceOnTile_no_owners()
+void default_test::test_canBePlacedOnTile_no_owners()
 {
     QVERIFY(default_object->getOwner() == nullptr);
     QVERIFY(tile->getOwner() == nullptr);
-    QVERIFY(default_object->canPlaceOnTile(tile));
+    QVERIFY(default_object->canBePlacedOnTile(tile));
 }
 
 void default_test::test_setLocationTile()
@@ -128,7 +128,7 @@ void default_test::test_setLocationTile_exception()
     default_object->setOwner(player1);
     tile->setOwner(player2);
 
-    QVERIFY(not default_object->canPlaceOnTile(tile));
+    QVERIFY(not default_object->canBePlacedOnTile(tile));
     QVERIFY_EXCEPTION_THROWN(default_object->setLocationTile(tile),
                              OwnerConflict);
 }
