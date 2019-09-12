@@ -21,7 +21,7 @@ public:
     const ResourceMap RECRUITMENT_COST;
 
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     WorkerBase() = delete;
 

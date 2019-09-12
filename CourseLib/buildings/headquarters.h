@@ -19,7 +19,7 @@ class HeadQuarters : public BuildingBase
 {
 public:
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     HeadQuarters() = delete;
 

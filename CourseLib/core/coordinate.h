@@ -16,7 +16,6 @@ class Coordinate
 {
 public:
 
-    // No default constructor.
     Coordinate() = delete;
     /**
      * @brief Constructor for x, y coordinates

@@ -17,18 +17,17 @@ namespace Course {
 
 /**
  * @brief The TileBase class is a base-class for different Tile-objects
- * in the game.
+ * in the game. \n
  *
- * Student uses this for: \n
- * 1. Generating resources. \n
- * 2. Adding workers that can modify production multipliers. \n
- * 3. Adding buildings that can modify production multipliers. \n
+ * Tile is responsible for:
+ * * Generating resources.
+ * * Checking Tile-specific object placement rules.
+ * \n
  *
- * Each tile has some constant base-production.
- * This is multiplied by worker and building-multipliers when
- * it's producing resources.
- *
- * @invariant Weak-pointer to GameEventHandler hasn't expired.
+ * Each Tile has some Base-production which is multiplied by worker's
+ * efficiency, when generating resources. Resource generation can also
+ * gain flat bonuses from buildings.
+ * Tiles also know how many Buildings or Workers can be placed on them.
  */
 class TileBase : public GameObject
 {
@@ -68,18 +67,20 @@ public:
      * @brief Adds a new Building-object to the tile.
      *
      * Phases: \n
-     * 1. Building checks whether it can be placed on this tile. \n
-     * 2. If the move is illegal, an exception is thrown. \n
-     * 3. Add the Building to the m_buildings. \n
-     * 4. Update the Building's location to this Tile. \n
+     * 1. Tile checks if it has space for the building. \n
+     * 2. Building checks whether it can be placed on this tile. \n
+     * 3. Building is added to this Tile. \n
+     * 4. Tile update's Building's location. \n
      *
-     * @param building points to the Building-object being added.
-     * @post Exception guarantee: Strong
-     * @exception OwnerConflict - If the tile's ownership prevents placing the
-     * \b building.
-     * @exception NoSpace - If the tile doesn't have enough space for
-     * the \b building.
-     * @note OwnerConflict depends on the Building-object's canPlaceOnTile.
+     * @param building A pointer to the Building that is being added.
+     * @post Exception guarantee: Basic
+     * @exception InvalidPointer - If the building's pointer doesn't
+     * point to anything.
+     * @exception IllegalMove - Any IllegalException can be thrown by a Tile
+     * or Building if it breaks a placement rule.
+     * @exception NotEnoughSpace (IllegalMove) - If the tile doesn't have enough
+     * space for the Building.
+     *
      */
     virtual void addBuilding(const std::shared_ptr<BuildingBase>& building);
 
@@ -90,53 +91,60 @@ public:
      * 1. Reset the Building's location to nothing. \n
      * 2. Remove the Building from m_buildings.
      *
-     * @param building points to the Building-object being removed.
-     * @post Exception guarantee: Strong
+     * @param building A pointer to the Building-object being removed.
+     * @post Exception guarantee: Basic
+     * @exception InvalidPointer - If the Building's pointer doesn't
+     * point to anything.
+     *
      */
     virtual void removeBuilding(const std::shared_ptr<BuildingBase>& building);
 
     /**
-     * @brief Adds a new Worker-object to the tile.
+     * @brief Adds a new Worker-object to this Tile.
      *
      * Phases: \n
-     * 1. Worker checks whether it can be placed on this tile. \n
-     * 2. If the move is illegal, an exception is thrown. \n
-     * 3. Add the Worker to the m_workers. \n
-     * 4. Update the Worker's location to this Tile.
+     * 1. Tile checks if it has space for the Worker. \n
+     * 2. Worker checks whether it can be placed on this Tile. \n
+     * 3. Worker is added to this Tile. \n
+     * 4. Tile updates Worker's location. \n
      *
-     * @param worker points to the Worker-object being added.
-     * @post Exception guarantee: Strong
-     * @exception OwnerConflict - If the tile's ownership prevents placing the
-     * \b worker.
-     * @exception NoSpace - If the tile doesn't have enough space for
-     * the \b worker.
-     * @note OwnerConflict depends on the Worker-object's canPlaceOnTile.
+     * @param worker A pointer to the Worket that is being added.
+     * @post Exception guarantee: Basic
+     * @exception InvalidPointer - If the Worker's pointer doesn't
+     * point to anything.
+     * @exception IllegalMove - Any IllegalException can be thrown by a Tile
+     * or Worker if it breaks a placement rule.
+     * @exception NotEnoughSpace (IllegalMove) - If the tile doesn't have enough
+     * space for the Worker.
+     *
      */
     virtual void addWorker(const std::shared_ptr<WorkerBase>& worker);
 
     /**
-     * @brief Removes a Worker-object from the this Tile.
+     * @brief Removes a Worker-object from this Tile.
      *
      * Phases: \n
      * 1. Reset the Worker's location to nothing. \n
-     * 2. Remove the Worker from m_workers.
+     * 2. Remove the Worker from this Tile. \n
      *
-     * @param worker points to the Worker-object being removed.
-     * @post Exception guarantee: Strong
+     * @param worker A pointer to the Worker-object being removed.
+     * @exception InvalidPointer - If the Worker's pointer doesn't
+     * point to anything.
+     * @post Exception guarantee: Basic
      */
     virtual void removeWorker(const std::shared_ptr<WorkerBase>& worker);
 
     /**
      * @brief Sends information to the EventHandler on
-     * what resources were generated and to whom. \n
-     * 1. Calls workers' tileWorkAction(). \n
-     * 2. Calculate's Tile's production based on workers' efficiency. \n
-     * 3. Calls buildings' getProduction(). \n
-     * 4. Adds buildings' bonus production to final resource output.\n
-     * 5. Sends information to GameEventHandler. \n
-     * 6. Returns GameEventHandler's response.
+     * what resources were generated by this Tile. \n
+     * 1. Call tileWorkAction for each Worker. \n
+     * 2. Calculate Tile's production based on Base-production multiplied
+     * by Workers' efficiency. \n
+     * 3. Calls buildings' getProduction() and adds the flat bonus. \n
+     * 4. Sends information to GameEventHandler. \n
+     * 5. Returns GameEventHandler's response. \n
      *
-     * @post Exception guarantee: Basic guarantee
+     * @post Exception guarantee: Basic
      */
     virtual bool generateResources();
 

@@ -25,7 +25,7 @@ class Outpost : public BuildingBase
 {
 public:
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     Outpost() = delete;
 

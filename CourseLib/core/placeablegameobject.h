@@ -24,7 +24,7 @@ public:
     const int TILESPACES;
 
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     PlaceableGameObject() = delete;
 

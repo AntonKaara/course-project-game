@@ -16,7 +16,7 @@ class Farm : public BuildingBase
 {
 public:
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     Farm() = delete;
 

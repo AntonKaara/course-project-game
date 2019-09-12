@@ -27,7 +27,7 @@ class Forest : public TileBase
 {
 public:
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     Forest() = delete;
 
