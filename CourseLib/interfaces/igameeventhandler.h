@@ -31,10 +31,10 @@ public:
     virtual ~iGameEventHandler() = default;
 
     /**
-     * @brief Modify a player's resources. Can be used to both sum or subtract.
-     * @param player points to the affected player.
-     * @param resource defines the modified resource.
-     * @param amount defines the altered amount.
+     * @brief Modify Player's resource. Can be used to both sum or subtract.
+     * @param player Pointer to the Player whose resource is being modified.
+     * @param resource Defines the modified resource.
+     * @param amount Defines the amount of change.
      * @post Exception guarantee: Basic
      * @return
      * True - Modification was succesful. \n
@@ -45,14 +45,16 @@ public:
                                 int amount) = 0;
 
     /**
-     * @brief Removes objects from the game.
-     * @param object points to the object being destroyed.
-     * @post Exception guarantee: Basic
+     * @brief Modify Player's resources. Can be used to both sum or subtract
+     * @param player Pointer to the Player whose resources are being modified.
+     * @param resources ResourceMap containing change amounts.
+     * @return
+     * True - Modification was succesful. \n
+     * False - Modification failed. \n
      */
-    virtual void destroyObject(std::shared_ptr<GameObject> object) = 0;
+    virtual bool modifyResources(std::shared_ptr<PlayerBase> player,
+                                 ResourceMap resources) = 0;
 
-    virtual std::vector< std::shared_ptr<TileBase> > getTiles(
-            std::vector<Coordinate> coordinates) = 0;
 
 }; // class iGameEventHandler
 

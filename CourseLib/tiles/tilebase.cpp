@@ -1,6 +1,7 @@
 #include "tilebase.h"
 
 #include <QtGlobal> // For Q_ASSERT
+#include <QDebug>
 
 #include "exceptions/notenoughspace.h"
 #include "exceptions/ownerconflict.h"
@@ -34,14 +35,16 @@ void TileBase::addBuilding(const std::shared_ptr<BuildingBase>& building)
     tile = lockObjectManager()->getTile(ID);
     if (not tile)
     {
-        throw InvalidPointer("Objectmanager didn't find ID: " +
+        throw InvalidPointer("Objectmanager didn't find Tile: " +
                              std::to_string(ID));
     }
-
     if (not building->canBePlacedOnTile(tile))
     {
-        throw OwnerConflict("Can't place Building on Tile!");
+        throw IllegalAction("Can't place Building: " +
+                            std::to_string(building->ID) + " on Tile: " +
+                            std::to_string(ID));
     }
+
     if (getBuildingCount() + building->spacesInTileCapacity() > MAX_BUILDINGS)
     {
         throw NotEnoughSpace("Tile has no more room for Buildings!");
@@ -52,40 +55,38 @@ void TileBase::addBuilding(const std::shared_ptr<BuildingBase>& building)
 
 void TileBase::removeBuilding(const std::shared_ptr<BuildingBase>& building)
 {
-    building->setLocationTile(nullptr);
-    for (std::size_t i = 0; i < m_buildings.size(); ++i)
+    for( auto it = m_buildings.begin(); it != m_buildings.end(); ++it)
     {
-        if (not m_buildings[i].expired() and m_buildings[i].lock() == building)
+        if(it->lock() == building)
         {
-            m_buildings.erase(m_buildings.begin() + i);
+            m_buildings.erase(it);
+            building->setLocationTile(nullptr);
             return;
         }
     }
+    qDebug() << "Tile " << QString(ID) << ": Doesn't have building "
+             << QString(building->ID);
 }
 
 void TileBase::addWorker(const std::shared_ptr<WorkerBase>& worker)
 {
     std::shared_ptr<TileBase> tile;
-    for (const auto& obj : getOwner()->getObjects())
-    {
-        if (obj.get() == this)
-        {
-            tile = std::dynamic_pointer_cast<TileBase>(obj);
-        }
-    }
+    tile = lockObjectManager()->getTile(ID);
     if (not tile)
     {
-        // TODO: Throw? Which exception?
-        //throw KeyError("");
+        throw InvalidPointer("Objectmanager didn't find Tile: " +
+                             std::to_string(ID));
+    }
+    if (not worker->canBePlacedOnTile(tile))
+    {
+        throw IllegalAction("Can't place Worker: " + std::to_string(worker->ID)
+                            + " on Tile: " + std::to_string(ID));
     }
 
-    if (not worker->canBePlacedOnTile(std::make_shared<TileBase>(*this)))
-    {
-        throw OwnerConflict("Can't place Worker on Tile!");
-    }
     if (getWorkerCount() + worker->spacesInTileCapacity() > MAX_WORKERS)
     {
-        throw NotEnoughSpace("Tile has no more room for Workers!");
+        throw NotEnoughSpace("Tile: " + std::to_string(ID) +
+                             " has no more room for Workers!");
     }
     m_workers.push_back(worker);
     worker->setLocationTile(tile);
@@ -93,20 +94,47 @@ void TileBase::addWorker(const std::shared_ptr<WorkerBase>& worker)
 
 void TileBase::removeWorker(const std::shared_ptr<WorkerBase>& worker)
 {
-    worker->setLocationTile(nullptr);
-    for (std::size_t i = 0; i < m_workers.size(); ++i)
+    for(auto it = m_workers.begin(); it != m_workers.end(); ++it)
     {
-        if (not m_workers[i].expired() and m_workers[i].lock() == worker)
+        std::shared_ptr<WorkerBase> locked = it->lock();
+        if(locked == worker)
         {
-            m_workers.erase(m_workers.begin() + i);
+            m_workers.erase(it);
+            worker->setLocationTile(nullptr);
             return;
         }
     }
+    qDebug() << "Tile " << QString(ID) << ": Doesn't have worker "
+             << QString(worker->ID);
 }
 
 bool TileBase::generateResources()
 {
+    ResourceMapDouble worker_efficiency;
+    ResourceMap total_production;
 
+    for( auto work_it = m_workers.begin();
+         work_it != m_workers.end();
+         ++work_it)
+    {
+        ResourceMapDouble current_efficiency = work_it->lock()->tileWorkAction();
+
+        worker_efficiency = mergeResourceMapDoubles(worker_efficiency, current_efficiency);
+    }
+
+    total_production = multiplyResourceMap(BASE_PRODUCTION, worker_efficiency);
+
+    for( auto build_it = m_buildings.begin();
+         build_it != m_buildings.end();
+         ++build_it)
+    {
+        ResourceMap current_production = build_it->lock()->getProduction();
+
+        total_production = mergeResourceMaps(total_production,
+                                             current_production);
+    }
+
+    return lockEventHandler()->modifyResources(getOwner(), total_production);
 }
 
 
@@ -145,6 +173,46 @@ bool TileBase::hasSpaceForWorkers(int amount) const
 bool TileBase::hasSpaceForBuildings(int amount) const
 {
     return amount + getBuildingCount() <= MAX_BUILDINGS;
+}
+
+std::vector< std::shared_ptr<WorkerBase> > TileBase::getWorkers() const
+{
+    std::vector< std::shared_ptr<WorkerBase> > locked_workers;
+    for( auto it = m_workers.begin(); it != m_workers.end(); ++it)
+    {
+        std::shared_ptr<WorkerBase> locked = it->lock();
+        if(locked)
+        {
+            locked_workers.push_back(locked);
+        }
+        else
+        {
+            qDebug() << "Tile " << QString(ID) <<
+                        ": Has an invalid weak_ptr to a Worker.";
+        }
+    }
+
+    return locked_workers;
+}
+
+std::vector<std::shared_ptr<BuildingBase> > TileBase::getBuildings() const
+{
+    std::vector< std::shared_ptr<BuildingBase> > locked_buildings;
+    for( auto it = m_buildings.begin(); it != m_buildings.end(); ++it)
+    {
+        std::shared_ptr<BuildingBase> locked = it->lock();
+        if(locked)
+        {
+            locked_buildings.push_back(locked);
+        }
+        else
+        {
+            qDebug() << "Tile " << QString(ID) <<
+                        ": Has an invalid weak_ptr to a Building.";
+        }
+    }
+
+    return locked_buildings;
 }
 
 } // namespace Course

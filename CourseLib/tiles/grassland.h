@@ -29,7 +29,7 @@ public:
     static const unsigned int MAX_WORKERS;
     static const ResourceMap BASE_PRODUCTION;
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     Grassland() = delete;
 

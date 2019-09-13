@@ -26,7 +26,7 @@ public:
     const ResourceMap PRODUCTION_EFFECT;
 
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     BuildingBase() = delete;
 

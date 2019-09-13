@@ -38,11 +38,29 @@ public:
             const std::vector<std::shared_ptr<TileBase>>& tiles) = 0;
 
 
+    /**
+     * @brief Returns a pointer to a Tile that has specified coordinate.
+     * @param coordinate
+     * @return
+     * @post Exception Guarantee: Basic
+     */
     virtual std::shared_ptr<TileBase> getTile(
             const Coordinate& coordinate) = 0;
 
+    /**
+     * @brief Returns a pointer to a Tile that has specified ID
+     * @param id
+     * @return
+     * @post Exception Guarantee: Basic
+     */
     virtual std::shared_ptr<TileBase> getTile(const ObjectId& id) = 0;
 
+    /**
+     * @brief Returns a vector of pointers to Tiles specified by Coordinates.
+     * @param coordinates
+     * @return
+     * @post Exception Guarantee: Basic
+     */
     virtual std::vector<std::shared_ptr<TileBase>> getTiles(
             const std::vector<Coordinate>& coordinates) = 0;
 

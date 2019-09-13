@@ -25,7 +25,7 @@ class BasicWorker : public WorkerBase
 {
 public:
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     BasicWorker() = delete;
 

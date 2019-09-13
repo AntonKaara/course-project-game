@@ -37,7 +37,7 @@ public:
     const ResourceMap BASE_PRODUCTION;
 
     /**
-     * @brief Disabled default constructor.
+     * @brief Disabled parameterless constructor.
      */
     TileBase() = delete;
 
@@ -75,7 +75,8 @@ public:
      * @param building A pointer to the Building that is being added.
      * @post Exception guarantee: Basic
      * @exception InvalidPointer - If the building's pointer doesn't
-     * point to anything.
+     * point to anything or ObjectManager doesn't return valid shared_ptr to
+     * this tile.
      * @exception IllegalMove - Any IllegalException can be thrown by a Tile
      * or Building if it breaks a placement rule.
      * @exception NotEnoughSpace (IllegalMove) - If the tile doesn't have enough
@@ -111,7 +112,8 @@ public:
      * @param worker A pointer to the Worket that is being added.
      * @post Exception guarantee: Basic
      * @exception InvalidPointer - If the Worker's pointer doesn't
-     * point to anything.
+     * point to anything or ObjectManager doesn't return valid shared_ptr to
+     * this tile.
      * @exception IllegalMove - Any IllegalException can be thrown by a Tile
      * or Worker if it breaks a placement rule.
      * @exception NotEnoughSpace (IllegalMove) - If the tile doesn't have enough
@@ -176,6 +178,17 @@ public:
      * @note Uses getMaxBuildings()
      */
     virtual bool hasSpaceForBuildings(int amount) const final;
+
+    /**
+     * @brief Returns a vector of pointers to Workers in the Tile.
+     * @post Exception Guarantee: No-throw
+     */
+    virtual std::vector<std::shared_ptr<WorkerBase>> getWorkers() const final;
+    /**
+     * @brief Returns a vector of pointer to Buildings in the Tile.
+     * @post Exception Guarantee: No-throw
+     */
+    virtual std::vector<std::shared_ptr<BuildingBase>> getBuildings() const final;
 
 private:
     // Each GameObject-derived class with separate container

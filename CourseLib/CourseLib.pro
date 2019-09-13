@@ -49,4 +49,5 @@ SOURCES += \
     core/worldgenerator.cpp \
     core/coordinate.cpp \
     core/playerbase.cpp \
-    core/gameobject.cpp
+    core/gameobject.cpp \
+    core/basicresources.cpp
