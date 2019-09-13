@@ -39,6 +39,7 @@ public:
     /*!
      * \brief Sets a new m_name value for the class.
      * \param new_name The new name.
+     * \post Exception guarantee: No-throw
      */
     virtual void setName(const std::string& new_name) final;
 
@@ -93,6 +94,7 @@ public:
      * \param id An ObjectId (unsigned int) for GameObject which is removed
      * \post Exception guarantee: Basic
      * \exception KeyError - No GameObjects with given ID were found.
+     * \exception See std::remove_if
      */
     virtual void removeObject(const ObjectId& id) final;
 
@@ -115,7 +117,7 @@ public:
      * \brief Returns the vector of weak GameObject-pointers
      *  that are currently stored in the Player-object.
      * \return Copy of m_objects -vector
-     * \post Exception guarantee: No-throw
+     * \post Exception guarantee: Strong
      */
     virtual std::vector<std::shared_ptr<GameObject> > getObjects() const final;
 

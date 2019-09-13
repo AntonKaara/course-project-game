@@ -146,6 +146,7 @@ public:
      * @post Exception guarantee: Strong
      * @exception
      * KeyError - If the key is already in use in the description-map.
+     * @exception See std::map::operator[]
      */
     virtual void addDescription(const std::string& key,
                                 const std::string& content) final;
@@ -166,6 +167,7 @@ public:
      * @exceptions KeyError - if the description for the key is not found.
      */
     virtual std::string getDescription(const std::string& key) const final;
+
     /**
      * @brief Removes the content with specified key from the
      * descriptions.
@@ -193,7 +195,8 @@ public:
      * @return Shared-pointer copy of the GameObject's coordinate,
      * if the GameObject has a coordinate.
      * Null-shared-pointer if the GameObject has no coordinate.
-     * @post Exception guarantee: No-throw
+     * @post Exception guarantee: Strong
+     * @exception See std::make_shared
      * @note To change GameObject's coordinate you must use setCoordinate.
      * This prevent unwanted alterations by accident.
      */

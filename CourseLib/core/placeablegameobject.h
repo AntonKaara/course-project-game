@@ -84,7 +84,7 @@ public:
     virtual void setLocationTile(const std::shared_ptr<TileBase>& tile) final;
 
     /**
-     * @brief Returns a shared_ptr to current lcoation-tile.
+     * @brief Returns a shared_ptr to current location-tile.
      * @return
      * @post Exception guarantee: No-throw
      */

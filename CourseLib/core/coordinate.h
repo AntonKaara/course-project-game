@@ -17,22 +17,26 @@ class Coordinate
 public:
 
     Coordinate() = delete;
+
     /**
      * @brief Constructor for x, y coordinates
      * @param x X-coordinate
      * @param y Y-coordinate
      */
     Coordinate(int x, int y);
+
     /**
      * @brief Copy-constructor
      * @param original Reference to a Coordinate that is being copied
      */
     Coordinate(const Coordinate& original);
+
     /**
      * @brief Copy-constructor where the new Coordinate is moved.
      * @param original Reference to Coordinate that is being copied
      * @param direction What direction is the movement applied
      * @param steps How many steps towards that direction is taken, default = 1
+     * @post Exception guarantee: No-throw
      */
     Coordinate(const Coordinate& original, Direction direction, int steps=1);
 
@@ -48,6 +52,7 @@ public:
      * @post Exception guarantee: No-throw
      */
     int x() const;
+
     /**
      * @brief y Return's the y-value
      * @return y-coordinate
@@ -70,12 +75,13 @@ public:
 
     /**
      * @brief travel Increments the coordinate values to given direction.
-     * Optionally van give how many increments are done.
+     * Optionally can give how many increments are done.
      * @param direction Direction in x,y -coordinate system
      * @param steps How many increments of the values are done.
      * @post Exception guarantee: No-throw
      */
     void travel(Direction direction, int steps=1);
+
     /**
      * @brief neighbour_at Returns a new Coordinate object instead of changing
      * the current one
@@ -142,6 +148,7 @@ public:
      * @post Exception guarantee: No-throw
      */
     bool operator==(const Coordinate& other) const;
+
     /**
      * @brief operator == Checks if a coordinate doesnt' have same
      * x and y values as this
@@ -151,6 +158,7 @@ public:
      * @post Exception guarantee: No-throw
      */
     bool operator!=(const Coordinate& other) const;
+
     /**
      * @brief operator < Checks if this has lower value than other.
      * Decision is based on x-value.
@@ -158,8 +166,10 @@ public:
      * @param other The other Coordinate
      * @return
      * True - (x(this) < x(other)) or (x(this) == x(other) + y(this) < y(other))
+     * @post Exception guarantee: No-throw
      */
     bool operator<(const Coordinate& other) const;
+
     /**
      * @brief operator < Checks if this has higher value than other.
      * Decision is based on x-value.
@@ -167,18 +177,21 @@ public:
      * @param other The other Coordinate
      * @return
      * True - (x(this) > x(other)) or (x(this) == x(other) + y(this) > y(other))
+     * @post Exception guarantee: No-throw
      */
     bool operator>(const Coordinate& other) const;
+
     /**
      * @brief operator <= logical-OR with == and < operators
      * @param other The other Coordinate
-     * @return
+     * @post Exception guarantee: No-throw
      */
     bool operator<=(const Coordinate& other) const;
+
     /**
      * @brief operator <= logical-OR with == and > operators
      * @param other The other Coordinate
-     * @return
+     * @post Exception guarantee: No-throw
      */
     bool operator>=(const Coordinate& other) const;
 
