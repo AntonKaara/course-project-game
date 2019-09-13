@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-08-28T17:16:53
+# Project created by QtCreator 2019-09-13T12:48:10
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += testlib
 
 QT       -= gui
 
-TARGET = tst_default_test
+TARGET = tst_resourcemap_operationstest
 CONFIG   += console
 CONFIG   -= app_bundle
 
@@ -29,20 +29,8 @@ INCLUDEPATH += \
     $$PWD/../../CourseLib/
 
 HEADERS += \
-    $$PWD/../../CourseLib/core/gameobject.h \
-    $$PWD/../../CourseLib/core/coordinate.h \
-    $$PWD/../../CourseLib/core/playerbase.h \
-    $$PWD/../../CourseLib/tiles/tilebase.h \
-    $$PWD/../../CourseLib/workers/workerbase.h \
-    $$PWD/../../CourseLib/core/placeablegameobject.h
-
+    $$PWD/../../CourseLib/core/basicresources.h
 
 SOURCES += \
-    $$PWD/../../CourseLib/core/gameobject.cpp \
-    $$PWD/../../CourseLib/core/coordinate.cpp \
-    $$PWD/../../CourseLib/core/playerbase.cpp \
     $$PWD/../../CourseLib/core/basicresources.cpp \
-    $$PWD/../../CourseLib/tiles/tilebase.cpp \
-    $$PWD/../../CourseLib/workers/workerbase.cpp \
-    $$PWD/../../CourseLib/core/placeablegameobject.cpp \
-    tst_default_test.cpp
+    tst_resourcemap_operationstest.cpp
