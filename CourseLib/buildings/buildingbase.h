@@ -39,7 +39,7 @@ public:
      * @param tile points to the tile upon which the building is constructed.
      * @param hold is the initial amount of hold-markers.
      *
-     * @post Exception Guarantee: No guarantee.
+     * @post Exception guarantee: No guarantee.
      * @exception OwnerConflict - if the building conflicts with tile's
      * ownership.
      */
@@ -105,6 +105,7 @@ public:
      * True - Base class' method return true and Tile has space for building.
      * False - If both conditions are not met.
      * @note Override to modify placementrules for derived classes.
+     * @post Exception guarantee: Basic
      */
     virtual bool canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const;
 

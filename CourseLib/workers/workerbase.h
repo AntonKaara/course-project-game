@@ -63,6 +63,7 @@ public:
 
     /**
      * @brief Returns the currently focused resourcetype.
+     * @post Exception guarantee: No-throw
      */
     virtual BasicResource getResourceFocus() const final;
     

@@ -62,9 +62,15 @@ public:
     /**
      * @brief Sets neighbouring Tiles' ownership to this building's
      * ownership in 1 tile-radius, if the Tiles don't already have an owner.
+     * @post Exception guarantee: Basic
      */
     virtual void onBuildAction() override;
 
+    /**
+     * @brief getProduction
+     * @return
+     * @post Exception guarantee: Basic
+     */
     virtual const ResourceMap getProduction() override;
 
 }; // class Outpost

@@ -81,7 +81,6 @@ public:
      * or Building if it breaks a placement rule.
      * @exception NotEnoughSpace (IllegalMove) - If the tile doesn't have enough
      * space for the Building.
-     *
      */
     virtual void addBuilding(const std::shared_ptr<BuildingBase>& building);
 
@@ -96,7 +95,6 @@ public:
      * @post Exception guarantee: Basic
      * @exception InvalidPointer - If the Building's pointer doesn't
      * point to anything.
-     *
      */
     virtual void removeBuilding(const std::shared_ptr<BuildingBase>& building);
 
@@ -109,7 +107,7 @@ public:
      * 3. Worker is added to this Tile. \n
      * 4. Tile updates Worker's location. \n
      *
-     * @param worker A pointer to the Worket that is being added.
+     * @param worker A pointer to the Worker-object that is being added.
      * @post Exception guarantee: Basic
      * @exception InvalidPointer - If the Worker's pointer doesn't
      * point to anything or ObjectManager doesn't return valid shared_ptr to
@@ -118,7 +116,6 @@ public:
      * or Worker if it breaks a placement rule.
      * @exception NotEnoughSpace (IllegalMove) - If the tile doesn't have enough
      * space for the Worker.
-     *
      */
     virtual void addWorker(const std::shared_ptr<WorkerBase>& worker);
 
@@ -133,6 +130,7 @@ public:
      * @exception InvalidPointer - If the Worker's pointer doesn't
      * point to anything.
      * @post Exception guarantee: Basic
+     * @exceptions See std::vector::erase
      */
     virtual void removeWorker(const std::shared_ptr<WorkerBase>& worker);
 
@@ -150,11 +148,11 @@ public:
      */
     virtual bool generateResources();
 
-
     /**
      * @brief Returns the amount of spaces that are being taken from the
      * building-capacity.
      * @return The amount of space taken.
+     * @post Exception guarantee: No-throw
      */
     virtual unsigned int getBuildingCount() const final;
 
@@ -162,6 +160,7 @@ public:
      * @brief Returns the amount of spaces that are being taken from the
      * worker-capacity.
      * @return The amount of space taken.
+     * @post Exception guarantee: No-throw
      */
     virtual unsigned int getWorkerCount() const final;
 
