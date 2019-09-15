@@ -168,6 +168,7 @@ public:
      * @brief Checks if the tile has enough space for workers.
      * @param amount Amount of workerspace wanted.
      * @note Uses getMaxWorkers()
+     * @post Exception guarantee: No-throw
      */
     virtual bool hasSpaceForWorkers(int amount) const final;
 
@@ -175,6 +176,7 @@ public:
      * @brief Checks if the tile has enough space for buildings.
      * @param amount Amount of buildingspace wanted.
      * @note Uses getMaxBuildings()
+     * @post Exception guarantee: No-throw
      */
     virtual bool hasSpaceForBuildings(int amount) const final;
 

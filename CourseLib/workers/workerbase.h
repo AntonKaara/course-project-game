@@ -25,9 +25,6 @@ public:
      */
     WorkerBase() = delete;
 
-    /**
-     *
-     */
     WorkerBase(const std::shared_ptr<iGameEventHandler>& eventhandler,
                const std::shared_ptr<iObjectManager>& objectmanager,
                const std::shared_ptr<PlayerBase>& owner,
@@ -74,7 +71,7 @@ public:
      * @param target is the Tile that worker is being placed on.
      * @return
      * True - Only if both conditions are met.
-     * @post Exception guarantee: No-throw
+     * @post Exception guarantee: Basic
      * @note
      * Override to change placement rules for derived worker.
      */
