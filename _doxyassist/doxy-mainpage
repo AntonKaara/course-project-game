@@ -1,98 +1,5 @@
 /*! \mainpage Colonization of Pirkanmaa (Programming 3 - Excercise project)
  *
- * \section intro Introduction
- *
- * An expedition has returned from far north and is spreading stories of a
- * mythical land hidden in the wilderness. This land is abundant in resources
- * and has peaked interest of many citizens and merchants of neighbouring
- * cities and countries.
- *
- * Time is of the essence. The race for the colonization of Pirkanmaa has begun.
- *
- * \section grading Grading
- *
- * \subsection grading_1 Requirements
- * \subsubsection grading_1_min Minimum requirements (Max Grade 1)
- *   - Successfully compiling game.
- *   - Some kind of game-mechanics implemented
- *      - (e.g. player turns, scoring)
- *   - One dialog-window
- *      - (e.g. Start menu to specify amount of players, goals etc.)
- *   - At least one own Tile-class
- *   - At least one own Building-class
- *   - UnitTests for both interface -implementations.
- *   - Final document that must contain:
- *      - Game-rules
- *      - Game-controls
- *      - Class responsibilities (class diagram is good tool in this)
- *      - Division of labour.
- *
- * \subsubsection grading_1_int Intermediate requirements (Max Grade 3)
- *   - Meets minimum requirements.
- *   - Own graphics
- *   - At least 3 own unique Tile-classes
- *   - At least 2 own unique Building-classes
- *   - At least 2 own unique Worker-classes
- *   - Bonuspoints can compensate up to one grade's worth of mistakes.
- *
- * \subsubsection grading_1_top Top-grade requirements (Max Grade 5)
- *   - Must meet minimum and intermediate requirements
- *   - At least 2 additional features.
- *   - Bonuspoints can compensate up to one grade's worth of mistakes.
- *
- * \subsection grading_2 Grades
- *
- *   - Grading will consist of smaller sections and bonus-points.
- *   - Final grade is limited by requirements specified in previous subsection
- *   - After meeting intermediate requirements, bonus points can compensate 1
- *      grade.
- *   - After implementing 2 additional features, bonus points can give 2 extra
- *      grades.
- * \n
- *   - Graded sections:
- *      - Overall design and structure
- *      - Class design and implementation
- *          - Proper principles in object-oriented programming
- *          - Class documentation
- *      - Exception handling
- *          - Proper usage and handling of exceptions
- *      - Code quality
- *          - Following good programming principles.
- *          - Style
- *      - Version history & Teamwork
- *      - Bonus points
- *          - Awared from additional features.
- * \n
- *   - Scoring from graded sections:
- *      - 50% => 1
- *      - 70% => 2
- *      - 90% => 3
- * \n
- *   - Examples of additional features:
- *      - New game mechanics (up to 1 grade)
- *      - AI-players (up to 1 grade)
- *      - High-score system (up to 0.5 grades)
- *      - Own ideas for additional features (depends on the complexity)
- *      - ALL ADDITIONAL FEATURES MUST BE DOCUMENTED IN THE FINAL DOCUMENT
- *        IN ORDER TO BE APPLICABLE FOR BONUS POINTS!!!
- *
- *   - Extra work qualified for bonus points:
- *      - Additional (well implemented) unittests (up to 0.5 grades)
- *      - Additional Tiles, Buildings and Workers (up to 0.5 grades)
- *      - Nice graphics (up to 1 grade)
- *
- * \n
- *  Examples:
- *      - Only minimum requirements met and perfect score in graded sections,
- *          no bonus-points ( 3 + 0 => 1)
- *      - Minimum and intermediate requirements met 75% of graded section score,
- *          0.5 grades worth of bonus-points ( 2 + 0.5 => 2.5)
- *      - Minimum and intermediate requirements met 60% of graded section score,
- *          2 additional features and total of 3.5 grades worth of bonus points
- *          (1 + 3.5 => 4 )
- *          - Only 3 points are taken in account from the 3.5
- *            (1 for graded section compensation, 2 for extra grades)
- *
  * \section setup  Project setup
  *
  * This section contains information on how to clone and setup the project.
@@ -105,6 +12,7 @@
  *
  * Make sure that the project compiles
  *
+ * \htmlinclude exercise_specifications.html
  *
  * \section faq Frequently Asked Questions
  *
