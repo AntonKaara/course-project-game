@@ -59,6 +59,21 @@ public:
     virtual std::string getType() const override;
 
     /**
+     * @brief Check if the worker can be placed on the Tile according to
+     * it's placement rule. Only rule is that the Tile must have same owner
+     * as the worker.
+     * @param target is the Tile that worker is being placed on.
+     * @return
+     * True - If baseclass' method return true and target Tile has space
+     * for worker.
+     * False - If both conditions aren't met.
+     * @note Override to change placement rules for derived worker.
+     * @post Exception guarantee: Basic
+     */
+    virtual bool canBePlacedOnTile(
+            const std::shared_ptr<TileBase> &target) const override;
+
+    /**
      * @brief Performs the Worker's default action.
      */
     virtual void doSpecialAction() override;
@@ -68,6 +83,7 @@ public:
      * Worker consumes FOOD and MONEY. Resource consumption and resource
      * focus determine final multiplier that is based on WORKER_EFFICIENCY.
      * 
+     * @return 
      */
     virtual const ResourceMapDouble tileWorkAction() override;
 
