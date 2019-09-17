@@ -31,7 +31,7 @@ const std::shared_ptr<Course::GameObject> &SimpleMapItem::getBoundObject()
     return m_gameobject;
 }
 
-void SimpleMapItem::updated()
+void SimpleMapItem::updateLoc()
 {
     if ( !m_gameobject ){
         delete this;
