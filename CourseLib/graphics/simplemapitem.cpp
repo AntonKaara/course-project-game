@@ -18,6 +18,7 @@ QRectF SimpleMapItem::boundingRect() const
 
 void SimpleMapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED( option ); Q_UNUSED( widget );
     painter->setBrush(QBrush(c_mapcolors.at(m_gameobject->getType())));
     if ( m_gameobject->getType() == "" ){
 
