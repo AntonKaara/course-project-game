@@ -47,9 +47,10 @@ public:
      * @brief Register a Tile's constructor for use in map generation.
      * @note Do this only once per Tile type or they won't be equally common.
      * Use the Tile's type as the template parameter: addConstructor<Forest>();
+     * @param weight represents the rarity of the Tile, high being common.
      */
     template<typename T>
-    void addConstructor();
+    void addConstructor(unsigned int weight);
 
     /**
      * @brief Generates Tile-objects and sends them to ObjectManager.
@@ -70,19 +71,23 @@ public:
 private:
     /**
      * @brief Default constructor.
-     * @note Preregisters Forest and Grassland constructors. Since they are the
-     * only ones that exist at the moment (before students create their own),
-     * they are the only ones that can be registered at this time.
      */
-    WorldGenerator();
+    WorldGenerator() = default;
 
     /**
      * @brief Default destructor.
      */
     ~WorldGenerator() = default;
 
+    /**
+     * @brief Find the Tile ctor matching the random number.
+     * @param random is the random number being matched to a Tile.
+     * @return The constructor matching the random number.
+     */
+    TileConstructorPointer findRandCtor(unsigned int random) const;
+
     // For mapping constructors.
-    std::map<unsigned int, TileConstructorPointer> m_constructors;
+    std::multimap<unsigned int, TileConstructorPointer> m_ctors;
 
 }; // class WorldGenerator
 
