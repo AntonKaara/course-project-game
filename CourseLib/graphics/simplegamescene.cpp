@@ -15,24 +15,21 @@ SimpleGameScene::SimpleGameScene(QWidget* parent,
                                  int scale):
     QGraphicsScene(parent),
     m_mapBoundRect(nullptr),
-    m_width(width),
-    m_height(height),
-    m_scale(scale)
+    m_width(10),
+    m_height(10),
+    m_scale(50)
 {
-    resize();
-}
-
-SimpleGameScene::~SimpleGameScene()
-{
+    setSize(width, height);
+    setScale(scale);
 }
 
 void SimpleGameScene::setSize(int width, int height)
 {
-    if ( width > SCENE_WIDTH_LIMITS.first && width < SCENE_WIDTH_LIMITS.second )
+    if ( width >= SCENE_WIDTH_LIMITS.first && width <= SCENE_WIDTH_LIMITS.second )
     {
         m_width = width;
     }
-    if ( height > SCENE_HEIGHT_LIMITS.first && height < SCENE_HEIGHT_LIMITS.second )
+    if ( height >= SCENE_HEIGHT_LIMITS.first && height <= SCENE_HEIGHT_LIMITS.second )
     {
         m_height = height;
     }
@@ -41,10 +38,11 @@ void SimpleGameScene::setSize(int width, int height)
 
 void SimpleGameScene::setScale(int scale)
 {
-    if ( scale > SCENE_SCALE_LIMITS.first && scale < SCENE_SCALE_LIMITS.second )
+    if ( scale >= SCENE_SCALE_LIMITS.first && scale <= SCENE_SCALE_LIMITS.second )
     {
         m_scale = scale;
     }
+    resize();
 }
 
 void SimpleGameScene::resize()
@@ -61,6 +59,8 @@ void SimpleGameScene::resize()
     addRect(rect, QPen(Qt::black));
     setSceneRect(rect);
     m_mapBoundRect = itemAt(rect.topLeft(), QTransform());
+    // Draw on the bottom of all items
+    m_mapBoundRect->setZValue(-1);
 }
 
 int SimpleGameScene::getScale() const
@@ -75,12 +75,15 @@ std::pair<int, int> SimpleGameScene::getSize() const
 
 void SimpleGameScene::updateItem(std::shared_ptr<Course::GameObject> obj)
 {
-    QList<QGraphicsItem*> items_list = items(obj->getCoordinate().asQpoint());
+    QList<QGraphicsItem*> items_list = items();
     if ( items_list.size() == 1 ){
-        qDebug() << "Nothing to be updated at the location pointed by given obj.";
+        qDebug() << "Nothing to update.";
     } else {
         for ( auto item : items_list ){
-            static_cast<SimpleMapItem*>(item)->updated();
+            SimpleMapItem* mapItem = static_cast<SimpleMapItem*>(item);
+            if (mapItem->isSameObj(obj)){
+                mapItem->updateLoc();
+            }
         }
     }
 }
