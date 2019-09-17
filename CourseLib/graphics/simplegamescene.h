@@ -18,8 +18,7 @@ const std::pair<int, int> SCENE_SCALE_LIMITS = {1, 500};
 
 /**
  * @brief The SimpleGameScene is a custom QGraphicsScene that shows
- * a simple rendering of the game map and emits info when map area or an
- * SimpleMapItem drawn on it is clicked.
+ * a simple rendering of the game map.
  */
 class SimpleGameScene : public QGraphicsScene
 {
