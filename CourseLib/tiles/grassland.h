@@ -10,11 +10,11 @@ namespace Course {
  * @brief The Grassland class represents Grassland in the gameworld.
  *
  * Grassland has BasicProduction: \n
- * Money = 1 \n
- * Food = 2 \n
- * Wood = 1 \n
- * Stone = 0 \n
- * Ore = 0 \n
+ * * Money = 2
+ * * Food = 5
+ * * Wood = 1
+ * * Stone = 1
+ * * Ore = 0
  *
  * Functionality follows mainly the parent class' functionality.
  *
@@ -41,7 +41,10 @@ public:
      */
     Grassland(const Coordinate& location,
               const std::shared_ptr<iGameEventHandler>& eventhandler,
-              const std::shared_ptr<iObjectManager>& objectmanager);
+              const std::shared_ptr<iObjectManager>& objectmanager,
+              const unsigned int& max_build = 3,
+              const unsigned int& max_work = 3,
+              const ResourceMap& production = ConstResourceMaps::GRASSLAND_BP);
 
     /**
      * @brief Default destructor.

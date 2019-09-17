@@ -41,26 +41,26 @@ const ResourceMapDouble BasicWorker::tileWorkAction()
 
     ResourceMapDouble final_modifier;
 
-    if (events->modifyResource(player, BasicResource::FOOD, -1))
+    if ( events->modifyResource(player, BasicResource::FOOD, -1) )
     {
         satisfaction = 0.5;
-        if (events->modifyResource(player, BasicResource::MONEY, -1))
+        if ( events->modifyResource(player, BasicResource::MONEY, -1) )
         {
             satisfaction = 1;
         }
     }
 
 
-    if( focus != BasicResource::NONE)
+    if( focus != BasicResource::NONE )
     {
         final_modifier[focus] =
-                (WORKER_EFFICIENCY.at(focus) + 0.25) * satisfaction;
+                WORKER_EFFICIENCY.at(focus) * (satisfaction + 0.25);
     }
     else
     {
         for( auto it = WORKER_EFFICIENCY.begin();
              it != WORKER_EFFICIENCY.end();
-             ++it)
+             ++it )
         {
             final_modifier[it->first] = it->second * satisfaction;
         }

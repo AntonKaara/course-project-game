@@ -36,7 +36,7 @@ void BuildingBase::onBuildAction()
     qDebug() << "BuildingBase - onBuildAction";
 }
 
-const ResourceMap BuildingBase::getProduction()
+ResourceMap BuildingBase::getProduction()
 {
     if( m_hold > 0 )
     {

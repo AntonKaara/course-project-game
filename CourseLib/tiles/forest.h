@@ -10,18 +10,15 @@ namespace Course {
  * @brief The Forest class represents Forest in the gameworld.
  *
  * Forest has BasicProduction: \n
- * Money = 1 \n
- * Food = 2 \n
- * Wood = 3 \n
- * Stone = 0 \n
- * Ore = 0 \n
+ * * Money = 1
+ * * Food = 3
+ * * Wood = 5
+ * * Stone = 1
+ * * Ore = 0
  *
- * Building in the forest takes time. So buildings don't generate resources or
- * bonuses on the first resource generation turn.
- * Clearing space for the building Generates 3 extra wood that turn.
- * Forest loses 1 Wood output for each building.
+ * Building in the forest takes time. So buildings get extra hold-marker.
  *
- * Tile supports 3 buildings.
+ * Tile supports 2 buildings.
  */
 class Forest : public TileBase
 {
@@ -55,7 +52,8 @@ public:
     virtual std::string getType() const override;
 
     /**
-     * @brief Adds a new building-object to the tile.
+     * @brief Adds a new building-object to the tile. Building in forest adds
+     * one hold-marker to the building.
      *
      * Phases: \n
      * 1. Check that there is space for the building. \n

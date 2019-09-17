@@ -80,7 +80,7 @@ public:
      * on Tile's production.
      *
      */
-    virtual const ResourceMap getProduction();
+    virtual ResourceMap getProduction();
 
     /**
      * @brief Adds the amount to hold-markers.
@@ -107,7 +107,8 @@ public:
      * @note Override to modify placementrules for derived classes.
      * @post Exception guarantee: Basic
      */
-    virtual bool canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const;
+    virtual bool canBePlacedOnTile(
+            const std::shared_ptr<TileBase> &target) const override;
 
 private:
     int m_hold;

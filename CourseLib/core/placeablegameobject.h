@@ -59,7 +59,7 @@ public:
      * @return Amount of spaces that is being taken.
      * @post Exception guarantee: No-throw
      */
-    virtual int spacesInTileCapacity() const final;
+    virtual int spacesInTileCapacity() const;
 
     /**
      * @brief Check if the object's own placement rules allow placement on the

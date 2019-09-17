@@ -71,7 +71,7 @@ public:
      * @return
      * @post Exception guarantee: Basic
      */
-    virtual const ResourceMap getProduction() override;
+    virtual ResourceMap getProduction() override;
 
 }; // class Outpost
 

@@ -15,11 +15,13 @@ namespace Course {
  * * Food - 1.00 \n
  * * Wood - 0.75 \n
  * * Stone - 0.50 \n
- * * Ore - 0.125 \n
+ * * Ore - 0.50 \n
  *
- * Workers consume Food and money. \n
+ * BasicWorkers consume Food and money. \n
  * * 1 Food - Or BasicWorker refuses to work. \n
  * * 1 Money - Or BasicWorker works at 50% efficiency. \n
+ * * Resourcefocus adds 25% efficiency for the focused resource,
+ * even if the worker is refusing work.
  */
 class BasicWorker : public WorkerBase
 {
@@ -61,6 +63,12 @@ public:
      */
     virtual void doSpecialAction() override;
 
+    /**
+     * @brief Returns Worker's efficiency at resource production.
+     * Worker consumes FOOD and MONEY. Resource consumption and resource
+     * focus determine final multiplier that is based on WORKER_EFFICIENCY.
+     * 
+     */
     virtual const ResourceMapDouble tileWorkAction() override;
 
 private:

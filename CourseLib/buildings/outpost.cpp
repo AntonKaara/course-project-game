@@ -42,7 +42,7 @@ void Outpost::onBuildAction()
     }
 }
 
-const ResourceMap Outpost::getProduction()
+ResourceMap Outpost::getProduction()
 {
     // Outpost has only negative production effect.
     // Ze hold markerz, zey do nothing.

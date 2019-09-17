@@ -75,7 +75,8 @@ public:
      * @note
      * Override to change placement rules for derived worker.
      */
-    virtual bool canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const;
+    virtual bool canBePlacedOnTile(
+            const std::shared_ptr<TileBase> &target) const override;
 
     /**
      * @copydoc GameObject::getType()
