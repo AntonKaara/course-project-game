@@ -26,7 +26,8 @@ public:
     /**
      * @brief Constructor for the class
      * @param name A std::string for player's name
-     * @param objects (optional) A std::vector of weak-pointers to GameObjects.
+     * @param objects (optional) A std::vector of shared-pointers to
+     * GameObjects.
      */
     PlayerBase(const std::string& name,
                const std::vector<std::shared_ptr<GameObject> > objects ={});

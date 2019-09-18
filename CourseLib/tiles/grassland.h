@@ -19,8 +19,6 @@ namespace Course {
  * Functionality follows mainly the parent class' functionality.
  *
  * Tile supports 3 buildings.
- *
- * @invariant Weak-pointer to GameEventHandler hasn't expired.
  */
 class Grassland : public TileBase
 {
