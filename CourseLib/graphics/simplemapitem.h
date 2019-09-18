@@ -71,8 +71,9 @@ public:
 
     /**
      * @brief setSize
-     * @param size
-     * @post Exception guarantee: None
+     * @param size of the object in pixels.
+     * @pre 0 < size <= 500
+     * @post Exception guarantee: No-throw
      */
     void setSize(int size);
 

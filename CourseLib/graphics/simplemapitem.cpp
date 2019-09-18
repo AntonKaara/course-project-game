@@ -21,7 +21,7 @@ void SimpleMapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED( option ); Q_UNUSED( widget );
     painter->setBrush(QBrush(c_mapcolors.at(m_gameobject->getType())));
     if ( m_gameobject->getType() == "" ){
-
+        // Draw different types in different shapes
     }
     painter->drawRect(boundingRect());
 }
@@ -53,7 +53,9 @@ int SimpleMapItem::getSize() const
 
 void SimpleMapItem::setSize(int size)
 {
-    m_size = size;
+    if ( size > 0 && size <= 500 ){
+        m_size = size;
+    }
 }
 
 void SimpleMapItem::addNewColor(std::string type)
