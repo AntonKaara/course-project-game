@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include "../exceptions/keyerror.h"
-#include "../exceptions/expiredpointer.h"
 
 namespace Course{
 

@@ -4,7 +4,6 @@
 #include "core/gameobject.h"
 #include "core/playerbase.h"
 #include "exceptions/keyerror.h"
-#include "exceptions/expiredpointer.h"
 
 using namespace Course;
 

@@ -2,7 +2,6 @@
 
 
 #include "core/playerbase.h"
-#include "exceptions/expiredpointer.h"
 #include "exceptions/keyerror.h"
 
 using namespace Course;
