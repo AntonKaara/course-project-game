@@ -5,8 +5,8 @@
 namespace Course {
 
 /**
- * @brief The InvalidPointer exception is usually used in cases, where
- * data can't be accessed through a pointer.
+ * @brief The IllegalAction exception is usually used in cases, where
+ * an illegal game action was attempted.
  */
 class IllegalAction : public BaseException
 {
@@ -15,8 +15,11 @@ public:
      * @copydoc BaseException::BaseException
      */
     explicit IllegalAction(const std::string& msg = ""):
-        BaseException(msg){};
+        BaseException(msg){}
 
+    /**
+     * @copydoc BaseException::~BaseException
+     */
     virtual ~IllegalAction() = default;
 };
 

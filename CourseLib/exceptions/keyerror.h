@@ -16,7 +16,11 @@ public:
      * @copydoc BaseException::BaseException
      */
     explicit KeyError(const std::string& msg = ""):
-        BaseException(msg) {};
+        BaseException(msg) {}
+
+    /**
+     * @copydoc BaseException::~BaseException
+     */
     virtual ~KeyError() = default;
 };
 

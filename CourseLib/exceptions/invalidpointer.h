@@ -16,8 +16,11 @@ public:
      * @copydoc BaseException::BaseException
      */
     explicit InvalidPointer(const std::string& msg = ""):
-        BaseException(msg){};
+        BaseException(msg){}
 
+    /**
+     * @copydoc BaseException::~BaseException
+     */
     virtual ~InvalidPointer() = default;
 };
 
