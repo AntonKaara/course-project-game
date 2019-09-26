@@ -9,6 +9,10 @@
 
 namespace Course {
 
+/**
+ * @brief Direction is an enumeration to describe direction via
+ * cardinal and intercardinal compass directions.
+ */
 enum Direction{N=0,NE=1,E=2,SE=3,S=4,SW=5,W=6,NW=7, END=8};
 
 
