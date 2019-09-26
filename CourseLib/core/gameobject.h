@@ -18,8 +18,14 @@ class iGameEventHandler;
 // Some aliases to make things easier
 #ifndef COURSE_OBJECTID
 #define COURSE_OBJECTID
+/**
+ *@brief ObjectId is an alias for unsigned int
+ */
 using ObjectId = unsigned int;
 #endif
+/**
+ *@brief DescriptionMap is an alias for std::map<std::string, std::string>
+ */
 using DescriptionMap = std::map<std::string, std::string>;
 
 /**
