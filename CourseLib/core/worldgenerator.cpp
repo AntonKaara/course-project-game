@@ -50,7 +50,7 @@ void WorldGenerator::generateMap(
     objectmanager->addTiles(tiles);
 }
 
-TileConstructorPointer WorldGenerator::findRandCtor(unsigned int random) const
+TileConstructorPointer WorldGenerator::findRandCtor(int random) const
 {
     while (random > 0)
     {
