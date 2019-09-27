@@ -84,7 +84,7 @@ private:
      * @param random is the random number being matched to a Tile.
      * @return The constructor matching the random number.
      */
-    TileConstructorPointer findRandCtor(unsigned int random) const;
+    TileConstructorPointer findRandCtor(int random) const;
 
     // For mapping constructors.
     std::multimap<unsigned int, TileConstructorPointer> m_ctors;
