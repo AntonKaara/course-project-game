@@ -52,12 +52,12 @@ void WorldGenerator::generateMap(
 
 TileConstructorPointer WorldGenerator::findRandCtor(int random) const
 {
-    while (random > 0)
+    while (random >= 0)
     {
         for (const auto& ctor : m_ctors)
         {
             random -= ctor.first;
-            if (random <= 0)
+            if (random < 0)
             {
                 return ctor.second;
             }
