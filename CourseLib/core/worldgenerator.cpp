@@ -14,15 +14,6 @@ WorldGenerator& WorldGenerator::getInstance()
     return instance;
 }
 
-template<typename T>
-void WorldGenerator::addConstructor(unsigned int weight)
-{
-    TileConstructorPointer ctor = std::make_shared<T, Coordinate,
-            std::shared_ptr<iGameEventHandler>,
-            std::shared_ptr<iObjectManager> >;
-    m_ctors.insert(std::make_pair(weight, ctor));
-}
-
 void WorldGenerator::generateMap(
         unsigned int size_x,
         unsigned int size_y,

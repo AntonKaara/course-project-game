@@ -50,7 +50,13 @@ public:
      * @param weight represents the rarity of the Tile, high being common.
      */
     template<typename T>
-    void addConstructor(unsigned int weight);
+    void addConstructor(unsigned int weight)
+    {
+        TileConstructorPointer ctor = std::make_shared<T, Coordinate,
+                std::shared_ptr<iGameEventHandler>,
+                std::shared_ptr<iObjectManager> >;
+        m_ctors.insert(std::make_pair(weight, ctor));
+    }
 
     /**
      * @brief Generates Tile-objects and sends them to ObjectManager.
