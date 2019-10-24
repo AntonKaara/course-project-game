@@ -1,6 +1,6 @@
 # Programming 3 Exercise project template
 
-1. Maken järki sure you have setup ssh-key for your GitLab account. https://course-gitlab.tuni.fi/profile/keys
+1. Make sure you have setup ssh-key for your GitLab account. https://course-gitlab.tuni.fi/profile/keys
 2. Clone using --recursive
 3. Make sure you can build the project. (Should compile without issues if your environment is setup correctly)
 
@@ -21,4 +21,3 @@ You should create your own code inside your own namespace :)
 
 
 # You are allowed (and probably should) make changes to this file after you have started your project. :)
- se on hyvä se........
