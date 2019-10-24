@@ -21,3 +21,4 @@ You should create your own code inside your own namespace :)
 
 
 # You are allowed (and probably should) make changes to this file after you have started your project. :)
+ se on hyvä se.
