@@ -1,0 +1,38 @@
+Pelin tavoite:
+
+Pelin resurssit:
+
+Maptile tyypit:
+	Grassland
+		- Buildable:
+			HQ, Outpost....
+	Forest
+		- 
+
+Unit types:
+	Liikkuu yhden laatan kerrallaan kunnes movement pointit loppu
+
+
+Muita päätettäviä:
+- Mapin koko, tyyppi, randomisointi...?
+
+
+UI-ideat:
+- Maalaatan voi valita hiirellä
+- Maalaatan valitessaan voi hiiren oikealla näppäimellä liikuttaa 
+unittia
+- Information- ja build-välilehdet erikseen
+	- Maalaatan valitsemisen jälkeen
+	- Information:
+		Statistics, Buildings, Units standing on tile
+	- Build:
+		Building selector:
+			Rakennukset ja niiden statsit, hinta
+- Unittien liikkuminen:
+	
+
+UI-lisäosat:
+- Tooltipit maalaattoihin HTML-muotoilulla
+	- Statsit (population, production...)
+- Zoom?
+	- Mouse scroll
