@@ -1,38 +1,77 @@
+Ideointia. 
+Toteutetaan vaiheittain, perusominaisuudet kuntoon -> jos saadaan, niin mahdollisia lisäominaisuuksia. 
+
+
+Idea:
+
+- Nyt medieval-themed vuoropeli. Muuta mahdollista teemaa? 
+- täytyy keksiä hyvä tarina. "Kaksi barbaarihordea lähtivät kaukaa pohjoisesta levittäytymään pitkin (insert joku fantasyname kuten Lumviedalia) ja saapuivat viikkoja kestäneen taivalluksen jälkee
+  Pirkanmaan provinssiin. Rothaku-klaaniin kuuluva komentajabarbaari Ogoglulukewantoke kuuli Pirkanmaan suurista rikkauksista ja johdatti joukkonsa luoteis-Pirkanmaan alangoille, johon klaani majoittui rehevän
+  ruohoalangon vuoksi. blabla blablalbablalbalbal"
+
+
 Pelin tavoite:
+- Vallata enemmän mapista ?
+- Milloin peli päättyy??????? Kun joku tuhoaa toisen HQ vai miten? 
+
 
 Pelin resurssit:
+- Wood -> enemmän suuremmista metsistä
+- Copper, Tin -> low level budget rakennuksiin
+- Iron -> Med level mid-tier rakennuksiin
+- Mystinen onyx -> jumal-tier rakennuksiin
+- Raha, coins -> ostaakseen joukkoja, eli uusia unitteja.
+- jne. 
 
 Maptile tyypit:
 	Grassland
 		- Buildable:
-			HQ, Outpost....
+			HQ, Outpost, farm, mitä muuta? kaivos, josta saa orea x kpl / vuoro / worker.
 	Forest
-		- 
+		- Eri metsätyyppejä? Dense forest, light rämeikkö, tms :D 
+		- Tuhdimpien metsien ilmestyminen rarempaa, niistä enemmän puuta
+	Cave(?)
+		- Sama idea kuin metsille, mutta voi löytää erilaisia malmeja (päätetään cave-oliota luodessa? vai legit random); copper, iron, 
+		  mahdollisesti joihinkin rakennuksiin yhdistelmiä; copper + tin -> pronssihökkeli)
+	
+	alkuun vain yhden toteutus/kohta(?), sitten periytetään loput ja muokataan jne.
 
 Unit types:
-	Liikkuu yhden laatan kerrallaan kunnes movement pointit loppu
+	 
+	- tarjotut wörkkerit eli orjat -> farmeille ja kaivoksiin. voi ostaa rahalla
+	- LOHIKÄÄRMEET -> tuhoaa vastapelaajan rakennuksia liikuttamalla sen ruutuun. unlockaus jotenkin
+	- horsemen -> liikkuvat useampia tiiliä/vuoro oletuksena?
+	- veleho ?????
+	- footsoldiers; perus rivijampat, liikkuu hitaammin ja tuhoaa kanssa enemy playerin rakennuksia
+	- jonkinlaiset barrikadit (?)
+	
 
 
 Muita päätettäviä:
-- Mapin koko, tyyppi, randomisointi...?
+- Mapin koko, tyyppi, randomisointi...? Mapin alkioiden toteutus, miten päätetään randomin forest tai cave tms. paikka, ...
 
 
 UI-ideat:
 - Maalaatan voi valita hiirellä
-- Maalaatan valitessaan voi hiiren oikealla näppäimellä liikuttaa 
-unittia
+- Maalaatan valitessaan voi hiiren oikealla näppäimellä liikuttaa unittia
 - Information- ja build-välilehdet erikseen
 	- Maalaatan valitsemisen jälkeen
 	- Information:
 		Statistics, Buildings, Units standing on tile
 	- Build:
 		Building selector:
-			Rakennukset ja niiden statsit, hinta
+			Rakennukset ja niiden statsit, hinta VAI vaadittavat materiaalit (?)
 - Unittien liikkuminen:
-	
+	- Liikkuu yhden laatan kerrallaan kunnes movement pointit loppu
+		-> Movement pointit; Energiamittari tms.? Farmeilla saatavalla ruoalla (ruokapisteillä) energiaa, eri joukkojen liikuttaminen vaatii eri määrän energiaa 
+		   (lohkare monta lehmää että jaksaa lentää yhdenkin tiilen)
+	- mahdollisuus yhteen tiileen/vuoro + jokin mahdollisuus lisätä tiilten määrää (esim. horse carriage?), pitää päättää mitä joukkoa järkevin liikuttaa -> strategia-aspekti
+	- Aloittavatko kaikki unitit tietyltä ruudulta esim. olisiko syytä olla esim. joku training grounds- laatta, jolta kaikki uudet unitit lähtevät? 
+	  Vai onko aloituspaikka aina pelin alkaessa vakio?
+
 
 UI-lisäosat:
 - Tooltipit maalaattoihin HTML-muotoilulla
-	- Statsit (population, production...)
+	- Statsit (population, buildings, building health, production...)
 - Zoom?
-	- Mouse scroll
+	- Mouse scroll, mapin koko iso? pakko olla zoom?
