@@ -1,0 +1,64 @@
+Conquering Of Pirkanmaa, v1
+
+IDEA: 
+Kaksinpeli, 1v1. Tavoite vallata suurin osa Pirkanmaasta ennen vastapelaajaa. Peli päättyy, kun vastustajan päämaja tuhotaan.
+Pelaaja on klaaninsa johtaja, ja komentaa klaaninsa toimintaa.
+
+KÄYTTÖLIITTYMÄ:
+
+- Main menu -> mapin koko, exit, start. LOGO
+- Peli-ikkuna -> ensimmäisenä tarina-dialogi, kartta + oikealla oleva nappipaneeli
+
+ALKUTILANNE:
+- HQ:t kulmissa, 1 sotilasjoukko
+- Alkuresurssit: ...
+ 
+
+RESURSSIT:
+
+- Wood -> käytetään rakennuksiin
+- Coins -> käytetään joukkojen ostoon
+- Food -> käytetään 
+- Workforce -> käytetään tuotantotiilten tekemiseen (ei erikeen workeria)
+
+MAALAATAT:
+
+- Grassland:
+	-> Grasslandille voi rakentaa uusia rakennuksia.
+	-> 
+- Forest:
+	-> Saa puuta
+- Cave:
+	-> Saa malmeja
+
+RAKENNUKSET:
+
+- HQ -> tuottaaa coins ja workforce. Joukkojen spawnaaminen HQ:sta?
+- Farm -> tuottaa foodia
+- Outpost -> alueiden claimaamiseen
+- Lumbermill -> tuottaa puuta
+
+JOUKOT:
+
+ - Footsoldier batallion
+	-> range 1
+	-> hp 100
+	-> damage 2
+	-> speed 2
+ - Archer gang
+	-> range 2 tiiltä
+	-> hp 50
+	-> damage 1
+	-> speed 2
+ - Horsemen squad
+	-> range 1
+	-> hp 120
+	-> damage 2
+	-> speed 4 
+
+
+
+
+
+
+
