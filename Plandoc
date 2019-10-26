@@ -4,14 +4,18 @@ Toteutetaan vaiheittain, perusominaisuudet kuntoon -> jos saadaan, niin mahdolli
 
 Idea:
 
-- Nyt medieval-themed vuoropeli. Muuta mahdollista teemaa? 
+KAKSINPELI. 1v1 manuaalisesti ei AI (aluksi)
+
+- Nyt medieval-themed vuoropeli (voi muuttaa jos haluaa) 
 - täytyy keksiä hyvä tarina. "Kaksi barbaarihordea lähtivät kaukaa pohjoisesta levittäytymään pitkin (insert joku fantasyname kuten Lumviedalia) ja saapuivat viikkoja kestäneen taivalluksen jälkee
   Pirkanmaan provinssiin. Rothaku-klaaniin kuuluva komentajabarbaari Ogoglulukewantoke kuuli Pirkanmaan suurista rikkauksista ja johdatti joukkonsa luoteis-Pirkanmaan alangoille, johon klaani majoittui rehevän
   ruohoalangon vuoksi. blabla blablalbablalbalbal"
+		-> DIALOGI JOSSA STAR WARS TYYLIIN KERROTAAN TARINA
 
 
 Pelin tavoite:
-- Vallata enemmän mapista ?
+- Vallata enemmän mapista.
+
 - Milloin peli päättyy??????? Kun joku tuhoaa toisen HQ vai miten? 
 
 
@@ -44,6 +48,10 @@ Unit types:
 	- veleho ?????
 	- footsoldiers; perus rivijampat, liikkuu hitaammin ja tuhoaa kanssa enemy playerin rakennuksia
 	- jonkinlaiset barrikadit (?)
+
+Unittien ominaisuudet:
+	- tila -> normal /rest ( healaaminen speed = 0)/ sprint (+1 movement jollain penaltylla) / defensive (defencebonus ja speed = 0) ?
+	- 
 	
 
 
@@ -75,3 +83,4 @@ UI-lisäosat:
 	- Statsit (population, buildings, building health, production...)
 - Zoom?
 	- Mouse scroll, mapin koko iso? pakko olla zoom?
+- Laatikko tapahtumien rekisteröintiin?
