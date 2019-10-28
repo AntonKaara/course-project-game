@@ -28,9 +28,8 @@ std::string HeadQuarters::getType() const
 
 void HeadQuarters::onBuildAction()
 {
-    std::vector< std::shared_ptr<TileBase> > neighbours;
-
-    lockObjectManager()->getTiles(getCoordinatePtr()->neighbours(3));
+    std::vector< std::shared_ptr<TileBase> > neighbours =
+            lockObjectManager()->getTiles(getCoordinatePtr()->neighbours(3));
 
     for(auto it = neighbours.begin(); it != neighbours.end(); ++it)
     {

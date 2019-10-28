@@ -28,9 +28,8 @@ std::string Outpost::getType() const
 
 void Outpost::onBuildAction()
 {
-    std::vector< std::shared_ptr<TileBase> > neighbours;
-
-    lockObjectManager()->getTiles(getCoordinatePtr()->neighbours(1));
+    std::vector< std::shared_ptr<TileBase> > neighbours =
+            lockObjectManager()->getTiles(getCoordinatePtr()->neighbours(1));
 
     for(auto it = neighbours.begin(); it != neighbours.end(); ++it)
     {
