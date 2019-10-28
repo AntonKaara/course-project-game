@@ -1,4 +1,5 @@
 #include "basicworker.h"
+#include "tiles/tilebase.h"
 #include "interfaces/igameeventhandler.h"
 #include "interfaces/iobjectmanager.h"
 
@@ -25,6 +26,12 @@ BasicWorker::BasicWorker(const std::shared_ptr<iGameEventHandler>& eventhandler,
 std::string BasicWorker::getType() const
 {
     return "BasicWorker";
+}
+
+bool BasicWorker::canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const
+{
+    return target->getOwner() == getOwner() and
+            WorkerBase::canBePlacedOnTile(target);
 }
 
 void BasicWorker::doSpecialAction()
