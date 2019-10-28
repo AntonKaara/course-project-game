@@ -49,8 +49,8 @@ void TileBase::addBuilding(const std::shared_ptr<BuildingBase>& building)
     {
         throw NotEnoughSpace("Tile has no more room for Buildings!");
     }
-    m_buildings.push_back(building);
     building->setLocationTile(tile);
+    m_buildings.push_back(building);
 }
 
 void TileBase::removeBuilding(const std::shared_ptr<BuildingBase>& building)
@@ -88,8 +88,8 @@ void TileBase::addWorker(const std::shared_ptr<WorkerBase>& worker)
         throw NotEnoughSpace("Tile: " + std::to_string(ID) +
                              " has no more room for Workers!");
     }
-    m_workers.push_back(worker);
     worker->setLocationTile(tile);
+    m_workers.push_back(worker);
 }
 
 void TileBase::removeWorker(const std::shared_ptr<WorkerBase>& worker)
