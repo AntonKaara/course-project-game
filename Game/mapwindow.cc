@@ -1,8 +1,10 @@
 #include "mapwindow.hh"
 #include "ui_mapwindow.h"
-
 #include "graphics/simplemapitem.h"
+#include "gameeventhandler.hh"
+#include "tiles/grassland.h"
 
+#include <memory>
 #include <math.h>
 
 MapWindow::MapWindow(QWidget *parent,
@@ -17,6 +19,7 @@ MapWindow::MapWindow(QWidget *parent,
     Course::SimpleGameScene* sgs_rawptr = m_simplescene.get();
 
     m_ui->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
+
 }
 
 MapWindow::~MapWindow()
