@@ -6,21 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Main Menu</string>
   </property>
   <widget class="QPushButton" name="playButton">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>230</y>
-     <width>84</width>
-     <height>28</height>
+     <x>360</x>
+     <y>110</y>
+     <width>201</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Play!</string>
@@ -29,11 +34,16 @@
   <widget class="QPushButton" name="quitButton">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>230</y>
-     <width>84</width>
-     <height>28</height>
+     <x>360</x>
+     <y>190</y>
+     <width>201</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Quit</string>
@@ -42,22 +52,32 @@
   <widget class="QLabel" name="gameNameLabel">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>30</y>
-     <width>221</width>
-     <height>20</height>
+     <x>20</x>
+     <y>10</y>
+     <width>561</width>
+     <height>91</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>C059</family>
+     <pointsize>26</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+     <kerning>true</kerning>
+    </font>
    </property>
    <property name="text">
     <string>CONQUERING OF PIRKANMAA</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="player1NameEdit">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>80</y>
-     <width>113</width>
+     <x>20</x>
+     <y>140</y>
+     <width>181</width>
      <height>28</height>
     </rect>
    </property>
@@ -65,17 +85,93 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="player1NameLabel">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>90</y>
+     <x>20</x>
+     <y>110</y>
      <width>161</width>
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>13</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>Insert player 1 name:</string>
+    <string>Player 1 name</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="player2NameEdit">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>220</y>
+     <width>181</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="player2NameLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>190</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>13</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Player 2 name</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="mapSizeComboBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>290</y>
+     <width>181</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Small</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Medium</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Large</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="mapSizeLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>260</y>
+     <width>81</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>13</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Map size</string>
    </property>
   </widget>
  </widget>

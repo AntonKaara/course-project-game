@@ -10,14 +10,16 @@ SOURCES += \
     mapwindow.cc \
     gameeventhandler.cpp \
     player.cpp \
-    mainmenu.cpp
+    mainmenu.cpp \
+    objectmanager.cpp
 
 HEADERS += \
     mapwindow.hh \
     gameeventhandler.hh \
     player.hh \
     resources.hh \
-    mainmenu.hh
+    mainmenu.hh \
+    objectmanager.hh
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
