@@ -42,6 +42,7 @@ MapWindow::~MapWindow()
 
 void MapWindow::generateMap()
 {
+    //moi
     int sizeX = 20;
     int sizeY = 20;
     int seed = 12345;
