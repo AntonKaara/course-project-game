@@ -9,7 +9,7 @@ Player::Player(const std::string& name,
     : Course::PlayerBase(name, objects)
 {
 
-//    resourceAmounts_ = PLAYER_STARTING_RESOURCES;
+    resourceAmounts_ = PLAYER_STARTING_RESOURCES;
 
 }
 

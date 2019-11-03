@@ -16,13 +16,9 @@ public:
     Player(const std::string& name,
            const std::vector<std::shared_ptr<Course::GameObject> > objects);
 private:
-    std::string name_ = "Unnamed";
+    std::string name_ = "Unnamed player";
     Course::ResourceMapDouble resourceAmounts_ = {};
 };
-
-
-
-
 
 } // namespace Aeta
 #endif // PLAYER_HH

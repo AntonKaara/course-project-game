@@ -13,13 +13,12 @@ int main(int argc, char* argv[])
     MainMenu mainMenu;
 
     if (mainMenu.exec() == QDialog::Accepted) {
+        mainMenu.close();
         mapWindow.show();
     } else {
         app.quit();
     }
 
-
     return app.exec();
-
 
 }

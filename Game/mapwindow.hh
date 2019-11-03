@@ -40,10 +40,13 @@ public:
 
 
 private:
-    Ui::MapWindow* m_ui;
-    std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
-    std::shared_ptr<Course::iObjectManager> m_objectManager = nullptr;
+    Ui::MapWindow* ui_;
+    std::shared_ptr<Course::iGameEventHandler> gameEventHandler_ = nullptr;
+    std::shared_ptr<Course::iObjectManager> objectManager_ = nullptr;
     std::shared_ptr<Course::SimpleGameScene> m_simplescene = nullptr;
+
+    int mapsizeX_ = 20;
+    int mapsizeY_ = 20;
 
 
 };

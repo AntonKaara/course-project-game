@@ -15,13 +15,12 @@ namespace Aeta {
 //    WORKFORCE = 6
 //};
 
+const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
+    {Course::BasicResource::MONEY, 10},
+    {Course::BasicResource::FOOD, 10},
+    {Course::BasicResource::WOOD, 10},
 
-//const Course::ResourceMap PLAYER_STARTING_RESOURCES = {
-//    {Course::BasicResource::MONEY, 10},
-//    {Course::BasicResource::FOOD, 10},
-//    {Course::BasicResource::WOOD, 10},
-
-//};
+};
 
 
 }
