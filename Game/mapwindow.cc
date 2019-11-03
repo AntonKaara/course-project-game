@@ -5,15 +5,19 @@
 #include "tiles/grassland.h"
 #include "objectmanager.hh"
 #include "core/resourcemaps.h"
+#include "core/worldgenerator.h"
 
 #include <memory>
 #include <math.h>
+#include <iostream>
 
-MapWindow::MapWindow(QWidget *parent,
-                     std::shared_ptr<Course::iGameEventHandler> handler):
+MapWindow::MapWindow(QWidget *parent):
+    //std::shared_ptr<Aeta::GameEventHandler> handler,
+    //std::shared_ptr<Aeta::ObjectManager> objectManager
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
-    m_GEHandler(handler),
+    //m_GEHandler(handler),
+    //m_objectManager(objectManager),
     m_simplescene(new Course::SimpleGameScene(this))
 {
     m_ui->setupUi(this);
@@ -22,25 +26,68 @@ MapWindow::MapWindow(QWidget *parent,
 
     m_ui->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
 
-    // Piirtoyritelmä
+    auto gameEventHandler = std::make_shared<Aeta::GameEventHandler>();
+    auto objectManager = std::make_shared<Aeta::ObjectManager>();
+    m_GEHandler = gameEventHandler;
+    m_objectManager = objectManager;
 
-    auto const location = std::make_shared<Course::Coordinate>(-10, 0);
-    Course::Coordinate& locationref = *location;
-    auto const eventhandler = std::make_shared<Aeta::GameEventHandler>();
-    auto const objectmanager = std::make_shared<Aeta::ObjectManager>();
-    setSize(20,20);
-    setScale(10);
-    resize();
+    generateMap();
 
-    auto grassland = std::make_shared<Course::Grassland>(
-                locationref, eventhandler, objectmanager);
-    drawItem(grassland);
 }
 
 MapWindow::~MapWindow()
 {
     delete m_ui;
 }
+
+void MapWindow::generateMap()
+{
+    int sizeX = 20;
+    int sizeY = 20;
+    int seed = 12345;
+//    auto location = std::make_shared<Course::Coordinate>(1, 1);
+//    Course::Coordinate& locationref = *location;
+
+    //auto grassland = std::make_shared<Course::Grassland>(
+                //locationref, m_GEHandler, m_objectManager);
+
+
+    Course::WorldGenerator& worldGen = worldGen.getInstance();
+
+    worldGen.addConstructor<Course::Grassland>(100);
+    worldGen.generateMap(sizeX, sizeY, seed, m_objectManager, m_GEHandler);
+
+    setSize(sizeX * 4, sizeY * 4);
+    setScale(25);
+    //resize();
+    //drawItem(grassland);
+
+
+    auto location = std::make_shared<Course::Coordinate>(0, 0);
+    Course::Coordinate& locationref = *location;
+
+    int x = 0;
+    int y = 0;
+    while (x < sizeX) {
+        while (y < sizeY){
+            auto tile = m_objectManager->getTile(locationref);
+            drawItem(tile);
+            y++;
+            locationref.set_y(y);
+        }
+        x++;
+        locationref.set_x(x);
+        y = 0;
+        locationref.set_y(y);
+    }
+
+
+}
+
+
+
+
+
 
 void MapWindow::setGEHandler(
         std::shared_ptr<Course::iGameEventHandler> nHandler)

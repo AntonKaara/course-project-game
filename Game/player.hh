@@ -16,6 +16,7 @@ public:
     Player(const std::string& name,
            const std::vector<std::shared_ptr<Course::GameObject> > objects);
 private:
+    std::string name_ = "Unnamed";
     Course::ResourceMapDouble resourceAmounts_ = {};
 };
 
