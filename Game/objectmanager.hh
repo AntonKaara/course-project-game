@@ -1,14 +1,16 @@
 #include "interfaces/iobjectmanager.h"
 #include "core/gameobject.h"
+#include "tiles/tilebase.h"
+#include "core/coordinate.h"
 
 #include <memory>
 #include <vector>
-
 
 #ifndef OBJECTMANAGER_HH
 #define OBJECTMANAGER_HH
 
 namespace Aeta {
+
 class ObjectManager : public Course::iObjectManager
 {
 public:
@@ -16,10 +18,10 @@ public:
 
     // Dokumentaatiosta otetut public memberit
 
-    void addTiles (const std::vector<std::shared_ptr<Course::TileBase>> &tiles)=0;
-    std::shared_ptr<Course::TileBase> getTile (const Course::Coordinate &coordinate)=0;
-    std::shared_ptr<Course::TileBase> getTile (const Course::ObjectId &id)=0;
-    std::vector<std::shared_ptr< Course::TileBase>> getTiles (const std::vector<Course::Coordinate> &coordinates)=0;
+    void addTiles (const std::vector<std::shared_ptr<Course::TileBase>> &tiles);
+    std::shared_ptr<Course::TileBase> getTile (const Course::Coordinate &coordinate);
+    std::shared_ptr<Course::TileBase> getTile (const Course::ObjectId &id);
+    std::vector<std::shared_ptr< Course::TileBase>> getTiles (const std::vector<Course::Coordinate> &coordinates);
 
 private:
     std::vector<std::shared_ptr<Course::TileBase>> tilevector_ = {};

@@ -2,7 +2,7 @@
 
 namespace Aeta {
 
-GameEventHandler::GameEventHandler()
+GameEventHandler::GameEventHandler() : Course::iGameEventHandler()
 {
 
 }

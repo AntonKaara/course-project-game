@@ -4,6 +4,7 @@
 #include "gameeventhandler.hh"
 #include "tiles/grassland.h"
 #include "objectmanager.hh"
+#include "core/resourcemaps.h"
 
 #include <memory>
 #include <math.h>
@@ -22,13 +23,18 @@ MapWindow::MapWindow(QWidget *parent,
     m_ui->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
 
     // Piirtoyritelmä
-    auto location = std::make_shared<Course::Coordinate>(2, 2);
-    //auto eventhandler = std::make_shared<Aeta::GameEventHandler>;
-    //auto objectmanager = std::make_shared<Aeta::ObjectManager>;
-    setSize(20,20);
 
-    //auto grassland = std::make_shared<Course::Grassland>(&location, &eventhandler, &objectmanager, 3, 3);
-    //drawItem(grassland);
+    auto const location = std::make_shared<Course::Coordinate>(-10, 0);
+    Course::Coordinate& locationref = *location;
+    auto const eventhandler = std::make_shared<Aeta::GameEventHandler>();
+    auto const objectmanager = std::make_shared<Aeta::ObjectManager>();
+    setSize(20,20);
+    setScale(10);
+    resize();
+
+    auto grassland = std::make_shared<Course::Grassland>(
+                locationref, eventhandler, objectmanager);
+    drawItem(grassland);
 }
 
 MapWindow::~MapWindow()
