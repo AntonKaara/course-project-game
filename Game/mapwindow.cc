@@ -24,6 +24,7 @@ MapWindow::MapWindow(QWidget *parent):
     Course::SimpleGameScene* sgs_rawptr = m_simplescene.get();
 
     ui_->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
+    ui_->tabWidget->setTabEnabled(1, true);
 
     auto gameEventHandler = std::make_shared<Aeta::GameEventHandler>();
     auto objectManager = std::make_shared<Aeta::ObjectManager>();
@@ -49,8 +50,8 @@ void MapWindow::generateMap()
     worldGen.addConstructor<Course::Forest>(20);
     worldGen.generateMap(sizeX, sizeY, seed, objectManager_, gameEventHandler_);
 
-    setSize(sizeX * 5, sizeY * 5);
-    setScale(20);
+    setSize(sizeX, sizeY);
+    setScale(100);
 
     // Coordinate object
     auto location = std::make_shared<Course::Coordinate>(0, 0);
