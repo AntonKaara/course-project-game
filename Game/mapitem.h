@@ -29,7 +29,8 @@ private:
     std::shared_ptr<Course::GameObject> gameObject_;
     QPoint sceneLocation_;
     QSize objectSize_;
-    double mapScale_;
+    int pixelScaler_ = 60;
+    double mapScale_ = 1;
     static std::map<std::string, QPixmap> mapItemPictures_;
 
     /**

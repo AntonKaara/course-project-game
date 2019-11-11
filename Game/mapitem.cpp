@@ -1,6 +1,7 @@
 #include "mapitem.h"
 #include <QString>
 #include <QPixmap>
+#include <math.h>
 
 namespace Aeta {
 
@@ -12,16 +13,17 @@ MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj, double size) {
     gameObject_ = obj;
     sceneLocation_ = gameObject_->getCoordinatePtr()->asQpoint();
 
-    // add the picture representing gameObject_ to the mapItemPictures
+    // Add the picture representing gameObject_ to mapItemPictures
     addMapItemPicture(gameObject_->getType());
 
     // 60x60
     objectSize_ = mapItemPictures_.at(gameObject_->getType()).size();
+    pixelScaler_ = objectSize_.width(); // 60
 
 }
 
 QRectF MapItem::boundingRect() const {
-    return QRect(sceneLocation_ * mapScale_ * 60, objectSize_ * mapScale_);
+    return QRectF(sceneLocation_ * mapScale_ * pixelScaler_, objectSize_ * mapScale_);
 }
 
 void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -29,11 +31,12 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     Q_UNUSED(option) Q_UNUSED(widget)
 
-    QPixmap scaledPixmap = mapItemPictures_.at(gameObject_->getType()).scaled(objectSize_ * mapScale_, Qt::IgnoreAspectRatio);
-    QPointF scaledLocation = sceneLocation_ * mapScale_ * 60;
+
+    QPointF scaledLocation = sceneLocation_ * mapScale_ * pixelScaler_;
+    QPixmap scaledPixmap = mapItemPictures_.at(
+                gameObject_->getType()).scaled(objectSize_ * mapScale_, Qt::IgnoreAspectRatio);
     painter->drawPixmap(scaledLocation, scaledPixmap);
     painter->drawRect(boundingRect());
-
 
 }
 

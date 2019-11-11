@@ -5,7 +5,6 @@
 #include "core/worldgenerator.h"
 
 #include "grasstile.h"
-#include "tiles/grassland.h"
 #include "tiles/forest.h"
 
 #include "gameeventhandler.hh"
@@ -18,22 +17,25 @@
 MapWindow::MapWindow(QWidget *parent):
     QMainWindow(parent),
     ui_(new Ui::MapWindow),
-    //m_simplescene(new Course::SimpleGameScene(this))
     scene_(new Aeta::GameScene(this))
 {
     ui_->setupUi(this);
 
+    // Set scene
     Aeta::GameScene* sgs_rawptr = scene_.get();
-
     ui_->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
+
+    // Widget config
     ui_->tabWidget->setTabEnabled(1, true);
 
+    // Create eventhandler & objectmanager objects
     auto gameEventHandler = std::make_shared<Aeta::GameEventHandler>();
     auto objectManager = std::make_shared<Aeta::ObjectManager>();
     gameEventHandler_ = gameEventHandler;
     objectManager_ = objectManager;
 
     generateMap();
+    drawMap(1);
 }
 
 MapWindow::~MapWindow()
@@ -43,29 +45,27 @@ MapWindow::~MapWindow()
 
 void MapWindow::generateMap()
 {
-    int sizeX = 20;
-    int sizeY = 20;
-    int seed = 123488;
+    int seed = 123488; // Add random generation?
 
     Course::WorldGenerator& worldGen = worldGen.getInstance();
     worldGen.addConstructor<Aeta::GrassTile>(80);
     worldGen.addConstructor<Course::Forest>(0);
-    worldGen.generateMap(sizeX, sizeY, seed, objectManager_, gameEventHandler_);
+    worldGen.generateMap(mapsizeX_, mapsizeY_, seed, objectManager_, gameEventHandler_);
+}
 
-    setSize(sizeX, sizeY);
-    setScale(2);
+void MapWindow::drawMap(double scale) {
+    setSize(mapsizeX_, mapsizeY_);
+    setScale(scale);
 
-    // Coordinate object
+    // Coordinate-object
     auto location = std::make_shared<Course::Coordinate>(0, 0);
     Course::Coordinate& locationref = *location;
-
-    //Aeta::Grassland* grasstile = new Aeta::Grassland(locationref, gameEventHandler_, objectManager_, 1, 1, {});
 
     // Draw each tile
     int x = 0;
     int y = 0;
-    while (x < sizeX) {
-        while (y < sizeY){
+    while (x < mapsizeX_) {
+        while (y < mapsizeY_){
             auto tile = objectManager_->getTile(locationref);
             drawItem(tile);
             y++;
@@ -76,18 +76,6 @@ void MapWindow::generateMap()
         y = 0;
         locationref.set_y(y);
     }
-}
-
-//void drawMap(double scale)
-
-
-
-
-
-void MapWindow::setGEHandler(
-        std::shared_ptr<Course::iGameEventHandler> nHandler)
-{
-    gameEventHandler_ = nHandler;
 }
 
 void MapWindow::setSize(int width, int height)
@@ -120,9 +108,40 @@ void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj)
     scene_->drawItem(obj);
 }
 
-void MapWindow::on_horizontalSlider_valueChanged(int value)
+void MapWindow::on_zoomInButton_clicked()
 {
-    setScale(value);
-    generateMap();
+    if (mapScale_ < 3) {
+        mapScale_ = mapScale_ + 1;
+        drawMap(mapScale_);
+    }
 
+    if (mapScale_ == 1) {
+        ui_->zoomInButton->setEnabled(true);
+        ui_->zoomOutButton->setEnabled(false);
+    } else if (mapScale_ == 2) {
+        ui_->zoomInButton->setEnabled(true);
+        ui_->zoomOutButton->setEnabled(true);
+    } else if (mapScale_ == 3) {
+        ui_->zoomInButton->setEnabled(false);
+        ui_->zoomOutButton->setEnabled(true);
+    }
+}
+
+void MapWindow::on_zoomOutButton_clicked()
+{
+    if (mapScale_ > 1) {
+        mapScale_ = mapScale_ - 1;
+        drawMap(mapScale_);
+    }
+
+    if (mapScale_ == 1) {
+        ui_->zoomInButton->setEnabled(true);
+        ui_->zoomOutButton->setEnabled(false);
+    } else if (mapScale_ == 2) {
+        ui_->zoomInButton->setEnabled(true);
+        ui_->zoomOutButton->setEnabled(true);
+    } else if (mapScale_ == 3) {
+        ui_->zoomInButton->setEnabled(false);
+        ui_->zoomOutButton->setEnabled(true);
+    }
 }
