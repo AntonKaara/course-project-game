@@ -16,10 +16,10 @@ class MapItem  : public QGraphicsItem {
 
 public:
 
-    MapItem(const std::shared_ptr<Course::GameObject> &obj);
+    MapItem(const std::shared_ptr<Course::GameObject> &obj, double size);
 
     // dunno if needed
-    //QRectF boundingRect() const override;
+    QRectF boundingRect() const override;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget = nullptr) override;
@@ -29,6 +29,7 @@ private:
     std::shared_ptr<Course::GameObject> gameObject_;
     QPoint sceneLocation_;
     QSize objectSize_;
+    double mapScale_;
     static std::map<std::string, QPixmap> mapItemPictures_;
 
     /**

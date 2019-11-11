@@ -7,6 +7,7 @@ CONFIG += c++14
 
 SOURCES += \
     gamescene.cpp \
+    grasstile.cpp \
     main.cpp \
     mapitem.cpp \
     mapwindow.cc \
@@ -16,7 +17,8 @@ SOURCES += \
     objectmanager.cpp
 
 HEADERS += \
-    gamescene.h
+    gamescene.h \
+    grasstile.h \
     mapitem.h \
     mapwindow.hh \
     gameeventhandler.hh \

@@ -20,12 +20,12 @@ public:
     GameScene(QWidget* qt_parent = nullptr,
               int mapWidth = 20,
               int mapHeight = 20,
-              int mapScale = 80
+              double mapScale = 80
             );
     ~GameScene() = default;
 
     void setSize(int width, int height);
-    void setScale(int scale);
+    void setScale(double scale);
     void resize();
     std::pair<int,int> getSize() const;
     int getScale() const;
@@ -40,7 +40,7 @@ private:
 
     int mapWidth_;
     int mapHeight_;
-    int mapScale_;
+    double mapScale_;
 
 };
 
