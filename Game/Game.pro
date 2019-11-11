@@ -8,6 +8,7 @@ CONFIG += c++14
 SOURCES += \
     gamescene.cpp \
     main.cpp \
+    mapitem.cpp \
     mapwindow.cc \
     gameeventhandler.cpp \
     player.cpp \
@@ -15,7 +16,8 @@ SOURCES += \
     objectmanager.cpp
 
 HEADERS += \
-    gamescene.h \
+    gamescene.h
+    mapitem.h \
     mapwindow.hh \
     gameeventhandler.hh \
     player.hh \
@@ -50,3 +52,6 @@ else:unix: PRE_TARGETDEPS += \
 FORMS += \
     mapwindow.ui \
     mainmenu.ui
+
+RESOURCES += \
+    pictures.qrc
