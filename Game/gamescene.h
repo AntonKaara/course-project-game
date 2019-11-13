@@ -22,7 +22,7 @@ public:
               int mapHeight = 20,
               double mapScale = 80
             );
-    ~GameScene() = default;
+    ~GameScene() override = default;
 
     void setSize(int width, int height);
     void setScale(double scale);

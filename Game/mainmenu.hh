@@ -12,7 +12,7 @@ class MainMenu : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainMenu(QWidget *parent = 0);
+    explicit MainMenu(QWidget *parent = nullptr);
     ~MainMenu();
 
 private:

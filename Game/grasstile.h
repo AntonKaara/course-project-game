@@ -23,8 +23,8 @@ public:
     GrassTile(const Course::Coordinate& location,
               const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
               const std::shared_ptr<Course::iObjectManager>& objectmanager,
-              const unsigned int& max_build = 3,
-              const unsigned int& max_work = 3,
+              const unsigned int& max_build = 1,
+              const unsigned int& max_work = 0,
               const Course::ResourceMap& production = Course::ConstResourceMaps::GRASSLAND_BP);
 
     /**

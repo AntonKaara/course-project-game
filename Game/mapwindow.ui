@@ -90,7 +90,7 @@
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>121</width>
+           <width>151</width>
            <height>20</height>
           </rect>
          </property>
@@ -162,7 +162,7 @@
            <rect>
             <x>10</x>
             <y>10</y>
-            <width>91</width>
+            <width>321</width>
             <height>20</height>
            </rect>
           </property>
@@ -180,8 +180,8 @@
            <rect>
             <x>10</x>
             <y>40</y>
-            <width>241</width>
-            <height>71</height>
+            <width>261</width>
+            <height>171</height>
            </rect>
           </property>
           <property name="layoutDirection">
@@ -197,6 +197,19 @@
            <bool>true</bool>
           </property>
          </widget>
+         <widget class="QLabel" name="tileImgLabel">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>10</y>
+            <width>60</width>
+            <height>60</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Img</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="tab_3">
          <attribute name="title">
@@ -207,7 +220,7 @@
            <rect>
             <x>10</x>
             <y>10</y>
-            <width>131</width>
+            <width>321</width>
             <height>20</height>
            </rect>
           </property>
@@ -225,8 +238,8 @@
            <rect>
             <x>10</x>
             <y>40</y>
-            <width>241</width>
-            <height>71</height>
+            <width>221</width>
+            <height>81</height>
            </rect>
           </property>
           <property name="layoutDirection">
@@ -242,6 +255,19 @@
            <bool>true</bool>
           </property>
          </widget>
+         <widget class="QLabel" name="buildingImgLabel">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>10</y>
+            <width>60</width>
+            <height>60</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Img</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="tab_2">
          <attribute name="title">
@@ -250,9 +276,9 @@
          <widget class="QProgressBar" name="healthBar">
           <property name="geometry">
            <rect>
-            <x>220</x>
-            <y>70</y>
-            <width>111</width>
+            <x>200</x>
+            <y>80</y>
+            <width>131</width>
             <height>23</height>
            </rect>
           </property>
@@ -268,8 +294,8 @@
            <rect>
             <x>10</x>
             <y>40</y>
-            <width>321</width>
-            <height>20</height>
+            <width>211</width>
+            <height>31</height>
            </rect>
           </property>
           <property name="text">
@@ -281,7 +307,7 @@
            <rect>
             <x>10</x>
             <y>10</y>
-            <width>321</width>
+            <width>261</width>
             <height>28</height>
            </rect>
           </property>
@@ -293,7 +319,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>70</y>
+            <y>80</y>
             <width>76</width>
             <height>20</height>
            </rect>
@@ -306,20 +332,20 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>100</y>
+            <y>110</y>
             <width>201</width>
             <height>20</height>
            </rect>
           </property>
           <property name="text">
-           <string>Movement points:</string>
+           <string>Movement points</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_11">
           <property name="geometry">
            <rect>
-            <x>220</x>
-            <y>100</y>
+            <x>200</x>
+            <y>110</y>
             <width>76</width>
             <height>20</height>
            </rect>
@@ -352,6 +378,19 @@
           </property>
           <property name="text">
            <string>PushButton</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="unitImgLabel">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>10</y>
+            <width>60</width>
+            <height>60</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Img</string>
           </property>
          </widget>
         </widget>
@@ -422,7 +461,7 @@
         </widget>
         <widget class="QPushButton" name="zoomOutButton">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="geometry">
           <rect>

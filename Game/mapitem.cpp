@@ -9,7 +9,7 @@ std::map<std::string, QPixmap> MapItem::mapItemPictures_ = {};
 
 MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj, double size) {
 
-    mapScale_ = size;
+    tileScale_ = size;
     gameObject_ = obj;
     sceneLocation_ = gameObject_->getCoordinatePtr()->asQpoint();
 
@@ -18,12 +18,11 @@ MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj, double size) {
 
     // 60x60
     objectSize_ = mapItemPictures_.at(gameObject_->getType()).size();
-    pixelScaler_ = objectSize_.width(); // 60
 
 }
 
 QRectF MapItem::boundingRect() const {
-    return QRectF(sceneLocation_ * mapScale_ * pixelScaler_, objectSize_ * mapScale_);
+    return QRectF(sceneLocation_ * tileScale_, objectSize_);
 }
 
 void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -32,9 +31,9 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option) Q_UNUSED(widget)
 
 
-    QPointF scaledLocation = sceneLocation_ * mapScale_ * pixelScaler_;
+    QPointF scaledLocation = sceneLocation_ * tileScale_;
     QPixmap scaledPixmap = mapItemPictures_.at(
-                gameObject_->getType()).scaled(objectSize_ * mapScale_, Qt::IgnoreAspectRatio);
+                gameObject_->getType()).scaled(objectSize_, Qt::IgnoreAspectRatio);
     painter->drawPixmap(scaledLocation, scaledPixmap);
     painter->drawRect(boundingRect());
 

@@ -5,10 +5,8 @@
 #include <string>
 #include <QSize>
 
-
 #ifndef MAPITEM_H
 #define MAPITEM_H
-
 
 namespace Aeta {
 
@@ -29,8 +27,7 @@ private:
     std::shared_ptr<Course::GameObject> gameObject_;
     QPoint sceneLocation_;
     QSize objectSize_;
-    int pixelScaler_ = 60;
-    double mapScale_ = 1;
+    double tileScale_ = 60;
     static std::map<std::string, QPixmap> mapItemPictures_;
 
     /**

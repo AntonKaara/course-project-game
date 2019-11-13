@@ -5,7 +5,7 @@
 #include "core/worldgenerator.h"
 
 #include "grasstile.h"
-#include "tiles/forest.h"
+#include "foresttile.h"
 
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
@@ -27,6 +27,15 @@ MapWindow::MapWindow(QWidget *parent):
 
     // Widget config
     ui_->tabWidget->setTabEnabled(1, true);
+    ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
+
+    // Draw pictures
+    QPixmap GrassPic(":/pictures/pictures/grasstile.png");
+    QPixmap HQPic(":/pictures/pictures/headquarters.png");
+    QPixmap archerPic(":/pictures/pictures/archer.png");
+    ui_->buildingImgLabel->setPixmap(HQPic);
+    ui_->tileImgLabel->setPixmap(GrassPic);
+    ui_->unitImgLabel->setPixmap(archerPic);
 
     // Create eventhandler & objectmanager objects
     auto gameEventHandler = std::make_shared<Aeta::GameEventHandler>();
@@ -35,7 +44,7 @@ MapWindow::MapWindow(QWidget *parent):
     objectManager_ = objectManager;
 
     generateMap();
-    drawMap(1);
+    drawMap();
 }
 
 MapWindow::~MapWindow()
@@ -45,17 +54,21 @@ MapWindow::~MapWindow()
 
 void MapWindow::generateMap()
 {
-    int seed = 123488; // Add random generation?
+    unsigned int seed = 123488; // Add random generation?
 
     Course::WorldGenerator& worldGen = worldGen.getInstance();
+
+    // Add tile types
     worldGen.addConstructor<Aeta::GrassTile>(80);
-    worldGen.addConstructor<Course::Forest>(0);
-    worldGen.generateMap(mapsizeX_, mapsizeY_, seed, objectManager_, gameEventHandler_);
+    worldGen.addConstructor<Aeta::ForestTile>(20);
+
+    worldGen.generateMap(static_cast<uint>(mapsizeX_), static_cast<uint>(mapsizeY_),
+                         seed, objectManager_, gameEventHandler_);
 }
 
-void MapWindow::drawMap(double scale) {
+void MapWindow::drawMap() {
     setSize(mapsizeX_, mapsizeY_);
-    setScale(scale);
+    setScale(mapScale_);
 
     // Coordinate-object
     auto location = std::make_shared<Course::Coordinate>(0, 0);
@@ -108,40 +121,30 @@ void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj)
     scene_->drawItem(obj);
 }
 
+void MapWindow::mouseWheelEventHandler(QGraphicsSceneWheelEvent *mouseWheelEvent)
+{
+    int degrees = mouseWheelEvent->delta();
+    int steps = degrees / 10;
+
+    if (steps > 0) {
+        ui_->graphicsView->scale(steps * 1.1, steps * 1.1);
+    } else {
+        ui_->graphicsView->scale(steps * 0.909090909, steps * 0.909090909);
+    }
+}
+
 void MapWindow::on_zoomInButton_clicked()
 {
-    if (mapScale_ < 3) {
-        mapScale_ = mapScale_ + 1;
-        drawMap(mapScale_);
-    }
-
-    if (mapScale_ == 1) {
-        ui_->zoomInButton->setEnabled(true);
-        ui_->zoomOutButton->setEnabled(false);
-    } else if (mapScale_ == 2) {
-        ui_->zoomInButton->setEnabled(true);
-        ui_->zoomOutButton->setEnabled(true);
-    } else if (mapScale_ == 3) {
-        ui_->zoomInButton->setEnabled(false);
-        ui_->zoomOutButton->setEnabled(true);
+    if (zoomLevel_ < 2) {
+        ui_->graphicsView->scale(2, 2);
+        zoomLevel_ += 1;
     }
 }
 
 void MapWindow::on_zoomOutButton_clicked()
 {
-    if (mapScale_ > 1) {
-        mapScale_ = mapScale_ - 1;
-        drawMap(mapScale_);
-    }
-
-    if (mapScale_ == 1) {
-        ui_->zoomInButton->setEnabled(true);
-        ui_->zoomOutButton->setEnabled(false);
-    } else if (mapScale_ == 2) {
-        ui_->zoomInButton->setEnabled(true);
-        ui_->zoomOutButton->setEnabled(true);
-    } else if (mapScale_ == 3) {
-        ui_->zoomInButton->setEnabled(false);
-        ui_->zoomOutButton->setEnabled(true);
+    if (zoomLevel_ > -2) {
+        ui_->graphicsView->scale(0.5, 0.5);
+        zoomLevel_ -= 1;
     }
 }
