@@ -96,7 +96,7 @@ void MapWindow::setSize(int width, int height)
     scene_->setSize(width, height);
 }
 
-void MapWindow::setScale(double scale)
+void MapWindow::setScale(int scale)
 {
     scene_->setScale(scale);
 }
@@ -138,6 +138,14 @@ void MapWindow::on_zoomInButton_clicked()
     if (zoomLevel_ < 2) {
         ui_->graphicsView->scale(2, 2);
         zoomLevel_ += 1;
+
+        if (zoomLevel_ == 2) {
+            ui_->zoomInButton->setEnabled(false);
+        }
+        if (zoomLevel_ > -2) {
+            ui_->zoomOutButton->setEnabled(true);
+        }
+
     }
 }
 
@@ -146,5 +154,13 @@ void MapWindow::on_zoomOutButton_clicked()
     if (zoomLevel_ > -2) {
         ui_->graphicsView->scale(0.5, 0.5);
         zoomLevel_ -= 1;
+
+        if (zoomLevel_ == -2) {
+            ui_->zoomOutButton->setEnabled(false);
+        }
+        if (zoomLevel_ < 2) {
+            ui_->zoomInButton->setEnabled(true);
+        }
+
     }
 }

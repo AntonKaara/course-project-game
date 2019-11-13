@@ -7,7 +7,7 @@ namespace Aeta {
 
 std::map<std::string, QPixmap> MapItem::mapItemPictures_ = {};
 
-MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj, double size) {
+MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj, int size) {
 
     tileScale_ = size;
     gameObject_ = obj;

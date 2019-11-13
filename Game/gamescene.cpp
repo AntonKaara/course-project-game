@@ -31,7 +31,7 @@ void GameScene::setSize(int width, int height)
     resize();
 }
 
-void GameScene::setScale(double scale)
+void GameScene::setScale(int scale)
 {
     mapScale_ = scale;
     resize();

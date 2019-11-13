@@ -14,7 +14,7 @@ class MapItem  : public QGraphicsItem {
 
 public:
 
-    MapItem(const std::shared_ptr<Course::GameObject> &obj, double size);
+    MapItem(const std::shared_ptr<Course::GameObject> &obj, int size);
 
     // dunno if needed
     QRectF boundingRect() const override;
@@ -27,7 +27,7 @@ private:
     std::shared_ptr<Course::GameObject> gameObject_;
     QPoint sceneLocation_;
     QSize objectSize_;
-    double tileScale_ = 60;
+    int tileScale_ = 60;
     static std::map<std::string, QPixmap> mapItemPictures_;
 
     /**

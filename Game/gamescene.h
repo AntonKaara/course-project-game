@@ -25,7 +25,7 @@ public:
     ~GameScene() override = default;
 
     void setSize(int width, int height);
-    void setScale(double scale);
+    void setScale(int scale);
     void resize();
     std::pair<int,int> getSize() const;
     int getScale() const;
@@ -40,7 +40,7 @@ private:
 
     int mapWidth_;
     int mapHeight_;
-    double mapScale_;
+    int mapScale_;
 
 };
 

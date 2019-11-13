@@ -46,46 +46,7 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <widget class="QLabel" name="label_5">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>40</y>
-           <width>339</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Coins: 13 (+2)</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_6">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>80</y>
-           <width>339</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Food: 3 (+0.3)</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_4">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>60</y>
-           <width>339</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Wood: 340</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="resourcesHeading">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -103,7 +64,7 @@
           <string>Resources</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="turnLabel">
          <property name="geometry">
           <rect>
            <x>160</x>
@@ -118,6 +79,118 @@
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
+        </widget>
+        <widget class="QFrame" name="frame_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>50</y>
+           <width>321</width>
+           <height>131</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="coinImg">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>30</width>
+            <height>30</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="toolTip">
+           <string>Coins</string>
+          </property>
+          <property name="text">
+           <string>Img</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="woodImg">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>40</y>
+            <width>30</width>
+            <height>30</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="toolTip">
+           <string>Wood</string>
+          </property>
+          <property name="text">
+           <string>img</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="coinLabel">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>10</y>
+            <width>331</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>13 (+2)</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="woodLabel">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>40</y>
+            <width>339</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>40</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="foodLabel">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>70</y>
+            <width>341</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>3 (+0.3)</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="foodImg">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>70</y>
+            <width>30</width>
+            <height>30</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
+          <property name="toolTip">
+           <string>Food</string>
+          </property>
+          <property name="text">
+           <string>img</string>
+          </property>
+         </widget>
         </widget>
        </widget>
       </item>
@@ -289,7 +362,7 @@
            <string>%p</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_8">
+         <widget class="QLabel" name="unitTypeLabel">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -302,7 +375,7 @@
            <string>Type: Archers</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="unitTextBox">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -315,7 +388,7 @@
            <string>Archers 1</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_9">
+         <widget class="QLabel" name="healthLabel">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -328,7 +401,7 @@
            <string>Health</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_10">
+         <widget class="QLabel" name="movementPointLabel">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -419,17 +492,28 @@
            <height>71</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>End your turn after you are done.</string>
+         </property>
          <property name="text">
           <string>End Turn</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="turnCountLabel">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>181</width>
-           <height>21</height>
+           <x>50</x>
+           <y>30</y>
+           <width>131</width>
+           <height>31</height>
           </rect>
          </property>
          <property name="font">
@@ -440,20 +524,29 @@
          <property name="text">
           <string>Turn: 134</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
         </widget>
         <widget class="QPushButton" name="zoomInButton">
          <property name="geometry">
           <rect>
-           <x>50</x>
-           <y>50</y>
+           <x>10</x>
+           <y>10</y>
            <width>30</width>
            <height>30</height>
           </rect>
          </property>
          <property name="font">
           <font>
-           <pointsize>18</pointsize>
+           <pointsize>16</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <kerning>true</kerning>
           </font>
+         </property>
+         <property name="toolTip">
+          <string>Zoom in</string>
          </property>
          <property name="text">
           <string>+</string>
@@ -473,8 +566,13 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>18</pointsize>
+           <pointsize>17</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="toolTip">
+          <string>Zoom out</string>
          </property>
          <property name="text">
           <string>-</string>
