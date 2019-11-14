@@ -54,7 +54,19 @@ ResourceMap multiplyResourceMap(const ResourceMap& resmap,
  * @return ResourceMapDouble that has summed values from two ResourceMapDoubles
  */
 ResourceMapDouble mergeResourceMapDoubles(const ResourceMapDouble& left,
-                                    const ResourceMapDouble& right);
+                                          const ResourceMapDouble& right);
+
+/**
+ * @brief Creates a new ResourceMapDouble that has multiplied values of two
+ * ResourceMapDoubles
+ * @param left first ResourceMapDouble
+ * @param right second ResourceMapDouble
+ * @return ResourceMapDouble that has multiplied values from two
+ * ResourceMapDoubles
+ */
+ResourceMapDouble multiplyResourceMapDoubles(const ResourceMapDouble& left,
+                                             const ResourceMapDouble& right);
+
 }
 
 #endif // BASICRESOURCES_H

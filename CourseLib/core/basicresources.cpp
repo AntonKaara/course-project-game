@@ -6,17 +6,22 @@ namespace Course {
 ResourceMap mergeResourceMaps(const ResourceMap& left,
                               const ResourceMap& right)
 {
-    ResourceMap new_map = right;
+    ResourceMap new_map = left;
 
-    for( auto it = left.begin(); it != left.end(); ++it)
+    for( auto left_it = left.begin(); left_it != left.end(); ++left_it)
     {
-        if(new_map.find(it->first) == new_map.end())
+        auto right_it = right.find(left_it->first);
+        if(right_it != right.end())
         {
-            new_map[it->first] = it->second;
+            new_map[left_it->first] = left_it->second + right_it->second;
         }
-        else
+    }
+
+    for( auto right_it = right.begin(); right_it != right.end(); ++right_it)
+    {
+        if(new_map.find(right_it->first) == new_map.end())
         {
-            new_map[it->first] = new_map[it->first] + it->second;
+            new_map[right_it->first] = right_it->second;
         }
     }
 
@@ -28,11 +33,12 @@ ResourceMap multiplyResourceMap(const ResourceMap& resmap,
 {
     ResourceMap new_map = resmap;
 
-    for( auto it = new_map.begin(); it != new_map.end(); ++it)
+    for( auto left_it = new_map.begin(); left_it != new_map.end(); ++left_it)
     {
-        if(multmap.find(it->first) != multmap.end())
+        auto right_it = multmap.find(left_it->first);
+        if(right_it != multmap.end())
         {
-            new_map[it->first] =  new_map[it->first] * it->second;
+            new_map[left_it->first] = left_it->second * right_it->second;
         }
     }
 
@@ -40,23 +46,46 @@ ResourceMap multiplyResourceMap(const ResourceMap& resmap,
 }
 
 ResourceMapDouble mergeResourceMapDoubles(const ResourceMapDouble& left,
-                                    const ResourceMapDouble& right)
+                                          const ResourceMapDouble& right)
 {
-    ResourceMapDouble new_map = right;
+    ResourceMapDouble new_map = left;
 
-    for( auto it = left.begin(); it != left.end(); ++it)
+    for( auto left_it = left.begin(); left_it != left.end(); ++left_it)
     {
-        if(new_map.find(it->first) == new_map.end())
+        auto right_it = right.find(left_it->first);
+        if( right_it != right.end())
         {
-            new_map[it->first] = it->second;
+            new_map[left_it->first] = left_it->second + right_it->second;
         }
-        else
+    }
+
+    for( auto right_it = right.begin(); right_it != right.end(); ++right_it)
+    {
+        if(new_map.find(right_it->first) == new_map.end())
         {
-            new_map[it->first] = new_map[it->first] + it->second;
+            new_map[right_it->first] = right_it->second;
         }
     }
 
     return new_map;
 }
+
+ResourceMapDouble multiplyResourceMapDoubles(const ResourceMapDouble& left,
+                                             const ResourceMapDouble& right)
+{
+    ResourceMapDouble new_map = left;
+
+    for( auto left_it = left.begin(); left_it != left.end(); ++left_it)
+    {
+        auto right_it = right.find(left_it->first);
+        if( right_it != right.end())
+        {
+            new_map[left_it->first] = left_it->second * right_it->second;
+        }
+    }
+
+    return new_map;
+}
+
 
 }
