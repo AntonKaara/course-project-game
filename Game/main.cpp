@@ -3,13 +3,12 @@
 
 #include <QApplication>
 
-
 int main(int argc, char* argv[])
 {
 
     QApplication app(argc, argv);
 
-    MapWindow mapWindow;
+    Aeta::MapWindow mapWindow;
     MainMenu mainMenu;
 
     if (mainMenu.exec() == QDialog::Accepted) {

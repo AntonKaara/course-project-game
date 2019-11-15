@@ -49,6 +49,38 @@ void MapItem::addMapItemPicture(std::string mapItemType) {
     mapItemPictures_.insert({mapItemType, objectImage});
 
 }
+
+const std::shared_ptr<Course::GameObject> &MapItem::getBoundObject()
+{
+    return gameObject_;
+}
+
+void MapItem::updateLoc()
+{
+    if ( !gameObject_ ){
+        delete this;
+    } else {
+        update(boundingRect()); // Test if necessary
+        sceneLocation_ = gameObject_->getCoordinate().asQpoint();
+    }
+}
+
+bool MapItem::isSameObj(std::shared_ptr<Course::GameObject> obj)
+{
+    return obj == gameObject_;
+}
+
+int MapItem::getSize() const
+{
+    return tileScale_;
+}
+
+void MapItem::setSize(int size)
+{
+    tileScale_ = size;
+}
+
+
 } // namespace Aeta
 
 

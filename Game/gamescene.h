@@ -20,7 +20,7 @@ public:
     GameScene(QWidget* qt_parent = nullptr,
               int mapWidth = 20,
               int mapHeight = 20,
-              double mapScale = 80
+              int mapScale = 80
             );
     ~GameScene() override = default;
 
@@ -40,7 +40,7 @@ private:
 
     int mapWidth_;
     int mapHeight_;
-    int mapScale_;
+    int tileScale_;
 
 };
 

@@ -10,13 +10,18 @@
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "graphics/simplegamescene.h"
+#include "player.hh"
 
 #ifndef MAPWINDOW_HH
 #define MAPWINDOW_HH
 
+
+
 namespace Ui {
 class MapWindow;
 }
+
+namespace Aeta {
 
 class MapWindow : public QMainWindow
 {
@@ -37,6 +42,8 @@ public:
 
     void generateMap();
     void drawMap();
+    void initializeStart(std::string playerName);
+
 
 private slots:
     void on_zoomInButton_clicked();
@@ -48,10 +55,15 @@ private:
     std::shared_ptr<Course::iObjectManager> objectManager_ = nullptr;
     std::shared_ptr<Aeta::GameScene> scene_ = nullptr;
 
-    int mapsizeX_ = 40; // Tile count
-    int mapsizeY_ = 40;
+    int mapsizeX_ = 10; // Tile count
+    int mapsizeY_ = 10;
     int mapScale_ = 60; // Tile pixmap size in px
     int zoomLevel_ = 0; // Normal view = 0
+
+    std::vector<std::shared_ptr<Player>> players_ = {};
+
+    std::string player1Name_ = "Unnamed";
+    std::string player2Name_ = "Unnamed2";
 
     int selectedMapSize = 1;
     const int MAP_SIZE_SMALL = 10;
@@ -60,6 +72,6 @@ private:
     const int MAP_SIZE_ULTRA_LARGE = 60;
 
 };
-
+} // namespace Aeta
 #endif // MapWINDOW_HH
 

@@ -13,12 +13,12 @@ namespace Aeta {
 GameScene::GameScene(QWidget* parent,
                              int width,
                              int height,
-                             double scale):
+                             int scale):
     QGraphicsScene(parent),
     mapBounds_(nullptr),
     mapWidth_(10),
     mapHeight_(10),
-    mapScale_(60)
+    tileScale_(60)
 {
     setSize(width, height);
     setScale(scale);
@@ -33,7 +33,7 @@ void GameScene::setSize(int width, int height)
 
 void GameScene::setScale(int scale)
 {
-    mapScale_ = scale;
+    tileScale_ = scale;
     resize();
 }
 
@@ -43,8 +43,8 @@ void GameScene::resize()
         QGraphicsScene::removeItem(mapBounds_);
     }
 
-    QRect rectangle = QRect(0, 0, static_cast<int>(mapWidth_ * mapScale_),
-                        static_cast<int>(mapHeight_ * mapScale_));
+    QRect rectangle = QRect(0, 0, static_cast<int>(mapWidth_ * tileScale_),
+                        static_cast<int>(mapHeight_ * tileScale_));
 
     addRect(rectangle, QPen(Qt::black));
     setSceneRect(rectangle);
@@ -60,43 +60,42 @@ std::pair<int, int> GameScene::getSize() const
 
 int GameScene::getScale() const
 {
-    return mapScale_;
+    return tileScale_;
 }
 
-//void GameScene::updateItem(std::shared_ptr<Course::GameObject> obj)
-//{
-//    QList<QGraphicsItem*> items_list = items();
-//    if ( items_list.size() == 1 ){
-//        qDebug() << "Nothing to update.";
-//    } else {
-//        for ( auto item : items_list ){
-//            MapItem* mapItem = static_cast<MapItem*>(item);
-//            if (mapItem->isSameObj(obj)){
-//                mapItem->updateLoc();
-//            }
-//        }
-//    }
-//}
+void GameScene::updateItem(std::shared_ptr<Course::GameObject> obj)
+{
+    QList<QGraphicsItem*> items_list = items();
+    if ( items_list.size() == 1 ){
+        qDebug() << "Nothing to update.";
+    } else {
+        for ( auto item : items_list ){
+            MapItem* mapItem = static_cast<MapItem*>(item);
+            if (mapItem->isSameObj(obj)){
+                mapItem->updateLoc();
+            }
+        }
+    }
+}
 
-
-//void GameScene::removeItem(std::shared_ptr<Course::GameObject> obj)
-//{
-//    QList<QGraphicsItem*> items_list = items(obj->getCoordinate().asQpoint());
-//    if ( items_list.size() == 1 ){
-//        qDebug() << "Nothing to be removed at the location pointed by given obj.";
-//    } else {
-//        for ( auto item : items_list ){
-//            MapItem* mapitem = static_cast<MapItem*>(item);
-//            if ( mapitem->isSameObj(obj) ){
-//                delete mapitem;
-//            }
-//        }
-//    }
-//}
+void GameScene::removeItem(std::shared_ptr<Course::GameObject> obj)
+{
+    QList<QGraphicsItem*> items_list = items(obj->getCoordinate().asQpoint());
+    if ( items_list.size() == 1 ){
+        qDebug() << "Nothing to be removed at the location pointed by given obj.";
+    } else {
+        for ( auto item : items_list ){
+            MapItem* mapitem = static_cast<MapItem*>(item);
+            if ( mapitem->isSameObj(obj) ){
+                delete mapitem;
+            }
+        }
+    }
+}
 
 void GameScene::drawItem(std::shared_ptr<Course::GameObject> obj)
 {
-    MapItem* mapItem = new MapItem(obj, mapScale_);
+    MapItem* mapItem = new MapItem(obj, tileScale_);
     addItem(mapItem);
 }
 

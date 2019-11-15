@@ -6,6 +6,7 @@
 
 #include "grasstile.h"
 #include "foresttile.h"
+#include "headquarters.h"
 
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
@@ -13,6 +14,8 @@
 #include <memory>
 #include <math.h>
 #include <iostream>
+
+namespace Aeta {
 
 MapWindow::MapWindow(QWidget *parent):
     QMainWindow(parent),
@@ -44,6 +47,8 @@ MapWindow::MapWindow(QWidget *parent):
     objectManager_ = objectManager;
 
     generateMap();
+    initializeStart(player1Name_);
+    initializeStart(player2Name_);
     drawMap();
 }
 
@@ -64,6 +69,22 @@ void MapWindow::generateMap()
 
     worldGen.generateMap(static_cast<uint>(mapsizeX_), static_cast<uint>(mapsizeY_),
                          seed, objectManager_, gameEventHandler_);
+}
+
+void MapWindow::initializeStart(std::string playerName) {
+
+    // Create Player object
+    std::vector<std::shared_ptr<Course::GameObject>> objects = {};
+    auto playerObj = std::make_shared<Player>(playerName, objects);
+    players_.push_back(playerObj);
+
+    // Add HQ
+    auto& player = players_.back();
+    auto headquarters = std::make_shared<Aeta::Headquarters>(gameEventHandler_, objectManager_, player,
+                                                             1, Course::ConstResourceMaps::HQ_BUILD_COST, Course::ConstResourceMaps::HQ_PRODUCTION);
+    player->addObject(headquarters);
+
+
 }
 
 void MapWindow::drawMap() {
@@ -164,3 +185,5 @@ void MapWindow::on_zoomOutButton_clicked()
 
     }
 }
+
+} // namespace Aeta

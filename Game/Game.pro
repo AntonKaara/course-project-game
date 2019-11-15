@@ -9,6 +9,7 @@ SOURCES += \
     foresttile.cpp \
     gamescene.cpp \
     grasstile.cpp \
+    headquarters.cpp \
     main.cpp \
     mapitem.cpp \
     mapwindow.cc \
@@ -21,6 +22,7 @@ HEADERS += \
     foresttile.h \
     gamescene.h \
     grasstile.h \
+    headquarters.h \
     mapitem.h \
     mapwindow.hh \
     gameeventhandler.hh \
