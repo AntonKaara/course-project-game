@@ -47,9 +47,9 @@ MapWindow::MapWindow(QWidget *parent):
     objectManager_ = objectManager;
 
     generateMap();
-    initializeStart(player1Name_);
-    initializeStart(player2Name_);
     drawMap();
+    initializeStart(player1Name_);
+    //initializeStart(player2Name_);
 }
 
 MapWindow::~MapWindow()
@@ -84,6 +84,15 @@ void MapWindow::initializeStart(std::string playerName) {
                                                              1, Course::ConstResourceMaps::HQ_BUILD_COST, Course::ConstResourceMaps::HQ_PRODUCTION);
     player->addObject(headquarters);
 
+    auto location = std::make_shared<Course::Coordinate>(2, 2);
+    Course::Coordinate& locationref = *location;
+
+    auto tileObject = objectManager_->getTile(locationref);
+
+    tileObject->addBuilding(headquarters);
+    scene_->updateItem(tileObject);
+
+
 
 }
 
@@ -98,13 +107,16 @@ void MapWindow::drawMap() {
     // Draw each tile
     int x = 0;
     int y = 0;
+
     while (x < mapsizeX_) {
         while (y < mapsizeY_){
             auto tile = objectManager_->getTile(locationref);
             drawItem(tile);
+            tile->setCoordinate(locationref);
             y++;
             locationref.set_y(y);
         }
+
         x++;
         locationref.set_x(x);
         y = 0;

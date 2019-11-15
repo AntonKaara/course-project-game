@@ -20,6 +20,7 @@ GrassTile::GrassTile(const Course::Coordinate& location,
 std::string GrassTile::getType() const
 {
     std::vector<std::shared_ptr<Course::BuildingBase>> buildings = this->getBuildings();
+
     if (this->getBuildingCount() > 0) {
         if (buildings.at(0)->getType() == "headquarters") {
             return "headquarters";
