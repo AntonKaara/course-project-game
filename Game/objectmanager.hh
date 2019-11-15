@@ -21,7 +21,8 @@ public:
     void addTiles (const std::vector<std::shared_ptr<Course::TileBase>> &tiles);
     std::shared_ptr<Course::TileBase> getTile (const Course::Coordinate &coordinate);
     std::shared_ptr<Course::TileBase> getTile (const Course::ObjectId &id);
-    std::vector<std::shared_ptr< Course::TileBase>> getTiles (const std::vector<Course::Coordinate> &coordinates);
+    std::vector<std::shared_ptr< Course::TileBase>> getTiles (
+            const std::vector<Course::Coordinate> &coordinates);
 
 private:
     std::vector<std::shared_ptr<Course::TileBase>> tilevector_ = {};

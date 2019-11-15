@@ -25,7 +25,8 @@ public:
               const std::shared_ptr<Course::iObjectManager>& objectmanager,
               const unsigned int& max_build = 1,
               const unsigned int& max_work = 0,
-              const Course::ResourceMap& production = Course::ConstResourceMaps::GRASSLAND_BP);
+              const Course::ResourceMap& production =
+            Course::ConstResourceMaps::GRASSLAND_BP);
 
     /**
      * @brief Default destructor.

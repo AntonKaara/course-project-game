@@ -7,7 +7,8 @@ namespace Aeta {
 
 std::map<std::string, QPixmap> MapItem::mapItemPictures_ = {};
 
-MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj, int size) {
+MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj,
+                 int size) {
 
     tileScale_ = size;
     gameObject_ = obj;
@@ -22,7 +23,9 @@ MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj, int size) {
 }
 
 QRectF MapItem::boundingRect() const {
+
     return QRectF(sceneLocation_ * tileScale_, objectSize_);
+
 }
 
 void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -50,36 +53,40 @@ void MapItem::addMapItemPicture(std::string mapItemType) {
 
 }
 
-const std::shared_ptr<Course::GameObject> &MapItem::getBoundObject()
-{
+const std::shared_ptr<Course::GameObject> &MapItem::getBoundObject() {
+
     return gameObject_;
+
 }
 
-void MapItem::updateLoc()
-{
+void MapItem::updateLoc() {
+
     if ( !gameObject_ ){
         delete this;
     } else {
         update(boundingRect()); // Test if necessary
         sceneLocation_ = gameObject_->getCoordinate().asQpoint();
     }
+
 }
 
-bool MapItem::isSameObj(std::shared_ptr<Course::GameObject> obj)
-{
+bool MapItem::isSameObj(std::shared_ptr<Course::GameObject> obj) {
+
     return obj == gameObject_;
+
 }
 
-int MapItem::getSize() const
-{
+int MapItem::getSize() const {
+
     return tileScale_;
+
 }
 
-void MapItem::setSize(int size)
-{
+void MapItem::setSize(int size) {
+
     tileScale_ = size;
-}
 
+}
 
 } // namespace Aeta
 

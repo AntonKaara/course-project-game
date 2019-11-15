@@ -13,14 +13,14 @@ ForestTile::ForestTile(const Course::Coordinate& location,
                objectmanager,
                max_build,
                max_work,
-               production)
-{
+               production) {
 
 }
 
-std::string ForestTile::getType() const
-{
+std::string ForestTile::getType() const {
+
     return "foresttile";
+
 }
 
 } // namespace Aeta

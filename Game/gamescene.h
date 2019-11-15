@@ -33,7 +33,7 @@ public:
     void removeItem( std::shared_ptr<Course::GameObject> obj);
     void updateItem( std::shared_ptr<Course::GameObject> obj);
 
-    //virtual bool event(QEvent* event) override;
+    virtual bool event(QEvent* event) override;
 
 private:
     QGraphicsItem* mapBounds_;

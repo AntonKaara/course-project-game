@@ -6,6 +6,7 @@ QT += core gui widgets
 CONFIG += c++14
 
 SOURCES += \
+    farm.cpp \
     foresttile.cpp \
     gamescene.cpp \
     grasstile.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     objectmanager.cpp
 
 HEADERS += \
+    farm.h \
     foresttile.h \
     gamescene.h \
     grasstile.h \

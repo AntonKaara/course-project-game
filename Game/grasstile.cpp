@@ -13,19 +13,22 @@ GrassTile::GrassTile(const Course::Coordinate& location,
              objectmanager,
              max_build,
              max_work,
-             production)
-{
+             production) {
+
 }
 
-std::string GrassTile::getType() const
-{
+std::string GrassTile::getType() const {
+
     std::vector<std::shared_ptr<Course::BuildingBase>> buildings = this->getBuildings();
 
     if (this->getBuildingCount() > 0) {
+
         if (buildings.at(0)->getType() == "headquarters") {
             return "headquarters";
         }
     }
     return "grasstile";
+
 }
+
 } // namespace Aeta

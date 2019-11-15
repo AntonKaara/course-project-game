@@ -2,16 +2,19 @@
 
 namespace Aeta {
 
-GameEventHandler::GameEventHandler() : Course::iGameEventHandler()
-{
+GameEventHandler::GameEventHandler() : Course::iGameEventHandler() {
 
 }
 
-bool GameEventHandler::modifyResource(std::shared_ptr<Course::PlayerBase> player, Course::BasicResource resource, int amount) {
+bool GameEventHandler::modifyResource(
+        std::shared_ptr<Course::PlayerBase> player,
+        Course::BasicResource resource, int amount) {
 
 }
 
-bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMap resources) {
+bool GameEventHandler::modifyResources(
+        std::shared_ptr<Course::PlayerBase> player,
+        Course::ResourceMap resources) {
 
 }
 

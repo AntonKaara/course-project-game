@@ -3,18 +3,21 @@
 
 MainMenu::MainMenu(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::MainMenu)
-{
+    ui(new Ui::MainMenu) {
+
     // Construct the UI and its style
     ui->setupUi(this);
+
     //this->setStyleSheet("");
     ui->playButton->setStyleSheet("background-color:green;" "color:white");
 
     //Tooltips
     ui->mapSizeComboBox->setToolTip("Cool tooltip");
+
 }
 
-MainMenu::~MainMenu()
-{
+MainMenu::~MainMenu() {
+
     delete ui;
+
 }
