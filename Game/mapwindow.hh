@@ -10,6 +10,7 @@
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "graphics/simplegamescene.h"
+#include "core/coordinate.h"
 #include "player.hh"
 
 #ifndef MAPWINDOW_HH
@@ -60,16 +61,29 @@ private:
     int mapScale_ = 60; // Tile pixmap size in px
     int zoomLevel_ = 0; // Normal view = 0
 
-    std::vector<std::shared_ptr<Player>> players_ = {};
+
+    // Attributes for storing players' information
 
     std::string player1Name_ = "Unnamed";
     std::string player2Name_ = "Unnamed2";
+
+    std::map<std::shared_ptr<Player>,
+    std::vector<Course::BuildingBase>> playerOwnedObjects = {};
+    std::vector<std::shared_ptr<Player>> players_ = {};
+
+    // Container for storing tiles' information
+
+    std::map<Course::Coordinate, Course::BuildingBase> buildingsOnTiles = {};
+
+    // Attributes for defining the maps size and scale
 
     int selectedMapSize = 1;
     const int MAP_SIZE_SMALL = 10;
     const int MAP_SIZE_MEDIUM = 20;
     const int MAP_SIZE_LARGE = 40;
     const int MAP_SIZE_ULTRA_LARGE = 60;
+
+
 
 };
 } // namespace Aeta

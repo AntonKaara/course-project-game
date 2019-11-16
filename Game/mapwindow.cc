@@ -23,14 +23,17 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->setupUi(this);
 
     // Set scene
-    Aeta::GameScene* sgs_rawptr = scene_.get();
+
+    GameScene* sgs_rawptr = scene_.get();
     ui_->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
 
     // Widget config
+
     ui_->tabWidget->setTabEnabled(1, true);
     ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
 
     // Draw pictures
+
     QPixmap GrassPic(":/pictures/pictures/grasstile.png");
     QPixmap HQPic(":/pictures/pictures/headquarters.png");
     QPixmap archerPic(":/pictures/pictures/archer.png");
@@ -39,8 +42,9 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->unitImgLabel->setPixmap(archerPic);
 
     // Create eventhandler & objectmanager objects
-    auto gameEventHandler = std::make_shared<Aeta::GameEventHandler>();
-    auto objectManager = std::make_shared<Aeta::ObjectManager>();
+
+    auto gameEventHandler = std::make_shared<GameEventHandler>();
+    auto objectManager = std::make_shared<ObjectManager>();
     gameEventHandler_ = gameEventHandler;
     objectManager_ = objectManager;
 
@@ -122,13 +126,13 @@ void MapWindow::initializeStart(std::string playerName) {
                           1, Course::ConstResourceMaps::HQ_BUILD_COST,
                           Course::ConstResourceMaps::HQ_PRODUCTION);
 
-
     player->addObject(headquarters);
 
     auto location = std::make_shared<Course::Coordinate>(2, 2);
     Course::Coordinate& locationRef = *location;
     auto tileObject = objectManager_->getTile(locationRef);
 
+    tileObject->setOwner(player);
     tileObject->addBuilding(headquarters);
 
 }
