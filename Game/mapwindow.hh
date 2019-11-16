@@ -1,3 +1,11 @@
+#include "graphics/simplegamescene.h"
+#include "core/coordinate.h"
+
+#include "gamescene.h"
+#include "gameeventhandler.hh"
+#include "objectmanager.hh"
+#include "player.hh"
+
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -6,17 +14,8 @@
 #include <QDebug>
 #include <map>
 
-#include "gamescene.h"
-#include "gameeventhandler.hh"
-#include "objectmanager.hh"
-#include "graphics/simplegamescene.h"
-#include "core/coordinate.h"
-#include "player.hh"
-
 #ifndef MAPWINDOW_HH
 #define MAPWINDOW_HH
-
-
 
 namespace Ui {
 class MapWindow;

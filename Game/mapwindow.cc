@@ -1,11 +1,13 @@
-#include "mapwindow.hh"
-#include "ui_mapwindow.h"
 #include "graphics/simplemapitem.h"
 #include "core/resourcemaps.h"
 #include "core/worldgenerator.h"
+
+#include "mapwindow.hh"
+#include "ui_mapwindow.h"
 #include "grasstile.h"
 #include "foresttile.h"
 #include "headquarters.h"
+#include "farm.h"
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 
@@ -118,19 +120,29 @@ void MapWindow::initializeStart(std::string playerName) {
     players_.push_back(playerObject);
     auto player = players_.back();
 
-    // Generate HQ and add it to a tile and add the player as its owner
-    // TODO: headquarters disappearing..
+    /* Create starting buildings and units for the player and add
+     * them to the game
+     */
 
     std::shared_ptr<Headquarters> headquarters = std::make_shared<
             Headquarters>(gameEventHandler_, objectManager_, player,
                           1, Course::ConstResourceMaps::HQ_BUILD_COST,
                           Course::ConstResourceMaps::HQ_PRODUCTION);
 
+    std::shared_ptr<Farm> farm = std::make_shared<
+            Farm>(gameEventHandler_, objectManager_, player,
+                  1, Course::ConstResourceMaps::FARM_BUILD_COST,
+                  Course::ConstResourceMaps::FARM_PRODUCTION);
+
+    objectManager_->addBuilding(headquarters);
     player->addObject(headquarters);
+
+    objectManager_ -> addBuilding(farm);
+    player->addObject(farm);
 
     auto location = std::make_shared<Course::Coordinate>(2, 2);
     Course::Coordinate& locationRef = *location;
-    auto tileObject = objectManager_->getTile(locationRef);
+    std::shared_ptr<Course::TileBase> tileObject = objectManager_->getTile(locationRef);
 
     tileObject->setOwner(player);
     tileObject->addBuilding(headquarters);

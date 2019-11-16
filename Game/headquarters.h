@@ -16,6 +16,7 @@ public:
     Headquarters() = delete;
 
     // Constructor
+
     Headquarters(const std::shared_ptr<Course::iGameEventHandler> &eventHandler,
                  const std::shared_ptr<Course::iObjectManager> &objectManager,
                  const std::shared_ptr<Course::PlayerBase>& owner,

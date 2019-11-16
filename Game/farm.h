@@ -1,7 +1,8 @@
 #include "buildings/buildingbase.h"
+#include "core/resourcemaps.h"
+
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
-#include "core/resourcemaps.h"
 #include "player.hh"
 
 #ifndef FARM_H
@@ -22,8 +23,6 @@ public:
     std::string getType() const override;
 };
 
-}
-
-
+} // namespace Aeta
 
 #endif // FARM_H
