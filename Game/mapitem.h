@@ -51,6 +51,8 @@ public:
      */
     void setSize(int size);
 
+    void addMapItemPictures();
+
 private:
     /**
      * @brief addMapItemPicture is a helper function to add a
@@ -58,13 +60,11 @@ private:
      * whenever constructing a new MapItem.
      */
 
-    void addMapItemPicture(std::string mapItemType);
-
-    static std::map<std::string, QPixmap> mapItemPictures_;
     std::shared_ptr<Course::GameObject> gameObject_;
     QPoint sceneLocation_;
     QSize objectSize_;
     int tileScale_ = 60;
+    std::map<std::string, QPixmap> mapItemPictures_ = {};
 
 };
 

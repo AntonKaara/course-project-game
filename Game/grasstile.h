@@ -1,4 +1,5 @@
 #include "tiles/tilebase.h"
+
 #include <string>
 
 #ifndef GRASSTILE_H
@@ -6,9 +7,10 @@
 
 namespace Aeta {
 
-class GrassTile : public Course::TileBase
-{
+class GrassTile : public Course::TileBase {
+
 public:
+
     /**
      * @brief Disabled parameterless constructor.
      */
@@ -37,6 +39,9 @@ public:
      * @copydoc GameObject::getType()
      */
     virtual std::string getType() const override;
+
 };
-}
+
+} // namespace Aeta
+
 #endif // GRASSTILE_H

@@ -7,9 +7,11 @@
 #define GAMEEVENTHANDLER_HH
 
 namespace Aeta {
-class GameEventHandler : public Course::iGameEventHandler
-{
+
+class GameEventHandler : public Course::iGameEventHandler {
+
 public:
+
     GameEventHandler();
 
     bool modifyResource(std::shared_ptr<Course::PlayerBase> player,
@@ -18,6 +20,7 @@ public:
                          Course::ResourceMap resources) override;
 
 };
+
 } // namespace Aeta
 
 #endif // GAMEEVENTHANDLER_HH

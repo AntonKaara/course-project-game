@@ -25,7 +25,7 @@ std::string GrassTile::getType() const {
 
         if (buildings.at(0)->getType() == "headquarters") {
             return "headquarters";
-        }
+     }
     }
     return "grasstile";
 

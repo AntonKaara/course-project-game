@@ -13,6 +13,7 @@ namespace Aeta {
 class Farm : public Course::BuildingBase {
 
 public:
+
     Farm(const std::shared_ptr<Course::iGameEventHandler> &eventHandler,
          const std::shared_ptr<Course::iObjectManager> &objectManager,
          const std::shared_ptr<Player>& owner,
@@ -21,6 +22,7 @@ public:
          const Course::ResourceMap& production = {});
 
     std::string getType() const override;
+
 };
 
 } // namespace Aeta

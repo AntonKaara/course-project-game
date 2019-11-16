@@ -11,10 +11,12 @@
 
 namespace Aeta {
 
-class ObjectManager : public Course::iObjectManager
-{
+class ObjectManager : public Course::iObjectManager {
+
 public:
+
     ObjectManager();
+    ~ObjectManager() = default;
 
     // Tiles
     void addTiles (const std::vector<std::shared_ptr<Course::TileBase>> &tiles);

@@ -11,9 +11,13 @@
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 
+
 #include <memory>
 #include <math.h>
 #include <iostream>
+#include <QDirIterator>
+#include <QPixmap>
+#include <string>
 
 namespace Aeta {
 
@@ -34,7 +38,7 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->tabWidget->setTabEnabled(1, true);
     ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
 
-    // Draw pictures
+    // Add pictures
 
     QPixmap GrassPic(":/pictures/pictures/grasstile.png");
     QPixmap HQPic(":/pictures/pictures/headquarters.png");
@@ -98,6 +102,7 @@ MapWindow::~MapWindow() {
 }
 
 void MapWindow::generateMap() {
+
     unsigned int seed = 123488; // Add random generation?
 
     Course::WorldGenerator& worldGen = worldGen.getInstance();

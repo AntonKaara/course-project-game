@@ -5,8 +5,6 @@
 
 namespace Aeta {
 
-std::map<std::string, QPixmap> MapItem::mapItemPictures_ = {};
-
 MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj,
                  int size) {
 
@@ -14,11 +12,12 @@ MapItem::MapItem(const std::shared_ptr<Course::GameObject> &obj,
     gameObject_ = obj;
     sceneLocation_ = gameObject_->getCoordinatePtr()->asQpoint();
 
-    // Add the picture representing gameObject_ to mapItemPictures
-    addMapItemPicture(gameObject_->getType());
+    addMapItemPictures();
 
     // 60x60
     objectSize_ = mapItemPictures_.at(gameObject_->getType()).size();
+
+
 
 }
 
@@ -42,16 +41,6 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 }
 
-void MapItem::addMapItemPicture(std::string mapItemType) {
-
-    // generate QImage-object with the right picture
-
-    QString filePath = QString::fromStdString(":/pictures/pictures/" +
-                                              mapItemType + ".png");
-    QPixmap objectImage(filePath);
-    mapItemPictures_.insert({mapItemType, objectImage});
-
-}
 
 const std::shared_ptr<Course::GameObject> &MapItem::getBoundObject() {
 
@@ -85,6 +74,19 @@ int MapItem::getSize() const {
 void MapItem::setSize(int size) {
 
     tileScale_ = size;
+
+}
+
+void MapItem::addMapItemPictures() {
+
+    std::vector<std::string> types = {"archer", "foresttile", "grasstile", "headquarters", "infantry", "outpostPlayer1", "outpostPlayer2", "farm"};
+
+    for (auto mapItemType : types) {
+        QString filePath = QString::fromStdString(":/pictures/pictures/"
+                                                  + mapItemType + ".png");
+        QPixmap image(filePath);
+        mapItemPictures_.insert({mapItemType, image});
+    }
 
 }
 

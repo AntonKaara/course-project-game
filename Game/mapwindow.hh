@@ -45,15 +45,17 @@ public:
     void initializeStart(std::string playerName);
 
 
+
+
 private slots:
     void on_zoomInButton_clicked();
     void on_zoomOutButton_clicked();
 
 private:
     Ui::MapWindow* ui_;
-    std::shared_ptr<Course::iGameEventHandler> gameEventHandler_ = nullptr;
-    std::shared_ptr<Course::iObjectManager> objectManager_ = nullptr;
-    std::shared_ptr<Aeta::GameScene> scene_ = nullptr;
+    std::shared_ptr<GameEventHandler> gameEventHandler_ = nullptr;
+    std::shared_ptr<ObjectManager> objectManager_ = nullptr;
+    std::shared_ptr<GameScene> scene_ = nullptr;
 
     int mapsizeX_ = 10; // Tile count
     int mapsizeY_ = 10;
@@ -66,13 +68,7 @@ private:
     std::string player1Name_ = "Unnamed";
     std::string player2Name_ = "Unnamed2";
 
-    std::map<std::shared_ptr<Player>,
-    std::vector<Course::BuildingBase>> playerOwnedObjects = {};
     std::vector<std::shared_ptr<Player>> players_ = {};
-
-    // Container for storing tiles' information
-
-    std::map<Course::Coordinate, Course::BuildingBase> buildingsOnTiles = {};
 
     // Attributes for defining the maps size and scale
 
@@ -82,9 +78,9 @@ private:
     const int MAP_SIZE_LARGE = 40;
     const int MAP_SIZE_ULTRA_LARGE = 60;
 
-
-
 };
+
 } // namespace Aeta
+
 #endif // MapWINDOW_HH
 

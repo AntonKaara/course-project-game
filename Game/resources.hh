@@ -1,5 +1,9 @@
 #include "core/basicresources.h"
 
+#include <map>
+#include <QPixmap>
+#include <string>
+
 #ifndef RESOURCES_HH
 #define RESOURCES_HH
 
@@ -21,7 +25,6 @@ const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
     {Course::BasicResource::WOOD, 10},
 
 };
-
 
 }
 

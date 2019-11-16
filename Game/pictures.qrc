@@ -7,5 +7,6 @@
         <file>pictures/foresttile.png</file>
         <file>pictures/outpostPlayer1.png</file>
         <file>pictures/outpostPlayer2.png</file>
+        <file>pictures/farm.png</file>
     </qresource>
 </RCC>
