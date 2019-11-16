@@ -16,7 +16,7 @@ class ObjectManager : public Course::iObjectManager
 public:
     ObjectManager();
 
-    // Dokumentaatiosta otetut public memberit
+    // Public members from the docs
 
     void addTiles (const std::vector<std::shared_ptr<Course::TileBase>> &tiles);
     std::shared_ptr<Course::TileBase> getTile (const Course::Coordinate &coordinate);

@@ -129,7 +129,6 @@ void MapWindow::initializeStart(std::string playerName) {
     Course::Coordinate& locationRef = *location;
     auto tileObject = objectManager_->getTile(locationRef);
 
-
     tileObject->addBuilding(headquarters);
 
 }
