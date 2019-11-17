@@ -35,6 +35,8 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     QPointF scaledLocation = sceneLocation_ * tileScale_;
     QPixmap scaledPixmap = mapItemPictures_.at(tileType);
 
+    //tileObject_->getOwner(); // Get player
+
     // Draw building if tile has buildings
     if (tileObject_->getBuildingCount() > 0) {
         building = tileObject_->getBuildings().at(0);
@@ -102,6 +104,13 @@ void MapItem::addMapItemPictures() {
         mapItemPictures_.insert({mapItemType, image});
     }
 
+}
+
+void MapItem::drawSelectedIndicator() {
+    boundingRect().setWidth(4);
+    boundingRect().setHeight(4);
+    QPainter painter;
+    painter.drawRect(boundingRect());
 }
 
 } // namespace Aeta

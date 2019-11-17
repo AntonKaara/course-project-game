@@ -12,8 +12,6 @@
 
 namespace Aeta {
 
-static std::map<std::string, QPixmap> mapItemPictures_;
-
 class MapItem  : public QGraphicsItem {
 
 public:
@@ -55,6 +53,8 @@ public:
      */
     void setSize(int size);
 
+    void drawSelectedIndicator();
+
 private:
 
     /**
@@ -63,6 +63,7 @@ private:
      * whenever constructing a new MapItem.
      */
     void addMapItemPictures();
+    std::map<std::string, QPixmap> mapItemPictures_;
 
     std::shared_ptr<Course::TileBase> tileObject_;
     QPoint sceneLocation_;

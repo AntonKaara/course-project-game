@@ -30,7 +30,7 @@ std::string Headquarters::getType() const {
 void Headquarters::onBuildAction() {
 
     std::vector< std::shared_ptr<Course::TileBase> > neighbours =
-            objectManager_->getTiles(getCoordinatePtr()->neighbours(1));
+            objectManager_->getTiles(getCoordinatePtr()->neighbours(2));
 
     for(auto it = neighbours.begin(); it != neighbours.end(); ++it)
     {

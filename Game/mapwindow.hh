@@ -55,16 +55,23 @@ private slots:
 
     void on_zoomInButton_clicked();
     void on_zoomOutButton_clicked();
+    void on_buildButton_clicked();
+    void on_buildPanelButton_clicked();
+
+    void resizeEvent(QResizeEvent *event);
 
 private:
+    void addPixmaps();
 
     Ui::MapWindow* ui_;
     std::shared_ptr<GameScene> scene_ = nullptr;
     std::shared_ptr<GameEventHandler> gameEventHandler_ = nullptr;
     std::shared_ptr<ObjectManager> objectManager_ = nullptr;
 
-    int mapsizeX_ = 10; // Tile count
-    int mapsizeY_ = 10;
+    std::map<std::string, QPixmap> pixmaps_ = {};
+
+    int mapsizeX_ = 20; // Tile count
+    int mapsizeY_ = 20;
     int mapScale_ = 60; // Tile pixmap size in px
     int zoomLevel_ = 0; // Normal view = 0
 

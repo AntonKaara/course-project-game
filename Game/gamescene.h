@@ -37,6 +37,8 @@ public:
     void removeItem(std::shared_ptr<Course::GameObject> obj);
     void updateItem(std::shared_ptr<Course::GameObject> obj);
 
+    void drawSelectedIndicator(std::shared_ptr<Course::TileBase> obj);
+
     // Event handler
     uint tileClicked(QEvent *event);
 

@@ -12,7 +12,6 @@
 #include "objectmanager.hh"
 #include "gamescene.h"
 
-
 #include <memory>
 #include <math.h>
 #include <iostream>
@@ -35,19 +34,29 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
     scene_->installEventFilter(this);
 
-    // Widget config
-
-    ui_->tabWidget->setTabEnabled(1, false);
-    ui_->tabWidget->setTabEnabled(2, false);
-    ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
+    addPixmaps();
 
     // Add pictures
 
-    QPixmap GrassPic(":/pictures/pictures/Grass.png");
+    QPixmap CoinPic(":/pictures/pictures/Coins.png");
+    QPixmap FoodPic(":/pictures/pictures/Food.png");
+    QPixmap WorkforcePic(":/pictures/pictures/Workforce.png");
     QPixmap HQPic(":/pictures/pictures/Headquarters.png");
-    QPixmap archerPic(":/pictures/pictures/Archer.png");
-    ui_->tileImgLabel->setPixmap(GrassPic);
-    ui_->unitImgLabel->setPixmap(archerPic);
+    ui_->coinImg->setPixmap(CoinPic);
+    ui_->foodImg->setPixmap(FoodPic);
+    ui_->workforceImg->setPixmap(WorkforcePic);
+
+    //ui_->buildList->item(0)->setIcon(pixmaps_.at("Farm"));
+    //ui_->buildList->item(1)->setIcon(pixmaps_.at("Farm"));
+    //ui_->buildList->item(2)->setIcon(pixmaps_.at("Farm"));
+    //ui_->buildList->item(3)->setIcon(pixmaps_.at("Farm"));
+
+    // Widget config
+
+    ui_->tabWidget->setTabEnabled(0, false);
+    ui_->tabWidget->setTabEnabled(1, false);
+    ui_->tabWidget->setTabEnabled(2, false);
+    ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
 
     // Create eventhandler & objectmanager objects
 
@@ -56,10 +65,6 @@ MapWindow::MapWindow(QWidget *parent):
     gameEventHandler_ = gameEventHandler;
     objectManager_ = objectManager;
 
-    // connect signals and slots FIX
-
-    //QObject::connect(&*scene_, &GameScene::sendObjectId, &*gameEventHandler_, &GameEventHandler::clickOnTile);
-
     /* Build map and setup the player objects and the starting buildings
      * for both
      */
@@ -67,7 +72,7 @@ MapWindow::MapWindow(QWidget *parent):
     generateMap();
     drawMap();
     initializeStart(player1Name_);
-    //initializeStart(player2Name_)
+    //initializeStart(player2Name_);
 
 
 }
@@ -250,7 +255,22 @@ void MapWindow::on_zoomOutButton_clicked() {
 
 }
 
+void Aeta::MapWindow::on_buildPanelButton_clicked() {
+    ui_->tabWidget->setTabEnabled(1, true);
+    ui_->tabWidget->setCurrentIndex(1);
+}
+
+void Aeta::MapWindow::on_buildButton_clicked() {
+    ui_->tabWidget->setCurrentIndex(0);
+    ui_->tabWidget->setTabEnabled(1, false);
+}
+
 void MapWindow::updateUI(uint tileID) {
+
+    // Close build-tab and open tile-tab
+    ui_->tabWidget->setTabEnabled(0, true);
+    ui_->tabWidget->setCurrentIndex(0);
+    ui_->tabWidget->setTabEnabled(1, false);
 
     // Get gameobjects on tile
     std::shared_ptr<Course::TileBase> tile = objectManager_->getTile(tileID);
@@ -263,14 +283,14 @@ void MapWindow::updateUI(uint tileID) {
     QString buildingType = "No buildings";
     QString buildingDesc = "Null";
     QString unitType = "Null_unit";
-    QPixmap pic = mapItemPictures_.at(tile->getType());
+    QPixmap pic = pixmaps_.at(tile->getType());
 
     if (tile->getBuildings().size() > 0) {
         building = tile->getBuildings().at(0);
         buildingType = QString::fromStdString(building->getType());
         buildingDesc = QString::fromStdString(building->getDescription("basic"));
 
-        pic = mapItemPictures_.at(tile->getType());
+        pic = pixmaps_.at(building->getType());
         ui_->tileHeaderLabel->setText(buildingType);
         ui_->tileDescriptionLabel->setText(buildingDesc);
     } else {
@@ -281,9 +301,9 @@ void MapWindow::updateUI(uint tileID) {
     if (tile->getWorkers().size() > 0) {
         unit = tile->getWorkers().at(0);
         unitType = QString::fromStdString(unit->getType());
-        ui_->tabWidget->setTabEnabled(1, true);
+        ui_->tabWidget->setTabEnabled(2, true);
     } else {
-        ui_->tabWidget->setTabEnabled(1, false);
+        ui_->tabWidget->setTabEnabled(2, false);
     }
 
     ui_->tileImgLabel->setPixmap(pic);
@@ -301,6 +321,25 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
     }
 
     return false;
+
+}
+
+void MapWindow::resizeEvent(QResizeEvent *event) {
+    qDebug() << "ree" << ui_->tabWidget->height();
+    ui_->buildList->resize(ui_->tabWidget->width(), ui_->tabWidget->height() - 88);
+}
+
+void MapWindow::addPixmaps() {
+
+    std::vector<std::string> types = {"Archer", "Farm", "Forest", "Grass", "Headquarters",
+                                      "Infantry", "outpostPlayer1", "outpostPlayer2"};
+
+    for (auto mapItemType : types) {
+        QString filePath = QString::fromStdString(":/pictures/pictures/"
+                                                  + mapItemType + ".png");
+        QPixmap image(filePath);
+        pixmaps_.insert({mapItemType, image});
+    }
 
 }
 

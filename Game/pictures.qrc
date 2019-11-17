@@ -8,5 +8,8 @@
         <file>pictures/outpostPlayer1.png</file>
         <file>pictures/outpostPlayer2.png</file>
         <file>pictures/Farm.png</file>
+        <file>pictures/Coins.png</file>
+        <file>pictures/Food.png</file>
+        <file>pictures/Workforce.png</file>
     </qresource>
 </RCC>
