@@ -1,6 +1,7 @@
 #include "gamescene.h"
 #include "mapitem.h"
 #include "mapwindow.hh"
+#include "gameeventhandler.hh"
 
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
@@ -132,6 +133,7 @@ bool GameScene::event(QEvent *event) {
                 qDebug() << "ObjID: " <<
                             static_cast<MapItem*>(pressed)
                             ->getBoundObject()->ID  << " pressed.";
+                emit sendObjectId(static_cast<MapItem*>(pressed)->getBoundObject()->ID);
                 return true;
             }
         }

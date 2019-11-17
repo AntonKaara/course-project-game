@@ -37,12 +37,18 @@ public:
     void updateItem(std::shared_ptr<Course::GameObject> obj);
     virtual bool event(QEvent* event) override;
 
+signals:
+
+    void sendObjectId(uint id);
+
 private:
 
     QGraphicsItem* mapBounds_;
     int mapWidth_;
     int mapHeight_;
     int tileScale_;
+
+
 
 };
 

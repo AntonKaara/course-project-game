@@ -1,4 +1,5 @@
 #include "headquarters.h"
+#include "objectmanager.hh"
 
 namespace Aeta {
 
@@ -15,11 +16,29 @@ Headquarters::Headquarters(const std::shared_ptr<Course::iGameEventHandler> &eve
                  buildCost,
                  production) {
 
+    objectManager_ = objectManager;
+
 }
 
 std::string Headquarters::getType() const {
 
     return "headquarters";
+
+}
+
+void Headquarters::onBuildAction() {
+
+    std::vector< std::shared_ptr<Course::TileBase> > neighbours =
+            objectManager_->getTiles(getCoordinatePtr()->neighbours(1));
+
+    for(auto it = neighbours.begin(); it != neighbours.end(); ++it)
+    {
+        // If the Tile doesn't have owner, set it's owner to buildings owner.
+        if( not (*it)->getOwner() )
+        {
+            (*it)->setOwner(getOwner());
+        }
+    }
 
 }
 

@@ -1,4 +1,5 @@
 #include "core/gameobject.h"
+
 #include <QPainter>
 #include <QGraphicsItem>
 #include <map>
@@ -54,6 +55,7 @@ public:
     void addMapItemPictures();
 
 private:
+
     /**
      * @brief addMapItemPicture is a helper function to add a
      * corresponding picture representing the MapItem to the picturemap
@@ -69,7 +71,5 @@ private:
 };
 
 } // namespace Aeta
-
-
 
 #endif // MAPITEM_H

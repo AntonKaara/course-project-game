@@ -13,21 +13,25 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 #include <map>
+#include <QObject>
 
 #ifndef MAPWINDOW_HH
 #define MAPWINDOW_HH
 
 namespace Ui {
+
 class MapWindow;
+
 }
 
 namespace Aeta {
 
-class MapWindow : public QMainWindow
-{
+class MapWindow : public QMainWindow {
+
     Q_OBJECT
 
 public:
+
     explicit MapWindow(QWidget *parent = nullptr);
     ~MapWindow();
 
@@ -44,24 +48,22 @@ public:
     void drawMap();
     void initializeStart(std::string playerName);
 
-
-
-
 private slots:
+
     void on_zoomInButton_clicked();
     void on_zoomOutButton_clicked();
 
 private:
+
     Ui::MapWindow* ui_;
+    std::shared_ptr<GameScene> scene_ = nullptr;
     std::shared_ptr<GameEventHandler> gameEventHandler_ = nullptr;
     std::shared_ptr<ObjectManager> objectManager_ = nullptr;
-    std::shared_ptr<GameScene> scene_ = nullptr;
 
     int mapsizeX_ = 10; // Tile count
     int mapsizeY_ = 10;
     int mapScale_ = 60; // Tile pixmap size in px
     int zoomLevel_ = 0; // Normal view = 0
-
 
     // Attributes for storing players' information
 

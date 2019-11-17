@@ -2,10 +2,10 @@
 #include "core/resourcemaps.h"
 #include "core/playerbase.h"
 
+#include <QObject>
+
 #ifndef HEADQUARTERS_H
 #define HEADQUARTERS_H
-
-#include <QObject>
 
 namespace Aeta {
 
@@ -25,6 +25,11 @@ public:
                  const Course::ResourceMap& production = {});
 
     std::string getType() const override;
+    void onBuildAction() override;
+
+private:
+
+    std::shared_ptr<Course::iObjectManager> objectManager_;
 
 };
 

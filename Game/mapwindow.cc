@@ -1,4 +1,3 @@
-#include "graphics/simplemapitem.h"
 #include "core/resourcemaps.h"
 #include "core/worldgenerator.h"
 
@@ -10,6 +9,7 @@
 #include "farm.h"
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
+#include "gamescene.h"
 
 
 #include <memory>
@@ -54,6 +54,10 @@ MapWindow::MapWindow(QWidget *parent):
     gameEventHandler_ = gameEventHandler;
     objectManager_ = objectManager;
 
+    // connect signals and slots FIX
+
+    //QObject::connect(&*scene_, &GameScene::sendObjectId, &*gameEventHandler_, &GameEventHandler::clickOnTile);
+
     /* Build map and setup the player objects and the starting buildings
      * for both
      */
@@ -61,37 +65,7 @@ MapWindow::MapWindow(QWidget *parent):
     generateMap();
     drawMap();
     initializeStart(player1Name_);
-    //initializeStart(player2Name_);
-
-    // DEBUG ###########################################################################
-
-    //Player:
-
-    QString name = QString::fromStdString(players_.at(0)->getName());
-    qDebug () << "Players name: " << name;
-
-    qDebug () << "Buildingcount for player after initialize: " << players_.at(0)->getObjects().size();
-
-    //Tile:
-
-    auto location = std::make_shared<Course::Coordinate>(2, 2);
-    Course::Coordinate& locationRef = *location;
-
-    auto tileObject = objectManager_->getTile(locationRef);
-
-    QString tileType = QString::fromStdString(tileObject->getType());
-    qDebug () << "Tile type: " << tileType;
-
-    if (tileObject->getOwner() == nullptr) {
-        qDebug () << "Tile has no owner.";
-    } else {
-        QString owner = QString::fromStdString(tileObject->getOwner()->getName());
-        qDebug () << "Tiles owner: " << owner;
-    }
-
-    qDebug () << "Tiles buildingcount after initialize: " << tileObject->getBuildingCount();
-
-    // DEBUG ###########################################################################
+    //initializeStart(player2Name_)
 
 }
 
@@ -142,15 +116,21 @@ void MapWindow::initializeStart(std::string playerName) {
     objectManager_->addBuilding(headquarters);
     player->addObject(headquarters);
 
-    objectManager_ -> addBuilding(farm);
-    player->addObject(farm);
-
     auto location = std::make_shared<Course::Coordinate>(2, 2);
     Course::Coordinate& locationRef = *location;
     std::shared_ptr<Course::TileBase> tileObject = objectManager_->getTile(locationRef);
-
     tileObject->setOwner(player);
     tileObject->addBuilding(headquarters);
+
+    objectManager_ -> addBuilding(farm);
+    player->addObject(farm);
+
+    locationRef.set_x(1);
+    locationRef.set_y(2);
+    tileObject = objectManager_->getTile(locationRef);
+
+    tileObject->setOwner(player);
+    tileObject->addBuilding(farm);
 
 }
 

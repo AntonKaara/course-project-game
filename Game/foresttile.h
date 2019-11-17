@@ -9,6 +9,7 @@ namespace Aeta {
 class ForestTile : public Course::TileBase
 {
 public:
+
     ForestTile() = delete;
 
     ForestTile(const Course::Coordinate& location,

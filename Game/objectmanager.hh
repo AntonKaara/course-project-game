@@ -40,11 +40,13 @@ public:
             const std::vector<Course::Coordinate> &coordinates);
 
 private:
+
     std::vector<std::shared_ptr<Course::TileBase>> tiles_ = {};
     std::vector<std::shared_ptr<Course::BuildingBase>> buildings_ = {};
     std::vector<std::shared_ptr<Course::WorkerBase>> units_ = {};
 
 };
+
 } // namespace Aeta
 
 #endif // OBJECTMANAGER_HH
