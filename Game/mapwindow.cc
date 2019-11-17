@@ -3,6 +3,7 @@
 
 #include "mapwindow.hh"
 #include "ui_mapwindow.h"
+#include "mapitem.h"
 #include "grasstile.h"
 #include "foresttile.h"
 #include "headquarters.h"
@@ -36,15 +37,15 @@ MapWindow::MapWindow(QWidget *parent):
 
     // Widget config
 
-    ui_->tabWidget->setTabEnabled(1, true);
+    ui_->tabWidget->setTabEnabled(1, false);
+    ui_->tabWidget->setTabEnabled(2, false);
     ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
 
     // Add pictures
 
-    QPixmap GrassPic(":/pictures/pictures/grasstile.png");
-    QPixmap HQPic(":/pictures/pictures/headquarters.png");
-    QPixmap archerPic(":/pictures/pictures/archer.png");
-    ui_->buildingImgLabel->setPixmap(HQPic);
+    QPixmap GrassPic(":/pictures/pictures/Grass.png");
+    QPixmap HQPic(":/pictures/pictures/Headquarters.png");
+    QPixmap archerPic(":/pictures/pictures/Archer.png");
     ui_->tileImgLabel->setPixmap(GrassPic);
     ui_->unitImgLabel->setPixmap(archerPic);
 
@@ -262,28 +263,30 @@ void MapWindow::updateUI(uint tileID) {
     QString buildingType = "No buildings";
     QString buildingDesc = "Null";
     QString unitType = "Null_unit";
+    QPixmap pic = mapItemPictures_.at(tile->getType());
 
     if (tile->getBuildings().size() > 0) {
         building = tile->getBuildings().at(0);
         buildingType = QString::fromStdString(building->getType());
         buildingDesc = QString::fromStdString(building->getDescription("basic"));
-        ui_->tabWidget->setTabEnabled(1, true);
+
+        pic = mapItemPictures_.at(tile->getType());
+        ui_->tileHeaderLabel->setText(buildingType);
+        ui_->tileDescriptionLabel->setText(buildingDesc);
     } else {
-        ui_->tabWidget->setTabEnabled(1, false);
+        ui_->tileHeaderLabel->setText(tileType);
+        ui_->tileDescriptionLabel->setText(tileDesc);
     }
 
     if (tile->getWorkers().size() > 0) {
         unit = tile->getWorkers().at(0);
         unitType = QString::fromStdString(unit->getType());
-        ui_->tabWidget->setTabEnabled(2, true);
+        ui_->tabWidget->setTabEnabled(1, true);
     } else {
-        ui_->tabWidget->setTabEnabled(2, false);
+        ui_->tabWidget->setTabEnabled(1, false);
     }
 
-    ui_->tileHeaderLabel->setText(tileType);
-    ui_->tileDescriptionLabel->setText(tileDesc);
-    ui_->buildingHeaderLabel->setText(buildingType);
-    ui_->buildingDescriptionLabel->setText(buildingDesc);
+    ui_->tileImgLabel->setPixmap(pic);
     ui_->unitTypeLabel->setText("Type: " + unitType);
 }
 

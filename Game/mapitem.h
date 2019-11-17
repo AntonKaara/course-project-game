@@ -12,6 +12,8 @@
 
 namespace Aeta {
 
+static std::map<std::string, QPixmap> mapItemPictures_;
+
 class MapItem  : public QGraphicsItem {
 
 public:
@@ -53,8 +55,6 @@ public:
      */
     void setSize(int size);
 
-
-
 private:
 
     /**
@@ -68,7 +68,6 @@ private:
     QPoint sceneLocation_;
     QSize objectSize_;
     int tileScale_ = 60;
-    std::map<std::string, QPixmap> mapItemPictures_ = {};
 
 };
 

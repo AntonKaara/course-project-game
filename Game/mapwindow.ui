@@ -221,7 +221,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="tabBarAutoHide">
          <bool>false</bool>
@@ -235,8 +235,8 @@
            <rect>
             <x>10</x>
             <y>10</y>
-            <width>321</width>
-            <height>20</height>
+            <width>261</width>
+            <height>31</height>
            </rect>
           </property>
           <property name="font">
@@ -252,9 +252,9 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>40</y>
+            <y>50</y>
             <width>261</width>
-            <height>171</height>
+            <height>121</height>
            </rect>
           </property>
           <property name="layoutDirection">
@@ -294,67 +294,6 @@
           </property>
           <property name="text">
            <string>Build a building</string>
-          </property>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="buildingTab">
-         <attribute name="title">
-          <string>Building</string>
-         </attribute>
-         <widget class="QLabel" name="buildingHeaderLabel">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>10</y>
-            <width>321</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>15</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>No buildings yet</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-          </property>
-         </widget>
-         <widget class="QLabel" name="buildingDescriptionLabel">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>40</y>
-            <width>221</width>
-            <height>81</height>
-           </rect>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="text">
-           <string>Description of the </string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-         <widget class="QLabel" name="buildingImgLabel">
-          <property name="geometry">
-           <rect>
-            <x>280</x>
-            <y>10</y>
-            <width>60</width>
-            <height>60</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Img</string>
           </property>
          </widget>
         </widget>
