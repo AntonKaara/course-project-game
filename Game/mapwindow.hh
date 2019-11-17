@@ -38,7 +38,7 @@ public:
     void setSize(int width, int height);
     void setScale(int scale);
     void resize();
-    void drawItem( std::shared_ptr<Course::GameObject> obj);
+    void drawTile( std::shared_ptr<Course::TileBase> obj);
     void removeItem( std::shared_ptr<Course::GameObject> obj);
     void updateItem( std::shared_ptr<Course::GameObject> obj);
 
@@ -47,6 +47,9 @@ public:
     void generateMap();
     void drawMap();
     void initializeStart(std::string playerName);
+
+    bool eventFilter(QObject *object, QEvent *event);
+    void updateUI(uint tileID);
 
 private slots:
 

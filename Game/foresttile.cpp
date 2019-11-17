@@ -14,22 +14,12 @@ ForestTile::ForestTile(const Course::Coordinate& location,
                max_build,
                max_work,
                production) {
-
+    setDescription("basic", "Forested land provides you with wood if you cut it down.");
 }
 
 std::string ForestTile::getType() const {
 
-    std::vector<std::shared_ptr<Course::BuildingBase>> buildings = this->getBuildings();
-
-    if (this->getBuildingCount() > 0) {
-
-        if (buildings.at(0)->getType() == "headquarters") {
-            return "headquarters";
-        } else if (buildings.at(0)->getType() == "farm") {
-            return "farm";
-        }
-    }
-    return "foresttile";
+    return "Forest";
 
 }
 

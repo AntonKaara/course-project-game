@@ -14,12 +14,12 @@ Farm::Farm(const std::shared_ptr<Course::iGameEventHandler> &eventHandler,
                    tileSpaces,
                    buildCost,
                    production) {
-
+    setDescription("basic", "Moo! Produces edible goods. Also known as food.");
 }
 
 std::string Farm::getType() const {
 
-    return "farm";
+    return "Farm";
 
 }
 

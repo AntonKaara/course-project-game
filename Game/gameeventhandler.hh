@@ -11,19 +11,16 @@ namespace Aeta {
 
 class GameEventHandler : public Course::iGameEventHandler {
 
-
-
 public:
 
     GameEventHandler();
 
-    ~GameEventHandler() override = default ;
+    ~GameEventHandler() override = default;
 
     bool modifyResource(std::shared_ptr<Course::PlayerBase> player,
                         Course::BasicResource resource, int amount) override;
     bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
                          Course::ResourceMap resources) override;
-
 
 };
 

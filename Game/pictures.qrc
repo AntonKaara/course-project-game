@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/pictures">
         <file>pictures/archer.png</file>
-        <file>pictures/headquarters.png</file>
+        <file>pictures/Headquarters.png</file>
         <file>pictures/infantry.png</file>
-        <file>pictures/grasstile.png</file>
-        <file>pictures/foresttile.png</file>
+        <file>pictures/Grass.png</file>
+        <file>pictures/Forest.png</file>
         <file>pictures/outpostPlayer1.png</file>
         <file>pictures/outpostPlayer2.png</file>
-        <file>pictures/farm.png</file>
+        <file>pictures/Farm.png</file>
     </qresource>
 </RCC>

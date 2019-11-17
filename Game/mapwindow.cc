@@ -32,6 +32,7 @@ MapWindow::MapWindow(QWidget *parent):
 
     GameScene* sgs_rawptr = scene_.get();
     ui_->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
+    scene_->installEventFilter(this);
 
     // Widget config
 
@@ -66,6 +67,7 @@ MapWindow::MapWindow(QWidget *parent):
     drawMap();
     initializeStart(player1Name_);
     //initializeStart(player2Name_)
+
 
 }
 
@@ -152,7 +154,7 @@ void MapWindow::drawMap() {
 
         while (locationRef.y() < mapsizeY_){
             auto tile = objectManager_->getTile(locationRef);
-            drawItem(tile);
+            drawTile(tile);
             //y++;
             locationRef.set_y(locationRef.y() + 1);
         }
@@ -193,9 +195,9 @@ void MapWindow::resize() {
 //    scene_->removeItem(obj);
 //}
 
-void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj) {
+void MapWindow::drawTile( std::shared_ptr<Course::TileBase> obj) {
 
-    scene_->drawItem(obj);
+    scene_->drawTile(obj);
 
 }
 
@@ -244,6 +246,58 @@ void MapWindow::on_zoomOutButton_clicked() {
         }
 
     }
+
+}
+
+void MapWindow::updateUI(uint tileID) {
+
+    // Get gameobjects on tile
+    std::shared_ptr<Course::TileBase> tile = objectManager_->getTile(tileID);
+    std::shared_ptr<Course::BuildingBase> building = nullptr;
+    std::shared_ptr<Course::WorkerBase> unit = nullptr;
+
+    // Get names and descriptions
+    QString tileType = QString::fromStdString(tile->getType());
+    QString tileDesc = QString::fromStdString(tile->getDescription("basic"));
+    QString buildingType = "No buildings";
+    QString buildingDesc = "Null";
+    QString unitType = "Null_unit";
+
+    if (tile->getBuildings().size() > 0) {
+        building = tile->getBuildings().at(0);
+        buildingType = QString::fromStdString(building->getType());
+        buildingDesc = QString::fromStdString(building->getDescription("basic"));
+        ui_->tabWidget->setTabEnabled(1, true);
+    } else {
+        ui_->tabWidget->setTabEnabled(1, false);
+    }
+
+    if (tile->getWorkers().size() > 0) {
+        unit = tile->getWorkers().at(0);
+        unitType = QString::fromStdString(unit->getType());
+        ui_->tabWidget->setTabEnabled(2, true);
+    } else {
+        ui_->tabWidget->setTabEnabled(2, false);
+    }
+
+    ui_->tileHeaderLabel->setText(tileType);
+    ui_->tileDescriptionLabel->setText(tileDesc);
+    ui_->buildingHeaderLabel->setText(buildingType);
+    ui_->buildingDescriptionLabel->setText(buildingDesc);
+    ui_->unitTypeLabel->setText("Type: " + unitType);
+}
+
+bool MapWindow::eventFilter(QObject *object, QEvent *event) {
+
+    if (object == &*scene_ && event->type() == QEvent::GraphicsSceneMousePress) {
+            qDebug() << "Jee se toimii, nyt kutsu";
+            uint tileID = scene_->tileClicked(event);
+            qDebug() << "Got tileID: " << tileID;
+            updateUI(tileID);
+            return true;
+    }
+
+    return false;
 
 }
 

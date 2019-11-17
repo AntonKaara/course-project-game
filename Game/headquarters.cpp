@@ -17,12 +17,13 @@ Headquarters::Headquarters(const std::shared_ptr<Course::iGameEventHandler> &eve
                  production) {
 
     objectManager_ = objectManager;
+    setDescription("basic", "Home sweet home.");
 
 }
 
 std::string Headquarters::getType() const {
 
-    return "headquarters";
+    return "Headquarters";
 
 }
 

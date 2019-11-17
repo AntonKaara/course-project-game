@@ -1,4 +1,5 @@
 #include "core/gameobject.h"
+#include "tiles/tilebase.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -32,14 +33,12 @@ public:
     void setScale(int scale);
     void resize();
     int getScale() const;
-    void drawItem(std::shared_ptr<Course::GameObject> obj);
+    void drawTile(std::shared_ptr<Course::TileBase> obj);
     void removeItem(std::shared_ptr<Course::GameObject> obj);
     void updateItem(std::shared_ptr<Course::GameObject> obj);
-    virtual bool event(QEvent* event) override;
 
-signals:
-
-    void sendObjectId(uint id);
+    // Event handler
+    uint tileClicked(QEvent *event);
 
 private:
 
@@ -47,8 +46,6 @@ private:
     int mapWidth_;
     int mapHeight_;
     int tileScale_;
-
-
 
 };
 

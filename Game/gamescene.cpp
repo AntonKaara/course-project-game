@@ -107,37 +107,37 @@ void GameScene::removeItem(std::shared_ptr<Course::GameObject> obj) {
 
 }
 
-void GameScene::drawItem(std::shared_ptr<Course::GameObject> obj) {
+void GameScene::drawTile(std::shared_ptr<Course::TileBase> obj) {
 
     MapItem* mapItem = new MapItem(obj, tileScale_);
     addItem(mapItem);
 
 }
 
-bool GameScene::event(QEvent *event) {
+//bool GameScene::event(QEvent *event) {
 
-    if(event->type() == QEvent::GraphicsSceneMousePress) {
-        QGraphicsSceneMouseEvent* mouse_event =
-                dynamic_cast<QGraphicsSceneMouseEvent*>(event);
+//    if(event->type() == QEvent::GraphicsSceneMousePress) {
+//        QGraphicsSceneMouseEvent* mouse_event =
+//                dynamic_cast<QGraphicsSceneMouseEvent*>(event);
 
-        if ( sceneRect().contains(mouse_event->scenePos())){
+//        if ( sceneRect().contains(mouse_event->scenePos())){
 
-            QPointF point = mouse_event->scenePos() / tileScale_;
-            point.rx() = floor(point.rx());
-            point.ry() = floor(point.ry());
-            QGraphicsItem* pressed = itemAt(point * tileScale_, QTransform());
+//            QPointF point = mouse_event->scenePos() / tileScale_;
+//            point.rx() = floor(point.rx());
+//            point.ry() = floor(point.ry());
+//            QGraphicsItem* pressed = itemAt(point * tileScale_, QTransform());
 
-            if ( pressed == mapBounds_ ){
-                qDebug() << "Click on map area.";
-            } else {
-                qDebug() << "ObjID: " <<
-                            static_cast<MapItem*>(pressed)
-                            ->getBoundObject()->ID  << " pressed.";
-                emit sendObjectId(static_cast<MapItem*>(pressed)->getBoundObject()->ID);
-                return true;
-            }
-        }
-    }
+//            if ( pressed == mapBounds_ ){
+//                qDebug() << "Click on map area.";
+//            } else {
+//                qDebug() << "ObjID: " <<
+//                            static_cast<MapItem*>(pressed)
+//                            ->getBoundObject()->ID  << " pressed.";
+//                //emit sendObjectId(static_cast<MapItem*>(pressed)->getBoundObject()->ID);
+//                return true;
+//            }
+//        }
+//    }
 
 //    if (event->type() == QEvent::GraphicsSceneWheel) {
 //        QGraphicsSceneWheelEvent* mouseWheelEvent =
@@ -150,7 +150,34 @@ bool GameScene::event(QEvent *event) {
 //        }
 
 //    }
-    return false;
+//    return false;
+//}
+
+uint GameScene::tileClicked(QEvent *event) {
+
+    if(event->type() == QEvent::GraphicsSceneMousePress) {
+        QGraphicsSceneMouseEvent* mouse_event =
+                dynamic_cast<QGraphicsSceneMouseEvent*>(event);
+
+        if (sceneRect().contains(mouse_event->scenePos())){
+
+            QPointF point = mouse_event->scenePos() / tileScale_;
+            point.rx() = floor(point.rx());
+            point.ry() = floor(point.ry());
+            QGraphicsItem* pressed = itemAt(point * tileScale_, QTransform());
+
+            if ( pressed == mapBounds_ ){
+                qDebug() << "Click on map area.";
+            } else {
+                qDebug() << "ObjID: " <<
+                            static_cast<MapItem*>(pressed)
+                            ->getBoundObject()->ID  << " pressed.";
+                //emit sendObjectId(static_cast<MapItem*>(pressed)->getBoundObject()->ID);
+                return static_cast<MapItem*>(pressed)->getBoundObject()->ID;
+            }
+        }
+    }
+    return 0;
 }
 
 } // namespace Aeta

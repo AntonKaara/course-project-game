@@ -221,12 +221,12 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="tabBarAutoHide">
          <bool>false</bool>
         </property>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="tileTab">
          <attribute name="title">
           <string>Tile</string>
          </attribute>
@@ -283,8 +283,21 @@
            <string>Img</string>
           </property>
          </widget>
+         <widget class="QPushButton" name="pushButton">
+          <property name="geometry">
+           <rect>
+            <x>189</x>
+            <y>180</y>
+            <width>141</width>
+            <height>28</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Build a building</string>
+          </property>
+         </widget>
         </widget>
-        <widget class="QWidget" name="tab_3">
+        <widget class="QWidget" name="buildingTab">
          <attribute name="title">
           <string>Building</string>
          </attribute>
@@ -294,7 +307,7 @@
             <x>10</x>
             <y>10</y>
             <width>321</width>
-            <height>20</height>
+            <height>31</height>
            </rect>
           </property>
           <property name="font">
@@ -303,10 +316,13 @@
            </font>
           </property>
           <property name="text">
-           <string>Headquarters</string>
+           <string>No buildings yet</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
           </property>
          </widget>
-         <widget class="QLabel" name="tileDescriptionLabel_2">
+         <widget class="QLabel" name="buildingDescriptionLabel">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -319,7 +335,7 @@
            <enum>Qt::LeftToRight</enum>
           </property>
           <property name="text">
-           <string>Home sweet home.</string>
+           <string>Description of the </string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -342,7 +358,7 @@
           </property>
          </widget>
         </widget>
-        <widget class="QWidget" name="tab_2">
+        <widget class="QWidget" name="unitTab">
          <attribute name="title">
           <string>Unit</string>
          </attribute>

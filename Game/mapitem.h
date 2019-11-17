@@ -1,4 +1,5 @@
 #include "core/gameobject.h"
+#include "tiles/tilebase.h"
 
 #include <QPainter>
 #include <QGraphicsItem>
@@ -15,14 +16,14 @@ class MapItem  : public QGraphicsItem {
 
 public:
 
-    MapItem(const std::shared_ptr<Course::GameObject> &obj, int size);
+    MapItem(const std::shared_ptr<Course::TileBase> &obj, int size);
 
     QRectF boundingRect() const override;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget = nullptr) override;
 
-    const std::shared_ptr<Course::GameObject> &getBoundObject();
+    const std::shared_ptr<Course::TileBase> &getBoundObject();
 
     /**
      * @brief updateLoc moves the item if the position has changed.
@@ -52,17 +53,18 @@ public:
      */
     void setSize(int size);
 
-    void addMapItemPictures();
+
 
 private:
 
     /**
-     * @brief addMapItemPicture is a helper function to add a
+     * @brief addMapItemPictures is a helper function to add a
      * corresponding picture representing the MapItem to the picturemap
      * whenever constructing a new MapItem.
      */
+    void addMapItemPictures();
 
-    std::shared_ptr<Course::GameObject> gameObject_;
+    std::shared_ptr<Course::TileBase> tileObject_;
     QPoint sceneLocation_;
     QSize objectSize_;
     int tileScale_ = 60;
