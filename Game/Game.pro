@@ -15,6 +15,7 @@ SOURCES += \
     mapitem.cpp \
     mapwindow.cc \
     gameeventhandler.cpp \
+    outpost.cpp \
     player.cpp \
     mainmenu.cpp \
     objectmanager.cpp
@@ -28,6 +29,7 @@ HEADERS += \
     mapitem.h \
     mapwindow.hh \
     gameeventhandler.hh \
+    outpost.h \
     player.hh \
     resources.hh \
     mainmenu.hh \

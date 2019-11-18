@@ -64,7 +64,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Player 1's turn</string>
+          <string>Player X's turn</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -284,7 +284,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="tabBarAutoHide">
          <bool>false</bool>
@@ -308,16 +308,16 @@
            </font>
           </property>
           <property name="text">
-           <string>Select a tile</string>
+           <string>Headquarters</string>
           </property>
          </widget>
          <widget class="QLabel" name="tileDescriptionLabel">
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>50</y>
+            <y>90</y>
             <width>251</width>
-            <height>91</height>
+            <height>101</height>
            </rect>
           </property>
           <property name="layoutDirection">
@@ -347,6 +347,9 @@
           </property>
          </widget>
          <widget class="QPushButton" name="buildPanelButton">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="geometry">
            <rect>
             <x>190</x>
@@ -357,6 +360,19 @@
           </property>
           <property name="text">
            <string>Build a building</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="tileOwnerLabel">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>261</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Owned by: Player 1</string>
           </property>
          </widget>
         </widget>
@@ -543,7 +559,7 @@
             <string>Cost: 12 euroo</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="buildButton">
+          <widget class="QPushButton" name="confirmBuildButton">
            <property name="geometry">
             <rect>
              <x>189</x>

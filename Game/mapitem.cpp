@@ -42,6 +42,12 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         building = tileObject_->getBuildings().at(0);
         buildingType = building->getType();
         scaledPixmap = mapItemPictures_.at(buildingType).scaled(objectSize_, Qt::IgnoreAspectRatio);
+
+        // TODO: Draw different tiles for both players
+        if (tileObject_->getOwner()) {
+
+        }
+
     } else {
         scaledPixmap = mapItemPictures_.at(tileType).scaled(objectSize_, Qt::IgnoreAspectRatio);
     }

@@ -9,6 +9,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QListWidget>
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
@@ -42,23 +43,29 @@ public:
     void removeItem( std::shared_ptr<Course::GameObject> obj);
     void updateItem( std::shared_ptr<Course::GameObject> obj);
 
-    void mouseWheelEventHandler(QGraphicsSceneWheelEvent* mouseWheelEvent);
-
     void generateMap();
     void drawMap();
-    void initializeStart(std::string playerName);
+
+    void initializePlayer1();
+    void initializePlayer2();
+
+    void buildOnTile();
+    void endTurn();
 
     bool eventFilter(QObject *object, QEvent *event);
-    void updateUI(uint tileID);
+    void updateUI();
 
 private slots:
 
     void on_zoomInButton_clicked();
     void on_zoomOutButton_clicked();
-    void on_buildButton_clicked();
+    void on_confirmBuildButton_clicked();
     void on_buildPanelButton_clicked();
+    void on_endTurnButton_clicked();
 
     void resizeEvent(QResizeEvent *event);
+
+    void on_buildList_itemDoubleClicked(QListWidgetItem *item);
 
 private:
     void addPixmaps();
@@ -75,10 +82,14 @@ private:
     int mapScale_ = 60; // Tile pixmap size in px
     int zoomLevel_ = 0; // Normal view = 0
 
+    int turn_ = 1;
+    uint selectedTileID_ = 0;
+
     // Attributes for storing players' information
 
-    std::string player1Name_ = "Unnamed";
-    std::string player2Name_ = "Unnamed2";
+    std::shared_ptr<Player> playerInTurn_ = nullptr;
+    std::string player1Name_ = "Player 1";
+    std::string player2Name_ = "Player 2";
 
     std::vector<std::shared_ptr<Player>> players_ = {};
 
