@@ -47,11 +47,6 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->foodImg->setPixmap(FoodPic);
     ui_->workforceImg->setPixmap(WorkforcePic);
 
-    //ui_->buildList->item(0)->setIcon(pixmaps_.at("Farm"));
-    //ui_->buildList->item(1)->setIcon(pixmaps_.at("Farm"));
-    //ui_->buildList->item(2)->setIcon(pixmaps_.at("Farm"));
-    //ui_->buildList->item(3)->setIcon(pixmaps_.at("Farm"));
-
     // Widget config
 
     ui_->tabWidget->setTabEnabled(0, false);
@@ -113,6 +108,8 @@ void MapWindow::initializePlayer1() {
     /* Create starting buildings and units for the player and add
      * them to the game
      */
+
+    // TODO: Change tile to grass before building
 
     std::shared_ptr<Headquarters> headquarters = std::make_shared<
             Headquarters>(gameEventHandler_, objectManager_, player,
@@ -248,35 +245,36 @@ void MapWindow::endTurn() {
 
     qDebug() << "End turn pressed";
 
+    turn_ += 1;
+
+    // Change player in turn
+
     if (turn_ % 2 == 0) {
         playerInTurn_ = players_.at(1);
     } else {
         playerInTurn_ = players_.at(0);
     }
 
-    turn_ += 1;
+    // Center view on player HQ
 
-    ui_->turnCountLabel->setText("Turn: " + QString::fromStdString(std::to_string(turn_)));
-
-    QString playerName = QString::fromStdString(playerInTurn_->getName());
-    ui_->turnLabel->setText(playerName + "'s turn");
-
-    // Center map on player HQ
-
-    auto mapFocusLocation = std::make_shared<Course::Coordinate>(20, 20);
+    auto mapFocusLocation = std::make_shared<Course::Coordinate>(10, 10);
     for (auto obj : playerInTurn_->getObjects()) {
         if (obj->getType() == "Headquarters") {
             mapFocusLocation = obj->getCoordinatePtr();
+            // TODO: Check if too many objects exist
+            // selectedTileID_ = obj->ID; // Set focus to HQ
+            qDebug() << "ID" << QString::fromStdString(std::to_string(obj->ID));
         }
     }
+
     qDebug() << "Camera location to" << mapFocusLocation->x() << mapFocusLocation->y();
     double xCoordinate = mapFocusLocation->x();
     double yCoordinate = mapFocusLocation->y();
-    ui_->graphicsView->centerOn(xCoordinate, yCoordinate);
+    ui_->graphicsView->centerOn(QPointF(xCoordinate * 60, yCoordinate * 60));
+
 
     scene_->update();
-
-    qDebug() << "player in turn " << QString::fromStdString(playerInTurn_->getName());
+    updateUI();
 
 }
 
