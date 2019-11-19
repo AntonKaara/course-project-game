@@ -18,8 +18,8 @@
         <file>pictures/Ore.png</file>
         <file>pictures/Outpost.png</file>
         <file>pictures/OutpostPlayer2.png</file>
-        <file>pictures/Player1OwnedGrass.png</file>
-        <file>pictures/Player2OwnedGrass.png</file>
+        <file>pictures/GrassPlayer1.png</file>
+        <file>pictures/GrassPlayer2.png</file>
         <file>pictures/Wood.png</file>
     </qresource>
 </RCC>

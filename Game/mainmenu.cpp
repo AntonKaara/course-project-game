@@ -29,3 +29,17 @@ void MainMenu::on_player1NameEdit_textEdited(const QString &name) {
 void MainMenu::on_player2NameEdit_textEdited(const QString &name) {
     emit playerNameChanged(name, 2);
 }
+
+void MainMenu::on_mapSizeComboBox_currentIndexChanged(int index) {
+
+    if (index == 0) {
+        emit mapSizeChanged(10, 10);
+    } else if ( index == 1) {
+        emit mapSizeChanged(20, 20);
+    } else if ( index == 2) {
+        emit mapSizeChanged(40, 40);
+    } else if ( index == 3) {
+        emit mapSizeChanged(60, 60);
+    }
+
+}

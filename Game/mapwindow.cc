@@ -34,10 +34,17 @@ MapWindow::MapWindow(QWidget *parent):
      */
 
     mainMenu_ = std::make_shared<MainMenu>(this);
-    mainMenu_->setModal(true);
+    //mainMenu_->setModal(true);
     connect(&*mainMenu_, &MainMenu::playerNameChanged,
             this, &MapWindow::setPlayerName);
-    mainMenu_->show();
+    connect(&*mainMenu_, &MainMenu::mapSizeChanged,
+            this, &MapWindow::setMapSize);
+    //connect(&*mainMenu_, &MainMenu::finished,
+     //       this, &MapWindow::mainMenuFinished);
+    int result = mainMenu_->exec();
+    if (result == MainMenu::Rejected) {
+        qDebug() << "Mainmenu rejected";
+    }
 
     // Set scene
 
@@ -432,6 +439,11 @@ void MapWindow::setPlayerName(const QString &name, const int &playerNumber) {
 
 }
 
+void MapWindow::setMapSize(const int &sizeX, const int &sizeY) {
+    mapsizeX_ = sizeX;
+    mapsizeY_ = sizeY;
+}
+
 void MapWindow::updateUI() {
 
     // Close build-tab and open tile-tab
@@ -462,10 +474,23 @@ void MapWindow::updateUI() {
         ui_->tileHeaderLabel->setText(buildingType);
         ui_->tileDescriptionLabel->setText(buildingDesc);
         ui_->buildPanelButton->setEnabled(false);
+        ui_->buildPanelButton->setText("Demolish");
+        ui_->buildPanelButton->setToolTip("Demolish the building on this tile");
+        ui_->buildPanelButton->setStyleSheet("background-color:darkRed;" "color:white");
+
+        if (buildingType == "Headquarters") {
+            ui_->buildPanelButton->setText("Disabled");
+            ui_->buildPanelButton->setToolTip("You can not move the headquarters");
+            ui_->buildPanelButton->setStyleSheet("background-color:gray;" "color:white");
+        }
+
     } else {
         ui_->tileHeaderLabel->setText(tileType);
         ui_->tileDescriptionLabel->setText(tileDesc);
         ui_->buildPanelButton->setEnabled(true);
+        ui_->buildPanelButton->setText("Build");
+        ui_->buildPanelButton->setToolTip("Build a building on the this tile");
+        ui_->buildPanelButton->setStyleSheet("background-color:darkGreen;" "color:white");
     }
 
     // Update owner label

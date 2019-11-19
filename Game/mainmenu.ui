@@ -219,7 +219,7 @@
    <sender>quitButton</sender>
    <signal>clicked()</signal>
    <receiver>MainMenu</receiver>
-   <slot>close()</slot>
+   <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>301</x>

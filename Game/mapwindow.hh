@@ -59,6 +59,7 @@ public:
 public slots:
 
     void setPlayerName(const QString &name, const int &playerNumber);
+    void setMapSize(const int &sizeX, const int &sizeY);
 
 private slots:
 
