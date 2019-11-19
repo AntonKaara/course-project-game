@@ -1,15 +1,25 @@
 <RCC>
     <qresource prefix="/pictures">
-        <file>pictures/Archer.png</file>
-        <file>pictures/Headquarters.png</file>
-        <file>pictures/Infantry.png</file>
         <file>pictures/Grass.png</file>
         <file>pictures/Forest.png</file>
-        <file>pictures/outpostPlayer1.png</file>
-        <file>pictures/outpostPlayer2.png</file>
-        <file>pictures/Farm.png</file>
         <file>pictures/Coins.png</file>
         <file>pictures/Food.png</file>
         <file>pictures/Workforce.png</file>
+        <file>pictures/ArcherPlayer1.png</file>
+        <file>pictures/ArcherPlayer2.png</file>
+        <file>pictures/Farm.png</file>
+        <file>pictures/FarmPlayer2.png</file>
+        <file>pictures/ForestPlayer1.png</file>
+        <file>pictures/ForestPlayer2.png</file>
+        <file>pictures/Headquarters.png</file>
+        <file>pictures/HeadquartersPlayer2.png</file>
+        <file>pictures/InfantryPlayer1.png</file>
+        <file>pictures/InfantryPlayer2.png</file>
+        <file>pictures/Ore.png</file>
+        <file>pictures/Outpost.png</file>
+        <file>pictures/OutpostPlayer2.png</file>
+        <file>pictures/Player1OwnedGrass.png</file>
+        <file>pictures/Player2OwnedGrass.png</file>
+        <file>pictures/Wood.png</file>
     </qresource>
 </RCC>

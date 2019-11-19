@@ -18,6 +18,14 @@ public:
     explicit MainMenu(QWidget *parent = nullptr);
     ~MainMenu();
 
+
+signals:
+    void playerNameChanged(const QString &name, const int &number);
+
+public slots:
+    void on_player1NameEdit_textEdited(const QString &arg1);
+    void on_player2NameEdit_textEdited(const QString &arg1);
+
 private:
 
     Ui::MainMenu *ui;

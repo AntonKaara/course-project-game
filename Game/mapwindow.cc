@@ -29,6 +29,16 @@ MapWindow::MapWindow(QWidget *parent):
 
     ui_->setupUi(this);
 
+    /* Create menu window and connect all its properties to
+     * mapwindow's (this) slots and show it
+     */
+
+    mainMenu_ = std::make_shared<MainMenu>(this);
+    mainMenu_->setModal(true);
+    connect(&*mainMenu_, &MainMenu::playerNameChanged,
+            this, &MapWindow::setPlayerName);
+    mainMenu_->show();
+
     // Set scene
 
     GameScene* sgs_rawptr = scene_.get();
@@ -53,6 +63,8 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->tabWidget->setTabEnabled(1, false);
     ui_->tabWidget->setTabEnabled(2, false);
     ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
+
+
 
     // Create eventhandler & objectmanager objects
 
@@ -408,6 +420,18 @@ void Aeta::MapWindow::on_buildList_itemDoubleClicked(QListWidgetItem *item) {
 
 }
 
+void MapWindow::setPlayerName(const QString &name, const int &playerNumber) {
+
+    std::string newName = name.toStdString();
+
+    if (playerNumber == 1) {
+        player1Name_ = newName;
+    } else {
+        player2Name_ = newName;
+    }
+
+}
+
 void MapWindow::updateUI() {
 
     // Close build-tab and open tile-tab
@@ -492,8 +516,16 @@ void MapWindow::resizeEvent(QResizeEvent *event) {
 
 void MapWindow::addPixmaps() {
 
-    std::vector<std::string> types = {"Archer", "Farm", "Forest", "Grass", "Headquarters",
-                                      "Infantry", "outpostPlayer1", "outpostPlayer2"};
+    std::vector<std::string> types = {"ArcherPlayer1", "ArcherPlayer2",
+                                      "Coins", "Farm", "FarmPlayer2",
+                                      "Food", "Forest", "ForestPlayer1",
+                                      "ForestPlayer2", "Grass",
+                                      "Headquarters",
+                                      "HeadquartersPlayer2", "InfantryPlayer1",
+                                      "InfantryPlayer2", "Ore",
+                                      "Outpost", "OutpostPlayer2",
+                                      "Player1OwnedGrass", "Player2OwnedGrass",
+                                      "Wood", "Workforce"};
 
     for (auto mapItemType : types) {
         QString filePath = QString::fromStdString(":/pictures/pictures/"

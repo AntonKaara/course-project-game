@@ -19,6 +19,7 @@ Headquarters::Headquarters(const std::shared_ptr<Course::iGameEventHandler> &eve
     objectManager_ = objectManager;
     setDescription("basic", "Home sweet home.");
 
+
 }
 
 std::string Headquarters::getType() const {

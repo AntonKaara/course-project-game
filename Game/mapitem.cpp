@@ -100,8 +100,16 @@ void MapItem::setSize(int size) {
 
 void MapItem::addMapItemPictures() {
 
-    std::vector<std::string> types = {"Archer", "Farm", "Forest", "Grass", "Headquarters",
-                                      "Infantry", "outpostPlayer1", "outpostPlayer2"};
+    std::vector<std::string> types = {"ArcherPlayer1", "ArcherPlayer2",
+                                      "Coins", "Farm", "FarmPlayer2",
+                                      "Food", "Forest", "ForestPlayer1",
+                                      "ForestPlayer2", "Grass",
+                                      "Headquarters",
+                                      "HeadquartersPlayer2", "InfantryPlayer1",
+                                      "InfantryPlayer2", "Ore",
+                                      "Outpost", "OutpostPlayer2",
+                                      "Player1OwnedGrass", "Player2OwnedGrass",
+                                      "Wood", "Workforce"};
 
     for (auto mapItemType : types) {
         QString filePath = QString::fromStdString(":/pictures/pictures/"

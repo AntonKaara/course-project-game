@@ -5,6 +5,7 @@
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "player.hh"
+#include "mainmenu.hh"
 
 #include <QMainWindow>
 #include <QGraphicsScene>
@@ -55,6 +56,10 @@ public:
     bool eventFilter(QObject *object, QEvent *event);
     void updateUI();
 
+public slots:
+
+    void setPlayerName(const QString &name, const int &playerNumber);
+
 private slots:
 
     void on_zoomInButton_clicked();
@@ -67,6 +72,7 @@ private slots:
 
     void on_buildList_itemDoubleClicked(QListWidgetItem *item);
 
+
 private:
     void addPixmaps();
 
@@ -74,6 +80,7 @@ private:
     std::shared_ptr<GameScene> scene_ = nullptr;
     std::shared_ptr<GameEventHandler> gameEventHandler_ = nullptr;
     std::shared_ptr<ObjectManager> objectManager_ = nullptr;
+    std::shared_ptr<MainMenu> mainMenu_ = nullptr;
 
     std::map<std::string, QPixmap> pixmaps_ = {};
 
