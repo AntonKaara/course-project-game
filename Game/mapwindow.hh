@@ -46,14 +46,17 @@ public:
 
     void generateMap();
     void drawMap();
+    void centerViewtoHQ();
 
     void initializePlayer1();
     void initializePlayer2();
 
+    void moveUnit(const std::shared_ptr<Course::TileBase> &tile);
+
     void buildOnTile();
     void endTurn();
     void updateUI();
-    bool eventFilter(QObject *object, QEvent *event) override;
+    bool eventFilter(QObject *object, QEvent *event) override;    
 
 public slots:
 
@@ -73,6 +76,10 @@ private slots:
     void on_buildList_itemDoubleClicked(QListWidgetItem *item);
 
 
+    void on_unitTextBox_editingFinished();
+
+    void on_moveButton_clicked();
+
 private:
 
     void addPixmaps();
@@ -91,13 +98,15 @@ private:
     int zoomLevel_ = 0; // Normal view = 0
 
     int turn_ = 1;
-    uint selectedTileID_ = 0;
+    std::shared_ptr<Course::TileBase> selectedTile_ = nullptr;
+    std::shared_ptr<UnitBase> selectedUnit_ = nullptr;
+    bool moveMode_ = false;
 
     // Attributes for storing players' information
 
     std::shared_ptr<Player> playerInTurn_ = nullptr;
     QString player1UiName_ = "Unnamed";
-    QString player2UiName_ = "Unnamed";
+    QString player2UiName_ = "Unnamed2";
 
     std::vector<std::shared_ptr<Player>> players_ = {};
 

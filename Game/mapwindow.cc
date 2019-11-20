@@ -20,6 +20,7 @@
 #include <QDirIterator>
 #include <QPixmap>
 #include <string>
+#include <QMouseEvent>
 
 namespace Aeta {
 
@@ -40,8 +41,6 @@ MapWindow::MapWindow(QWidget *parent):
             this, &MapWindow::setPlayerName);
     connect(&*mainMenu_, &MainMenu::mapSizeChanged,
             this, &MapWindow::setMapSize);
-    //connect(&*mainMenu_, &MainMenu::finished,
-     //       this, &MapWindow::mainMenuFinished);
 
     // show menu dialog and if the quit button is pressed end the program
 
@@ -70,7 +69,10 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->tabWidget->setTabEnabled(0, false);
     ui_->tabWidget->setTabEnabled(1, false);
     ui_->tabWidget->setTabEnabled(2, false);
+    ui_->buildPanelButton->setVisible(false);
+    ui_->recruitButton->setVisible(false);
     ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
+    ui_->confirmBuildButton->setStyleSheet("background-color:darkGreen;" "color:white");
 
     // Create eventhandler & objectmanager objects
 
@@ -89,6 +91,7 @@ MapWindow::MapWindow(QWidget *parent):
     initializePlayer2();
     playerInTurn_ = players_.at(0);
     updateUI();
+    centerViewtoHQ();
 
 }
 
@@ -129,6 +132,8 @@ void MapWindow::initializePlayer1() {
 
     // TODO: Change tile to grass before building
 
+    // Create objects
+
     std::shared_ptr<Headquarters> headquarters = std::make_shared<
             Headquarters>(gameEventHandler_, objectManager_, player,
                           1, Course::ConstResourceMaps::HQ_BUILD_COST,
@@ -146,39 +151,37 @@ void MapWindow::initializePlayer1() {
                   Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
 
 
+    // Add HQ
     objectManager_->addBuilding(headquarters);
     player->addObject(headquarters);
-
-
     auto location = std::make_shared<Course::Coordinate>(2, 2);
     Course::Coordinate& locationRef = *location;
     std::shared_ptr<Course::TileBase> tileObject = objectManager_->getTile(locationRef);
+
     tileObject->setOwner(player);
     tileObject->addBuilding(headquarters);
     headquarters->onBuildAction();
 
+    // Add Farm
     objectManager_->addBuilding(farm);
     player->addObject(farm);
-
-    objectManager_->addUnit(infantry);
-    player->addObject(infantry);
-
     locationRef.set_x(3);
     locationRef.set_y(2);
     tileObject = objectManager_->getTile(locationRef);
 
     tileObject->setOwner(player);
     tileObject->addBuilding(farm);
+    //farm->onBuildAction();
 
+    // Add Infantry
+    objectManager_->addUnit(infantry);
+    player->addObject(infantry);
     locationRef.set_x(2);
     locationRef.set_y(3);
     tileObject = objectManager_->getTile(locationRef);
 
     tileObject->setOwner(player);
     tileObject->addWorker(infantry);
-
-    ui_->turnLabel->setText(player1UiName_ + "'s turn");
-    ui_->graphicsView->centerOn(3, 3);
 
 }
 
@@ -196,6 +199,8 @@ void MapWindow::initializePlayer2() {
      * them to the game
      */
 
+    // Create objects
+
     std::shared_ptr<Headquarters> headquarters = std::make_shared<
             Headquarters>(gameEventHandler_, objectManager_, player,
                           1, Course::ConstResourceMaps::HQ_BUILD_COST,
@@ -211,34 +216,31 @@ void MapWindow::initializePlayer2() {
                   1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
                   Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
 
+    // Add HQ
     objectManager_->addBuilding(headquarters);
     player->addObject(headquarters);
-
-
     auto location = std::make_shared<Course::Coordinate>(mapsizeX_ - 3, mapsizeY_ - 3);
     Course::Coordinate& locationRef = *location;
     std::shared_ptr<Course::TileBase> tileObject = objectManager_->getTile(locationRef);
+
     tileObject->setOwner(player);
     tileObject->addBuilding(headquarters);
     headquarters->onBuildAction();
 
+    // Add Farm
     objectManager_->addBuilding(farm);
     player->addObject(farm);
-
     locationRef.set_x(mapsizeX_ - 4);
     locationRef.set_y(mapsizeY_ - 3);
     tileObject = objectManager_->getTile(locationRef);
 
     tileObject->setOwner(player);
     tileObject->addBuilding(farm);
+    //farm->onBuildAction();
 
+    // Add Infantry
     objectManager_->addUnit(infantry);
     player->addObject(infantry);
-
-    locationRef.set_x(1);
-    locationRef.set_y(2);
-    tileObject = objectManager_->getTile(locationRef);
-
     locationRef.set_x(mapsizeX_ - 3);
     locationRef.set_y(mapsizeY_ - 4);
     tileObject = objectManager_->getTile(locationRef);
@@ -246,15 +248,12 @@ void MapWindow::initializePlayer2() {
     tileObject->setOwner(player);
     tileObject->addWorker(infantry);
 
-
-    ui_->turnLabel->setText(player2UiName_ + "'s turn");
-    ui_->graphicsView->centerOn(3, 3);
-
 }
 
 void MapWindow::buildOnTile() {
+
     QString buildingToBuild = ui_->buildList->currentItem()->text();
-    std::shared_ptr<Course::TileBase> tile = objectManager_->getTile(selectedTileID_);
+    std::shared_ptr<Course::TileBase> tile = selectedTile_;
 
     if (tile->getOwner() != playerInTurn_) {
         qDebug() << "Wrong owner";
@@ -296,9 +295,15 @@ void MapWindow::buildOnTile() {
 
 void MapWindow::endTurn() {
 
-    qDebug() << "End turn pressed";
-
     turn_ += 1;
+
+    // Add movement points to current player // BROKEN?
+
+//    for (auto unit : objectManager_->getAllUnits()) {
+//        if (unit->getOwner() == playerInTurn_) {
+//            unit->resetMovement();
+//        }
+//    }
 
     // Change player in turn
 
@@ -308,14 +313,18 @@ void MapWindow::endTurn() {
         playerInTurn_ = players_.at(0);
     }
 
-    // Center view on player HQ
+    centerViewtoHQ();
+    scene_->update();
+    updateUI();
+
+}
+
+void MapWindow::centerViewtoHQ() {
 
     auto mapFocusLocation = std::make_shared<Course::Coordinate>(10, 10);
     for (auto obj : playerInTurn_->getObjects()) {
         if (obj->getType() == "Headquarters") {
             mapFocusLocation = obj->getCoordinatePtr();
-            // TODO: Check if too many objects exist
-            // selectedTileID_ = obj->ID; // Set focus to HQ
             qDebug() << "ID" << QString::fromStdString(std::to_string(obj->ID));
         }
     }
@@ -324,10 +333,6 @@ void MapWindow::endTurn() {
     double xCoordinate = mapFocusLocation->x();
     double yCoordinate = mapFocusLocation->y();
     ui_->graphicsView->centerOn(QPointF(xCoordinate * 60, yCoordinate * 60));
-
-
-    scene_->update();
-    updateUI();
 
 }
 
@@ -342,21 +347,14 @@ void MapWindow::drawMap() {
 
     // Draw each tile and set coordinates for the tiles
 
-    //int x = 0;
-    //int y = 0;
-
     while (locationRef.x() < mapsizeX_) {
 
         while (locationRef.y() < mapsizeY_){
             auto tile = objectManager_->getTile(locationRef);
             drawTile(tile);
-            //y++;
             locationRef.set_y(locationRef.y() + 1);
         }
-
-        //x++;
         locationRef.set_x(locationRef.x() + 1);
-        //y = 0;
         locationRef.set_y(0);
     }
 
@@ -461,6 +459,22 @@ void MapWindow::on_buildList_itemDoubleClicked(QListWidgetItem *item) {
 
 }
 
+void MapWindow::on_unitTextBox_editingFinished() {
+    selectedUnit_->setName(ui_->unitTextBox->text().toStdString());
+}
+
+void Aeta::MapWindow::on_moveButton_clicked() {
+
+    if (moveMode_) {
+        moveMode_ = false;
+        ui_->moveButton->setText("Move");
+    } else {
+        moveMode_ = true;
+        ui_->moveButton->setText("Cancel");
+    }
+
+}
+
 void MapWindow::setPlayerName(const QString &name, const int &playerNumber) {
 
     if (playerNumber == 1) {
@@ -482,74 +496,113 @@ void MapWindow::updateUI() {
     ui_->tabWidget->setTabEnabled(0, true);
     ui_->tabWidget->setCurrentIndex(0);
     ui_->tabWidget->setTabEnabled(1, false);
+    ui_->recruitButton->setVisible(false);
 
-    // Get gameobjects on tile
-    std::shared_ptr<Course::TileBase> tile = objectManager_->getTile(selectedTileID_);
-    std::shared_ptr<Course::BuildingBase> building = nullptr;
-    std::shared_ptr<Course::WorkerBase> unit = nullptr;
+    if (selectedTile_ != nullptr) {
 
-    // Get names and descriptions
-    QString tileType = QString::fromStdString(tile->getType());
-    QString tileDesc = QString::fromStdString(tile->getDescription("basic"));
-    QString buildingType = "No buildings";
-    QString buildingDesc = "Null";
-    QString unitType = "Null_unit";
-    QPixmap pic = pixmaps_.at(tile->getType());
+        // Get gameobjects on tile
+        std::shared_ptr<Course::TileBase> tile = selectedTile_;
+        std::shared_ptr<Course::BuildingBase> building = nullptr;
+        std::shared_ptr<UnitBase> unit = nullptr;
 
-    // Update tile info label
-    if (tile->getBuildings().size() > 0) {
-        building = tile->getBuildings().at(0);
-        buildingType = QString::fromStdString(building->getType());
-        buildingDesc = QString::fromStdString(building->getDescription("basic"));
+        // Get names and descriptions
+        QString tileType = QString::fromStdString(tile->getType());
+        QString tileDesc = QString::fromStdString(tile->getDescription("basic"));
+        QString buildingType = "No buildings";
+        QString buildingDesc = "Null";
+        QString unitType = "Null_unit";
+        QPixmap pic = pixmaps_.at(tile->getType());
+        QPixmap unitPic = pixmaps_.at(tile->getType());
 
-        pic = pixmaps_.at(building->getType());
-        ui_->tileHeaderLabel->setText(buildingType);
-        ui_->tileDescriptionLabel->setText(buildingDesc);
-        ui_->buildPanelButton->setEnabled(false);
-        ui_->buildPanelButton->setText("Demolish");
-        ui_->buildPanelButton->setToolTip("Demolish the building on this tile");
-        ui_->buildPanelButton->setStyleSheet("background-color:darkRed;" "color:white");
+        if (tile->getBuildings().size() > 0) {
+            building = tile->getBuildings().at(0);
+            buildingType = QString::fromStdString(building->getType());
+            buildingDesc = QString::fromStdString(building->getDescription("basic"));
 
-        if (buildingType == "Headquarters") {
-            ui_->buildPanelButton->setText("Disabled");
-            ui_->buildPanelButton->setToolTip("You can not move the headquarters");
-            ui_->buildPanelButton->setStyleSheet("background-color:gray;" "color:white");
-        }
+            // Update tile info label
+            pic = pixmaps_.at(building->getType());
+            ui_->tileHeaderLabel->setText(buildingType);
+            ui_->tileDescriptionLabel->setText(buildingDesc);
+            ui_->buildPanelButton->setEnabled(false);
+            ui_->buildPanelButton->setText("Demolish");
+            ui_->buildPanelButton->setToolTip("Demolish the building on this tile");
+            ui_->buildPanelButton->setStyleSheet("background-color:darkRed;" "color:white");
 
-    } else {
-        ui_->tileHeaderLabel->setText(tileType);
-        ui_->tileDescriptionLabel->setText(tileDesc);
-        ui_->buildPanelButton->setEnabled(true);
-        ui_->buildPanelButton->setText("Build");
-        ui_->buildPanelButton->setToolTip("Build a building on the this tile");
-        ui_->buildPanelButton->setStyleSheet("background-color:darkGreen;" "color:white");
-    }
+            if (buildingType == "Headquarters") {
 
-    // Update owner label
-    if (tile->getOwner() != nullptr) {
-        QString playerName = QString::fromStdString(tile->getOwner()->getName());
-        if (playerName == "1") {
-            ui_->tileOwnerLabel->setText("Owned by " + player1UiName_);
+                if (tile->getOwner() == playerInTurn_) {
+                    ui_->recruitButton->setVisible(true);
+                }
+                ui_->buildPanelButton->setText("Disabled");
+                ui_->buildPanelButton->setToolTip("You can not move the headquarters");
+                ui_->buildPanelButton->setStyleSheet("background-color:gray;" "color:white");
+            }
+
         } else {
-            ui_->tileOwnerLabel->setText("Owned by " + player2UiName_);
+            ui_->tileHeaderLabel->setText(tileType);
+            ui_->tileDescriptionLabel->setText(tileDesc);
+            ui_->buildPanelButton->setEnabled(true);
+            ui_->buildPanelButton->setText("Build");
+            ui_->buildPanelButton->setToolTip("Build a building on the this tile");
+            ui_->buildPanelButton->setStyleSheet("background-color:darkGreen;" "color:white");
         }
 
-    } else {
-        ui_->tileOwnerLabel->setText("Owned by nobody");
+        if (tile->getOwner() != nullptr) {
+
+            // Update owner label
+            QString playerName = QString::fromStdString(tile->getOwner()->getName());
+            if (playerName == "1") {
+                ui_->tileOwnerLabel->setText("Owned by " + player1UiName_);
+            } else {
+                ui_->tileOwnerLabel->setText("Owned by " + player2UiName_);
+            }
+
+            // Disable tile buttons if not own tile
+            if (tile->getOwner() == playerInTurn_) {
+                ui_->buildPanelButton->setVisible(true);
+            } else {
+                ui_->buildPanelButton->setVisible(false);
+                ui_->recruitButton->setVisible(false);
+            }
+
+        } else {
+            ui_->tileOwnerLabel->setText("Owned by nobody");
+            ui_->buildPanelButton->setVisible(false);
+            ui_->recruitButton->setVisible(false);
+        }
+
+        // Update unit tab
+        if (tile->getWorkers().size() > 0) {
+            auto tileLocation = tile->getCoordinate();
+            unit = objectManager_->getUnit(tileLocation);
+            unitType = QString::fromStdString(unit->getType());
+
+            ui_->unitTypeLabel->setText("Type: " + unitType);
+            ui_->unitTextBox->setText(QString::fromStdString(unit->getName()));
+            ui_->healthBar->setValue(unit->getHealth());
+            ui_->movementPointNumber->setText(QString::fromStdString(std::to_string(unit->getMovement())));
+
+            // Set UI picture
+            if (tile->getOwner() != nullptr) {
+                if (tile->getOwner()->getName() == "1") {
+                    unitPic = pixmaps_.at(unit->getType() + "1");
+                } else {
+                    unitPic = pixmaps_.at(unit->getType() + "2");
+                }
+            }
+
+            ui_->unitImgLabel->setPixmap(unitPic);
+
+            ui_->tabWidget->setTabEnabled(2, true);
+            ui_->tabWidget->setCurrentIndex(2);
+        } else {
+            ui_->tabWidget->setTabEnabled(2, false);
+            ui_->tabWidget->setCurrentIndex(0);
+        }
+
+        ui_->tileImgLabel->setPixmap(pic);
+
     }
-
-    // Update unit tab
-
-    if (tile->getWorkers().size() > 0) {
-        unit = tile->getWorkers().at(0);
-        unitType = QString::fromStdString(unit->getType());
-        ui_->tabWidget->setTabEnabled(2, true);
-    } else {
-        ui_->tabWidget->setTabEnabled(2, false);
-    }
-
-    ui_->tileImgLabel->setPixmap(pic);
-    ui_->unitTypeLabel->setText("Type: " + unitType);
 
     // Turn label updates
 
@@ -564,15 +617,77 @@ void MapWindow::updateUI() {
 
 }
 
+void MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
+
+    if (selectedUnit_->getMovement() >= 1) { // Enough movement points
+        for (auto coordinate : selectedTile_->getCoordinate().neighbours()) {
+            if (tile->getCoordinate() == coordinate) { // Clicked tile is one of the neighbors
+                if (tile->getWorkerCount() < 1) { // Tile is free of units
+
+                    if (tile->getOwner() != selectedUnit_->getOwner()) { // It's enemy tile
+
+                        // Tile ownership to current player
+                        tile->setOwner(selectedUnit_->getOwner());
+
+                        // Remove possible enemy building
+                        if (tile->getBuildingCount() > 1) {
+                            auto building = tile->getBuildings().at(0);
+                            // tile->removeBuilding(building);
+                            // TODO: remove from objectmanager etc.
+                        }
+
+                    }
+
+                    selectedUnit_->setCoordinate(coordinate);
+                    selectedTile_->removeWorker(selectedUnit_);
+                    tile->addWorker(selectedUnit_);
+                    qDebug() << "Moved to: " << coordinate.x() << coordinate.y();
+                    selectedUnit_->changeMovement(-1);
+
+                } else {
+                    qDebug() << "Tile already occupied";
+                }
+
+                moveMode_ = false;
+                ui_->moveButton->setText("Move");
+                selectedTile_ = tile;
+                //selectedUnit_ = objectManager_->getUnit(coordinate);
+                scene_->update();
+                updateUI();
+            }
+        }
+    } else {
+        qDebug() << "Not enough movement points";
+    }
+
+}
+
 bool MapWindow::eventFilter(QObject *object, QEvent *event) {
 
     if (object == &*scene_ && event->type() == QEvent::GraphicsSceneMousePress) {
-            qDebug() << "Jee se toimii, nyt kutsu";
+        //QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+        //if (event->button() == Qt::LeftButton) {
+
+        if (moveMode_) {
+            uint tileID = scene_->tileClicked(event);
+            qDebug() << "Got tileID for moving: " << tileID;
+            std::shared_ptr<Course::TileBase> moveToTile = objectManager_->getTile(tileID);
+            moveUnit(moveToTile);
+        } else {
             uint tileID = scene_->tileClicked(event);
             qDebug() << "Got tileID: " << tileID;
-            selectedTileID_ = tileID;
+            selectedTile_ = objectManager_->getTile(tileID);
+            selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
             updateUI();
             return true;
+        }
+
+        //} else if (mouseEvent->button() == Qt::RightButton) {
+
+            //moveUnit();
+
+        //}
+
     }
 
     return false;
@@ -606,5 +721,3 @@ void MapWindow::addPixmaps() {
 }
 
 } // namespace Aeta
-
-

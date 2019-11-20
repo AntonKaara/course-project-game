@@ -314,7 +314,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <property name="tabBarAutoHide">
          <bool>false</bool>
@@ -338,7 +338,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Headquarters</string>
+           <string>Select a tile</string>
           </property>
          </widget>
          <widget class="QLabel" name="tileDescriptionLabel">
@@ -354,7 +354,7 @@
            <enum>Qt::LeftToRight</enum>
           </property>
           <property name="text">
-           <string>none selected</string>
+           <string>Click on the map!</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -373,7 +373,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>Img</string>
+           <string/>
           </property>
          </widget>
          <widget class="QPushButton" name="buildPanelButton">
@@ -402,10 +402,10 @@
            </rect>
           </property>
           <property name="text">
-           <string>Owned by: Player 1</string>
+           <string/>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="recruitButton">
           <property name="geometry">
            <rect>
             <x>130</x>
@@ -455,7 +455,10 @@
           </property>
           <property name="font">
            <font>
-            <pointsize>13</pointsize>
+            <pointsize>14</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="frameShape">
@@ -531,7 +534,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normalon>:/pictures/pictures/outpostPlayer1.png</normalon>
+             <normalon>:/pictures/pictures/Outpost.png</normalon>
             </iconset>
            </property>
           </item>
@@ -541,7 +544,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normalon>:/pictures/pictures/outpostPlayer2.png</normalon>
+             <normalon>:/pictures/pictures/Outpost2.png</normalon>
             </iconset>
            </property>
           </item>
@@ -598,6 +601,11 @@
              <height>0</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <italic>false</italic>
+            </font>
+           </property>
            <property name="text">
             <string>Cost: 12 euroo</string>
            </property>
@@ -626,7 +634,7 @@
            <rect>
             <x>200</x>
             <y>80</y>
-            <width>131</width>
+            <width>141</width>
             <height>23</height>
            </rect>
           </property>
@@ -641,9 +649,9 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>40</y>
+            <y>50</y>
             <width>211</width>
-            <height>31</height>
+            <height>21</height>
            </rect>
           </property>
           <property name="text">
@@ -656,8 +664,13 @@
             <x>10</x>
             <y>10</y>
             <width>261</width>
-            <height>28</height>
+            <height>31</height>
            </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
           </property>
           <property name="text">
            <string>Archers 1</string>
@@ -689,7 +702,7 @@
            <string>Movement points</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_11">
+         <widget class="QLabel" name="movementPointNumber">
           <property name="geometry">
            <rect>
             <x>200</x>
@@ -700,32 +713,6 @@
           </property>
           <property name="text">
            <string>2</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>160</y>
-            <width>100</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Attack</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_3">
-          <property name="geometry">
-           <rect>
-            <x>210</x>
-            <y>160</y>
-            <width>100</width>
-            <height>28</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>PushButton</string>
           </property>
          </widget>
          <widget class="QLabel" name="unitImgLabel">
@@ -739,6 +726,19 @@
           </property>
           <property name="text">
            <string>Img</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="moveButton">
+          <property name="geometry">
+           <rect>
+            <x>240</x>
+            <y>200</y>
+            <width>100</width>
+            <height>50</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Move</string>
           </property>
          </widget>
         </widget>

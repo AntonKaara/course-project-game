@@ -6,7 +6,8 @@ UnitBase::UnitBase(const std::shared_ptr<Course::iGameEventHandler > &eventhandl
                    const std::shared_ptr<Course::iObjectManager > &objectmanager,
                    const std::shared_ptr<Course::PlayerBase > &owner,
                    const int &tilespaces, const Course::ResourceMap &cost,
-                   const Course::ResourceMapDouble &efficiency)
+                   const Course::ResourceMapDouble &efficiency,
+                   const std::string &name)
     : WorkerBase(eventhandler,
                  objectmanager,
                  owner,
@@ -71,6 +72,10 @@ void UnitBase::changeHealth(int amount) {
 
 void UnitBase::changeMovement(int amount) {
     movementPoints_ = movementPoints_ + amount;
+}
+
+void UnitBase::resetMovement() {
+    movementPoints_ = 2;
 }
 
 } // namespace Aeta

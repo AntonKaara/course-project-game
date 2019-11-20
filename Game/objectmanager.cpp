@@ -95,11 +95,11 @@ std::vector<std::shared_ptr<Course::BuildingBase>> ObjectManager::getBuildings(
     return returnvector;
 }
 
-void ObjectManager::addUnit(const std::shared_ptr<Course::WorkerBase> &unit) {
+void ObjectManager::addUnit(const std::shared_ptr<UnitBase> &unit) {
     units_.push_back(unit);
 }
 
-std::shared_ptr<Course::WorkerBase> ObjectManager::getUnit(const Course::Coordinate &coordinate) {
+std::shared_ptr<UnitBase> ObjectManager::getUnit(const Course::Coordinate &coordinate) {
     for (auto unit : units_) {
 
         if (unit->getCoordinate() == coordinate) {
@@ -109,7 +109,7 @@ std::shared_ptr<Course::WorkerBase> ObjectManager::getUnit(const Course::Coordin
     return nullptr;
 }
 
-std::shared_ptr<Course::WorkerBase> ObjectManager::getUnit(const Course::ObjectId &id) {
+std::shared_ptr<UnitBase> ObjectManager::getUnit(const Course::ObjectId &id) {
 
     for (auto unit : units_) {
 
@@ -120,9 +120,9 @@ std::shared_ptr<Course::WorkerBase> ObjectManager::getUnit(const Course::ObjectI
     return nullptr;
 }
 
-std::vector<std::shared_ptr<Course::WorkerBase> > ObjectManager::getUnits(const std::vector<Course::Coordinate> &coordinates) {
+std::vector<std::shared_ptr<UnitBase>> ObjectManager::getUnits(const std::vector<Course::Coordinate> &coordinates) {
 
-    std::vector<std::shared_ptr<Course::WorkerBase>> returnvector = {};
+    std::vector<std::shared_ptr<UnitBase>> returnvector = {};
 
     for (auto location : coordinates) {
 
@@ -134,6 +134,12 @@ std::vector<std::shared_ptr<Course::WorkerBase> > ObjectManager::getUnits(const 
         }
     }
     return returnvector;
+}
+
+std::vector<std::shared_ptr<UnitBase> > ObjectManager::getAllUnits() {
+
+    return units_;
+
 }
 
 } // namespace Aeta
