@@ -16,15 +16,12 @@ class Player : public Course::PlayerBase {
 public:
 
     Player(const std::string& name,
-           const std::vector<std::shared_ptr<Course::GameObject> > objects, const uint id);
-
-    uint getID();
+           const std::vector<std::shared_ptr<Course::GameObject> > objects);
 
 private:
 
-    std::string name_ = "Unnamed player";
-    uint id_;
     Course::ResourceMapDouble resourceAmounts_ = {};
+
 };
 
 } // namespace Aeta

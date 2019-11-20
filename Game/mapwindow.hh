@@ -35,7 +35,7 @@ class MapWindow : public QMainWindow {
 public:
 
     explicit MapWindow(QWidget *parent = nullptr);
-    ~MapWindow();
+    ~MapWindow() override;
 
     void setSize(int width, int height);
     void setScale(int scale);
@@ -52,9 +52,8 @@ public:
 
     void buildOnTile();
     void endTurn();
-
-    bool eventFilter(QObject *object, QEvent *event);
     void updateUI();
+    bool eventFilter(QObject *object, QEvent *event) override;
 
 public slots:
 
@@ -69,12 +68,13 @@ private slots:
     void on_buildPanelButton_clicked();
     void on_endTurnButton_clicked();
 
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
     void on_buildList_itemDoubleClicked(QListWidgetItem *item);
 
 
 private:
+
     void addPixmaps();
 
     Ui::MapWindow* ui_;
@@ -96,8 +96,8 @@ private:
     // Attributes for storing players' information
 
     std::shared_ptr<Player> playerInTurn_ = nullptr;
-    std::string player1Name_ = "Player 1";
-    std::string player2Name_ = "Player 2";
+    std::string player1Name_ = "Unnamed";
+    std::string player2Name_ = "Unnamed";
 
     std::vector<std::shared_ptr<Player>> players_ = {};
 

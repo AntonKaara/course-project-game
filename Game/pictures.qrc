@@ -5,21 +5,24 @@
         <file>pictures/Coins.png</file>
         <file>pictures/Food.png</file>
         <file>pictures/Workforce.png</file>
-        <file>pictures/ArcherPlayer1.png</file>
-        <file>pictures/ArcherPlayer2.png</file>
-        <file>pictures/Farm.png</file>
-        <file>pictures/FarmPlayer2.png</file>
-        <file>pictures/ForestPlayer1.png</file>
-        <file>pictures/ForestPlayer2.png</file>
-        <file>pictures/Headquarters.png</file>
-        <file>pictures/HeadquartersPlayer2.png</file>
-        <file>pictures/InfantryPlayer1.png</file>
-        <file>pictures/InfantryPlayer2.png</file>
+        <file>pictures/Archer1.png</file>
+        <file>pictures/Archer2.png</file>
+        <file>pictures/Farm1.png</file>
+        <file>pictures/Farm2.png</file>
+        <file>pictures/Forest1.png</file>
+        <file>pictures/Forest2.png</file>
+        <file>pictures/Headquarters1.png</file>
+        <file>pictures/Headquarters2.png</file>
+        <file>pictures/Infantry1.png</file>
+        <file>pictures/Infantry2.png</file>
         <file>pictures/Ore.png</file>
-        <file>pictures/Outpost.png</file>
-        <file>pictures/OutpostPlayer2.png</file>
-        <file>pictures/GrassPlayer1.png</file>
-        <file>pictures/GrassPlayer2.png</file>
+        <file>pictures/Outpost1.png</file>
+        <file>pictures/Outpost2.png</file>
+        <file>pictures/Grass1.png</file>
+        <file>pictures/Grass2.png</file>
         <file>pictures/Wood.png</file>
+        <file>pictures/Farm.png</file>
+        <file>pictures/Headquarters.png</file>
+        <file>pictures/Outpost.png</file>
     </qresource>
 </RCC>

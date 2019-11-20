@@ -1,6 +1,8 @@
 #include "core/gameobject.h"
 #include "tiles/tilebase.h"
 
+#include "player.hh"
+
 #include <QPainter>
 #include <QGraphicsItem>
 #include <map>
@@ -19,6 +21,14 @@ public:
     MapItem(const std::shared_ptr<Course::TileBase> &obj, int size);
 
     QRectF boundingRect() const override;
+
+    /**
+     * @brief paint By default paints the tile picture. If a building or unit
+     * is on the tile paints a picture of the corresponding building or unit.
+     * @param painter
+     * @param option
+     * @param widget
+     */
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget = nullptr) override;
@@ -53,7 +63,9 @@ public:
      */
     void setSize(int size);
 
-    void drawSelectedIndicator();
+    // Draws a indicator around clicked tile
+
+    void drawTileIndicator();
 
 private:
 

@@ -23,8 +23,8 @@ signals:
     void mapSizeChanged(const int &mapSizeX, const int &mapSizeY);
 
 public slots:
-    void on_player1NameEdit_textEdited(const QString &arg1);
-    void on_player2NameEdit_textEdited(const QString &arg1);
+    void on_player1NameEdit_textEdited(const QString &name);
+    void on_player2NameEdit_textEdited(const QString &name);
 
 private slots:
     void on_mapSizeComboBox_currentIndexChanged(int index);

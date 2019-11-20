@@ -1,4 +1,7 @@
 #include "tiles/tilebase.h"
+
+#include "objectmanager.hh"
+
 #include <string>
 
 #ifndef FORESTTILE_H
@@ -25,5 +28,6 @@ public:
     virtual std::string getType() const override;
 
 };
+
 } // namespace Aeta
 #endif // FORESTTILE_H

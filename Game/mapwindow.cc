@@ -30,20 +30,23 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->setupUi(this);
 
     /* Create menu window and connect all its properties to
-     * mapwindow's (this) slots and show it
+     * mapwindow's (this) slots
      */
 
     mainMenu_ = std::make_shared<MainMenu>(this);
-    //mainMenu_->setModal(true);
+
     connect(&*mainMenu_, &MainMenu::playerNameChanged,
             this, &MapWindow::setPlayerName);
     connect(&*mainMenu_, &MainMenu::mapSizeChanged,
             this, &MapWindow::setMapSize);
     //connect(&*mainMenu_, &MainMenu::finished,
      //       this, &MapWindow::mainMenuFinished);
+
+    // show menu dialog and if the quit button is pressed end the program
+
     int result = mainMenu_->exec();
     if (result == MainMenu::Rejected) {
-        qDebug() << "Mainmenu rejected";
+        exit(EXIT_SUCCESS);
     }
 
     // Set scene
@@ -56,13 +59,10 @@ MapWindow::MapWindow(QWidget *parent):
 
     // Add pictures
 
-    QPixmap CoinPic(":/pictures/pictures/Coins.png");
-    QPixmap FoodPic(":/pictures/pictures/Food.png");
-    QPixmap WorkforcePic(":/pictures/pictures/Workforce.png");
-    QPixmap HQPic(":/pictures/pictures/Headquarters.png");
-    ui_->coinImg->setPixmap(CoinPic);
-    ui_->foodImg->setPixmap(FoodPic);
-    ui_->workforceImg->setPixmap(WorkforcePic);
+    ui_->coinImg->setPixmap(pixmaps_.at("Coins"));
+    ui_->foodImg->setPixmap(pixmaps_.at("Food"));
+    ui_->workforceImg->setPixmap(pixmaps_.at("Workforce"));
+    ui_->woodImg->setPixmap(pixmaps_.at("Wood"));
 
     // Widget config
 
@@ -70,8 +70,6 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->tabWidget->setTabEnabled(1, false);
     ui_->tabWidget->setTabEnabled(2, false);
     ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
-
-
 
     // Create eventhandler & objectmanager objects
 
@@ -119,7 +117,7 @@ void MapWindow::initializePlayer1() {
     // Create Player object
 
     std::vector<std::shared_ptr<Course::GameObject>> objects = {};
-    auto playerObject = std::make_shared<Player>(player1Name_, objects, 1);
+    auto playerObject = std::make_shared<Player>("1", objects);
     players_.push_back(playerObject);
     auto player = players_.back();
     qDebug() << "players.back" <<QString::fromStdString(players_.back()->getName());
@@ -172,7 +170,7 @@ void MapWindow::initializePlayer2() {
     // Create Player object
 
     std::vector<std::shared_ptr<Course::GameObject>> objects = {};
-    auto playerObject = std::make_shared<Player>(player2Name_, objects, 2);
+    auto playerObject = std::make_shared<Player>("2", objects);
     players_.push_back(playerObject);
     auto player = players_.back();
     qDebug() << "players.back" <<QString::fromStdString(players_.back()->getName());
@@ -399,20 +397,20 @@ void MapWindow::on_zoomOutButton_clicked() {
 
 }
 
-void Aeta::MapWindow::on_endTurnButton_clicked() {
+void MapWindow::on_endTurnButton_clicked() {
 
     endTurn();
 
 }
 
-void Aeta::MapWindow::on_buildPanelButton_clicked() {
+void MapWindow::on_buildPanelButton_clicked() {
 
     ui_->tabWidget->setTabEnabled(1, true);
     ui_->tabWidget->setCurrentIndex(1);
 
 }
 
-void Aeta::MapWindow::on_confirmBuildButton_clicked() {
+void MapWindow::on_confirmBuildButton_clicked() {
 
     ui_->tabWidget->setCurrentIndex(0);
     ui_->tabWidget->setTabEnabled(1, false);
@@ -421,7 +419,7 @@ void Aeta::MapWindow::on_confirmBuildButton_clicked() {
 
 }
 
-void Aeta::MapWindow::on_buildList_itemDoubleClicked(QListWidgetItem *item) {
+void MapWindow::on_buildList_itemDoubleClicked(QListWidgetItem *item) {
 
    on_confirmBuildButton_clicked();
 
@@ -541,15 +539,14 @@ void MapWindow::resizeEvent(QResizeEvent *event) {
 
 void MapWindow::addPixmaps() {
 
-    std::vector<std::string> types = {"ArcherPlayer1", "ArcherPlayer2",
-                                      "Coins", "Farm", "FarmPlayer2",
-                                      "Food", "Forest", "ForestPlayer1",
-                                      "ForestPlayer2", "Grass",
-                                      "Headquarters",
-                                      "HeadquartersPlayer2", "InfantryPlayer1",
-                                      "InfantryPlayer2", "Ore",
-                                      "Outpost", "OutpostPlayer2",
-                                      "Player1OwnedGrass", "Player2OwnedGrass",
+    std::vector<std::string> types = {"Archer1", "Archer2",
+                                      "Coins", "Farm", "Farm1", "Farm2",
+                                      "Food", "Forest", "Forest1",
+                                      "Forest2", "Grass", "Grass1",
+                                      "Grass2", "Headquarters",
+                                      "Headquarters1", "Headquarters2",
+                                      "Infantry1", "Infantry2", "Ore",
+                                      "Outpost", "Outpost1","Outpost2",
                                       "Wood", "Workforce"};
 
     for (auto mapItemType : types) {

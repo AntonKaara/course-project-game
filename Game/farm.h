@@ -21,7 +21,13 @@ public:
          const Course::ResourceMap& buildCost = {},
          const Course::ResourceMap& production = {});
 
+    /**
+     * @brief getType
+     * @return object's name
+     */
+
     std::string getType() const override;
+
 
 };
 

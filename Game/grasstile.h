@@ -1,5 +1,7 @@
 #include "tiles/tilebase.h"
 
+#include "player.hh"
+
 #include <string>
 
 #ifndef GRASSTILE_H
