@@ -66,8 +66,18 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                     objectSize_, Qt::IgnoreAspectRatio);
 
     } else {
+
+        if (tileObject_->getOwner() != nullptr) {
+            if (tileObject_->getOwner()->getName() == "1") {
+                tileType = tileType + "1";
+            } else if (tileObject_->getOwner()->getName() == "2") {
+                tileType = tileType + "2";
+            }
+        }
+
         scaledPixmap = mapItemPictures_.at(tileType).scaled(
                     objectSize_, Qt::IgnoreAspectRatio);
+
     }
 
     painter->drawPixmap(scaledLocation, scaledPixmap);
