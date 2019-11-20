@@ -8,13 +8,13 @@ Headquarters::Headquarters(const std::shared_ptr<Course::iGameEventHandler> &eve
                            const std::shared_ptr<Course::PlayerBase>& owner,
                            const int& tileSpaces,
                            const Course::ResourceMap& buildCost,
-                           const Course::ResourceMap& production):
-    BuildingBase(eventHandler,
-                 objectManager,
-                 owner,
-                 tileSpaces,
-                 buildCost,
-                 production) {
+                           const Course::ResourceMap& production)
+    : BuildingBase(eventHandler,
+                   objectManager,
+                   owner,
+                   tileSpaces,
+                   buildCost,
+                   production) {
 
     objectManager_ = objectManager;
     setDescription("basic", "Home sweet home.");

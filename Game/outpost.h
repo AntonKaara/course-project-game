@@ -1,6 +1,7 @@
 #include "buildings/buildingbase.h"
 #include "core/resourcemaps.h"
 #include "core/playerbase.h"
+#include "objectmanager.hh"
 
 #ifndef OUTPOST_H
 #define OUTPOST_H
@@ -24,7 +25,7 @@ public:
 
 private:
 
-    std::shared_ptr<Course::iObjectManager> objectManager_;
+    std::shared_ptr<ObjectManager> objectManager_ = nullptr;
 
 };
 

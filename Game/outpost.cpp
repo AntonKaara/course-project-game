@@ -16,7 +16,7 @@ Outpost::Outpost(const std::shared_ptr<Course::iGameEventHandler> &eventHandler,
                  buildCost,
                  production) {
 
-    objectManager_ = objectManager;
+    objectManager_ = std::dynamic_pointer_cast<ObjectManager>(objectManager);
     setDescription("basic", "Guards the surrounding tiles.");
 
 }

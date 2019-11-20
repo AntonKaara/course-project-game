@@ -11,6 +11,7 @@ SOURCES += \
     gamescene.cpp \
     grasstile.cpp \
     headquarters.cpp \
+    infantry.cpp \
     main.cpp \
     mapitem.cpp \
     mapwindow.cc \
@@ -18,7 +19,8 @@ SOURCES += \
     outpost.cpp \
     player.cpp \
     mainmenu.cpp \
-    objectmanager.cpp
+    objectmanager.cpp \
+    unitbase.cpp
 
 HEADERS += \
     farm.h \
@@ -26,6 +28,7 @@ HEADERS += \
     gamescene.h \
     grasstile.h \
     headquarters.h \
+    infantry.h \
     mapitem.h \
     mapwindow.hh \
     gameeventhandler.hh \
@@ -33,7 +36,8 @@ HEADERS += \
     player.hh \
     resources.hh \
     mainmenu.hh \
-    objectmanager.hh
+    objectmanager.hh \
+    unitbase.h
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib

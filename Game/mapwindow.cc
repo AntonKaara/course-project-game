@@ -9,6 +9,7 @@
 #include "headquarters.h"
 #include "outpost.h"
 #include "farm.h"
+#include "infantry.h"
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "gamescene.h"
@@ -138,6 +139,13 @@ void MapWindow::initializePlayer1() {
                   1, Course::ConstResourceMaps::FARM_BUILD_COST,
                   Course::ConstResourceMaps::FARM_PRODUCTION);
 
+
+    std::shared_ptr<Infantry> infantry = std::make_shared<
+            Infantry>(gameEventHandler_, objectManager_, player,
+                  1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
+                  Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+
+
     objectManager_->addBuilding(headquarters);
     player->addObject(headquarters);
 
@@ -152,15 +160,24 @@ void MapWindow::initializePlayer1() {
     objectManager_->addBuilding(farm);
     player->addObject(farm);
 
-    locationRef.set_x(1);
+    objectManager_->addUnit(infantry);
+    player->addObject(infantry);
+
+    locationRef.set_x(3);
     locationRef.set_y(2);
     tileObject = objectManager_->getTile(locationRef);
 
     tileObject->setOwner(player);
     tileObject->addBuilding(farm);
 
+    locationRef.set_x(2);
+    locationRef.set_y(3);
+    tileObject = objectManager_->getTile(locationRef);
 
-    ui_->turnLabel->setText(QString::fromStdString(player1Name_) + "'s turn");
+    tileObject->setOwner(player);
+    tileObject->addWorker(infantry);
+
+    ui_->turnLabel->setText(player1UiName_ + "'s turn");
     ui_->graphicsView->centerOn(3, 3);
 
 }
@@ -189,6 +206,11 @@ void MapWindow::initializePlayer2() {
                   1, Course::ConstResourceMaps::FARM_BUILD_COST,
                   Course::ConstResourceMaps::FARM_PRODUCTION);
 
+    std::shared_ptr<Infantry> infantry = std::make_shared<
+            Infantry>(gameEventHandler_, objectManager_, player,
+                  1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
+                  Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+
     objectManager_->addBuilding(headquarters);
     player->addObject(headquarters);
 
@@ -210,8 +232,22 @@ void MapWindow::initializePlayer2() {
     tileObject->setOwner(player);
     tileObject->addBuilding(farm);
 
+    objectManager_->addUnit(infantry);
+    player->addObject(infantry);
 
-    ui_->turnLabel->setText(QString::fromStdString(player2Name_) + "'s turn");
+    locationRef.set_x(1);
+    locationRef.set_y(2);
+    tileObject = objectManager_->getTile(locationRef);
+
+    locationRef.set_x(mapsizeX_ - 3);
+    locationRef.set_y(mapsizeY_ - 4);
+    tileObject = objectManager_->getTile(locationRef);
+
+    tileObject->setOwner(player);
+    tileObject->addWorker(infantry);
+
+
+    ui_->turnLabel->setText(player2UiName_ + "'s turn");
     ui_->graphicsView->centerOn(3, 3);
 
 }
@@ -427,12 +463,10 @@ void MapWindow::on_buildList_itemDoubleClicked(QListWidgetItem *item) {
 
 void MapWindow::setPlayerName(const QString &name, const int &playerNumber) {
 
-    std::string newName = name.toStdString();
-
     if (playerNumber == 1) {
-        player1Name_ = newName;
+        player1UiName_ = name;
     } else {
-        player2Name_ = newName;
+        player2UiName_ = name;
     }
 
 }
@@ -494,12 +528,18 @@ void MapWindow::updateUI() {
     // Update owner label
     if (tile->getOwner() != nullptr) {
         QString playerName = QString::fromStdString(tile->getOwner()->getName());
-        ui_->tileOwnerLabel->setText("Owned by " + playerName);
+        if (playerName == "1") {
+            ui_->tileOwnerLabel->setText("Owned by " + player1UiName_);
+        } else {
+            ui_->tileOwnerLabel->setText("Owned by " + player2UiName_);
+        }
+
     } else {
         ui_->tileOwnerLabel->setText("Owned by nobody");
     }
 
     // Update unit tab
+
     if (tile->getWorkers().size() > 0) {
         unit = tile->getWorkers().at(0);
         unitType = QString::fromStdString(unit->getType());
@@ -512,9 +552,16 @@ void MapWindow::updateUI() {
     ui_->unitTypeLabel->setText("Type: " + unitType);
 
     // Turn label updates
+
     ui_->turnCountLabel->setText("Turn: " + QString::fromStdString(std::to_string(turn_)));
     QString playerName = QString::fromStdString(playerInTurn_->getName());
-    ui_->turnLabel->setText(playerName + "'s turn");
+
+    if (playerName == "1") {
+        ui_->turnLabel->setText(player1UiName_ + "'s turn");
+    } else {
+        ui_->turnLabel->setText(player2UiName_ + "'s turn");
+    }
+
 }
 
 bool MapWindow::eventFilter(QObject *object, QEvent *event) {

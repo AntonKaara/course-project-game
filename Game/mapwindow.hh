@@ -96,8 +96,8 @@ private:
     // Attributes for storing players' information
 
     std::shared_ptr<Player> playerInTurn_ = nullptr;
-    std::string player1Name_ = "Unnamed";
-    std::string player2Name_ = "Unnamed";
+    QString player1UiName_ = "Unnamed";
+    QString player2UiName_ = "Unnamed";
 
     std::vector<std::shared_ptr<Player>> players_ = {};
 
