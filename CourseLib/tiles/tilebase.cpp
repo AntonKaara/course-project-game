@@ -64,8 +64,8 @@ void TileBase::removeBuilding(const std::shared_ptr<BuildingBase>& building)
             return;
         }
     }
-    qDebug() << "Tile " << QString(ID) << ": Doesn't have building "
-             << QString(building->ID);
+    qDebug() << "Tile " << QString::number(ID) << ": Doesn't have building "
+             << QString::number(building->ID);
 }
 
 void TileBase::addWorker(const std::shared_ptr<WorkerBase>& worker)
@@ -104,8 +104,8 @@ void TileBase::removeWorker(const std::shared_ptr<WorkerBase>& worker)
             return;
         }
     }
-    qDebug() << "Tile " << QString(ID) << ": Doesn't have worker "
-             << QString(worker->ID);
+    qDebug() << "Tile " << QString::number(ID) << ": Doesn't have worker "
+             << QString::number(worker->ID);
 }
 
 bool TileBase::generateResources()
@@ -187,7 +187,7 @@ std::vector< std::shared_ptr<WorkerBase> > TileBase::getWorkers() const
         }
         else
         {
-            qDebug() << "Tile " << QString(ID) <<
+            qDebug() << "Tile " << QString::number(ID) <<
                         ": Has an invalid weak_ptr to a Worker.";
         }
     }
@@ -207,7 +207,7 @@ std::vector<std::shared_ptr<BuildingBase> > TileBase::getBuildings() const
         }
         else
         {
-            qDebug() << "Tile " << QString(ID) <<
+            qDebug() << "Tile " << QString::number(ID) <<
                         ": Has an invalid weak_ptr to a Building.";
         }
     }
