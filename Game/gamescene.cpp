@@ -4,7 +4,6 @@
 #include "gameeventhandler.hh"
 
 #include <QEvent>
-#include <QGraphicsSceneMouseEvent>
 #include <QGraphicsItem>
 
 #include <math.h>
@@ -114,27 +113,42 @@ void GameScene::drawTile(std::shared_ptr<Course::TileBase> obj) {
 
 }
 
-void GameScene::drawSelectedIndicator(std::shared_ptr<Course::TileBase> obj) {
-
-}
 
 uint GameScene::tileClicked(QEvent *event) {
 
     if (event->type() == QEvent::GraphicsSceneMousePress) {
-        QGraphicsSceneMouseEvent* mouse_event =
+        QGraphicsSceneMouseEvent* mouseEvent =
                 dynamic_cast<QGraphicsSceneMouseEvent*>(event);
 
-        if (sceneRect().contains(mouse_event->scenePos())) {
-            QPointF point = mouse_event->scenePos() / tileScale_;
-            point.rx() = floor(point.rx());
-            point.ry() = floor(point.ry());
-            QGraphicsItem* pressed = itemAt(point * tileScale_, QTransform());
+        if (sceneRect().contains(mouseEvent->scenePos())) {
+            QPointF point = mouseEvent->scenePos();
+            QGraphicsItem* pressed = itemAt(point, QTransform());
+            MapItem* mapItemPressed = static_cast<MapItem*>(pressed);
 
-            if ( pressed == mapBounds_ ) {
-                qDebug() << "Click on map area.";
-            } else {
-                return static_cast<MapItem*>(pressed)->getBoundObject()->ID;
+            // Configure properties for the the indicator rectangle
+
+            QPen pen;
+            pen.setWidth(1);
+            pen.setColor("magenta");
+
+            /* If there is a highlighted tile already remove the effect.
+             * Don't add anything if the clicked tile is already highlighted.
+             */
+
+            if (highlightRectangle_ != nullptr) {
+
+                if (highlightRectangle_->boundingRect() == mapItemPressed->boundingRect()) {
+                    return lastTileId_;
+                } else {
+                    QGraphicsScene::removeItem(highlightRectangle_);
+                }
+
             }
+
+            highlightRectangle_ = addRect(mapItemPressed->boundingRect(), pen);
+            lastTileId_ = mapItemPressed->getBoundObject()->ID;
+            return mapItemPressed->getBoundObject()->ID;
+
         }
     }
 

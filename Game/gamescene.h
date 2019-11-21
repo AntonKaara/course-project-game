@@ -37,17 +37,20 @@ public:
     void removeItem(std::shared_ptr<Course::GameObject> obj);
     void updateItem(std::shared_ptr<Course::GameObject> obj);
 
-    void drawSelectedIndicator(std::shared_ptr<Course::TileBase> obj);
-
-    // Event handler
+    // Event handlers
     uint tileClicked(QEvent *event);
+    void scrollBarMoved(QEvent *event);
 
 private:
 
-    QGraphicsItem* mapBounds_;
-    int mapWidth_;
-    int mapHeight_;
-    int tileScale_;
+    QGraphicsItem* mapBounds_ = nullptr;
+    QGraphicsRectItem* highlightRectangle_ = nullptr;
+    int mapWidth_ = 0;
+    int mapHeight_ = 0;
+    int tileScale_ = 0;
+
+    // used to store previously clicked tile's ID in tileClicked
+    uint lastTileId_ = 0;
 
 };
 
