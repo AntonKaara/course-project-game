@@ -7,6 +7,8 @@
 #include "grasstile.h"
 #include "foresttile.h"
 #include "swamp.h"
+#include "lake.h"
+#include "mountain.h"
 #include "headquarters.h"
 #include "outpost.h"
 #include "farm.h"
@@ -115,9 +117,9 @@ void MapWindow::generateMap() {
     // Add tile types
     worldGen.addConstructor<GrassTile>(200);
     worldGen.addConstructor<ForestTile>(60);
-    //worldGen.addConstructor<Swamp>(2);
-    //worldGen.addConstructor<Lake>(5);
-    //worldGen.addConstructor<Mountain>(1);
+    worldGen.addConstructor<Swamp>(2);
+    worldGen.addConstructor<Lake>(5);
+    worldGen.addConstructor<Mountain>(2);
 
     worldGen.generateMap(static_cast<uint>(mapsizeX_), static_cast<uint>(mapsizeY_),
                          seed, objectManager_, gameEventHandler_);
@@ -832,6 +834,9 @@ void MapWindow::addPixmaps() {
     std::vector<std::string> types = {"Archery",
                                       "Archery1Free", "Archery1Owned",
                                       "Archery2Free", "Archery2Owned",
+                                      "Cavalry", "Cavalry1Free",
+                                      "Cavalry1Owned", "Cavalry2Free",
+                                      "Cavalry2Owned",
                                       "Coins", "Farm", "Farm1", "Farm2",
                                       "Food", "Forest", "Forest1",
                                       "Forest2", "Grass", "Grass1",
@@ -840,6 +845,11 @@ void MapWindow::addPixmaps() {
                                       "Infantry",
                                       "Infantry1Free", "Infantry1Owned",
                                       "Infantry2Free", "Infantry2Owned",
+                                      "Lake", "Lake1", "Lake2",
+                                      "Lumbermill", "Lumbermill1",
+                                      "Lumbermill2", "Mine", "Mine1",
+                                      "Mine2", "Mountain", "Mountain1",
+                                      "Mountain2",
                                       "Ore", "Outpost", "Outpost1",
                                       "Outpost2", "Swamp", "Swamp1",
                                       "Swamp2", "Wood", "Workforce"};

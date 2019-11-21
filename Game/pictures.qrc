@@ -35,5 +35,22 @@
         <file>pictures/Workforce.png</file>
         <file>pictures/Archery.png</file>
         <file>pictures/Infantry.png</file>
+        <file>pictures/Cavalry.png</file>
+        <file>pictures/Cavalry1Free.png</file>
+        <file>pictures/Cavalry1Owned.png</file>
+        <file>pictures/Cavalry2Free.png</file>
+        <file>pictures/Cavalry2Owned.png</file>
+        <file>pictures/Lake.png</file>
+        <file>pictures/Lake1.png</file>
+        <file>pictures/Lake2.png</file>
+        <file>pictures/Lumbermill.png</file>
+        <file>pictures/Lumbermill1.png</file>
+        <file>pictures/Lumbermill2.png</file>
+        <file>pictures/Mine.png</file>
+        <file>pictures/Mine1.png</file>
+        <file>pictures/Mine2.png</file>
+        <file>pictures/Mountain.png</file>
+        <file>pictures/Mountain1.png</file>
+        <file>pictures/Mountain2.png</file>
     </qresource>
 </RCC>
