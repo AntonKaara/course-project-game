@@ -1,4 +1,5 @@
 #include "objectmanager.hh"
+#include <QDebug>
 
 namespace Aeta {
 
@@ -52,6 +53,17 @@ std::vector<std::shared_ptr<Course::TileBase>> ObjectManager::getTiles(
     return returnvector;
 }
 
+void ObjectManager::removeTile(const std::shared_ptr<Course::TileBase> &tile) {
+    uint id = tile.get()->ID;
+    auto it = find_if(tiles_.begin(), tiles_.end(), [&id](const std::shared_ptr<Course::TileBase>& tile) {return tile->ID == id;});
+    if (it != tiles_.end())
+    {
+      qDebug() << tiles_.size();
+      tiles_.erase(it);
+      qDebug() << tiles_.size();
+    }
+}
+
 void ObjectManager::addBuilding(const std::shared_ptr<Course::BuildingBase> &building) {
     buildings_.push_back(building);
 }
@@ -93,6 +105,19 @@ std::vector<std::shared_ptr<Course::BuildingBase>> ObjectManager::getBuildings(
         }
     }
     return returnvector;
+}
+
+void ObjectManager::removeBuilding(const std::shared_ptr<Course::BuildingBase> &building) {
+
+    uint id = building.get()->ID;
+    auto it = find_if(buildings_.begin(), buildings_.end(), [&id](const std::shared_ptr<Course::BuildingBase>& building) {return building->ID == id;});
+    if (it != buildings_.end())
+    {
+      qDebug() << buildings_.size();
+      buildings_.erase(it);
+      qDebug() << buildings_.size();
+    }
+
 }
 
 void ObjectManager::addUnit(const std::shared_ptr<UnitBase> &unit) {
@@ -139,6 +164,19 @@ std::vector<std::shared_ptr<UnitBase>> ObjectManager::getUnits(const std::vector
 std::vector<std::shared_ptr<UnitBase> > ObjectManager::getAllUnits() {
 
     return units_;
+
+}
+
+void ObjectManager::removeUnit(const std::shared_ptr<UnitBase> &unit) {
+
+    uint id = unit.get()->ID;
+    auto it = find_if(units_.begin(), units_.end(), [&id](const std::shared_ptr<UnitBase>& unit) {return unit->ID == id;});
+    if (it != units_.end())
+    {
+      qDebug() << units_.size();
+      units_.erase(it);
+      qDebug() << units_.size();
+    }
 
 }
 

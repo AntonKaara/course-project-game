@@ -15,7 +15,7 @@ Mountain::Mountain(const Course::Coordinate& location,
                max_build,
                max_work,
                production){
-
+    setDescription("basic", "Only the mightiest of wizards could survive in this environment...");
 }
 
 std::string Mountain::getType() const {

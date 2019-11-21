@@ -52,11 +52,14 @@ public:
     void initializePlayer2();
 
     bool moveUnit(const std::shared_ptr<Course::TileBase> &tile);
+    void cutForest(const std::shared_ptr<Course::TileBase> &tile);
+    bool attackHQ(const std::shared_ptr<Course::TileBase> &tile, const std::shared_ptr<UnitBase> &attacker);
 
     void buildOnTile();
     void endTurn();
     void updateUI();
     bool eventFilter(QObject *object, QEvent *event) override;    
+
 
 public slots:
 
@@ -109,6 +112,7 @@ private:
     QString player2UiName_ = "Unnamed2";
 
     std::vector<std::shared_ptr<Player>> players_ = {};
+    std::vector<std::shared_ptr<Course::TileBase>> tilesToGiveBack_ = {};
 
     // Attributes for defining the maps size and scale
 

@@ -44,4 +44,22 @@ void Headquarters::onBuildAction() {
 
 }
 
+int Headquarters::getHitPoints() {
+
+    return hitPoints_;
+
+}
+
+void Headquarters::setHitPoints(int hitPoints) {
+
+    hitPoints_ = hitPoints;
+
+}
+
+void Headquarters::changeHitPoints(int amount) {
+
+    hitPoints_ = hitPoints_ + amount;
+
+}
+
 } // namespace Aeta

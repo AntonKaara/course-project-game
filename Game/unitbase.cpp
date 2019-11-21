@@ -45,7 +45,7 @@ void UnitBase::setHealth(const int amount) {
     healthPoints_ = amount;
 }
 
-void UnitBase::setMovement(const double amount) {
+void UnitBase::setMovement(const int amount) {
     movementPoints_ = amount;
 }
 
@@ -65,7 +65,7 @@ int UnitBase::getHealth() {
     return healthPoints_;
 }
 
-double UnitBase::getMovement() {
+int UnitBase::getMovement() {
     return movementPoints_;
 }
 

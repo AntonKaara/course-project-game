@@ -25,13 +25,13 @@ public:
 
     virtual void setName(const std::string name);
     virtual void setHealth(const int amount);
-    virtual void setMovement(const double amount);
+    virtual void setMovement(const int amount);
     virtual void setRange(const int amount);
     virtual void setDamage(const int amount);
 
     virtual std::string getName();
     virtual int getHealth();
-    virtual double getMovement();
+    virtual int getMovement();
     virtual int getRange();
     virtual int getDamage();
 
@@ -43,9 +43,9 @@ private:
 
     std::string unitName_ = "Unit";
     int healthPoints_ = 100;
-    double movementPoints_ = 100;
+    int movementPoints_ = 20;
     int range_ = 1;
-    int damage_ = 28;
+    int damage_ = 52;
 
 
 };

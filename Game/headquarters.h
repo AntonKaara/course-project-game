@@ -23,9 +23,14 @@ public:
     std::string getType() const override;
     void onBuildAction() override;
 
+    int getHitPoints();
+    void setHitPoints(int hitPoints);
+    void changeHitPoints(int amount);
+
 private:
 
     std::shared_ptr<Course::iObjectManager> objectManager_;
+    int hitPoints_ = 100;
 
 };
 

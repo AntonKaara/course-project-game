@@ -17,7 +17,7 @@ Lumbermill::Lumbermill(const std::shared_ptr<Course::iGameEventHandler> &eventHa
                    production) {
 
     objectManager_ = objectManager;
-    setDescription("basic", "Home sweet home.");
+    setDescription("basic", "Niin hyvää puuta.");
 
 
 }

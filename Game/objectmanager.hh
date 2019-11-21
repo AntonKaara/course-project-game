@@ -25,6 +25,7 @@ public:
     std::shared_ptr<Course::TileBase> getTile (const Course::ObjectId &id);
     std::vector<std::shared_ptr<Course::TileBase>> getTiles (
             const std::vector<Course::Coordinate> &coordinates);
+    void removeTile (const std::shared_ptr<Course::TileBase> &tile);
 
     // Buildings
     void addBuilding (const std::shared_ptr<Course::BuildingBase> &building);
@@ -32,6 +33,7 @@ public:
     std::shared_ptr<Course::BuildingBase> getBuilding (const Course::ObjectId &id);
     std::vector<std::shared_ptr<Course::BuildingBase>> getBuildings (
             const std::vector<Course::Coordinate> &coordinates);
+    void removeBuilding (const std::shared_ptr<Course::BuildingBase> &building);
 
     // Units
     void addUnit (const std::shared_ptr<UnitBase> &unit);
@@ -40,6 +42,7 @@ public:
     std::vector<std::shared_ptr<UnitBase>> getUnits (
             const std::vector<Course::Coordinate> &coordinates);
     std::vector<std::shared_ptr<UnitBase>> getAllUnits();
+    void removeUnit (const std::shared_ptr<UnitBase> &unit);
 
 private:
 

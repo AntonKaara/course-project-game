@@ -10,6 +10,8 @@
 #include "headquarters.h"
 #include "outpost.h"
 #include "farm.h"
+#include "lumbermill.h"
+#include "mine.h"
 #include "infantry.h"
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
@@ -106,14 +108,16 @@ MapWindow::~MapWindow() {
 
 void MapWindow::generateMap() {
 
-    unsigned int seed = 123488; // Add random generation?
+    unsigned int seed = 123488; // TODO: Add random generation
 
     Course::WorldGenerator& worldGen = worldGen.getInstance();
 
     // Add tile types
-    worldGen.addConstructor<GrassTile>(80);
-    worldGen.addConstructor<ForestTile>(20);
-    worldGen.addConstructor<Swamp>(1);
+    worldGen.addConstructor<GrassTile>(200);
+    worldGen.addConstructor<ForestTile>(60);
+    //worldGen.addConstructor<Swamp>(2);
+    //worldGen.addConstructor<Lake>(5);
+    //worldGen.addConstructor<Mountain>(1);
 
     worldGen.generateMap(static_cast<uint>(mapsizeX_), static_cast<uint>(mapsizeY_),
                          seed, objectManager_, gameEventHandler_);
@@ -289,6 +293,32 @@ void MapWindow::buildOnTile() {
         tile->setOwner(playerInTurn_);
         tile->addBuilding(outpost);
         outpost->onBuildAction();
+
+    } else if (buildingToBuild == "Mine") {
+
+        std::shared_ptr<Mine> mine = std::make_shared<Mine>
+                (gameEventHandler_, objectManager_, playerInTurn_,
+                      1, Course::ConstResourceMaps::FARM_BUILD_COST,
+                      Course::ConstResourceMaps::FARM_PRODUCTION);
+
+        objectManager_->addBuilding(mine);
+        playerInTurn_->addObject(mine);
+        tile->setOwner(playerInTurn_);
+        tile->addBuilding(mine);
+        mine->onBuildAction();
+
+    } else if (buildingToBuild == "Lumber Mill") {
+
+        std::shared_ptr<Lumbermill> lumbermill = std::make_shared<Lumbermill>
+                (gameEventHandler_, objectManager_, playerInTurn_,
+                      1, Course::ConstResourceMaps::FARM_BUILD_COST,
+                      Course::ConstResourceMaps::FARM_PRODUCTION);
+
+        objectManager_->addBuilding(lumbermill);
+        playerInTurn_->addObject(lumbermill);
+        tile->setOwner(playerInTurn_);
+        tile->addBuilding(lumbermill);
+        lumbermill->onBuildAction();
 
     }
 
@@ -503,7 +533,10 @@ void MapWindow::updateUI() {
     ui_->tabWidget->setTabEnabled(0, true);
     ui_->tabWidget->setCurrentIndex(0);
     ui_->tabWidget->setTabEnabled(1, false);
+    ui_->tabWidget->setTabEnabled(3, false);
     ui_->recruitButton->setVisible(false);
+    ui_->buildingHPLabel->setVisible(false);
+    ui_->buildingHPBar->setVisible(false);
 
     if (selectedTile_ != nullptr) {
 
@@ -539,7 +572,11 @@ void MapWindow::updateUI() {
 
                 if (tile->getOwner() == playerInTurn_) {
                     ui_->recruitButton->setVisible(true);
+                    ui_->tabWidget->setTabEnabled(3, true);
                 }
+
+                ui_->buildingHPLabel->setVisible(true);
+                ui_->buildingHPBar->setVisible(true);
                 ui_->buildPanelButton->setText("Disabled");
                 ui_->buildPanelButton->setToolTip("You can not move the headquarters");
                 ui_->buildPanelButton->setStyleSheet("background-color:gray;" "color:white");
@@ -569,7 +606,9 @@ void MapWindow::updateUI() {
                 ui_->buildPanelButton->setVisible(true);
             } else {
                 ui_->buildPanelButton->setVisible(false);
+                ui_->tabWidget->setTabEnabled(1, true);
                 ui_->recruitButton->setVisible(false);
+                ui_->tabWidget->setTabEnabled(3, true);
             }
 
         } else {
@@ -618,7 +657,7 @@ void MapWindow::updateUI() {
         ui_->moveButton->setText("Cancel move");
     } else {
         ui_->moveButton->setStyleSheet("background-color:#165581;" "color:white");
-        ui_->moveButton->setText("Move");
+        ui_->moveButton->setText("Move / Attack");
     }
 
     // Turn label updates
@@ -634,9 +673,33 @@ void MapWindow::updateUI() {
 
 }
 
-bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
+void MapWindow::cutForest(const std::shared_ptr<Course::TileBase> &tile) {
 
-    if (selectedUnit_->getMovement() >= 1) { // Enough movement points
+    Course::Coordinate location = tile->getCoordinate();
+
+    objectManager_->removeTile(tile);
+
+    // TODO: Add resources to player
+
+}
+
+bool MapWindow::attackHQ(const std::shared_ptr<Course::TileBase> &tile, const std::shared_ptr<UnitBase> &attacker) {
+
+    std::shared_ptr<Headquarters> HQ = std::dynamic_pointer_cast<Headquarters>(tile->getBuildings().at(0));
+    HQ->changeHitPoints((attacker->getDamage()) * (-1));
+
+    if (HQ->getHitPoints() <= 0) {
+        return true; // Tell caller that HQ has been destroyed
+    } else {
+        return false;
+    }
+
+}
+
+bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
+    int movementPoints = selectedUnit_->getMovement();
+
+    if (movementPoints >= 1) { // Enough movement points
 
         for (auto coordinate : selectedTile_->getCoordinate().neighbours()) {
 
@@ -647,11 +710,29 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                     if (tile->getOwner() != selectedUnit_->getOwner()) { // It's enemy tile
 
                         // Tile ownership to current player
-                        tile->setOwner(selectedUnit_->getOwner());
+                        if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
+                            tile->setOwner(selectedUnit_->getOwner());
+                            tilesToGiveBack_.push_back(tile);
+                        }
 
-                        // Remove possible enemy building
+                        // Destroy possible enemy building
                         if (tile->getBuildingCount() > 1) {
                             auto building = tile->getBuildings().at(0);
+
+                            // Attack HQ
+                            if (building->getType() == "Headquarters") {
+                                bool HQDestroyed = attackHQ(tile, selectedUnit_);
+                                qDebug() << "HQ took damage";
+
+                                if (HQDestroyed) {
+                                    tile->removeBuilding(building);
+                                    objectManager_->removeBuilding(building);
+                                    qDebug() << "HQ DESTROYED";
+                                }
+
+                            } else {
+
+                            }
                             // tile->removeBuilding(building);
                             // TODO: remove from objectmanager etc.
                         }
@@ -671,9 +752,28 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                     std::shared_ptr<UnitBase> otherUnit = objectManager_->getUnit(tile->getCoordinate());
                     if (otherUnit->getOwner() != selectedUnit_->getOwner()) {
                         bool enemyDied = selectedUnit_->attackUnit(otherUnit);
+                        qDebug() << "Enemy unit took damage";
+
                         selectedUnit_->setMovement(0);
+
+                        if (enemyDied) {
+                            tile->removeWorker(otherUnit);
+                            objectManager_->removeUnit(otherUnit);
+                            qDebug() << "Enemy unit died";
+                        }
                     }
 
+                }
+
+                // Give back tiles
+                for (auto tile : tilesToGiveBack_) {
+                    if (tile->getWorkerCount() < 1) {
+                        for (auto player : players_) {
+                            if (player != playerInTurn_) {
+                                tile->setOwner(player);
+                            }
+                        }
+                    }
                 }
 
                 moveMode_ = false;

@@ -17,7 +17,7 @@ Mine::Mine(const std::shared_ptr<Course::iGameEventHandler> &eventHandler,
                    production) {
 
     objectManager_ = objectManager;
-    setDescription("basic", "Home sweet home.");
+    setDescription("basic", "MINECRAFT");
 
 
 }
