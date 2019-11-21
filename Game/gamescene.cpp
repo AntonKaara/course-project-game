@@ -103,7 +103,6 @@ void GameScene::removeItem(std::shared_ptr<Course::GameObject> obj) {
             }
         }
     }
-
 }
 
 void GameScene::drawTile(std::shared_ptr<Course::TileBase> obj) {
@@ -113,8 +112,7 @@ void GameScene::drawTile(std::shared_ptr<Course::TileBase> obj) {
 
 }
 
-
-uint GameScene::tileClicked(QEvent *event) {
+uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
 
     if (event->type() == QEvent::GraphicsSceneMousePress) {
         QGraphicsSceneMouseEvent* mouseEvent =
@@ -125,31 +123,35 @@ uint GameScene::tileClicked(QEvent *event) {
             QGraphicsItem* pressed = itemAt(point, QTransform());
             MapItem* mapItemPressed = static_cast<MapItem*>(pressed);
 
-            // Configure properties for the the indicator rectangle
+            // Move highlightrectangle if needed
+            if (moveHighlighter) {
 
-            QPen pen;
-            pen.setWidth(1);
-            pen.setColor("magenta");
+                // Configure properties for the the indicator rectangle
+                QPen pen;
+                pen.setWidth(4);
+                pen.setColor("gold");
 
-            /* If there is a highlighted tile already remove the effect.
-             * Don't add anything if the clicked tile is already highlighted.
-             */
+                /* If there is a highlighted tile already remove the effect.
+                 * Don't add anything if the clicked tile is already highlighted.
+                 */
+                if (mapItemPressed != nullptr) {
 
-            if (highlightRectangle_ != nullptr) {
+                    if (highlightRectangle_ != nullptr) {
 
-                if (highlightRectangle_->boundingRect() == mapItemPressed->boundingRect()) {
-                    return lastTileId_;
-                } else {
-                    QGraphicsScene::removeItem(highlightRectangle_);
+                        if (highlightRectangle_->boundingRect() != mapItemPressed->boundingRect()) {
+                            QGraphicsScene::removeItem(highlightRectangle_);
+                        }
+                    }
                 }
 
+                highlightRectangle_ = addRect(mapItemPressed->boundingRect(), pen);
             }
 
-            highlightRectangle_ = addRect(mapItemPressed->boundingRect(), pen);
             lastTileId_ = mapItemPressed->getBoundObject()->ID;
-            return mapItemPressed->getBoundObject()->ID;
+            return lastTileId_;
 
         }
+
     }
 
     return 0;

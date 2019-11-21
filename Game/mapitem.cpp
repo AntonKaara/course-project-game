@@ -86,6 +86,7 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     painter->drawPixmap(scaledLocation, scaledPixmap);
     painter->drawRect(boundingRect());
+    prepareGeometryChange();
 
 }
 

@@ -73,6 +73,7 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->recruitButton->setVisible(false);
     ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
     ui_->confirmBuildButton->setStyleSheet("background-color:darkGreen;" "color:white");
+    ui_->moveButton->setStyleSheet("background-color:#165581;" "color:white");
 
     // Create eventhandler & objectmanager objects
 
@@ -467,11 +468,11 @@ void Aeta::MapWindow::on_moveButton_clicked() {
 
     if (moveMode_) {
         moveMode_ = false;
-        ui_->moveButton->setText("Move");
     } else {
         moveMode_ = true;
-        ui_->moveButton->setText("Cancel");
     }
+
+    updateUI();
 
 }
 
@@ -604,6 +605,15 @@ void MapWindow::updateUI() {
 
     }
 
+    // Update move button
+    if (moveMode_) {
+        ui_->moveButton->setStyleSheet("background-color:yellow;" "color:black");
+        ui_->moveButton->setText("Cancel move");
+    } else {
+        ui_->moveButton->setStyleSheet("background-color:#165581;" "color:white");
+        ui_->moveButton->setText("Move");
+    }
+
     // Turn label updates
 
     ui_->turnCountLabel->setText("Turn: " + QString::fromStdString(std::to_string(turn_)));
@@ -617,7 +627,7 @@ void MapWindow::updateUI() {
 
 }
 
-void MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
+bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
     if (selectedUnit_->getMovement() >= 1) { // Enough movement points
         for (auto coordinate : selectedTile_->getCoordinate().neighbours()) {
@@ -654,39 +664,38 @@ void MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                 //selectedUnit_ = objectManager_->getUnit(coordinate);
                 scene_->update();
                 updateUI();
+                return true;
             }
         }
     } else {
         qDebug() << "Not enough movement points";
     }
-
+    return false;
 }
 
 bool MapWindow::eventFilter(QObject *object, QEvent *event) {
 
     if (object == &*scene_ && event->type() == QEvent::GraphicsSceneMousePress) {
-        //QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
-        //if (event->button() == Qt::LeftButton) {
 
         if (moveMode_) {
-            uint tileID = scene_->tileClicked(event);
+            uint tileID = scene_->tileClicked(event, false);
             qDebug() << "Got tileID for moving: " << tileID;
             std::shared_ptr<Course::TileBase> moveToTile = objectManager_->getTile(tileID);
-            moveUnit(moveToTile);
+
+            // Move highlighter if successful
+            if (moveUnit(moveToTile)) {
+                scene_->tileClicked(event, true);
+            }
+
         } else {
-            uint tileID = scene_->tileClicked(event);
+            uint tileID = scene_->tileClicked(event, true);
             qDebug() << "Got tileID: " << tileID;
             selectedTile_ = objectManager_->getTile(tileID);
             selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
             updateUI();
+
             return true;
         }
-
-        //} else if (mouseEvent->button() == Qt::RightButton) {
-
-            //moveUnit();
-
-        //}
 
     }
 

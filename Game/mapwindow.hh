@@ -51,7 +51,7 @@ public:
     void initializePlayer1();
     void initializePlayer2();
 
-    void moveUnit(const std::shared_ptr<Course::TileBase> &tile);
+    bool moveUnit(const std::shared_ptr<Course::TileBase> &tile);
 
     void buildOnTile();
     void endTurn();
