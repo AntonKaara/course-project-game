@@ -680,13 +680,17 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
 
         if (moveMode_) {
 
-            uint tileID = scene_->tileClicked(event);
+            uint tileID = scene_->tileClicked(event, false);
             qDebug() << "Got tileID for moving: " << tileID;
             std::shared_ptr<Course::TileBase> moveToTile = objectManager_->getTile(tileID);
-            moveUnit(moveToTile);
+
+            if (moveUnit(moveToTile)) {
+                scene_->tileClicked(event, true);
+            }
 
         } else {
-            uint tileID = scene_->tileClicked(event);
+
+            uint tileID = scene_->tileClicked(event, true);
             qDebug() << "Got tileID: " << tileID;
             selectedTile_ = objectManager_->getTile(tileID);
             qDebug() << "selected tile ID: " << selectedTile_->ID;

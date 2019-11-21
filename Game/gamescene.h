@@ -38,7 +38,8 @@ public:
     void updateItem(std::shared_ptr<Course::GameObject> obj);
 
     // Event handlers
-    uint tileClicked(QEvent *event);
+    uint tileClicked(QEvent *event, bool moveHighlighter);
+
 
 private:
 
