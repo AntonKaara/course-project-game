@@ -42,6 +42,7 @@ MapWindow::MapWindow(QWidget *parent):
     connect(&*mainMenu_, &MainMenu::mapSizeChanged,
             this, &MapWindow::setMapSize);
 
+
     // show menu dialog and if the quit button is pressed end the program
 
     int result = mainMenu_->exec();
@@ -678,22 +679,19 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
     if (object == &*scene_ && event->type() == QEvent::GraphicsSceneMousePress) {
 
         if (moveMode_) {
-            uint tileID = scene_->tileClicked(event, false);
+
+            uint tileID = scene_->tileClicked(event);
             qDebug() << "Got tileID for moving: " << tileID;
             std::shared_ptr<Course::TileBase> moveToTile = objectManager_->getTile(tileID);
-
-            // Move highlighter if successful
-            if (moveUnit(moveToTile)) {
-                scene_->tileClicked(event, true);
-            }
+            moveUnit(moveToTile);
 
         } else {
-            uint tileID = scene_->tileClicked(event, true);
+            uint tileID = scene_->tileClicked(event);
             qDebug() << "Got tileID: " << tileID;
             selectedTile_ = objectManager_->getTile(tileID);
+            qDebug() << "selected tile ID: " << selectedTile_->ID;
             selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
             updateUI();
-
             return true;
         }
 

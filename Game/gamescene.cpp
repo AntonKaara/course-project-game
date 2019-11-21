@@ -22,6 +22,7 @@ GameScene::GameScene(QWidget* parent,
 
     setSize(width, height);
     setScale(scale);
+
 }
 
 void GameScene::setSize(int width, int height) {
@@ -103,6 +104,7 @@ void GameScene::removeItem(std::shared_ptr<Course::GameObject> obj) {
             }
         }
     }
+
 }
 
 void GameScene::drawTile(std::shared_ptr<Course::TileBase> obj) {
@@ -112,7 +114,8 @@ void GameScene::drawTile(std::shared_ptr<Course::TileBase> obj) {
 
 }
 
-uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
+
+uint GameScene::tileClicked(QEvent *event) {
 
     if (event->type() == QEvent::GraphicsSceneMousePress) {
         QGraphicsSceneMouseEvent* mouseEvent =
@@ -123,35 +126,37 @@ uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
             QGraphicsItem* pressed = itemAt(point, QTransform());
             MapItem* mapItemPressed = static_cast<MapItem*>(pressed);
 
-            // Move highlightrectangle if needed
-            if (moveHighlighter) {
+            // Configure properties for the the indicator rectangle
 
-                // Configure properties for the the indicator rectangle
-                QPen pen;
-                pen.setWidth(4);
-                pen.setColor("gold");
+            QPen pen;
+            pen.setWidth(1);
+            QColor color;
+            color.setRgb(255, 165, 0);
+            pen.setColor(color);
+            pen.setWidth(4);
 
-                /* If there is a highlighted tile already remove the effect.
-                 * Don't add anything if the clicked tile is already highlighted.
-                 */
-                if (mapItemPressed != nullptr) {
+            /* If there is a highlighted tile already remove the effect.
+             * Don't add anything if the clicked tile is already highlighted.
+             *
+             */
 
-                    if (highlightRectangle_ != nullptr) {
+            if (highlightRectangle_ != nullptr) {
 
-                        if (highlightRectangle_->boundingRect() != mapItemPressed->boundingRect()) {
-                            QGraphicsScene::removeItem(highlightRectangle_);
-                        }
-                    }
+                if (highlightRectangle_->boundingRect() == mapItemPressed->boundingRect()) {
+                    return lastTileId_;
+                } else {
+
+                    QGraphicsScene::removeItem(highlightRectangle_);
+
                 }
 
-                highlightRectangle_ = addRect(mapItemPressed->boundingRect(), pen);
             }
 
+            highlightRectangle_ = addRect(mapItemPressed->boundingRect(), pen);
             lastTileId_ = mapItemPressed->getBoundObject()->ID;
-            return lastTileId_;
+            return mapItemPressed->getBoundObject()->ID;
 
         }
-
     }
 
     return 0;
