@@ -1,6 +1,7 @@
 #include "workers/workerbase.h"
 
 #include <QObject>
+#include <string>
 
 #ifndef UNITBASE_H
 #define UNITBASE_H
@@ -15,7 +16,8 @@ public:
              const std::shared_ptr<Course::iObjectManager > &objectmanager,
              const std::shared_ptr<Course::PlayerBase > &owner,
              const int &tilespaces=1, const Course::ResourceMap &cost={},
-             const Course::ResourceMapDouble &efficiency={});
+             const Course::ResourceMapDouble &efficiency={},
+             const std::string &name = "Unit");
 
     virtual std::string getType() const override;
     virtual void doSpecialAction() override;
@@ -34,15 +36,15 @@ public:
 
     virtual void changeHealth(int amount);
     virtual void changeMovement(int amount);
-
+    virtual void resetMovement();
 
 private:
 
-    std::string unitName_;
-    int healthPoints_;
-    double movementPoints_;
-    int range_;
-    int damage_;
+    std::string unitName_ = "Unit";
+    int healthPoints_ = 100;
+    double movementPoints_ = 100;
+    int range_ = 1;
+    int damage_ = 28;
 
 
 };

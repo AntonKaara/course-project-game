@@ -2,6 +2,7 @@
 #include "core/gameobject.h"
 #include "tiles/tilebase.h"
 #include "core/coordinate.h"
+#include "unitbase.h"
 
 #include <memory>
 #include <vector>
@@ -33,17 +34,18 @@ public:
             const std::vector<Course::Coordinate> &coordinates);
 
     // Units
-    void addUnit (const std::shared_ptr<Course::WorkerBase> &unit);
-    std::shared_ptr<Course::WorkerBase> getUnit (const Course::Coordinate &coordinate);
-    std::shared_ptr<Course::WorkerBase> getUnit (const Course::ObjectId &id);
-    std::vector<std::shared_ptr<Course::WorkerBase>> getUnits (
+    void addUnit (const std::shared_ptr<UnitBase> &unit);
+    std::shared_ptr<UnitBase> getUnit (const Course::Coordinate &coordinate);
+    std::shared_ptr<UnitBase> getUnit (const Course::ObjectId &id);
+    std::vector<std::shared_ptr<UnitBase>> getUnits (
             const std::vector<Course::Coordinate> &coordinates);
+    std::vector<std::shared_ptr<UnitBase>> getAllUnits();
 
 private:
 
     std::vector<std::shared_ptr<Course::TileBase>> tiles_ = {};
     std::vector<std::shared_ptr<Course::BuildingBase>> buildings_ = {};
-    std::vector<std::shared_ptr<Course::WorkerBase>> units_ = {};
+    std::vector<std::shared_ptr<UnitBase>> units_ = {};
 
 };
 

@@ -1,5 +1,7 @@
 #include "infantry.h"
 
+#include <QDebug>
+
 namespace Aeta {
 
 Infantry::Infantry(const std::shared_ptr<Course::iGameEventHandler > &eventhandler,

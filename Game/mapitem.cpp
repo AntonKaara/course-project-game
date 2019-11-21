@@ -55,15 +55,19 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         unitType = unit->getType();
 
          // Determine different unit pics for both players
-
-        if (tileObject_->getOwner()->getName() == "1") {
-            unitType = unitType + "1";
+        if (tileObject_->getOwner() != nullptr) {
+            if (tileObject_->getOwner()->getName() == "1") {
+                unitType = unitType + "1";
+            } else {
+                unitType = unitType + "2";
+            }
+            scaledPixmap = mapItemPictures_.at(unitType).scaled(
+                        objectSize_, Qt::IgnoreAspectRatio);
         } else {
-            unitType = unitType + "2";
+            scaledPixmap = mapItemPictures_.at(unitType + "1").scaled(
+                        objectSize_, Qt::IgnoreAspectRatio);
         }
 
-        scaledPixmap = mapItemPictures_.at(unitType).scaled(
-                    objectSize_, Qt::IgnoreAspectRatio);
 
     } else {
 
