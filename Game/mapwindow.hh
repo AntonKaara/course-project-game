@@ -6,6 +6,7 @@
 #include "objectmanager.hh"
 #include "player.hh"
 #include "mainmenu.hh"
+#include "headquarters.h"
 
 #include <QMainWindow>
 #include <QGraphicsScene>
@@ -56,10 +57,11 @@ public:
     bool attackHQ(const std::shared_ptr<Course::TileBase> &tile, const std::shared_ptr<UnitBase> &attacker);
 
     void buildOnTile();
+    void recruitUnit();
     void endTurn();
     void updateUI();
-    bool eventFilter(QObject *object, QEvent *event) override;    
 
+    bool eventFilter(QObject *object, QEvent *event) override;
 
 public slots:
 
@@ -73,15 +75,15 @@ private slots:
     void on_confirmBuildButton_clicked();
     void on_buildPanelButton_clicked();
     void on_endTurnButton_clicked();
+    void on_buildList_itemDoubleClicked(QListWidgetItem *item);
+    void on_unitTextBox_editingFinished();
+    void on_moveButton_clicked();
+    void on_recruitButton_clicked();
+    void on_confirmRecruitButton_clicked();
 
     void resizeEvent(QResizeEvent *event) override;
 
-    void on_buildList_itemDoubleClicked(QListWidgetItem *item);
-
-
-    void on_unitTextBox_editingFinished();
-
-    void on_moveButton_clicked();
+    void on_recruitList_doubleClicked(const QModelIndex &index);
 
 private:
 
@@ -100,10 +102,14 @@ private:
     int mapScale_ = 60; // Tile pixmap size in px
     int zoomLevel_ = 0; // Normal view = 0
 
-    int turn_ = 1;
+    int turn_ = 1; // Turn for playerInTurn pointer
+    int turnCount_ = 1; // Turn for UI
+    bool moveMode_ = false;
+
     std::shared_ptr<Course::TileBase> selectedTile_ = nullptr;
     std::shared_ptr<UnitBase> selectedUnit_ = nullptr;
-    bool moveMode_ = false;
+    std::shared_ptr<Headquarters> player1HQ_ = nullptr;
+    std::shared_ptr<Headquarters> player2HQ_ = nullptr;
 
     // Attributes for storing players' information
 

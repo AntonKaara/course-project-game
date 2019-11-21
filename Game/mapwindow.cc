@@ -9,12 +9,13 @@
 #include "swamp.h"
 #include "lake.h"
 #include "mountain.h"
-#include "headquarters.h"
 #include "outpost.h"
 #include "farm.h"
 #include "lumbermill.h"
 #include "mine.h"
 #include "infantry.h"
+#include "archery.h"
+#include "cavalry.h"
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "gamescene.h"
@@ -79,6 +80,7 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->recruitButton->setVisible(false);
     ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
     ui_->confirmBuildButton->setStyleSheet("background-color:darkGreen;" "color:white");
+    ui_->confirmRecruitButton->setStyleSheet("background-color:darkGreen;" "color:white");
     ui_->moveButton->setStyleSheet("background-color:#165581;" "color:white");
 
     // Create eventhandler & objectmanager objects
@@ -116,10 +118,10 @@ void MapWindow::generateMap() {
 
     // Add tile types
     worldGen.addConstructor<GrassTile>(200);
-    worldGen.addConstructor<ForestTile>(60);
+    worldGen.addConstructor<ForestTile>(75);
     worldGen.addConstructor<Swamp>(2);
-    worldGen.addConstructor<Lake>(5);
-    worldGen.addConstructor<Mountain>(2);
+    worldGen.addConstructor<Lake>(6);
+    worldGen.addConstructor<Mountain>(4);
 
     worldGen.generateMap(static_cast<uint>(mapsizeX_), static_cast<uint>(mapsizeY_),
                          seed, objectManager_, gameEventHandler_);
@@ -171,6 +173,8 @@ void MapWindow::initializePlayer1() {
     tileObject->setOwner(player);
     tileObject->addBuilding(headquarters);
     headquarters->onBuildAction();
+
+    player1HQ_ = headquarters;
 
     // Add Farm
     objectManager_->addBuilding(farm);
@@ -236,6 +240,8 @@ void MapWindow::initializePlayer2() {
     tileObject->setOwner(player);
     tileObject->addBuilding(headquarters);
     headquarters->onBuildAction();
+
+    player2HQ_ = headquarters;
 
     // Add Farm
     objectManager_->addBuilding(farm);
@@ -332,6 +338,9 @@ void MapWindow::buildOnTile() {
 void MapWindow::endTurn() {
 
     turn_ += 1;
+    if (playerInTurn_->getName() == "2") {
+        turnCount_ += 1;
+    }
 
     // Add movement points to current player
 
@@ -514,6 +523,28 @@ void Aeta::MapWindow::on_moveButton_clicked() {
 
 }
 
+void Aeta::MapWindow::on_recruitButton_clicked() {
+
+    ui_->tabWidget->setTabEnabled(3, true);
+    ui_->tabWidget->setCurrentIndex(3);
+
+}
+
+void Aeta::MapWindow::on_confirmRecruitButton_clicked() {
+
+    ui_->tabWidget->setCurrentIndex(0);
+    ui_->tabWidget->setTabEnabled(3, false);
+
+    recruitUnit();
+
+}
+
+void Aeta::MapWindow::on_recruitList_doubleClicked(const QModelIndex &index) {
+
+    on_confirmRecruitButton_clicked();
+
+}
+
 void MapWindow::setPlayerName(const QString &name, const int &playerNumber) {
 
     if (playerNumber == 1) {
@@ -572,13 +603,26 @@ void MapWindow::updateUI() {
 
             if (buildingType == "Headquarters") {
 
-                if (tile->getOwner() == playerInTurn_) {
+                if (building->getOwner() == playerInTurn_) {
                     ui_->recruitButton->setVisible(true);
-                    ui_->tabWidget->setTabEnabled(3, true);
                 }
 
-                ui_->buildingHPLabel->setVisible(true);
-                ui_->buildingHPBar->setVisible(true);
+                // Set HQ HitPoints bar value
+                if (building->getOwner()->getName() == "1") {
+                    ui_->buildingHPBar->setValue(player1HQ_->getHitPoints());
+                } else if (building->getOwner()->getName() == "2"){
+                    ui_->buildingHPBar->setValue(player2HQ_->getHitPoints());
+                }
+
+                // Only show hitpoints if HQ damaged
+                if (player1HQ_->getHitPoints() < 100 && building->getOwner()->getName() == "1") {
+                    ui_->buildingHPLabel->setVisible(true);
+                    ui_->buildingHPBar->setVisible(true);
+                } else if (player2HQ_->getHitPoints() < 100 && building->getOwner()->getName() == "2") {
+                    ui_->buildingHPLabel->setVisible(true);
+                    ui_->buildingHPBar->setVisible(true);
+                }
+
                 ui_->buildPanelButton->setText("Disabled");
                 ui_->buildPanelButton->setToolTip("You can not move the headquarters");
                 ui_->buildPanelButton->setStyleSheet("background-color:gray;" "color:white");
@@ -608,9 +652,9 @@ void MapWindow::updateUI() {
                 ui_->buildPanelButton->setVisible(true);
             } else {
                 ui_->buildPanelButton->setVisible(false);
-                ui_->tabWidget->setTabEnabled(1, true);
+                ui_->tabWidget->setTabEnabled(1, false);
                 ui_->recruitButton->setVisible(false);
-                ui_->tabWidget->setTabEnabled(3, true);
+                ui_->tabWidget->setTabEnabled(3, false);
             }
 
         } else {
@@ -664,7 +708,7 @@ void MapWindow::updateUI() {
 
     // Turn label updates
 
-    ui_->turnCountLabel->setText("Turn: " + QString::fromStdString(std::to_string(turn_)));
+    ui_->turnCountLabel->setText("Turn: " + QString::fromStdString(std::to_string(turnCount_)));
     QString playerName = QString::fromStdString(playerInTurn_->getName());
 
     if (playerName == "1") {
@@ -707,64 +751,76 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
             if (tile->getCoordinate() == coordinate) { // Clicked tile is one of the neighbors
 
-                if (tile->getWorkerCount() < 1) { // Tile is free of units
+                if (tile->getType() == "Grass" || tile->getType() == "Forest") {
 
-                    if (tile->getOwner() != selectedUnit_->getOwner()) { // It's enemy tile
+                    if (tile->getWorkerCount() < 1) { // Tile is free of units
 
-                        // Tile ownership to current player
-                        if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
-                            tile->setOwner(selectedUnit_->getOwner());
-                            tilesToGiveBack_.push_back(tile);
+                        if (tile->getOwner() != selectedUnit_->getOwner()) { // It's enemy tile
+
+                            // Tile ownership to current player
+                            if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
+                                tile->setOwner(selectedUnit_->getOwner());
+                                tilesToGiveBack_.push_back(tile);
+                            }
+
+                            // Destroy possible enemy building
+                            if (tile->getBuildingCount() > 1) {
+                                auto building = tile->getBuildings().at(0);
+
+                                // Attack HQ
+                                if (building->getType() == "Headquarters") {
+                                    bool HQDestroyed = attackHQ(tile, selectedUnit_);
+                                    qDebug() << "HQ took damage";
+
+                                    if (HQDestroyed) {
+                                        tile->removeBuilding(building);
+                                        objectManager_->removeBuilding(building);
+                                        qDebug() << "HQ DESTROYED";
+                                    }
+
+                                } else {
+
+                                }
+                            }
                         }
 
-                        // Destroy possible enemy building
-                        if (tile->getBuildingCount() > 1) {
-                            auto building = tile->getBuildings().at(0);
+                        selectedUnit_->setCoordinate(coordinate);
+                        selectedTile_->removeWorker(selectedUnit_);
+                        tile->addWorker(selectedUnit_);
+                        qDebug() << "Moved to: " << coordinate.x() << coordinate.y();
+                        selectedUnit_->changeMovement(-1);
 
-                            // Attack HQ
-                            if (building->getType() == "Headquarters") {
-                                bool HQDestroyed = attackHQ(tile, selectedUnit_);
-                                qDebug() << "HQ took damage";
+                    } else {
+                        qDebug() << "Tile already occupied";
 
-                                if (HQDestroyed) {
-                                    tile->removeBuilding(building);
-                                    objectManager_->removeBuilding(building);
-                                    qDebug() << "HQ DESTROYED";
-                                }
+                        // Attack enemy unit
+                        std::shared_ptr<UnitBase> otherUnit = objectManager_->getUnit(tile->getCoordinate());
+                        if (otherUnit->getOwner() != selectedUnit_->getOwner()) {
+                            bool enemyDied = selectedUnit_->attackUnit(otherUnit);
+                            qDebug() << "Enemy unit took damage";
 
-                            } else {
+                            selectedUnit_->setMovement(0);
 
+                            if (enemyDied) {
+                                tile->removeWorker(otherUnit);
+                                objectManager_->removeUnit(otherUnit);
+                                qDebug() << "Enemy unit died";
                             }
-                            // tile->removeBuilding(building);
-                            // TODO: remove from objectmanager etc.
                         }
 
                     }
+
+                } else if (tile->getType() == "Swamp") { // If not grass or forest
+
 
                     selectedUnit_->setCoordinate(coordinate);
                     selectedTile_->removeWorker(selectedUnit_);
                     tile->addWorker(selectedUnit_);
                     qDebug() << "Moved to: " << coordinate.x() << coordinate.y();
-                    selectedUnit_->changeMovement(-1);
+                    selectedUnit_->changeMovement(-2);
 
                 } else {
-                    qDebug() << "Tile already occupied";
-
-                    // Attack enemy unit
-                    std::shared_ptr<UnitBase> otherUnit = objectManager_->getUnit(tile->getCoordinate());
-                    if (otherUnit->getOwner() != selectedUnit_->getOwner()) {
-                        bool enemyDied = selectedUnit_->attackUnit(otherUnit);
-                        qDebug() << "Enemy unit took damage";
-
-                        selectedUnit_->setMovement(0);
-
-                        if (enemyDied) {
-                            tile->removeWorker(otherUnit);
-                            objectManager_->removeUnit(otherUnit);
-                            qDebug() << "Enemy unit died";
-                        }
-                    }
-
+                    return false;
                 }
 
                 // Give back tiles
@@ -779,7 +835,7 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                 }
 
                 moveMode_ = false;
-                ui_->moveButton->setText("Move");
+                //ui_->moveButton->setText("Move");
                 selectedTile_ = tile;
                 //selectedUnit_ = objectManager_->getUnit(coordinate);
                 scene_->update();
@@ -791,6 +847,65 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
         qDebug() << "Not enough movement points";
     }
     return false;
+}
+
+void MapWindow::recruitUnit() {
+
+    QString unitToRecruit = ui_->recruitList->currentItem()->text();
+    std::shared_ptr<Course::TileBase> tile = nullptr;
+    Course::Coordinate location = {3, 3};
+
+    if (selectedTile_ != nullptr) {
+        location = selectedTile_->getCoordinate().neighbours().at(5); // NEEDS WORK
+    }
+
+    tile = objectManager_->getTile(location);
+
+
+    if (unitToRecruit == "Infantry") {
+
+        std::shared_ptr<Infantry> infantry = std::make_shared<
+                Infantry>(gameEventHandler_, objectManager_, playerInTurn_,
+                      1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
+                      Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+
+        objectManager_->addUnit(infantry);
+        playerInTurn_->addObject(infantry);
+        infantry->setOwner(playerInTurn_);
+        tile->addWorker(infantry);
+        //infantry->onBuildAction();
+
+    } else if (unitToRecruit == "Archery") {
+
+        std::shared_ptr<Archery> archery = std::make_shared<
+                Archery>(gameEventHandler_, objectManager_, playerInTurn_,
+                      1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
+                      Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+
+        objectManager_->addUnit(archery);
+        playerInTurn_->addObject(archery);
+        archery->setOwner(playerInTurn_);
+        tile->addWorker(archery);
+        //archery->onBuildAction();
+
+    } else if (unitToRecruit == "Cavalry") {
+
+        std::shared_ptr<Cavalry> cavalry = std::make_shared<
+                Cavalry>(gameEventHandler_, objectManager_, playerInTurn_,
+                      1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
+                      Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+
+        objectManager_->addUnit(cavalry);
+        playerInTurn_->addObject(cavalry);
+        cavalry->setOwner(playerInTurn_);
+        tile->addWorker(cavalry);
+        //cavalry->onBuildAction();
+
+    }
+
+    updateUI();
+    scene_->update();
+
 }
 
 bool MapWindow::eventFilter(QObject *object, QEvent *event) {
