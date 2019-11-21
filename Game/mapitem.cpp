@@ -57,14 +57,19 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
          // Determine different unit pics for both players
         if (tileObject_->getOwner() != nullptr) {
             if (tileObject_->getOwner()->getName() == "1") {
-                unitType = unitType + "1";
+                unitType = unitType + "1Owned";
             } else {
-                unitType = unitType + "2";
+                unitType = unitType + "2Owned";
             }
             scaledPixmap = mapItemPictures_.at(unitType).scaled(
                         objectSize_, Qt::IgnoreAspectRatio);
         } else {
-            scaledPixmap = mapItemPictures_.at(unitType + "1").scaled(
+            if (unit->getOwner()->getName() == "1") {
+                unitType = unitType + "1Free";
+            } else {
+                unitType = unitType + "2Free";
+            }
+            scaledPixmap = mapItemPictures_.at(unitType).scaled(
                         objectSize_, Qt::IgnoreAspectRatio);
         }
 
@@ -133,15 +138,20 @@ void MapItem::setSize(int size) {
 
 void MapItem::addMapItemPictures() {
 
-    std::vector<std::string> types = {"Archer1", "Archer2",
+    std::vector<std::string> types = {"Archery",
+                                      "Archery1Free", "Archery1Owned",
+                                      "Archery2Free", "Archery2Owned",
                                       "Coins", "Farm", "Farm1", "Farm2",
                                       "Food", "Forest", "Forest1",
                                       "Forest2", "Grass", "Grass1",
                                       "Grass2", "Headquarters",
                                       "Headquarters1", "Headquarters2",
-                                      "Infantry1", "Infantry2", "Ore",
-                                      "Outpost", "Outpost1","Outpost2",
-                                      "Wood", "Workforce"};
+                                      "Infantry",
+                                      "Infantry1Free", "Infantry1Owned",
+                                      "Infantry2Free", "Infantry2Owned",
+                                      "Ore", "Outpost", "Outpost1",
+                                      "Outpost2", "Swamp", "Swamp1",
+                                      "Swamp2", "Wood", "Workforce"};
 
     for (auto mapItemType : types) {
         QString filePath = QString::fromStdString(":/pictures/pictures/"

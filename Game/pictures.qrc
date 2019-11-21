@@ -1,28 +1,39 @@
 <RCC>
     <qresource prefix="/pictures">
-        <file>pictures/Grass.png</file>
-        <file>pictures/Forest.png</file>
+        <file>pictures/Archery1Free.png</file>
+        <file>pictures/Archery1Owned.png</file>
+        <file>pictures/Archery2Free.png</file>
+        <file>pictures/Archery2Owned.png</file>
+        <file>pictures/ArcherLVL2.png</file>
         <file>pictures/Coins.png</file>
-        <file>pictures/Food.png</file>
-        <file>pictures/Workforce.png</file>
-        <file>pictures/Archery1.png</file>
-        <file>pictures/Archery2.png</file>
+        <file>pictures/Farm.png</file>
         <file>pictures/Farm1.png</file>
         <file>pictures/Farm2.png</file>
+        <file>pictures/Food.png</file>
+        <file>pictures/Forest.png</file>
         <file>pictures/Forest1.png</file>
         <file>pictures/Forest2.png</file>
-        <file>pictures/Headquarters1.png</file>
-        <file>pictures/Headquarters2.png</file>
-        <file>pictures/Infantry1.png</file>
-        <file>pictures/Infantry2.png</file>
-        <file>pictures/Ore.png</file>
-        <file>pictures/Outpost1.png</file>
-        <file>pictures/Outpost2.png</file>
+        <file>pictures/Grass.png</file>
         <file>pictures/Grass1.png</file>
         <file>pictures/Grass2.png</file>
-        <file>pictures/Wood.png</file>
-        <file>pictures/Farm.png</file>
         <file>pictures/Headquarters.png</file>
+        <file>pictures/Headquarters1.png</file>
+        <file>pictures/Headquarters2.png</file>
+        <file>pictures/Infantry1Free.png</file>
+        <file>pictures/Infantry1Owned.png</file>
+        <file>pictures/Infantry2Free.png</file>
+        <file>pictures/Infantry2Owned.png</file>
+        <file>pictures/InfantryLVL2.png</file>
+        <file>pictures/Ore.png</file>
         <file>pictures/Outpost.png</file>
+        <file>pictures/Outpost1.png</file>
+        <file>pictures/Outpost2.png</file>
+        <file>pictures/Swamp.png</file>
+        <file>pictures/Swamp1.png</file>
+        <file>pictures/Swamp2.png</file>
+        <file>pictures/Wood.png</file>
+        <file>pictures/Workforce.png</file>
+        <file>pictures/Archery.png</file>
+        <file>pictures/Infantry.png</file>
     </qresource>
 </RCC>

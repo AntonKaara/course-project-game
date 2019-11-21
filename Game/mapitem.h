@@ -78,6 +78,7 @@ private:
     QSize objectSize_;
     int tileScale_ = 60;
 
+
 };
 
 } // namespace Aeta

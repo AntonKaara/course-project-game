@@ -14,6 +14,7 @@ Swamp::Swamp(const Course::Coordinate& location,
                max_build,
                max_work,
                production){
+    setDescription("basic", "Moist land, impossible to build on");
 
 }
 

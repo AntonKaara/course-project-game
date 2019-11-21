@@ -6,6 +6,7 @@
 #include "mapitem.h"
 #include "grasstile.h"
 #include "foresttile.h"
+#include "swamp.h"
 #include "headquarters.h"
 #include "outpost.h"
 #include "farm.h"
@@ -112,6 +113,7 @@ void MapWindow::generateMap() {
     // Add tile types
     worldGen.addConstructor<GrassTile>(80);
     worldGen.addConstructor<ForestTile>(20);
+    worldGen.addConstructor<Swamp>(1);
 
     worldGen.generateMap(static_cast<uint>(mapsizeX_), static_cast<uint>(mapsizeY_),
                          seed, objectManager_, gameEventHandler_);
@@ -587,14 +589,15 @@ void MapWindow::updateUI() {
             ui_->healthBar->setValue(unit->getHealth());
             ui_->movementPointNumber->setText(QString::fromStdString(std::to_string(unit->getMovement())));
 
-            // Set UI picture
-            if (tile->getOwner() != nullptr) {
-                if (tile->getOwner()->getName() == "1") {
-                    unitPic = pixmaps_.at(unit->getType() + "1");
-                } else {
-                    unitPic = pixmaps_.at(unit->getType() + "2");
-                }
+            if (playerInTurn_ != unit->getOwner()) {
+                ui_->moveButton->setVisible(false);
+            } else {
+                ui_->moveButton->setVisible(true);
             }
+
+            // Set UI picture
+
+            unitPic = pixmaps_.at(unit->getType());
 
             ui_->unitImgLabel->setPixmap(unitPic);
 
@@ -726,15 +729,20 @@ void MapWindow::resizeEvent(QResizeEvent *event) {
 
 void MapWindow::addPixmaps() {
 
-    std::vector<std::string> types = {"Archer1", "Archer2",
+    std::vector<std::string> types = {"Archery",
+                                      "Archery1Free", "Archery1Owned",
+                                      "Archery2Free", "Archery2Owned",
                                       "Coins", "Farm", "Farm1", "Farm2",
                                       "Food", "Forest", "Forest1",
                                       "Forest2", "Grass", "Grass1",
                                       "Grass2", "Headquarters",
                                       "Headquarters1", "Headquarters2",
-                                      "Infantry1", "Infantry2", "Ore",
-                                      "Outpost", "Outpost1","Outpost2",
-                                      "Wood", "Workforce"};
+                                      "Infantry",
+                                      "Infantry1Free", "Infantry1Owned",
+                                      "Infantry2Free", "Infantry2Owned",
+                                      "Ore", "Outpost", "Outpost1",
+                                      "Outpost2", "Swamp", "Swamp1",
+                                      "Swamp2", "Wood", "Workforce"};
 
     for (auto mapItemType : types) {
         QString filePath = QString::fromStdString(":/pictures/pictures/"
