@@ -126,7 +126,13 @@ uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
             QGraphicsItem* pressed = itemAt(point, QTransform());
             MapItem* mapItemPressed = static_cast<MapItem*>(pressed);
 
+            if (highlightRectangle_ != nullptr) {
 
+                if (highlightRectangle_->boundingRect() == mapItemPressed->boundingRect()) {
+                    return lastTileId_;
+                }
+
+            }
 
             // Move highlightrectangle if needed
             if (moveHighlighter) {
@@ -139,23 +145,7 @@ uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
                 pen.setColor(color);
                 pen.setWidth(4);
 
-                /* If there is a highlighted tile already remove the effect.
-                 * Don't add anything if the clicked tile is already highlighted.
-                 *
-                 */
-
-                if (highlightRectangle_ != nullptr) {
-
-                    if (highlightRectangle_->boundingRect() == mapItemPressed->boundingRect()) {
-                        return lastTileId_;
-                    } else {
-
-                        QGraphicsScene::removeItem(highlightRectangle_);
-
-                    }
-
-                }
-
+                QGraphicsScene::removeItem(highlightRectangle_);
                 highlightRectangle_ = addRect(mapItemPressed->boundingRect(), pen);
 
             }
