@@ -63,10 +63,6 @@ public:
      */
     void setSize(int size);
 
-    // Draws a indicator around clicked tile
-
-    void drawTileIndicator();
-
 private:
 
     /**

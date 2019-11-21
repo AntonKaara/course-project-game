@@ -151,13 +151,6 @@ void MapItem::addMapItemPictures() {
 
 }
 
-void MapItem::drawTileIndicator() {
-    boundingRect().setWidth(4);
-    boundingRect().setHeight(4);
-    QPainter painter;
-    painter.drawRect(boundingRect());
-}
-
 } // namespace Aeta
 
 
