@@ -21,7 +21,7 @@ public:
                const unsigned int& max_build = 1,
                const unsigned int& max_work = 1,
                const Course::ResourceMap& production =
-                    Course::ConstResourceMaps::FOREST_BP);
+               Course::ConstResourceMaps::FOREST_BP);
 
     virtual ~ForestTile() override = default;
 

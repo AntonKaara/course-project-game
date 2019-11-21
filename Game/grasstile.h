@@ -30,7 +30,7 @@ public:
               const unsigned int& max_build = 1,
               const unsigned int& max_work = 1,
               const Course::ResourceMap& production =
-            Course::ConstResourceMaps::GRASSLAND_BP);
+              Course::ConstResourceMaps::GRASSLAND_BP);
 
     /**
      * @brief Default destructor.

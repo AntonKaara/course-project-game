@@ -6,37 +6,51 @@ QT += core gui widgets
 CONFIG += c++14
 
 SOURCES += \
+    archery.cpp \
+    cavalry.cpp \
     farm.cpp \
     foresttile.cpp \
     gamescene.cpp \
     grasstile.cpp \
     headquarters.cpp \
     infantry.cpp \
+    lake.cpp \
+    lumbermill.cpp \
     main.cpp \
     mapitem.cpp \
     mapwindow.cc \
     gameeventhandler.cpp \
+    mine.cpp \
+    mountain.cpp \
     outpost.cpp \
     player.cpp \
     mainmenu.cpp \
     objectmanager.cpp \
+    swamp.cpp \
     unitbase.cpp
 
 HEADERS += \
+    archery.h \
+    cavalry.h \
     farm.h \
     foresttile.h \
     gamescene.h \
     grasstile.h \
     headquarters.h \
     infantry.h \
+    lake.h \
+    lumbermill.h \
     mapitem.h \
     mapwindow.hh \
     gameeventhandler.hh \
+    mine.h \
+    mountain.h \
     outpost.h \
     player.hh \
     resources.hh \
     mainmenu.hh \
     objectmanager.hh \
+    swamp.h \
     unitbase.h
 
 win32:CONFIG(release, debug|release): LIBS += \

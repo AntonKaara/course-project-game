@@ -631,8 +631,11 @@ void MapWindow::updateUI() {
 bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
     if (selectedUnit_->getMovement() >= 1) { // Enough movement points
+
         for (auto coordinate : selectedTile_->getCoordinate().neighbours()) {
+
             if (tile->getCoordinate() == coordinate) { // Clicked tile is one of the neighbors
+
                 if (tile->getWorkerCount() < 1) { // Tile is free of units
 
                     if (tile->getOwner() != selectedUnit_->getOwner()) { // It's enemy tile

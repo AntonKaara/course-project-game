@@ -1,6 +1,4 @@
 #include "buildings/buildingbase.h"
-#include "core/resourcemaps.h"
-#include "core/playerbase.h"
 
 #include <QObject>
 
@@ -14,8 +12,6 @@ class Headquarters : public Course::BuildingBase {
 public:
 
     Headquarters() = delete;
-
-    // Constructor
 
     Headquarters(const std::shared_ptr<Course::iGameEventHandler> &eventHandler,
                  const std::shared_ptr<Course::iObjectManager> &objectManager,

@@ -1,6 +1,4 @@
 #include "buildings/buildingbase.h"
-#include "core/resourcemaps.h"
-#include "core/playerbase.h"
 #include "objectmanager.hh"
 
 #ifndef OUTPOST_H
