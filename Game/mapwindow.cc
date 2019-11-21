@@ -299,13 +299,13 @@ void MapWindow::endTurn() {
 
     turn_ += 1;
 
-    // Add movement points to current player // BROKEN?
+    // Add movement points to current player
 
-//    for (auto unit : objectManager_->getAllUnits()) {
-//        if (unit->getOwner() == playerInTurn_) {
-//            unit->resetMovement();
-//        }
-//    }
+    for (auto unit : objectManager_->getAllUnits()) {
+        if (unit->getOwner() == playerInTurn_) {
+            unit->resetMovement();
+        }
+    }
 
     // Change player in turn
 
@@ -315,6 +315,7 @@ void MapWindow::endTurn() {
         playerInTurn_ = players_.at(0);
     }
 
+    moveMode_ = false;
     centerViewtoHQ();
     scene_->update();
     updateUI();
@@ -336,6 +337,8 @@ void MapWindow::centerViewtoHQ() {
     double yCoordinate = mapFocusLocation->y();
     ui_->graphicsView->centerOn(QPointF(xCoordinate * 60, yCoordinate * 60));
 
+    Course::Coordinate& locationRef = *mapFocusLocation;
+    selectedTile_ = objectManager_->getTile(locationRef);
 }
 
 void MapWindow::drawMap() {
@@ -660,6 +663,14 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
                 } else {
                     qDebug() << "Tile already occupied";
+
+                    // Attack enemy unit
+                    std::shared_ptr<UnitBase> otherUnit = objectManager_->getUnit(tile->getCoordinate());
+                    if (otherUnit->getOwner() != selectedUnit_->getOwner()) {
+                        bool enemyDied = selectedUnit_->attackUnit(otherUnit);
+                        selectedUnit_->setMovement(0);
+                    }
+
                 }
 
                 moveMode_ = false;

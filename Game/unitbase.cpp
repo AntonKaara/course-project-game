@@ -15,7 +15,6 @@ UnitBase::UnitBase(const std::shared_ptr<Course::iGameEventHandler > &eventhandl
                  cost,
                  efficiency)  {
 
-
 }
 
 std::string UnitBase::getType() const {
@@ -24,6 +23,18 @@ std::string UnitBase::getType() const {
 
 void UnitBase::doSpecialAction() {
     // Override in child classes
+}
+
+bool UnitBase::attackUnit(std::shared_ptr<UnitBase> unitUnderAttack) {
+
+    unitUnderAttack->changeHealth(-damage_);
+
+    if (unitUnderAttack->getHealth() <= 0) {
+        return true; // Tell mapwindow the enemy is dead
+    } else {
+        return false;
+    }
+
 }
 
 void UnitBase::setName(const std::string name) {
