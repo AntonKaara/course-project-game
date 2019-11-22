@@ -20,7 +20,9 @@ public:
            const std::vector<std::shared_ptr<Course::GameObject> > objects);
 
     Course::ResourceMap getResources();
-    void setResources(Course::ResourceMap newMap);
+    Course::ResourceMapDouble getResourcesDouble();
+    void setResources(Course::ResourceMap map);
+    void setResourcesDouble(Course::ResourceMapDouble map);
     int getMoney();
     int getFood();
     int getWood();

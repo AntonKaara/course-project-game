@@ -6,6 +6,7 @@
 #include "objectmanager.hh"
 #include "player.hh"
 #include "mainmenu.hh"
+#include "windialog.h"
 #include "welcome.h"
 #include "headquarters.h"
 
@@ -76,6 +77,7 @@ public:
     void endTurn();
     void addProduction();
     void updateUI();
+    void gameOver();
 
     // Events
 
@@ -115,6 +117,7 @@ private:
     std::shared_ptr<GameEventHandler> gameEventHandler_ = nullptr;
     std::shared_ptr<ObjectManager> objectManager_ = nullptr;
     std::shared_ptr<MainMenu> mainMenu_ = nullptr;
+    std::shared_ptr<WinDialog> winDialog_ = nullptr;
     std::shared_ptr<Welcome> welcomeDialog_ = nullptr;
 
     std::map<std::string, QPixmap> pixmaps_ = {};

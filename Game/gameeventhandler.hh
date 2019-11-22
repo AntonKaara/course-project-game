@@ -21,11 +21,9 @@ public:
     bool modifyResource(std::shared_ptr<Course::PlayerBase> player,
                         Course::BasicResource resource, int amount) override;
     bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
-                             Course::ResourceMap resources) override;
-    bool addResources(std::shared_ptr<Course::PlayerBase> player,
-                         Course::ResourceMap resources);
-    bool substractResources(std::shared_ptr<Course::PlayerBase> player,
-                         Course::ResourceMap resources);
+                         Course::ResourceMap resources) override;
+    bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
+                         Course::ResourceMapDouble resources);
 
 };
 

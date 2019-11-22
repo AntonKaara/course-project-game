@@ -23,29 +23,13 @@ bool GameEventHandler::modifyResource(
     return true;
 }
 
-bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMap resources) {
-    return false;
-}
-
-bool GameEventHandler::addResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMap resources) {
-
-    std::shared_ptr<Player> playerCast = std::dynamic_pointer_cast<Player>(player);
-    Course::ResourceMap newMap = Course::mergeResourceMaps(playerCast->getResources(), resources);
-
-    playerCast->setResources(newMap);
-
-    return true;
-
-}
-
-bool GameEventHandler::substractResources(
-        std::shared_ptr<Course::PlayerBase> player,
-        Course::ResourceMap resources) {
+bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player,
+                                       Course::ResourceMap resources) {
 
     std::shared_ptr<Player> playerCast = std::dynamic_pointer_cast<Player>(player);
     Course::ResourceMap reduceMap = {};
     for (auto pair : resources) {
-        pair.second = pair.second * -1;
+        pair.second = pair.second;
         reduceMap.insert(pair);
     }
 
@@ -54,6 +38,24 @@ bool GameEventHandler::substractResources(
     playerCast->setResources(newMap);
 
     return true;
+}
+
+bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMapDouble resources) {
+
+    std::shared_ptr<Player> playerCast = std::dynamic_pointer_cast<Player>(player);
+    Course::ResourceMapDouble reduceMap = {};
+    for (auto pair : resources) {
+        pair.second = pair.second;
+        reduceMap.insert(pair);
+
+    }
+
+    Course::ResourceMapDouble newMap = Course::mergeResourceMapDoubles(playerCast->getResourcesDouble(), reduceMap);
+
+    playerCast->setResourcesDouble(newMap);
+
+    return true;
+
 }
 
 

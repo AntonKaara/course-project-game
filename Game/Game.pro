@@ -28,7 +28,8 @@ SOURCES += \
     objectmanager.cpp \
     swamp.cpp \
     unitbase.cpp \
-    welcome.cpp
+    welcome.cpp \
+    windialog.cpp
 
 HEADERS += \
     archery.h \
@@ -53,7 +54,8 @@ HEADERS += \
     objectmanager.hh \
     swamp.h \
     unitbase.h \
-    welcome.h
+    welcome.h \
+    windialog.h
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
@@ -82,7 +84,8 @@ else:unix: PRE_TARGETDEPS += \
 FORMS += \
     mapwindow.ui \
     mainmenu.ui \
-    welcome.ui
+    welcome.ui \
+    windialog.ui
 
 RESOURCES += \
     pictures.qrc

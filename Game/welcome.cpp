@@ -9,7 +9,8 @@ Welcome::Welcome(QWidget *parent) :
     ui->acceptButton->setStyleSheet("background-color:darkGreen;" "color:white");
 }
 
-Welcome::~Welcome()
-{
+Welcome::~Welcome() {
+
     delete ui;
+
 }

@@ -43,6 +43,7 @@ MapWindow::MapWindow(QWidget *parent):
 
     mainMenu_ = std::make_shared<MainMenu>(this);
     welcomeDialog_ = std::make_shared<Welcome>(this);
+    winDialog_ = std::make_shared<WinDialog>(this);
 
     // Connect mainmenu signals to values here
 
@@ -330,7 +331,7 @@ void MapWindow::buildOnTile() {
         tile->addBuilding(farm);
         farm->onBuildAction();
 
-        gameEventHandler_->substractResources(playerInTurn_, farm->BUILD_COST);
+        gameEventHandler_->modifyResources(playerInTurn_, farm->BUILD_COST);
 
     } else if (buildingToBuild == "Outpost") {
 
@@ -345,7 +346,7 @@ void MapWindow::buildOnTile() {
         tile->addBuilding(outpost);
         outpost->onBuildAction();
 
-        gameEventHandler_->substractResources(playerInTurn_, outpost->BUILD_COST);
+        gameEventHandler_->modifyResources(playerInTurn_, outpost->BUILD_COST);
 
     } else if (buildingToBuild == "Mine") {
 
@@ -360,7 +361,7 @@ void MapWindow::buildOnTile() {
         tile->addBuilding(mine);
         mine->onBuildAction();
 
-        gameEventHandler_->substractResources(playerInTurn_, mine->BUILD_COST);
+        gameEventHandler_->modifyResources(playerInTurn_, mine->BUILD_COST);
 
     } else if (buildingToBuild == "Lumber Mill") {
 
@@ -375,7 +376,7 @@ void MapWindow::buildOnTile() {
         tile->addBuilding(lumbermill);
         lumbermill->onBuildAction();
 
-        gameEventHandler_->substractResources(playerInTurn_, lumbermill->BUILD_COST);
+        gameEventHandler_->modifyResources(playerInTurn_, lumbermill->BUILD_COST);
 
     }
 
@@ -438,7 +439,18 @@ void MapWindow::addProduction() {
                 object->getType() == "Mine" ||
                 object->getType() == "Lumber Mill") {
             auto building = std::dynamic_pointer_cast<Course::BuildingBase>(object);
-            gameEventHandler_->addResources(playerInTurn_, building->PRODUCTION_EFFECT);
+            gameEventHandler_->modifyResources(playerInTurn_, building->PRODUCTION_EFFECT);
+        }
+    }
+
+    // Substract units' upkeep
+
+    for (auto object : playerInTurn_->getObjects()) {
+        if (object->getType() == "Infantry" ||
+                object->getType() == "Archery" ||
+                object->getType() == "Cavalry") {
+            auto unit = std::dynamic_pointer_cast<UnitBase>(object);
+            gameEventHandler_->modifyResources(playerInTurn_, unit->UPKEEP);
         }
     }
 
@@ -783,6 +795,12 @@ void MapWindow::updateUI() {
 
 }
 
+void MapWindow::gameOver() {
+
+    winDialog_->open();
+
+}
+
 void MapWindow::cutForest(const std::shared_ptr<Course::TileBase> &tile) {
 
     //Course::Coordinate location = tile->getCoordinate();
@@ -844,6 +862,7 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                                         demolishBuilding(building, tile);
                                         qDebug() << "HQ DESTROYED";
                                         attackOnly = false;
+                                        gameOver();
                                     }
 
                                 } else {
@@ -961,7 +980,7 @@ void MapWindow::recruitUnit() {
         tile->addWorker(infantry);
         //infantry->onBuildAction();
 
-        gameEventHandler_->substractResources(playerInTurn_, infantry->RECRUITMENT_COST);
+        gameEventHandler_->modifyResources(playerInTurn_, infantry->RECRUITMENT_COST);
 
     } else if (unitToRecruit == "Archery") {
 
@@ -976,7 +995,7 @@ void MapWindow::recruitUnit() {
         tile->addWorker(archery);
         //archery->onBuildAction();
 
-        gameEventHandler_->substractResources(playerInTurn_, archery->RECRUITMENT_COST);
+        gameEventHandler_->modifyResources(playerInTurn_, archery->RECRUITMENT_COST);
 
     } else if (unitToRecruit == "Cavalry") {
 
@@ -991,7 +1010,7 @@ void MapWindow::recruitUnit() {
         tile->addWorker(cavalry);
         //cavalry->onBuildAction();
 
-        gameEventHandler_->substractResources(playerInTurn_, cavalry->RECRUITMENT_COST);
+        gameEventHandler_->modifyResources(playerInTurn_, cavalry->RECRUITMENT_COST);
 
     }
 

@@ -15,6 +15,7 @@ UnitBase::UnitBase(const std::shared_ptr<Course::iGameEventHandler > &eventhandl
                  cost,
                  efficiency)  {
 
+    UPKEEP = efficiency;
 }
 
 std::string UnitBase::getType() const {

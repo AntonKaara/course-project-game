@@ -19,7 +19,35 @@ Course::ResourceMap Player::getResources() {
 
 }
 
-void Player::setResources(Course::ResourceMap newMap) {
+Course::ResourceMapDouble Player::getResourcesDouble() {
+
+    Course::ResourceMapDouble newMap;
+
+    for (auto item : resourceAmounts_) {
+
+        newMap.insert({item.first, static_cast<double>(item.second)});
+
+    }
+
+    return newMap;
+
+}
+
+void Player::setResources(Course::ResourceMap map) {
+
+    resourceAmounts_ = map;
+
+}
+
+void Player::setResourcesDouble(Course::ResourceMapDouble map) {
+
+    Course::ResourceMap newMap;
+
+    for (auto item : map) {
+
+        newMap.insert({item.first, static_cast<int>(item.second)});
+
+    }
 
     resourceAmounts_ = newMap;
 
