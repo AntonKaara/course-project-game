@@ -21,36 +21,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QGraphicsView" name="graphicsView">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>250</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <stylestrategy>PreferAntialias</stylestrategy>
-       </font>
-      </property>
-      <property name="cursor" stdset="0">
-       <cursorShape>CrossCursor</cursorShape>
-      </property>
-      <property name="sizeAdjustPolicy">
-       <enum>QAbstractScrollArea::AdjustIgnored</enum>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1">
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <property name="sizeConstraint">
@@ -351,7 +321,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <property name="tabBarAutoHide">
          <bool>false</bool>
@@ -419,9 +389,9 @@
           </property>
           <property name="geometry">
            <rect>
-            <x>240</x>
+            <x>179</x>
             <y>200</y>
-            <width>100</width>
+            <width>161</width>
             <height>50</height>
            </rect>
           </property>
@@ -445,14 +415,14 @@
          <widget class="QPushButton" name="recruitButton">
           <property name="geometry">
            <rect>
-            <x>130</x>
+            <x>9</x>
             <y>200</y>
-            <width>100</width>
+            <width>161</width>
             <height>50</height>
            </rect>
           </property>
           <property name="text">
-           <string>Recruit</string>
+           <string>Recruit units</string>
           </property>
          </widget>
          <widget class="QLabel" name="buildingHPLabel">
@@ -818,7 +788,7 @@
             <x>0</x>
             <y>0</y>
             <width>350</width>
-            <height>81</height>
+            <height>111</height>
            </rect>
           </property>
           <property name="minimumSize">
@@ -839,41 +809,149 @@
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
+          <widget class="QPushButton" name="confirmRecruitButton">
+           <property name="geometry">
+            <rect>
+             <x>210</x>
+             <y>30</y>
+             <width>121</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Recruit</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_3">
+           <property name="geometry">
+            <rect>
+             <x>110</x>
+             <y>10</y>
+             <width>111</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>100 Coins</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="wordWrap">
+            <bool>false</bool>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_4">
+           <property name="geometry">
+            <rect>
+             <x>110</x>
+             <y>70</y>
+             <width>111</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>100 Coins</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="wordWrap">
+            <bool>false</bool>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_5">
+           <property name="geometry">
+            <rect>
+             <x>110</x>
+             <y>40</y>
+             <width>111</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>100 Coins</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="wordWrap">
+            <bool>false</bool>
+           </property>
+          </widget>
+          <widget class="QLabel" name="coinImg_2">
+           <property name="geometry">
+            <rect>
+             <x>70</x>
+             <y>10</y>
+             <width>25</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="cursor">
+            <cursorShape>ArrowCursor</cursorShape>
+           </property>
+           <property name="toolTip">
+            <string>Coins</string>
+           </property>
+           <property name="text">
+            <string>Img</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="foodImg_2">
+           <property name="geometry">
+            <rect>
+             <x>70</x>
+             <y>40</y>
+             <width>25</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="cursor">
+            <cursorShape>ArrowCursor</cursorShape>
+           </property>
+           <property name="toolTip">
+            <string>Food</string>
+           </property>
+           <property name="text">
+            <string>img</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="oreImg_2">
+           <property name="geometry">
+            <rect>
+             <x>70</x>
+             <y>70</y>
+             <width>25</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="cursor">
+            <cursorShape>ArrowCursor</cursorShape>
+           </property>
+           <property name="toolTip">
+            <string>Workforce</string>
+           </property>
+           <property name="text">
+            <string>img</string>
+           </property>
+          </widget>
           <widget class="QLabel" name="label_2">
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>10</y>
-             <width>151</width>
-             <height>31</height>
+             <y>40</y>
+             <width>51</width>
+             <height>25</height>
             </rect>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
            </property>
            <property name="font">
             <font>
-             <italic>false</italic>
+             <pointsize>14</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>Cost: 12 euroo</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="confirmRecruitButton">
-           <property name="geometry">
-            <rect>
-             <x>189</x>
-             <y>10</y>
-             <width>141</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Buy</string>
+            <string>Cost</string>
            </property>
           </widget>
          </widget>
@@ -884,9 +962,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>79</y>
+            <y>109</y>
             <width>341</width>
-            <height>181</height>
+            <height>151</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -932,8 +1010,8 @@
           </property>
           <property name="iconSize">
            <size>
-            <width>60</width>
-            <height>60</height>
+            <width>50</width>
+            <height>50</height>
            </size>
           </property>
           <property name="verticalScrollMode">
@@ -954,7 +1032,7 @@
           <property name="gridSize">
            <size>
             <width>0</width>
-            <height>60</height>
+            <height>50</height>
            </size>
           </property>
           <property name="viewMode">
@@ -1130,6 +1208,36 @@
        </widget>
       </item>
      </layout>
+    </item>
+    <item row="0" column="0">
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>250</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <stylestrategy>PreferAntialias</stylestrategy>
+       </font>
+      </property>
+      <property name="cursor" stdset="0">
+       <cursorShape>CrossCursor</cursorShape>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

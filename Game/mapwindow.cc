@@ -71,6 +71,9 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->woodImg->setPixmap(pixmaps_.at("Wood"));
     //ui_->stoneImg->setPixmap(pixmaps_.at("Stone"));
     ui_->oreImg->setPixmap(pixmaps_.at("Ore"));
+    ui_->coinImg_2->setPixmap(pixmaps_.at("Coins"));
+    ui_->foodImg_2->setPixmap(pixmaps_.at("Food"));
+    ui_->oreImg_2->setPixmap(pixmaps_.at("Ore"));
 
     // Widget config
 
@@ -79,6 +82,7 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->tabWidget->setTabEnabled(2, false);
     ui_->buildPanelButton->setVisible(false);
     ui_->recruitButton->setVisible(false);
+    ui_->recruitButton->setStyleSheet("background-color:darkGreen;" "color:white");
     ui_->endTurnButton->setStyleSheet("background-color:darkRed;" "color:white");
     ui_->confirmBuildButton->setStyleSheet("background-color:darkGreen;" "color:white");
     ui_->confirmRecruitButton->setStyleSheet("background-color:darkGreen;" "color:white");
@@ -344,6 +348,14 @@ void MapWindow::buildOnTile() {
 
 }
 
+void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building, std::shared_ptr<Course::TileBase> tile) {
+
+    tile->removeBuilding(building);
+    objectManager_->removeBuilding(building);
+    updateUI();
+
+}
+
 void MapWindow::endTurn() {
 
     turn_ += 1;
@@ -369,6 +381,7 @@ void MapWindow::endTurn() {
         playerInTurn_ = players_.at(0);
     }
 
+    tilesToGiveBack_.clear();
     moveMode_ = false;
     centerViewtoHQ();
     scene_->update();
@@ -513,8 +526,12 @@ void MapWindow::on_endTurnButton_clicked() {
 
 void MapWindow::on_buildPanelButton_clicked() {
 
-    ui_->tabWidget->setTabEnabled(1, true);
-    ui_->tabWidget->setCurrentIndex(1);
+    if (selectedTile_->getBuildingCount() < 1) {
+        ui_->tabWidget->setTabEnabled(1, true);
+        ui_->tabWidget->setCurrentIndex(1);
+    } else {
+        demolishBuilding(selectedTile_->getBuildings().at(0), selectedTile_);
+    }
 
 }
 
@@ -622,7 +639,6 @@ void MapWindow::updateUI() {
             pic = pixmaps_.at(building->getType());
             ui_->tileHeaderLabel->setText(buildingType);
             ui_->tileDescriptionLabel->setText(buildingDesc);
-            ui_->buildPanelButton->setEnabled(false);
             ui_->buildPanelButton->setText("Demolish");
             ui_->buildPanelButton->setToolTip("Demolish the building on this tile");
             ui_->buildPanelButton->setStyleSheet("background-color:darkRed;" "color:white");
@@ -767,6 +783,7 @@ bool MapWindow::attackHQ(const std::shared_ptr<Course::TileBase> &tile, const st
 
     std::shared_ptr<Headquarters> HQ = std::dynamic_pointer_cast<Headquarters>(tile->getBuildings().at(0));
     HQ->changeHitPoints((attacker->getDamage()) * (-1));
+    selectedUnit_->setMovement(0);
 
     if (HQ->getHitPoints() <= 0) {
         return true; // Tell caller that HQ has been destroyed
@@ -778,6 +795,7 @@ bool MapWindow::attackHQ(const std::shared_ptr<Course::TileBase> &tile, const st
 
 bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
     int movementPoints = selectedUnit_->getMovement();
+    bool attackOnly = false;
 
     if (movementPoints >= 1) { // Enough movement points
 
@@ -797,32 +815,42 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                                 tilesToGiveBack_.push_back(tile);
                             }
 
+
                             // Destroy possible enemy building
-                            if (tile->getBuildingCount() > 1) {
+                            if (tile->getBuildingCount() > 0) {
                                 auto building = tile->getBuildings().at(0);
 
                                 // Attack HQ
                                 if (building->getType() == "Headquarters") {
                                     bool HQDestroyed = attackHQ(tile, selectedUnit_);
                                     qDebug() << "HQ took damage";
+                                    attackOnly = true;
 
                                     if (HQDestroyed) {
-                                        tile->removeBuilding(building);
-                                        objectManager_->removeBuilding(building);
+                                        demolishBuilding(building, tile);
                                         qDebug() << "HQ DESTROYED";
+                                        attackOnly = false;
                                     }
 
                                 } else {
-
+                                    qDebug() << "ENEMY BUILDING DESTROYED";
+                                    demolishBuilding(building, tile);
+                                    selectedUnit_->setMovement(0);
                                 }
                             }
                         }
 
-                        selectedUnit_->setCoordinate(coordinate);
-                        selectedTile_->removeWorker(selectedUnit_);
-                        tile->addWorker(selectedUnit_);
-                        qDebug() << "Moved to: " << coordinate.x() << coordinate.y();
-                        selectedUnit_->changeMovement(-1);
+                        // This is where we move
+                        if (!attackOnly) {
+
+                            selectedUnit_->setCoordinate(coordinate);
+                            selectedTile_->removeWorker(selectedUnit_);
+                            tile->addWorker(selectedUnit_);
+                            qDebug() << "Moved to: " << coordinate.x() << coordinate.y();
+                            if (selectedUnit_->getMovement() > 0) {
+                                selectedUnit_->changeMovement(-1);
+                            }
+                        }
 
                     } else {
                         qDebug() << "Tile already occupied";
@@ -868,10 +896,9 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                     }
                 }
 
+
                 moveMode_ = false;
-                //ui_->moveButton->setText("Move");
                 selectedTile_ = tile;
-                //selectedUnit_ = objectManager_->getUnit(coordinate);
                 scene_->update();
                 updateUI();
                 return true;
@@ -909,6 +936,8 @@ void MapWindow::recruitUnit() {
         tile->addWorker(infantry);
         //infantry->onBuildAction();
 
+        gameEventHandler_->substractResources(playerInTurn_, infantry->RECRUITMENT_COST);
+
     } else if (unitToRecruit == "Archery") {
 
         std::shared_ptr<Archery> archery = std::make_shared<
@@ -922,6 +951,8 @@ void MapWindow::recruitUnit() {
         tile->addWorker(archery);
         //archery->onBuildAction();
 
+        gameEventHandler_->substractResources(playerInTurn_, archery->RECRUITMENT_COST);
+
     } else if (unitToRecruit == "Cavalry") {
 
         std::shared_ptr<Cavalry> cavalry = std::make_shared<
@@ -934,6 +965,8 @@ void MapWindow::recruitUnit() {
         cavalry->setOwner(playerInTurn_);
         tile->addWorker(cavalry);
         //cavalry->onBuildAction();
+
+        gameEventHandler_->substractResources(playerInTurn_, cavalry->RECRUITMENT_COST);
 
     }
 

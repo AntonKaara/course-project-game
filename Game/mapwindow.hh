@@ -57,6 +57,7 @@ public:
     bool attackHQ(const std::shared_ptr<Course::TileBase> &tile, const std::shared_ptr<UnitBase> &attacker);
 
     void buildOnTile();
+    void demolishBuilding(std::shared_ptr<Course::BuildingBase> building, std::shared_ptr<Course::TileBase> tile);
     void recruitUnit();
     void endTurn();
     void addProduction();
