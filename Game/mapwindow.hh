@@ -59,6 +59,7 @@ public:
     void buildOnTile();
     void recruitUnit();
     void endTurn();
+    void addProduction();
     void updateUI();
 
     bool eventFilter(QObject *object, QEvent *event) override;

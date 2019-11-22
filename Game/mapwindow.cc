@@ -68,8 +68,9 @@ MapWindow::MapWindow(QWidget *parent):
 
     ui_->coinImg->setPixmap(pixmaps_.at("Coins"));
     ui_->foodImg->setPixmap(pixmaps_.at("Food"));
-    ui_->workforceImg->setPixmap(pixmaps_.at("Workforce"));
     ui_->woodImg->setPixmap(pixmaps_.at("Wood"));
+    //ui_->stoneImg->setPixmap(pixmaps_.at("Stone"));
+    ui_->oreImg->setPixmap(pixmaps_.at("Ore"));
 
     // Widget config
 
@@ -289,6 +290,8 @@ void MapWindow::buildOnTile() {
         tile->addBuilding(farm);
         farm->onBuildAction();
 
+        gameEventHandler_->substractResources(playerInTurn_, farm->BUILD_COST);
+
     } else if (buildingToBuild == "Outpost") {
 
         std::shared_ptr<Outpost> outpost = std::make_shared<Outpost>
@@ -301,6 +304,8 @@ void MapWindow::buildOnTile() {
         tile->setOwner(playerInTurn_);
         tile->addBuilding(outpost);
         outpost->onBuildAction();
+
+        gameEventHandler_->substractResources(playerInTurn_, outpost->BUILD_COST);
 
     } else if (buildingToBuild == "Mine") {
 
@@ -315,6 +320,8 @@ void MapWindow::buildOnTile() {
         tile->addBuilding(mine);
         mine->onBuildAction();
 
+        gameEventHandler_->substractResources(playerInTurn_, mine->BUILD_COST);
+
     } else if (buildingToBuild == "Lumber Mill") {
 
         std::shared_ptr<Lumbermill> lumbermill = std::make_shared<Lumbermill>
@@ -327,6 +334,8 @@ void MapWindow::buildOnTile() {
         tile->setOwner(playerInTurn_);
         tile->addBuilding(lumbermill);
         lumbermill->onBuildAction();
+
+        gameEventHandler_->substractResources(playerInTurn_, lumbermill->BUILD_COST);
 
     }
 
@@ -341,6 +350,8 @@ void MapWindow::endTurn() {
     if (playerInTurn_->getName() == "2") {
         turnCount_ += 1;
     }
+
+    addProduction();
 
     // Add movement points to current player
 
@@ -362,6 +373,21 @@ void MapWindow::endTurn() {
     centerViewtoHQ();
     scene_->update();
     updateUI();
+
+}
+
+void MapWindow::addProduction() {
+
+    for (auto object : playerInTurn_->getObjects()) {
+        if (object->getType() == "Headquarters" ||
+                object->getType() == "Farm" ||
+                object->getType() == "Outpost" ||
+                object->getType() == "Mine" ||
+                object->getType() == "Lumber Mill") {
+            auto building = std::dynamic_pointer_cast<Course::BuildingBase>(object);
+            gameEventHandler_->addResources(playerInTurn_, building->PRODUCTION_EFFECT);
+        }
+    }
 
 }
 
@@ -705,6 +731,14 @@ void MapWindow::updateUI() {
         ui_->moveButton->setStyleSheet("background-color:#165581;" "color:white");
         ui_->moveButton->setText("Move / Attack");
     }
+
+    // Resource label updates
+
+    ui_->coinLabel->setText(QString::number(playerInTurn_->getMoney()));
+    ui_->foodLabel->setText(QString::number(playerInTurn_->getFood()));
+    ui_->woodLabel->setText(QString::number(playerInTurn_->getWood()));
+    ui_->stoneLabel->setText(QString::number(playerInTurn_->getStone()));
+    ui_->oreLabel->setText(QString::number(playerInTurn_->getOre()));
 
     // Turn label updates
 

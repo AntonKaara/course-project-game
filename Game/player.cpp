@@ -13,5 +13,47 @@ Player::Player(const std::string& name,
 
 }
 
+Course::ResourceMap Player::getResources() {
+
+    return resourceAmounts_;
+
+}
+
+void Player::setResources(Course::ResourceMap newMap) {
+
+    resourceAmounts_ = newMap;
+
+}
+
+int Player::getMoney() {
+
+    return resourceAmounts_.at(Course::BasicResource::MONEY);
+
+}
+
+int Player::getFood() {
+
+    return resourceAmounts_.at(Course::BasicResource::FOOD);
+
+}
+
+int Player::getWood() {
+
+    return resourceAmounts_.at(Course::BasicResource::WOOD);
+
+}
+
+int Player::getStone() {
+
+    return resourceAmounts_.at(Course::BasicResource::STONE);
+
+}
+
+int Player::getOre() {
+
+    return resourceAmounts_.at(Course::BasicResource::ORE);
+
+}
+
 
 } // namespace Aeta
