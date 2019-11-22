@@ -6,6 +6,7 @@
 #include "objectmanager.hh"
 #include "player.hh"
 #include "mainmenu.hh"
+#include "welcome.h"
 #include "headquarters.h"
 
 #include <QMainWindow>
@@ -96,6 +97,7 @@ private:
     std::shared_ptr<GameEventHandler> gameEventHandler_ = nullptr;
     std::shared_ptr<ObjectManager> objectManager_ = nullptr;
     std::shared_ptr<MainMenu> mainMenu_ = nullptr;
+    std::shared_ptr<Welcome> welcomeDialog_ = nullptr;
 
     std::map<std::string, QPixmap> pixmaps_ = {};
 

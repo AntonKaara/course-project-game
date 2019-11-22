@@ -42,6 +42,7 @@ MapWindow::MapWindow(QWidget *parent):
      */
 
     mainMenu_ = std::make_shared<MainMenu>(this);
+    welcomeDialog_ = std::make_shared<Welcome>(this);
 
     connect(&*mainMenu_, &MainMenu::playerNameChanged,
             this, &MapWindow::setPlayerName);
@@ -49,7 +50,7 @@ MapWindow::MapWindow(QWidget *parent):
             this, &MapWindow::setMapSize);
 
 
-    // show menu dialog and if the quit button is pressed end the program
+    // Show menu dialog and if the quit button is pressed end the program
 
     int result = mainMenu_->exec();
     if (result == MainMenu::Rejected) {
@@ -106,6 +107,8 @@ MapWindow::MapWindow(QWidget *parent):
     playerInTurn_ = players_.at(0);
     updateUI();
     centerViewtoHQ();
+
+    welcomeDialog_->open();
 
 }
 
@@ -863,8 +866,15 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
                             selectedUnit_->setMovement(0);
 
+                            // Enemy unit dies
                             if (enemyDied) {
                                 tile->removeWorker(otherUnit);
+
+                                // Return tile ownership to correct value
+                                if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
+                                    tile->setOwner(playerInTurn_);
+                                }
+
                                 objectManager_->removeUnit(otherUnit);
                                 qDebug() << "Enemy unit died";
                             }
@@ -873,7 +883,6 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                     }
 
                 } else if (tile->getType() == "Swamp") { // If not grass or forest
-
 
                     selectedUnit_->setCoordinate(coordinate);
                     selectedTile_->removeWorker(selectedUnit_);
@@ -896,7 +905,6 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                     }
                 }
 
-
                 moveMode_ = false;
                 selectedTile_ = tile;
                 scene_->update();
@@ -904,10 +912,13 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                 return true;
             }
         }
+
     } else {
         qDebug() << "Not enough movement points";
     }
+
     return false;
+
 }
 
 void MapWindow::recruitUnit() {

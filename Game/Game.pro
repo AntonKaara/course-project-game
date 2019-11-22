@@ -27,7 +27,8 @@ SOURCES += \
     mainmenu.cpp \
     objectmanager.cpp \
     swamp.cpp \
-    unitbase.cpp
+    unitbase.cpp \
+    welcome.cpp
 
 HEADERS += \
     archery.h \
@@ -51,7 +52,8 @@ HEADERS += \
     mainmenu.hh \
     objectmanager.hh \
     swamp.h \
-    unitbase.h
+    unitbase.h \
+    welcome.h
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
@@ -79,7 +81,8 @@ else:unix: PRE_TARGETDEPS += \
 
 FORMS += \
     mapwindow.ui \
-    mainmenu.ui
+    mainmenu.ui \
+    welcome.ui
 
 RESOURCES += \
     pictures.qrc
