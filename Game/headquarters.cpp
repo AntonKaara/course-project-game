@@ -17,7 +17,7 @@ Headquarters::Headquarters(const std::shared_ptr<Course::iGameEventHandler> &eve
                    production) {
 
     objectManager_ = objectManager;
-    setDescription("basic", "Home sweet home.");
+    setDescription("basic", "Home sweet home. This is your base, defend it to the last man!");
 
 
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>358</height>
+    <width>542</width>
+    <height>385</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,36 +16,37 @@
   <widget class="QPushButton" name="playButton">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>120</y>
+     <x>280</x>
+     <y>110</y>
      <width>251</width>
-     <height>131</height>
+     <height>81</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>C059</family>
-     <pointsize>25</pointsize>
+     <family>Open Sans</family>
+     <pointsize>16</pointsize>
      <weight>75</weight>
      <bold>true</bold>
+     <kerning>true</kerning>
     </font>
    </property>
    <property name="text">
-    <string>Play!</string>
+    <string>New Game</string>
    </property>
   </widget>
   <widget class="QPushButton" name="quitButton">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>260</y>
+     <x>280</x>
+     <y>330</y>
      <width>251</width>
-     <height>61</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>C059</family>
+     <family>Open Sans</family>
      <pointsize>14</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -60,14 +61,14 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>561</width>
+     <width>501</width>
      <height>91</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>C059</family>
-     <pointsize>24</pointsize>
+     <family>Open Sans</family>
+     <pointsize>21</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -81,120 +82,191 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="player1NameEdit">
+  <widget class="QPushButton" name="loadButton">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>140</y>
-     <width>261</width>
-     <height>28</height>
+     <x>280</x>
+     <y>200</y>
+     <width>251</width>
+     <height>71</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Open Sans</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
-    <string/>
+    <string>Load Game</string>
    </property>
   </widget>
-  <widget class="QLabel" name="player1NameLabel">
+  <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>110</y>
-     <width>161</width>
-     <height>20</height>
+     <width>251</width>
+     <height>261</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
    </property>
-   <property name="text">
-    <string>Player 1 name</string>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
    </property>
-  </widget>
-  <widget class="QLineEdit" name="player2NameEdit">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>210</y>
-     <width>261</width>
-     <height>28</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="player2NameLabel">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>180</y>
-     <width>141</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Player 2 name</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="mapSizeComboBox">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>280</y>
-     <width>261</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>8</pointsize>
-    </font>
-   </property>
-   <property name="currentIndex">
-    <number>1</number>
-   </property>
-   <item>
-    <property name="text">
-     <string>Small (10x10)</string>
+   <widget class="QLabel" name="player1NameLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>161</width>
+      <height>20</height>
+     </rect>
     </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Medium (20x20)</string>
+    <property name="font">
+     <font>
+      <family>Open Sans</family>
+      <pointsize>12</pointsize>
+     </font>
     </property>
-   </item>
-   <item>
     <property name="text">
-     <string>Large (40x40)</string>
+     <string>Player 1 name</string>
     </property>
-   </item>
-   <item>
+   </widget>
+   <widget class="QLineEdit" name="player1NameEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>221</width>
+      <height>28</height>
+     </rect>
+    </property>
     <property name="text">
-     <string>Ultra (60x60)</string>
+     <string/>
     </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="mapSizeLabel">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>250</y>
-     <width>81</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Map size</string>
-   </property>
+    <property name="maxLength">
+     <number>14</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="player2NameEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>221</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="maxLength">
+     <number>14</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="player2NameLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>120</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Open Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Player 2 name</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mapSizeLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>190</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Open Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Map size</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="mapSizeComboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>221</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Open Sans</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <item>
+     <property name="text">
+      <string>Small (10x10)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Medium (20x20)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Large (40x40)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Ultra (60x60)</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>231</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Open Sans</family>
+      <pointsize>13</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Game options</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

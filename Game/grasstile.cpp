@@ -14,7 +14,7 @@ GrassTile::GrassTile(const Course::Coordinate& location,
              max_build,
              max_work,
              production) {
-    setDescription("basic", "Fertile land suits well for farming. Incredibly flat.");
+    setDescription("basic", "Grassy flatlands. Nothing particularly special here.");
 }
 
 std::string GrassTile::getType() const {

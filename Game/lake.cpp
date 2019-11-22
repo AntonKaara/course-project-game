@@ -15,7 +15,7 @@ Lake::Lake(const Course::Coordinate& location,
                max_build,
                max_work,
                production){
-    setDescription("basic", "asdsad");
+    setDescription("basic", "A little body of water. The water is cold.");
 
 }
 

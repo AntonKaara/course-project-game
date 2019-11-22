@@ -54,7 +54,7 @@
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>181</width>
+           <width>211</width>
            <height>20</height>
           </rect>
          </property>
@@ -289,6 +289,27 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLabel" name="turnCountLabel">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>10</y>
+           <width>111</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Turn: 134</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
        </widget>
       </item>
       <item>
@@ -354,7 +375,7 @@
             <x>10</x>
             <y>90</y>
             <width>321</width>
-            <height>51</height>
+            <height>71</height>
            </rect>
           </property>
           <property name="layoutDirection">
@@ -429,7 +450,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>140</y>
+            <y>170</y>
             <width>91</width>
             <height>20</height>
            </rect>
@@ -441,9 +462,9 @@
          <widget class="QProgressBar" name="buildingHPBar">
           <property name="geometry">
            <rect>
-            <x>10</x>
+            <x>100</x>
             <y>170</y>
-            <width>331</width>
+            <width>241</width>
             <height>23</height>
            </rect>
           </property>
@@ -1123,27 +1144,6 @@
          </property>
          <property name="text">
           <string>End Turn</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="turnCountLabel">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>30</y>
-           <width>131</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>13</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Turn: 134</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
         <widget class="QPushButton" name="zoomInButton">

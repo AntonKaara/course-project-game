@@ -17,7 +17,7 @@ Lumbermill::Lumbermill(const std::shared_ptr<Course::iGameEventHandler> &eventHa
                    production) {
 
     objectManager_ = objectManager;
-    setDescription("basic", "Niin hyvää puuta.");
+    setDescription("basic", "You can never have too much wood. You get wood from lumber mills.");
 
 
 }

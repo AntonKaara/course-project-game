@@ -39,39 +39,58 @@ public:
     explicit MapWindow(QWidget *parent = nullptr);
     ~MapWindow() override;
 
+    // Scene
+
     void setSize(int width, int height);
     void setScale(int scale);
-    void resize();
-    void drawTile( std::shared_ptr<Course::TileBase> obj);
-    void removeItem( std::shared_ptr<Course::GameObject> obj);
-    void updateItem( std::shared_ptr<Course::GameObject> obj);
+    void drawTile(std::shared_ptr<Course::TileBase> obj);
+    void removeItem(std::shared_ptr<Course::GameObject> obj);
 
+    // Map generation
+
+    void addPixmaps();
     void generateMap();
     void drawMap();
-    void centerViewtoHQ();
-
     void initializePlayer1();
     void initializePlayer2();
 
+    // Map view
+
+    void centerViewtoHQ();
+
+    // Buildings
+
+    void buildOnTile();
+    void demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
+                          std::shared_ptr<Course::TileBase> tile);
+
+    // Units
+
+    void recruitUnit();
     bool moveUnit(const std::shared_ptr<Course::TileBase> &tile);
     void cutForest(const std::shared_ptr<Course::TileBase> &tile);
     bool attackHQ(const std::shared_ptr<Course::TileBase> &tile, const std::shared_ptr<UnitBase> &attacker);
 
-    void buildOnTile();
-    void demolishBuilding(std::shared_ptr<Course::BuildingBase> building, std::shared_ptr<Course::TileBase> tile);
-    void recruitUnit();
+    // Other mechanics
+
     void endTurn();
     void addProduction();
     void updateUI();
+
+    // Events
 
     bool eventFilter(QObject *object, QEvent *event) override;
 
 public slots:
 
+    // Signals from main menu
+
     void setPlayerName(const QString &name, const int &playerNumber);
     void setMapSize(const int &sizeX, const int &sizeY);
 
 private slots:
+
+    // Buttons and other clickables
 
     void on_zoomInButton_clicked();
     void on_zoomOutButton_clicked();
@@ -83,14 +102,13 @@ private slots:
     void on_moveButton_clicked();
     void on_recruitButton_clicked();
     void on_confirmRecruitButton_clicked();
+    void on_recruitList_doubleClicked(const QModelIndex &index);
+
+    // Events
 
     void resizeEvent(QResizeEvent *event) override;
 
-    void on_recruitList_doubleClicked(const QModelIndex &index);
-
 private:
-
-    void addPixmaps();
 
     Ui::MapWindow* ui_;
     std::shared_ptr<GameScene> scene_ = nullptr;
@@ -109,6 +127,8 @@ private:
     int turn_ = 1; // Turn for playerInTurn pointer
     int turnCount_ = 1; // Turn for UI
     bool moveMode_ = false;
+
+    // Important GameObjects
 
     std::shared_ptr<Course::TileBase> selectedTile_ = nullptr;
     std::shared_ptr<UnitBase> selectedUnit_ = nullptr;

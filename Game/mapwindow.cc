@@ -44,11 +44,12 @@ MapWindow::MapWindow(QWidget *parent):
     mainMenu_ = std::make_shared<MainMenu>(this);
     welcomeDialog_ = std::make_shared<Welcome>(this);
 
+    // Connect mainmenu signals to values here
+
     connect(&*mainMenu_, &MainMenu::playerNameChanged,
             this, &MapWindow::setPlayerName);
     connect(&*mainMenu_, &MainMenu::mapSizeChanged,
             this, &MapWindow::setMapSize);
-
 
     // Show menu dialog and if the quit button is pressed end the program
 
@@ -63,9 +64,16 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
     scene_->installEventFilter(this);
 
-    addPixmaps();
+    // Create eventhandler & objectmanager objects
+
+    auto gameEventHandler = std::make_shared<GameEventHandler>();
+    auto objectManager = std::make_shared<ObjectManager>();
+    gameEventHandler_ = gameEventHandler;
+    objectManager_ = objectManager;
 
     // Add pictures
+
+    addPixmaps();
 
     ui_->coinImg->setPixmap(pixmaps_.at("Coins"));
     ui_->foodImg->setPixmap(pixmaps_.at("Food"));
@@ -89,13 +97,6 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->confirmRecruitButton->setStyleSheet("background-color:darkGreen;" "color:white");
     ui_->moveButton->setStyleSheet("background-color:#165581;" "color:white");
 
-    // Create eventhandler & objectmanager objects
-
-    auto gameEventHandler = std::make_shared<GameEventHandler>();
-    auto objectManager = std::make_shared<ObjectManager>();
-    gameEventHandler_ = gameEventHandler;
-    objectManager_ = objectManager;
-
     /* Build map and setup the player objects and the starting buildings
      * for both
      */
@@ -108,6 +109,8 @@ MapWindow::MapWindow(QWidget *parent):
     updateUI();
     centerViewtoHQ();
 
+    // Show welcome dialog
+
     welcomeDialog_->open();
 
 }
@@ -115,6 +118,32 @@ MapWindow::MapWindow(QWidget *parent):
 MapWindow::~MapWindow() {
 
     delete ui_;
+
+}
+
+void MapWindow::setSize(int width, int height) {
+
+    scene_->setSize(width, height);
+
+}
+
+void MapWindow::setScale(int scale) {
+
+    scene_->setScale(scale);
+
+}
+
+void MapWindow::removeItem(std::shared_ptr<Course::GameObject> obj) {
+
+    // TODO: Add removal from player and objectmanager?
+
+    scene_->removeItem(obj);
+
+}
+
+void MapWindow::drawTile( std::shared_ptr<Course::TileBase> obj) {
+
+    scene_->drawTile(obj);
 
 }
 
@@ -144,7 +173,6 @@ void MapWindow::initializePlayer1() {
     auto playerObject = std::make_shared<Player>("1", objects);
     players_.push_back(playerObject);
     auto player = players_.back();
-    qDebug() << "players.back" <<QString::fromStdString(players_.back()->getName());
 
     /* Create starting buildings and units for the player and add
      * them to the game
@@ -172,6 +200,7 @@ void MapWindow::initializePlayer1() {
 
 
     // Add HQ
+
     objectManager_->addBuilding(headquarters);
     player->addObject(headquarters);
     auto location = std::make_shared<Course::Coordinate>(2, 2);
@@ -185,6 +214,7 @@ void MapWindow::initializePlayer1() {
     player1HQ_ = headquarters;
 
     // Add Farm
+
     objectManager_->addBuilding(farm);
     player->addObject(farm);
     locationRef.set_x(3);
@@ -196,6 +226,7 @@ void MapWindow::initializePlayer1() {
     //farm->onBuildAction();
 
     // Add Infantry
+
     objectManager_->addUnit(infantry);
     player->addObject(infantry);
     locationRef.set_x(2);
@@ -215,7 +246,6 @@ void MapWindow::initializePlayer2() {
     auto playerObject = std::make_shared<Player>("2", objects);
     players_.push_back(playerObject);
     auto player = players_.back();
-    qDebug() << "players.back" <<QString::fromStdString(players_.back()->getName());
 
     /* Create starting buildings and units for the player and add
      * them to the game
@@ -239,6 +269,7 @@ void MapWindow::initializePlayer2() {
                   Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
 
     // Add HQ
+
     objectManager_->addBuilding(headquarters);
     player->addObject(headquarters);
     auto location = std::make_shared<Course::Coordinate>(mapsizeX_ - 3, mapsizeY_ - 3);
@@ -252,6 +283,7 @@ void MapWindow::initializePlayer2() {
     player2HQ_ = headquarters;
 
     // Add Farm
+
     objectManager_->addBuilding(farm);
     player->addObject(farm);
     locationRef.set_x(mapsizeX_ - 4);
@@ -263,6 +295,7 @@ void MapWindow::initializePlayer2() {
     //farm->onBuildAction();
 
     // Add Infantry
+
     objectManager_->addUnit(infantry);
     player->addObject(infantry);
     locationRef.set_x(mapsizeX_ - 3);
@@ -276,11 +309,11 @@ void MapWindow::initializePlayer2() {
 
 void MapWindow::buildOnTile() {
 
-    QString buildingToBuild = ui_->buildList->currentItem()->text();
+    QString buildingToBuild = ui_->buildList->currentItem()->text(); // Building type
     std::shared_ptr<Course::TileBase> tile = selectedTile_;
 
+    // Only build on own tiles
     if (tile->getOwner() != playerInTurn_) {
-        qDebug() << "Wrong owner";
         return;
     }
 
@@ -366,6 +399,8 @@ void MapWindow::endTurn() {
         turnCount_ += 1;
     }
 
+    // Apply building production
+
     addProduction();
 
     // Add movement points to current player
@@ -394,6 +429,8 @@ void MapWindow::endTurn() {
 
 void MapWindow::addProduction() {
 
+    // Add producted resources from all owned buildings
+
     for (auto object : playerInTurn_->getObjects()) {
         if (object->getType() == "Headquarters" ||
                 object->getType() == "Farm" ||
@@ -410,6 +447,8 @@ void MapWindow::addProduction() {
 void MapWindow::centerViewtoHQ() {
 
     auto mapFocusLocation = std::make_shared<Course::Coordinate>(10, 10);
+
+    // Find player HQ
     for (auto obj : playerInTurn_->getObjects()) {
         if (obj->getType() == "Headquarters") {
             mapFocusLocation = obj->getCoordinatePtr();
@@ -417,7 +456,6 @@ void MapWindow::centerViewtoHQ() {
         }
     }
 
-    qDebug() << "Camera location to" << mapFocusLocation->x() << mapFocusLocation->y();
     double xCoordinate = mapFocusLocation->x();
     double yCoordinate = mapFocusLocation->y();
     ui_->graphicsView->centerOn(QPointF(xCoordinate * 60, yCoordinate * 60));
@@ -447,42 +485,6 @@ void MapWindow::drawMap() {
         locationRef.set_x(locationRef.x() + 1);
         locationRef.set_y(0);
     }
-
-}
-
-void MapWindow::setSize(int width, int height) {
-
-    scene_->setSize(width, height);
-
-}
-
-void MapWindow::setScale(int scale) {
-
-    scene_->setScale(scale);
-
-}
-
-void MapWindow::resize() {
-
-    scene_->resize();
-
-}
-
-void MapWindow::updateItem(std::shared_ptr<Course::GameObject> obj) {
-
-    scene_->updateItem(obj);
-
-}
-
-void MapWindow::removeItem(std::shared_ptr<Course::GameObject> obj) {
-
-    scene_->removeItem(obj);
-
-}
-
-void MapWindow::drawTile( std::shared_ptr<Course::TileBase> obj) {
-
-    scene_->drawTile(obj);
 
 }
 
@@ -529,6 +531,8 @@ void MapWindow::on_endTurnButton_clicked() {
 
 void MapWindow::on_buildPanelButton_clicked() {
 
+    // If tile has a building, button demolishes
+
     if (selectedTile_->getBuildingCount() < 1) {
         ui_->tabWidget->setTabEnabled(1, true);
         ui_->tabWidget->setCurrentIndex(1);
@@ -554,7 +558,9 @@ void MapWindow::on_buildList_itemDoubleClicked(QListWidgetItem *item) {
 }
 
 void MapWindow::on_unitTextBox_editingFinished() {
+
     selectedUnit_->setName(ui_->unitTextBox->text().toStdString());
+
 }
 
 void Aeta::MapWindow::on_moveButton_clicked() {
@@ -674,6 +680,7 @@ void MapWindow::updateUI() {
             }
 
         } else {
+            // If no buildings on tile
             ui_->tileHeaderLabel->setText(tileType);
             ui_->tileDescriptionLabel->setText(tileDesc);
             ui_->buildPanelButton->setEnabled(true);
@@ -685,6 +692,7 @@ void MapWindow::updateUI() {
         if (tile->getOwner() != nullptr) {
 
             // Update owner label
+
             QString playerName = QString::fromStdString(tile->getOwner()->getName());
             if (playerName == "1") {
                 ui_->tileOwnerLabel->setText("Owned by " + player1UiName_);
@@ -693,6 +701,7 @@ void MapWindow::updateUI() {
             }
 
             // Disable tile buttons if not own tile
+
             if (tile->getOwner() == playerInTurn_) {
                 ui_->buildPanelButton->setVisible(true);
             } else {
@@ -709,6 +718,7 @@ void MapWindow::updateUI() {
         }
 
         // Update unit tab
+
         if (tile->getWorkers().size() > 0) {
             auto tileLocation = tile->getCoordinate();
             unit = objectManager_->getUnit(tileLocation);
@@ -725,7 +735,7 @@ void MapWindow::updateUI() {
                 ui_->moveButton->setVisible(true);
             }
 
-            // Set UI picture
+            // Set UI picture for unit
 
             unitPic = pixmaps_.at(unit->getType());
 
@@ -740,9 +750,10 @@ void MapWindow::updateUI() {
 
         ui_->tileImgLabel->setPixmap(pic);
 
-    }
+    } // End of 'if no tile selected'
 
     // Update move button
+
     if (moveMode_) {
         ui_->moveButton->setStyleSheet("background-color:yellow;" "color:black");
         ui_->moveButton->setText("Cancel move");
@@ -751,7 +762,7 @@ void MapWindow::updateUI() {
         ui_->moveButton->setText("Move / Attack");
     }
 
-    // Resource label updates
+    // Update resource labels
 
     ui_->coinLabel->setText(QString::number(playerInTurn_->getMoney()));
     ui_->foodLabel->setText(QString::number(playerInTurn_->getFood()));
@@ -759,7 +770,7 @@ void MapWindow::updateUI() {
     ui_->stoneLabel->setText(QString::number(playerInTurn_->getStone()));
     ui_->oreLabel->setText(QString::number(playerInTurn_->getOre()));
 
-    // Turn label updates
+    // Update turn labels
 
     ui_->turnCountLabel->setText("Turn: " + QString::fromStdString(std::to_string(turnCount_)));
     QString playerName = QString::fromStdString(playerInTurn_->getName());
@@ -774,7 +785,7 @@ void MapWindow::updateUI() {
 
 void MapWindow::cutForest(const std::shared_ptr<Course::TileBase> &tile) {
 
-    Course::Coordinate location = tile->getCoordinate();
+    //Course::Coordinate location = tile->getCoordinate();
 
     objectManager_->removeTile(tile);
 
@@ -789,7 +800,7 @@ bool MapWindow::attackHQ(const std::shared_ptr<Course::TileBase> &tile, const st
     selectedUnit_->setMovement(0);
 
     if (HQ->getHitPoints() <= 0) {
-        return true; // Tell caller that HQ has been destroyed
+        return true; // HQ has been destroyed
     } else {
         return false;
     }
@@ -923,10 +934,13 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
 void MapWindow::recruitUnit() {
 
+    // Unit type and location
+
     QString unitToRecruit = ui_->recruitList->currentItem()->text();
     std::shared_ptr<Course::TileBase> tile = nullptr;
     Course::Coordinate location = {3, 3};
 
+    // If no tile selected
     if (selectedTile_ != nullptr) {
         location = selectedTile_->getCoordinate().neighbours().at(5); // NEEDS WORK
     }
@@ -996,6 +1010,8 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
             qDebug() << "Got tileID for moving: " << tileID;
             std::shared_ptr<Course::TileBase> moveToTile = objectManager_->getTile(tileID);
 
+            // Move unit
+
             if (moveUnit(moveToTile)) {
                 scene_->tileClicked(event, true);
             }
@@ -1018,8 +1034,10 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
 }
 
 void MapWindow::resizeEvent(QResizeEvent *event) {
+
     qDebug() << "resize event, tabwidget height: " << ui_->tabWidget->height();
     ui_->buildList->resize(ui_->tabWidget->width(), ui_->tabWidget->height() - 88);
+
 }
 
 void MapWindow::addPixmaps() {

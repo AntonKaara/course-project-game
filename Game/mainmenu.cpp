@@ -8,8 +8,10 @@ MainMenu::MainMenu(QWidget *parent) :
     // Construct the UI and its style
     ui->setupUi(this);
 
-    //this->setStyleSheet("");
+    //this->setStyleSheet("background-color:black;");
     ui->playButton->setStyleSheet("background-color:green;" "color:white");
+    //ui->loadButton->setStyleSheet("background-color:white;" "color:white");
+    //ui->quitButton->setStyleSheet("background-color:darkRed;" "color:white");
 
     //Tooltips
     ui->mapSizeComboBox->setToolTip("Cool tooltip"); 
