@@ -14,6 +14,12 @@ Archery::Archery(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
                cost,
                efficiency){
 
+    unitName_ = "Archers";
+    healthPoints_ = 60;
+    movementPoints_ = 3;
+    range_ = 2;
+    damage_ = 28;
+
 }
 
 std::string Archery::getType() const {

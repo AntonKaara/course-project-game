@@ -41,14 +41,15 @@ public:
     virtual void changeMovement(int amount);
     virtual void resetMovement();
 
-private:
+protected:
 
     std::string unitName_ = "Unit";
     int healthPoints_ = 100;
     int movementPoints_ = 20;
     int range_ = 1;
-    int damage_ = 52;
+    int damage_ = 60;
 
+private:
 
 };
 

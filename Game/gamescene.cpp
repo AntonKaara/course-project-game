@@ -107,15 +107,44 @@ void GameScene::removeItem(std::shared_ptr<Course::GameObject> obj) {
 
 }
 
-void GameScene::drawTile(std::shared_ptr<Course::TileBase> obj) {
+void GameScene::drawTile(std::shared_ptr<Course::TileBase> tile) {
 
-    MapItem* mapItem = new MapItem(obj, tileScale_);
+    MapItem* mapItem = new MapItem(tile, tileScale_);
     addItem(mapItem);
+
+}
+
+void GameScene::drawMoveMarker(std::shared_ptr<Course::TileBase> tile) {
+
+    QGraphicsRectItem* marker = new QGraphicsRectItem(0, 0, 60, 60);
+
+    QPen pen;
+    pen.setWidth(1);
+    QColor color;
+    color.setRgb(0, 0, 0);
+    pen.setColor(color);
+    marker->setPen(pen);
+    marker->setPos(tile->getCoordinate().asQpoint() * 60);
+    marker->setOpacity(0.4);
+    marker->setBrush(Qt::darkCyan);
+    QGraphicsScene::addItem(marker);
+    moveMarkers_.push_back(marker);
+
+}
+
+void GameScene::removeMoveMarkers() {
+
+    for (auto item : moveMarkers_) {
+        QGraphicsScene::removeItem(item);
+    }
+    moveMarkers_.clear();
 
 }
 
 
 uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
+
+    removeMoveMarkers();
 
     if (event->type() == QEvent::GraphicsSceneMousePress) {
         QGraphicsSceneMouseEvent* mouseEvent =

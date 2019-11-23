@@ -14,7 +14,7 @@ UnitBase::UnitBase(const std::shared_ptr<Course::iGameEventHandler > &eventhandl
                  tilespaces,
                  cost,
                  efficiency)  {
-
+    unitName_ = name;
     UPKEEP = efficiency;
 }
 

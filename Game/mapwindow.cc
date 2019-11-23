@@ -577,10 +577,14 @@ void MapWindow::on_unitTextBox_editingFinished() {
 
 void Aeta::MapWindow::on_moveButton_clicked() {
 
+    // Delete old markers
+    scene_->removeMoveMarkers();
+
     if (moveMode_) {
         moveMode_ = false;
     } else {
         moveMode_ = true;
+        onMoveModeActivate();
     }
 
     updateUI();
@@ -825,11 +829,158 @@ bool MapWindow::attackHQ(const std::shared_ptr<Course::TileBase> &tile, const st
 
 }
 
-bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
-    int movementPoints = selectedUnit_->getMovement();
-    bool attackOnly = false;
+void MapWindow::onMoveModeActivate() {
 
-    if (movementPoints >= 1) { // Enough movement points
+    scene_->removeMoveMarkers();
+
+    int movementPoints = selectedUnit_->getMovement();
+    Course::Coordinate unitLocation = selectedUnit_->getCoordinate();
+    std::vector<Course::Coordinate> neighborCoordinates = selectedTile_->getCoordinate().neighbours(1);
+    std::vector<std::shared_ptr<Course::TileBase>> neighborTiles = objectManager_->getTiles(neighborCoordinates);
+
+    for (auto tile : neighborTiles) {
+        if (((tile->getType() == "Swamp") && ((unitLocation.x() == movementPoints) || (unitLocation.y() == movementPoints)))
+                || (tile->getType() == "Mountain")
+                || (tile->getType() == "Lake")
+                || ((tile->getWorkerCount() > 0) && (tile->getOwner() == playerInTurn_))) {
+
+        } else {
+            viableTilesForMove_.push_back(tile);
+        }
+    }
+
+    drawMovementMarkers(viableTilesForMove_);
+
+}
+
+void MapWindow::drawMovementMarkers(std::vector<std::shared_ptr<Course::TileBase>> tiles) {
+
+    for (auto tile : tiles) {
+        scene_->drawMoveMarker(tile);
+    }
+    scene_->update();
+
+}
+
+bool MapWindow::moveUnitBetter(const std::shared_ptr<Course::TileBase> &tile) {
+
+    int requiredMovementPoints = 1;
+    int attackRange = selectedUnit_->getRange();
+    bool moveIsAttackOnly = false;
+
+    if (tile->getType() == "Swamp") {
+        requiredMovementPoints = 2;
+    }
+
+    if (tile->getWorkerCount() == 0) {
+
+        // If enemy tile
+        if (tile->getOwner() != selectedUnit_->getOwner()) {
+
+            // Tile ownership to current player
+            if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
+                tile->setOwner(selectedUnit_->getOwner());
+                tilesToGiveBack_.push_back(tile);
+            }
+
+            // Destroy possible enemy building
+            if (tile->getBuildingCount() > 0) {
+                auto building = tile->getBuildings().at(0);
+
+                // Attack HQ
+                if (building->getType() == "Headquarters") {
+                    bool HQDestroyed = attackHQ(tile, selectedUnit_);
+                    qDebug() << "HQ took damage";
+                    moveIsAttackOnly = true;
+
+                    if (HQDestroyed) {
+                        demolishBuilding(building, tile);
+                        qDebug() << "HQ DESTROYED";
+                        moveIsAttackOnly = false;
+                        gameOver();
+                    }
+
+                } else {
+                    qDebug() << "ENEMY BUILDING DESTROYED";
+                    demolishBuilding(building, tile);
+                    selectedUnit_->setMovement(0);
+                }
+            }
+        }
+
+        // This is where we move
+        if (!moveIsAttackOnly) {
+
+            auto coordinate = selectedTile_->getCoordinate();
+
+            selectedUnit_->setCoordinate(coordinate);
+            selectedTile_->removeWorker(selectedUnit_);
+            tile->addWorker(selectedUnit_);
+            qDebug() << "Moved to: " << coordinate.x() << coordinate.y();
+
+            if (selectedUnit_->getMovement() >= requiredMovementPoints) {
+                selectedUnit_->changeMovement(requiredMovementPoints);
+            }
+
+        }
+
+    } else {
+        qDebug() << "Tile already occupied";
+
+        // Attack enemy unit
+        std::shared_ptr<UnitBase> otherUnit = objectManager_->getUnit(tile->getCoordinate());
+        if (otherUnit->getOwner() != selectedUnit_->getOwner()) {
+            bool enemyDied = selectedUnit_->attackUnit(otherUnit);
+            qDebug() << "Enemy unit took damage";
+
+            selectedUnit_->setMovement(0);
+
+            // Enemy unit dies
+            if (enemyDied) {
+                tile->removeWorker(otherUnit);
+
+                // Return tile ownership to correct value
+                if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
+                    tile->setOwner(playerInTurn_);
+                }
+
+                objectManager_->removeUnit(otherUnit);
+                qDebug() << "Enemy unit died";
+            }
+        }
+
+    }
+
+    // Give back tiles
+    for (auto tile : tilesToGiveBack_) {
+        if (tile->getWorkerCount() < 1) {
+            for (auto player : players_) {
+                if (player != playerInTurn_) {
+                    tile->setOwner(player);
+                }
+            }
+        }
+    }
+
+    moveMode_ = false;
+    selectedTile_ = tile;
+    scene_->update();
+    updateUI();
+    return true;
+
+}
+
+bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
+    int requiredMovementPoints = 1;
+    int movementPoints = selectedUnit_->getMovement();
+    int attackRange = selectedUnit_->getRange();
+    bool moveIsAttackOnly = false;
+
+    if (tile->getType() == "Swamp") {
+        requiredMovementPoints = 2;
+    }
+
+    if (movementPoints >= requiredMovementPoints) { // Enough movement points
 
         for (auto coordinate : selectedTile_->getCoordinate().neighbours()) {
 
@@ -856,12 +1007,12 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                                 if (building->getType() == "Headquarters") {
                                     bool HQDestroyed = attackHQ(tile, selectedUnit_);
                                     qDebug() << "HQ took damage";
-                                    attackOnly = true;
+                                    moveIsAttackOnly = true;
 
                                     if (HQDestroyed) {
                                         demolishBuilding(building, tile);
                                         qDebug() << "HQ DESTROYED";
-                                        attackOnly = false;
+                                        moveIsAttackOnly = false;
                                         gameOver();
                                     }
 
@@ -874,7 +1025,7 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                         }
 
                         // This is where we move
-                        if (!attackOnly) {
+                        if (!moveIsAttackOnly) {
 
                             selectedUnit_->setCoordinate(coordinate);
                             selectedTile_->removeWorker(selectedUnit_);
@@ -1029,10 +1180,13 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
             qDebug() << "Got tileID for moving: " << tileID;
             std::shared_ptr<Course::TileBase> moveToTile = objectManager_->getTile(tileID);
 
-            // Move unit
-
-            if (moveUnit(moveToTile)) {
-                scene_->tileClicked(event, true);
+            // Move unit if possible
+            for (auto tile : viableTilesForMove_) {
+                if (tile->ID == tileID) {
+                    if (moveUnitBetter(moveToTile)) {
+                        scene_->tileClicked(event, true);
+                    }
+                }
             }
 
         } else {

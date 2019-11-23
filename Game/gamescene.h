@@ -37,14 +37,17 @@ public:
     void removeItem(std::shared_ptr<Course::GameObject> obj);
     void updateItem(std::shared_ptr<Course::GameObject> obj);
 
+    void drawMoveMarker(std::shared_ptr<Course::TileBase> tile);
+    void removeMoveMarkers();
+
     // Event handlers
     uint tileClicked(QEvent *event, bool moveHighlighter);
-
 
 private:
 
     QGraphicsItem* mapBounds_ = nullptr;
     QGraphicsRectItem* highlightRectangle_ = nullptr;
+    std::vector<QGraphicsRectItem*> moveMarkers_ = {};
     int mapWidth_ = 0;
     int mapHeight_ = 0;
     int tileScale_ = 0;

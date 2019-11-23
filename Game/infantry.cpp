@@ -16,6 +16,12 @@ Infantry::Infantry(const std::shared_ptr<Course::iGameEventHandler > &eventhandl
                  cost,
                  efficiency) {
 
+    unitName_ = "Infantrymen";
+    healthPoints_ = 100;
+    movementPoints_ = 2;
+    range_ = 1;
+    damage_ = 35;
+
 }
 
 std::string Infantry::getType() const {
