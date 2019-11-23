@@ -16,6 +16,7 @@ public:
             const Course::ResourceMapDouble &efficiency);
 
     virtual std::string getType() const override;
+    virtual void resetMovement() override;
 
 };
 

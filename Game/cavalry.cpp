@@ -28,4 +28,10 @@ std::string Cavalry::getType() const {
     return "Cavalry";
 }
 
+void Cavalry::resetMovement() {
+
+    movementPoints_ = 5;
+
+}
+
 } // namespace Aeta

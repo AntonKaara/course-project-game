@@ -29,4 +29,10 @@ std::string Archery::getType() const {
 
 }
 
+void Archery::resetMovement() {
+
+    movementPoints_ = 3;
+
+}
+
 } // namespace Aeta

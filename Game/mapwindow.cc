@@ -745,7 +745,7 @@ void MapWindow::updateUI() {
 
             // Update owner label
 
-            QString playerName = QString::fromStdString(tile->getOwner()->getName());
+            QString playerName = QString::fromStdString(unit->getOwner()->getName());
             if (playerName == "1") {
                 ui_->unitOwnerLabel->setText("Owned by " + player1UiName_);
             } else {
