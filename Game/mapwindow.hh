@@ -70,8 +70,8 @@ public:
     void recruitUnit();
     void onMoveModeActivate();
     void drawMovementMarkers(std::vector<std::shared_ptr<Course::TileBase>> tiles);
+    void drawAttackMarkers(std::vector<std::shared_ptr<Course::TileBase>> tiles);
     bool moveUnit(const std::shared_ptr<Course::TileBase> &tile);
-    bool moveUnitBetter(const std::shared_ptr<Course::TileBase> &tile);
     void cutForest(const std::shared_ptr<Course::TileBase> &tile);
     bool attackHQ(const std::shared_ptr<Course::TileBase> &tile, const std::shared_ptr<UnitBase> &attacker);
 
@@ -141,6 +141,7 @@ private:
     std::shared_ptr<Headquarters> player1HQ_ = nullptr;
     std::shared_ptr<Headquarters> player2HQ_ = nullptr;
     std::vector<std::shared_ptr<Course::TileBase>> viableTilesForMove_ = {};
+    std::vector<std::shared_ptr<Course::TileBase>> viableTilesForAttack_ = {};
 
     // Attributes for storing players' information
 

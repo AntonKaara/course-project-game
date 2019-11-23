@@ -39,6 +39,8 @@ public:
 
     void drawMoveMarker(std::shared_ptr<Course::TileBase> tile);
     void removeMoveMarkers();
+    void drawAttackMarker(std::shared_ptr<Course::TileBase> tile);
+    void removeAttackMarkers();
 
     // Event handlers
     uint tileClicked(QEvent *event, bool moveHighlighter);
@@ -48,6 +50,7 @@ private:
     QGraphicsItem* mapBounds_ = nullptr;
     QGraphicsRectItem* highlightRectangle_ = nullptr;
     std::vector<QGraphicsRectItem*> moveMarkers_ = {};
+    std::vector<QGraphicsRectItem*> attackMarkers_ = {};
     int mapWidth_ = 0;
     int mapHeight_ = 0;
     int tileScale_ = 0;

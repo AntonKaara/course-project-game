@@ -209,7 +209,7 @@
            <cursorShape>ArrowCursor</cursorShape>
           </property>
           <property name="toolTip">
-           <string>Workforce</string>
+           <string>Stone</string>
           </property>
           <property name="text">
            <string>img</string>
@@ -230,7 +230,7 @@
            </font>
           </property>
           <property name="text">
-           <string>20 (+5)</string>
+           <string>20</string>
           </property>
          </widget>
          <widget class="QLabel" name="resourcesHeading">
@@ -264,7 +264,7 @@
            <cursorShape>ArrowCursor</cursorShape>
           </property>
           <property name="toolTip">
-           <string>Workforce</string>
+           <string>Ore</string>
           </property>
           <property name="text">
            <string>img</string>
@@ -690,9 +690,9 @@
           <property name="geometry">
            <rect>
             <x>200</x>
-            <y>80</y>
+            <y>100</y>
             <width>141</width>
-            <height>23</height>
+            <height>21</height>
            </rect>
           </property>
           <property name="value">
@@ -729,6 +729,9 @@
             <pointsize>15</pointsize>
            </font>
           </property>
+          <property name="toolTip">
+           <string>Rename the unit</string>
+          </property>
           <property name="text">
            <string>Archers 1</string>
           </property>
@@ -737,7 +740,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>80</y>
+            <y>100</y>
             <width>76</width>
             <height>20</height>
            </rect>
@@ -750,7 +753,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>110</y>
+            <y>130</y>
             <width>201</width>
             <height>20</height>
            </rect>
@@ -763,7 +766,7 @@
           <property name="geometry">
            <rect>
             <x>200</x>
-            <y>110</y>
+            <y>130</y>
             <width>76</width>
             <height>20</height>
            </rect>
@@ -796,6 +799,71 @@
           </property>
           <property name="text">
            <string>Move / Attack</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="damageLabel">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>150</y>
+            <width>76</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Damage</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="rangeLabel">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>170</y>
+            <width>76</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Range</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="unitOwnerLabel">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>70</y>
+            <width>241</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Owned by: Player X</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="damageNumberLabel">
+          <property name="geometry">
+           <rect>
+            <x>200</x>
+            <y>150</y>
+            <width>76</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>XX</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="rangeNumberLabel">
+          <property name="geometry">
+           <rect>
+            <x>200</x>
+            <y>170</y>
+            <width>76</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>xx</string>
           </property>
          </widget>
         </widget>
@@ -1125,9 +1193,9 @@
         <widget class="QPushButton" name="endTurnButton">
          <property name="geometry">
           <rect>
-           <x>200</x>
+           <x>50</x>
            <y>10</y>
-           <width>141</width>
+           <width>291</width>
            <height>71</height>
           </rect>
          </property>
@@ -1140,7 +1208,7 @@
           <cursorShape>ArrowCursor</cursorShape>
          </property>
          <property name="toolTip">
-          <string>End your turn after you are done.</string>
+          <string>End your turn after you are done</string>
          </property>
          <property name="text">
           <string>End Turn</string>

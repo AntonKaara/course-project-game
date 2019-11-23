@@ -16,6 +16,7 @@ Archery::Archery(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
 
     unitName_ = "Archers";
     healthPoints_ = 60;
+    maxHealthPoints_ = 60;
     movementPoints_ = 3;
     range_ = 2;
     damage_ = 28;

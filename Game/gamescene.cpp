@@ -141,10 +141,38 @@ void GameScene::removeMoveMarkers() {
 
 }
 
+void GameScene::drawAttackMarker(std::shared_ptr<Course::TileBase> tile) {
+
+    QGraphicsRectItem* marker = new QGraphicsRectItem(0, 0, 60, 60);
+
+    QPen pen;
+    pen.setWidth(1);
+    QColor color;
+    color.setRgb(0, 0, 0);
+    pen.setColor(color);
+    marker->setPen(pen);
+    marker->setPos(tile->getCoordinate().asQpoint() * 60);
+    marker->setOpacity(0.4);
+    marker->setBrush(Qt::red);
+    QGraphicsScene::addItem(marker);
+    attackMarkers_.push_back(marker);
+
+}
+
+void GameScene::removeAttackMarkers() {
+
+    for (auto item : attackMarkers_) {
+        QGraphicsScene::removeItem(item);
+    }
+    attackMarkers_.clear();
+
+}
+
 
 uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
 
     removeMoveMarkers();
+    removeAttackMarkers();
 
     if (event->type() == QEvent::GraphicsSceneMousePress) {
         QGraphicsSceneMouseEvent* mouseEvent =

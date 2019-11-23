@@ -78,6 +78,10 @@ int UnitBase::getDamage() {
     return damage_;
 }
 
+int UnitBase::getMaxHealth() {
+    return maxHealthPoints_;
+}
+
 void UnitBase::changeHealth(int amount) {
     healthPoints_ =  healthPoints_ + amount;
 }

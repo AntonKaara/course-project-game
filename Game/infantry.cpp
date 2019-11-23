@@ -18,6 +18,7 @@ Infantry::Infantry(const std::shared_ptr<Course::iGameEventHandler > &eventhandl
 
     unitName_ = "Infantrymen";
     healthPoints_ = 100;
+    maxHealthPoints_ = 100;
     movementPoints_ = 2;
     range_ = 1;
     damage_ = 35;

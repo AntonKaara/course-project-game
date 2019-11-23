@@ -36,6 +36,7 @@ public:
     virtual int getMovement();
     virtual int getRange();
     virtual int getDamage();
+    virtual int getMaxHealth();
 
     virtual void changeHealth(int amount);
     virtual void changeMovement(int amount);
@@ -45,6 +46,7 @@ protected:
 
     std::string unitName_ = "Unit";
     int healthPoints_ = 100;
+    int maxHealthPoints_ = 100;
     int movementPoints_ = 20;
     int range_ = 1;
     int damage_ = 60;
