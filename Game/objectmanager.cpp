@@ -53,6 +53,12 @@ std::vector<std::shared_ptr<Course::TileBase>> ObjectManager::getTiles(
     return returnvector;
 }
 
+std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getAllTiles() {
+
+    return tiles_;
+
+}
+
 void ObjectManager::removeTile(const std::shared_ptr<Course::TileBase> &tile) {
     uint id = tile.get()->ID;
     auto it = find_if(tiles_.begin(), tiles_.end(), [&id](const std::shared_ptr<Course::TileBase>& tile) {return tile->ID == id;});
@@ -65,7 +71,9 @@ void ObjectManager::removeTile(const std::shared_ptr<Course::TileBase> &tile) {
 }
 
 void ObjectManager::addBuilding(const std::shared_ptr<Course::BuildingBase> &building) {
+
     buildings_.push_back(building);
+
 }
 
 std::shared_ptr<Course::BuildingBase> ObjectManager::getBuilding(const Course::Coordinate &coordinate) {
@@ -105,6 +113,12 @@ std::vector<std::shared_ptr<Course::BuildingBase>> ObjectManager::getBuildings(
         }
     }
     return returnvector;
+}
+
+std::vector<std::shared_ptr<Course::BuildingBase> > ObjectManager::getAllBuildings() {
+
+    return buildings_;
+
 }
 
 void ObjectManager::removeBuilding(const std::shared_ptr<Course::BuildingBase> &building) {
