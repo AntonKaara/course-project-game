@@ -1,7 +1,8 @@
 #include "interfaces/iobjectmanager.h"
 #include "core/gameobject.h"
-#include "tiles/tilebase.h"
 #include "core/coordinate.h"
+#include "tiles/tilebase.h"
+
 #include "unitbase.h"
 
 #include <memory>
