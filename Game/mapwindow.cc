@@ -416,13 +416,12 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
                 } else if (object->getType() == "Headquarters" ||
                            object->getType() == "Outpost") {
 
-                    std::vector<std::shared_ptr<Course::TileBase>> ownedTiles =
+                    std::vector<std::shared_ptr<Course::TileBase>> neighborTiles =
                             objectManager_->getTiles(object->getCoordinatePtr()->neighbours(2));
 
-                    for (auto ownedTile : ownedTiles) {
+                    for (auto neighborTile : neighborTiles) {
 
-                        alreadyOwnedTiles.push_back(ownedTile);
-
+                            alreadyOwnedTiles.push_back(neighborTile);
                     }
 
                     // also put the tile of the building itself into the vector
@@ -437,6 +436,15 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
                 std::shared_ptr<Course::TileBase> tileToChange =
                         objectManager_->getTile(neighbourTileCoord);
 
+                /* do not do anything if the tile is not owned by the player,
+                 * or the tile is "outside" of the coordinate system (nullptr)
+                 */
+
+                if (tileToChange == nullptr) {
+                    continue;
+                } else if (tileToChange->getOwner() != playerInTurn_) {
+                    continue;
+                }
 
                 /* check if the tile which is being changed is already owned
                  * by a HQ or outpost.
@@ -468,6 +476,18 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
 
     tile->removeBuilding(building);
     objectManager_->removeBuilding(building);
+
+    /* update other outposts' conquered tiles in case some tiles were
+     * partially acquired by the outpost which was demolished.
+     */
+
+    for (auto building : objectManager_->getAllBuildings()) {
+
+        if (building->getType() == "Outpost") {
+            building->onBuildAction();
+        }
+
+    }
 
     updateUI();
 
@@ -1144,8 +1164,7 @@ void MapWindow::recruitUnit() {
 
         std::shared_ptr<Infantry> infantry = std::make_shared<
                 Infantry>(gameEventHandler_, objectManager_, playerInTurn_,
-                      1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
-                      Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+                      1, INFANTRY_RECRUITMENT_COST, INFANTRY_UPKEEP);
 
         objectManager_->addUnit(infantry);
         playerInTurn_->addObject(infantry);
@@ -1159,8 +1178,7 @@ void MapWindow::recruitUnit() {
 
         std::shared_ptr<Archery> archery = std::make_shared<
                 Archery>(gameEventHandler_, objectManager_, playerInTurn_,
-                      1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
-                      Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+                      1, ARCHERY_RECRUITMENT_COST, ARCHERY_UPKEEP);
 
         objectManager_->addUnit(archery);
         playerInTurn_->addObject(archery);
@@ -1174,8 +1192,7 @@ void MapWindow::recruitUnit() {
 
         std::shared_ptr<Cavalry> cavalry = std::make_shared<
                 Cavalry>(gameEventHandler_, objectManager_, playerInTurn_,
-                      1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
-                      Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+                      1, CAVALRY_RECRUITMENT_COST, CAVALRY_UPKEEP);
 
         objectManager_->addUnit(cavalry);
         playerInTurn_->addObject(cavalry);
