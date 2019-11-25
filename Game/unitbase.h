@@ -12,8 +12,6 @@ class UnitBase : public Course::WorkerBase {
 
 public:
 
-    Course::ResourceMapDouble UPKEEP;
-
     UnitBase(const std::shared_ptr<Course::iGameEventHandler > &eventhandler,
              const std::shared_ptr<Course::iObjectManager > &objectmanager,
              const std::shared_ptr<Course::PlayerBase > &owner,
@@ -41,6 +39,8 @@ public:
     virtual void changeHealth(int amount);
     virtual void changeMovement(int amount);
     virtual void resetMovement();
+
+    Course::ResourceMapDouble UPKEEP;
 
 protected:
 

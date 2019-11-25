@@ -15,37 +15,31 @@ Player::Player(const std::string& name,
 
 Course::ResourceMap Player::getResources() {
 
-    return resourceAmounts_;
+    Course::ResourceMap intMap = {};
+
+    for (auto item : resourceAmounts_) {
+
+        intMap.insert({item.first, static_cast<int>(item.second)});
+
+    }
+
+    return intMap;
 
 }
 
 Course::ResourceMapDouble Player::getResourcesDouble() {
 
-    Course::ResourceMapDouble newMap;
-
-    for (auto item : resourceAmounts_) {
-
-        newMap.insert({item.first, static_cast<double>(item.second)});
-
-    }
-
-    return newMap;
+    return resourceAmounts_;
 
 }
 
 void Player::setResources(Course::ResourceMap map) {
 
-    resourceAmounts_ = map;
-
-}
-
-void Player::setResourcesDouble(Course::ResourceMapDouble map) {
-
-    Course::ResourceMap newMap;
+    Course::ResourceMapDouble newMap = {};
 
     for (auto item : map) {
 
-        newMap.insert({item.first, static_cast<int>(item.second)});
+        newMap.insert({item.first, static_cast<double>(item.second)});
 
     }
 
@@ -53,31 +47,37 @@ void Player::setResourcesDouble(Course::ResourceMapDouble map) {
 
 }
 
-int Player::getMoney() {
+void Player::setResources(Course::ResourceMapDouble map) {
+
+    resourceAmounts_ = map;
+
+}
+
+double Player::getMoney() {
 
     return resourceAmounts_.at(Course::BasicResource::MONEY);
 
 }
 
-int Player::getFood() {
+double Player::getFood() {
 
     return resourceAmounts_.at(Course::BasicResource::FOOD);
 
 }
 
-int Player::getWood() {
+double Player::getWood() {
 
     return resourceAmounts_.at(Course::BasicResource::WOOD);
 
 }
 
-int Player::getStone() {
+double Player::getStone() {
 
     return resourceAmounts_.at(Course::BasicResource::STONE);
 
 }
 
-int Player::getOre() {
+double Player::getOre() {
 
     return resourceAmounts_.at(Course::BasicResource::ORE);
 

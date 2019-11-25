@@ -9,23 +9,13 @@
 
 namespace Aeta {
 
-//enum BasicResource {
-//    NONE = 0,
-//    MONEY = 1,
-//    FOOD = 2,
-//    WOOD = 3,
-//    STONE = 4,
-//    ORE = 5,
-//    WORKFORCE = 6
-//};
+const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
 
-const Course::ResourceMap PLAYER_STARTING_RESOURCES = {
-
-    {Course::BasicResource::MONEY, 100},
-    {Course::BasicResource::FOOD, 10},
-    {Course::BasicResource::WOOD, 50},
-    {Course::BasicResource::STONE, 5},
-    {Course::BasicResource::ORE, 2}
+    {Course::BasicResource::MONEY, 100.0},
+    {Course::BasicResource::FOOD, 10.0},
+    {Course::BasicResource::WOOD, 50.0},
+    {Course::BasicResource::STONE, 5.0},
+    {Course::BasicResource::ORE, 2.0}
 
 };
 

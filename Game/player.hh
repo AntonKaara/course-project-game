@@ -22,16 +22,16 @@ public:
     Course::ResourceMap getResources();
     Course::ResourceMapDouble getResourcesDouble();
     void setResources(Course::ResourceMap map);
-    void setResourcesDouble(Course::ResourceMapDouble map);
-    int getMoney();
-    int getFood();
-    int getWood();
-    int getStone();
-    int getOre();
+    void setResources(Course::ResourceMapDouble map);
+    double getMoney();
+    double getFood();
+    double getWood();
+    double getStone();
+    double getOre();
 
 private:
 
-    Course::ResourceMap resourceAmounts_ = {{Course::BasicResource::MONEY, 50},
+    Course::ResourceMapDouble resourceAmounts_ = {{Course::BasicResource::MONEY, 50},
                                                   {Course::BasicResource::FOOD, 5},
                                                   {Course::BasicResource::WOOD, 10},
                                                   {Course::BasicResource::STONE, 5},

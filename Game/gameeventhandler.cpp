@@ -13,10 +13,10 @@ bool GameEventHandler::modifyResource(
         Course::BasicResource resource, int amount) {
 
     std::shared_ptr<Player> playerCast = std::dynamic_pointer_cast<Player>(player);
-    Course::ResourceMap secondMap = {};
-    secondMap.insert({resource, amount});
+    Course::ResourceMap map = {};
+    map.insert({resource, amount});
 
-    Course::ResourceMap newMap = Course::mergeResourceMaps(playerCast->getResources(), secondMap);
+    Course::ResourceMap newMap = Course::mergeResourceMaps(playerCast->getResources(), map);
 
     playerCast->setResources(newMap);
 
@@ -27,13 +27,8 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
                                        Course::ResourceMap resources) {
 
     std::shared_ptr<Player> playerCast = std::dynamic_pointer_cast<Player>(player);
-    Course::ResourceMap reduceMap = {};
-    for (auto pair : resources) {
-        pair.second = pair.second;
-        reduceMap.insert(pair);
-    }
 
-    Course::ResourceMap newMap = Course::mergeResourceMaps(playerCast->getResources(), reduceMap);
+    Course::ResourceMap newMap = Course::mergeResourceMaps(playerCast->getResources(), resources);
 
     playerCast->setResources(newMap);
 
@@ -43,16 +38,10 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
 bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMapDouble resources) {
 
     std::shared_ptr<Player> playerCast = std::dynamic_pointer_cast<Player>(player);
-    Course::ResourceMapDouble reduceMap = {};
-    for (auto pair : resources) {
-        pair.second = pair.second;
-        reduceMap.insert(pair);
 
-    }
+    Course::ResourceMapDouble newMap = Course::mergeResourceMapDoubles(playerCast->getResourcesDouble(), resources);
 
-    Course::ResourceMapDouble newMap = Course::mergeResourceMapDoubles(playerCast->getResourcesDouble(), reduceMap);
-
-    playerCast->setResourcesDouble(newMap);
+    playerCast->setResources(newMap);
 
     return true;
 

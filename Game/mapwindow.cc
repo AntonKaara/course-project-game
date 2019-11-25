@@ -19,6 +19,7 @@
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "gamescene.h"
+#include "resources.hh"
 
 #include <memory>
 #include <math.h>
@@ -27,6 +28,7 @@
 #include <QPixmap>
 #include <string>
 #include <QMouseEvent>
+#include <QMessageBox>
 
 namespace Aeta {
 
@@ -79,7 +81,7 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->coinImg->setPixmap(pixmaps_.at("Coins"));
     ui_->foodImg->setPixmap(pixmaps_.at("Food"));
     ui_->woodImg->setPixmap(pixmaps_.at("Wood"));
-    //ui_->stoneImg->setPixmap(pixmaps_.at("Stone"));
+    ui_->stoneImg->setPixmap(pixmaps_.at("Stone"));
     ui_->oreImg->setPixmap(pixmaps_.at("Ore"));
     ui_->coinImg_2->setPixmap(pixmaps_.at("Coins"));
     ui_->foodImg_2->setPixmap(pixmaps_.at("Food"));
@@ -186,19 +188,16 @@ void MapWindow::initializePlayer1() {
 
     std::shared_ptr<Headquarters> headquarters = std::make_shared<
             Headquarters>(gameEventHandler_, objectManager_, player,
-                          1, Course::ConstResourceMaps::HQ_BUILD_COST,
-                          Course::ConstResourceMaps::HQ_PRODUCTION);
+                          1, HQ_BUILD_COST, HQ_PRODUCTION);
 
     std::shared_ptr<Farm> farm = std::make_shared<
             Farm>(gameEventHandler_, objectManager_, player,
-                  1, Course::ConstResourceMaps::FARM_BUILD_COST,
-                  Course::ConstResourceMaps::FARM_PRODUCTION);
+                  1, FARM_BUILD_COST, FARM_PRODUCTION);
 
 
     std::shared_ptr<Infantry> infantry = std::make_shared<
             Infantry>(gameEventHandler_, objectManager_, player,
-                  1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
-                  Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+                  1, INFANTRY_RECRUITMENT_COST, INFANTRY_UPKEEP);
 
 
     // Add HQ
@@ -257,18 +256,15 @@ void MapWindow::initializePlayer2() {
 
     std::shared_ptr<Headquarters> headquarters = std::make_shared<
             Headquarters>(gameEventHandler_, objectManager_, player,
-                          1, Course::ConstResourceMaps::HQ_BUILD_COST,
-                          Course::ConstResourceMaps::HQ_PRODUCTION);
+                          1, HQ_BUILD_COST, HQ_PRODUCTION);
 
     std::shared_ptr<Farm> farm = std::make_shared<
             Farm>(gameEventHandler_, objectManager_, player,
-                  1, Course::ConstResourceMaps::FARM_BUILD_COST,
-                  Course::ConstResourceMaps::FARM_PRODUCTION);
+                  1, FARM_BUILD_COST, FARM_PRODUCTION);
 
     std::shared_ptr<Infantry> infantry = std::make_shared<
             Infantry>(gameEventHandler_, objectManager_, player,
-                  1, Course::ConstResourceMaps::BW_RECRUITMENT_COST,
-                  Course::ConstResourceMaps::BW_WORKER_EFFICIENCY);
+                  1, INFANTRY_RECRUITMENT_COST, INFANTRY_UPKEEP);
 
     // Add HQ
 
@@ -323,8 +319,7 @@ void MapWindow::buildOnTile() {
 
         std::shared_ptr<Farm> farm = std::make_shared<
                 Farm>(gameEventHandler_, objectManager_, playerInTurn_,
-                      1, Course::ConstResourceMaps::FARM_BUILD_COST,
-                      Course::ConstResourceMaps::FARM_PRODUCTION);
+                      1, FARM_BUILD_COST, FARM_PRODUCTION);
 
         objectManager_->addBuilding(farm);
         playerInTurn_->addObject(farm);
@@ -338,8 +333,7 @@ void MapWindow::buildOnTile() {
 
         std::shared_ptr<Outpost> outpost = std::make_shared<Outpost>
                 (gameEventHandler_, objectManager_, playerInTurn_,
-                      1, Course::ConstResourceMaps::FARM_BUILD_COST,
-                      Course::ConstResourceMaps::FARM_PRODUCTION);
+                      1, OUTPOST_BUILD_COST, OUTPOST_PRODUCTION);
 
         objectManager_->addBuilding(outpost);
         playerInTurn_->addObject(outpost);
@@ -353,8 +347,7 @@ void MapWindow::buildOnTile() {
 
         std::shared_ptr<Mine> mine = std::make_shared<Mine>
                 (gameEventHandler_, objectManager_, playerInTurn_,
-                      1, Course::ConstResourceMaps::FARM_BUILD_COST,
-                      Course::ConstResourceMaps::FARM_PRODUCTION);
+                      1, MINE_BUILD_COST, MINE_PRODUCTION);
 
         objectManager_->addBuilding(mine);
         playerInTurn_->addObject(mine);
@@ -368,8 +361,7 @@ void MapWindow::buildOnTile() {
 
         std::shared_ptr<Lumbermill> lumbermill = std::make_shared<Lumbermill>
                 (gameEventHandler_, objectManager_, playerInTurn_,
-                      1, Course::ConstResourceMaps::FARM_BUILD_COST,
-                      Course::ConstResourceMaps::FARM_PRODUCTION);
+                      1, LUMBERMILL_BUILD_COST, LUMBERMILL_PRODUCTION);
 
         objectManager_->addBuilding(lumbermill);
         playerInTurn_->addObject(lumbermill);
@@ -386,10 +378,97 @@ void MapWindow::buildOnTile() {
 
 }
 
-void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building, std::shared_ptr<Course::TileBase> tile) {
+void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
+                                 std::shared_ptr<Course::TileBase> tile) {
+
+    /* if the building is an outpost, change the ownership of owned tiles
+     * around it to non-owned first. Do not change the ownership of tiles
+     * which are owned by HQ or other outposts. Delete a building on a tile
+     * which is owned only by the outpost being demolished. Prompt the user
+     * if other buildings are affected.
+     */
+    bool found = false;
+    std::vector<std::shared_ptr<Course::GameObject>> alreadyOwnedTiles = {};
+
+    if (building->getType() == "Outpost") {
+
+        // create a prompt window to ask if the user really wants to continue
+
+        std::shared_ptr<QMessageBox> warningBox =
+                std::make_shared<QMessageBox>(this);
+        warningBox->setWindowTitle("Warning!");
+        warningBox->setText("Every building on the land conquered only by this"
+                            " outpost will be removed. Are you sure you want"
+                            " to continue?");
+        warningBox->setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+        warningBox->setDefaultButton(QMessageBox::Yes);
+        int result = warningBox->exec();
+
+        if (result == QMessageBox::Cancel) {
+            return;
+        } else {
+
+            for(auto object : playerInTurn_->getObjects()) {
+
+
+                if (object == building) { // skip, if its the one being demolished
+                    continue;
+                } else if (object->getType() == "Headquarters" ||
+                           object->getType() == "Outpost") {
+
+                    std::vector<std::shared_ptr<Course::TileBase>> ownedTiles =
+                            objectManager_->getTiles(object->getCoordinatePtr()->neighbours(2));
+
+                    for (auto ownedTile : ownedTiles) {
+
+                        alreadyOwnedTiles.push_back(ownedTile);
+
+                    }
+
+                    // also put the tile of the building itself into the vector
+                    alreadyOwnedTiles.push_back(objectManager_->getTile(object->getCoordinate()));
+                }
+            }
+
+            // change ownership of tiles and remove necessary buildings
+
+            for (auto neighbourTileCoord : building->getCoordinatePtr()->neighbours(2)) {
+
+                std::shared_ptr<Course::TileBase> tileToChange =
+                        objectManager_->getTile(neighbourTileCoord);
+
+
+                /* check if the tile which is being changed is already owned
+                 * by a HQ or outpost.
+                 */
+                for (auto ownedTile : alreadyOwnedTiles) {
+
+                    if (ownedTile == tileToChange) {
+                        found = true;
+                    }
+                }
+
+                /* remove ownership and buildings of the tiles conquered by the
+                 * outpost if the user wants to.
+                 */
+                if (not found && tileToChange != nullptr) {
+
+                    if(tileToChange->getBuildingCount() > 0) {
+                        objectManager_->removeBuilding(tileToChange->getBuildings().at(0));
+                    }
+                    tileToChange->setOwner(nullptr);
+
+                }
+
+                found = false;
+            }
+        }
+
+    }
 
     tile->removeBuilding(building);
     objectManager_->removeBuilding(building);
+
     updateUI();
 
 }
@@ -401,7 +480,7 @@ void MapWindow::endTurn() {
         turnCount_ += 1;
     }
 
-    // Apply building production
+    // Apply building productions and unit upkeeps
 
     addProduction();
 
@@ -1203,7 +1282,7 @@ void MapWindow::addPixmaps() {
                                       "Mine2", "Mountain", "Mountain1",
                                       "Mountain2",
                                       "Ore", "Outpost", "Outpost1",
-                                      "Outpost2", "Swamp", "Swamp1",
+                                      "Outpost2", "Stone", "Swamp", "Swamp1",
                                       "Swamp2", "Wood", "Workforce"};
 
     for (auto mapItemType : types) {

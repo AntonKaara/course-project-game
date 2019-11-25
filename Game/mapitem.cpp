@@ -158,7 +158,7 @@ void MapItem::addMapItemPictures() {
                                       "Mine2", "Mountain", "Mountain1",
                                       "Mountain2",
                                       "Ore", "Outpost", "Outpost1",
-                                      "Outpost2", "Swamp", "Swamp1",
+                                      "Outpost2", "Stone", "Swamp", "Swamp1",
                                       "Swamp2", "Wood", "Workforce"};
 
     for (auto mapItemType : types) {
