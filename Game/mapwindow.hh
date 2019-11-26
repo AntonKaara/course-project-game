@@ -88,6 +88,9 @@ public:
                         const QString &windowMessage,
                         const bool &cancelButtonMode);
 
+    void showTextAnimation(const QString &text,
+                           const Course::Coordinate &startPosition);
+
     // Events
 
     bool eventFilter(QObject *object, QEvent *event) override;

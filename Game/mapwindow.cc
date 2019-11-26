@@ -29,6 +29,8 @@
 #include <string>
 #include <QMouseEvent>
 #include <QMessageBox>
+#include <QGraphicsTextItem>
+#include <QPropertyAnimation>
 
 namespace Aeta {
 
@@ -66,6 +68,7 @@ MapWindow::MapWindow(QWidget *parent):
     GameScene* sgs_rawptr = scene_.get();
     ui_->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
     scene_->installEventFilter(this);
+    ui_->graphicsView->setRenderHint(QPainter::SmoothPixmapTransform);
 
     // Create eventhandler & objectmanager objects
 
@@ -321,6 +324,18 @@ void MapWindow::buildOnTile() {
                 Farm>(gameEventHandler_, objectManager_, playerInTurn_,
                       1, FARM_BUILD_COST, FARM_PRODUCTION);
 
+        bool enoughResources = checkIfEnoughResources(FARM_BUILD_COST, playerInTurn_);
+
+        if (not enoughResources) {
+
+            showMessageBox(this, "Alert!",
+                           "You don't have enough resources to"
+                           " build this building. Gather some more"
+                           " and try again.",
+                           false);
+            return;
+        }
+
         objectManager_->addBuilding(farm);
         playerInTurn_->addObject(farm);
         tile->setOwner(playerInTurn_);
@@ -334,6 +349,18 @@ void MapWindow::buildOnTile() {
         std::shared_ptr<Outpost> outpost = std::make_shared<Outpost>
                 (gameEventHandler_, objectManager_, playerInTurn_,
                       1, OUTPOST_BUILD_COST, OUTPOST_PRODUCTION);
+
+        bool enoughResources = checkIfEnoughResources(OUTPOST_BUILD_COST, playerInTurn_);
+
+        if (not enoughResources) {
+
+            showMessageBox(this, "Alert!",
+                           "You don't have enough resources to"
+                           " build this building. Gather some more"
+                           " and try again.",
+                           false);
+            return;
+        }
 
         objectManager_->addBuilding(outpost);
         playerInTurn_->addObject(outpost);
@@ -349,6 +376,18 @@ void MapWindow::buildOnTile() {
                 (gameEventHandler_, objectManager_, playerInTurn_,
                       1, MINE_BUILD_COST, MINE_PRODUCTION);
 
+        bool enoughResources = checkIfEnoughResources(MINE_BUILD_COST, playerInTurn_);
+
+        if (not enoughResources) {
+
+            showMessageBox(this, "Alert!",
+                           "You don't have enough resources to"
+                           " build this building. Gather some more"
+                           " and try again.",
+                           false);
+            return;
+        }
+
         objectManager_->addBuilding(mine);
         playerInTurn_->addObject(mine);
         tile->setOwner(playerInTurn_);
@@ -362,6 +401,19 @@ void MapWindow::buildOnTile() {
         std::shared_ptr<Lumbermill> lumbermill = std::make_shared<Lumbermill>
                 (gameEventHandler_, objectManager_, playerInTurn_,
                       1, LUMBERMILL_BUILD_COST, LUMBERMILL_PRODUCTION);
+
+        bool enoughResources = checkIfEnoughResources(LUMBERMILL_BUILD_COST, playerInTurn_);
+
+        if (not enoughResources) {
+
+            showMessageBox(this, "Alert!",
+                           "You don't have enough resources to"
+                           " build this building. Gather some more"
+                           " and try again.",
+                           false);
+            return;
+        }
+
 
         objectManager_->addBuilding(lumbermill);
         playerInTurn_->addObject(lumbermill);
@@ -961,6 +1013,33 @@ bool MapWindow::showMessageBox(QWidget *parent,
 
 }
 
+void MapWindow::showTextAnimation(const QString &text, const Course::Coordinate &startPosition) {
+
+    // values for the movement of the animation. scaled with pixel amount 60.
+    QPoint location(startPosition.x() * 60, startPosition.y() * 60);
+    QPoint endLocation(location.x(), location.y() - 60);
+
+    // create a object to show
+
+    QGraphicsTextItem *textItem = new QGraphicsTextItem();
+    textItem->setPlainText(text);
+    textItem->setDefaultTextColor("red");
+    textItem->setPos(location);
+    scene_->addItem(textItem);
+
+    // make an animation for the textItem
+    QPropertyAnimation *anim = new QPropertyAnimation(textItem, "pos");
+    anim->setStartValue(textItem->pos());
+    // end position for the animation
+    anim->setEndValue(endLocation);
+    anim->setDuration(1500);
+    anim->start();
+
+    // deleting the text object after animation
+    connect(anim, SIGNAL(finished()), textItem, SLOT(deleteLater()));
+
+}
+
 void MapWindow::cutForest(const std::shared_ptr<Course::TileBase> &tile) {
 
     //Course::Coordinate location = tile->getCoordinate();
@@ -1003,36 +1082,44 @@ void MapWindow::onMoveModeActivate() {
         qDebug() << "No movement points";
     }
 
-    std::vector<std::shared_ptr<Course::TileBase>> neighborTiles = objectManager_->getTiles(neighborCoordinates);
+    std::vector<std::shared_ptr<Course::TileBase>> neighborTiles =
+            objectManager_->getTiles(neighborCoordinates);
 
     // Add free tiles to movevector
 
     for (auto tile : neighborTiles) {
+
         if (((tile->getType() == "Swamp") && (movementPoints < 2))
                 || (tile->getType() == "Mountain")
                 || (tile->getType() == "Lake")
                 || ((tile->getWorkerCount() > 0) && (tile->getOwner() == playerInTurn_))) {
-
+            continue;
         } else {
 
             if ((tile->getWorkerCount() > 0)) {
-
+                continue;
             } else {
                 viableTilesForMove_.push_back(tile);
             }
         }
     }
 
-    // Add enemy units to attackvector
+    // Add enemy units and buildings to attackvector
 
     if (movementPoints > 0) {
 
-        neighborCoordinates = selectedTile_->getCoordinate().neighbours(attackRange);
-        std::vector<std::shared_ptr<Course::TileBase>> neighborTiles = objectManager_->getTiles(neighborCoordinates);
+        neighborCoordinates =
+                selectedTile_->getCoordinate().neighbours(attackRange);
+        std::vector<std::shared_ptr<Course::TileBase>> neighborTiles =
+                objectManager_->getTiles(neighborCoordinates);
 
         for (auto tile : neighborTiles) {
 
-            if ((tile->getWorkerCount() > 0) && (tile->getWorkers().at(0)->getOwner() != playerInTurn_)) {
+            if ((tile->getWorkerCount() > 0)
+                    && (tile->getWorkers().at(0)->getOwner() != playerInTurn_)) {
+                viableTilesForAttack_.push_back(tile);
+            } else if ((tile->getBuildingCount() > 0) &&
+                       (tile->getBuildings().at(0)->getOwner() != playerInTurn_)) {
                 viableTilesForAttack_.push_back(tile);
             }
 
@@ -1137,6 +1224,7 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
         std::shared_ptr<UnitBase> otherUnit = objectManager_->getUnit(tile->getCoordinate());
         if (otherUnit->getOwner() != selectedUnit_->getOwner()) {
             bool enemyDied = selectedUnit_->attackUnit(otherUnit);
+            showTextAnimation("-" + QString::number(selectedUnit_->getDamage()), otherUnit->getCoordinate());
             qDebug() << "Enemy unit took damage";
 
             selectedUnit_->setMovement(0);
