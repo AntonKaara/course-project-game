@@ -1,11 +1,12 @@
+#ifndef FORESTTILE_H
+#define FORESTTILE_H
+
 #include "tiles/tilebase.h"
 
 #include "objectmanager.hh"
 
 #include <string>
 
-#ifndef FORESTTILE_H
-#define FORESTTILE_H
 
 namespace Aeta {
 

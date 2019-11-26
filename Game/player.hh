@@ -1,3 +1,6 @@
+#ifndef PLAYER_HH
+#define PLAYER_HH
+
 #include "core/playerbase.h"
 #include "core/basicresources.h"
 #include "core/gameobject.h"
@@ -6,9 +9,6 @@
 #include <vector>
 #include <memory>
 #include <string>
-
-#ifndef PLAYER_HH
-#define PLAYER_HH
 
 namespace Aeta {
 
@@ -31,11 +31,7 @@ public:
 
 private:
 
-    Course::ResourceMapDouble resourceAmounts_ = {{Course::BasicResource::MONEY, 50},
-                                                  {Course::BasicResource::FOOD, 5},
-                                                  {Course::BasicResource::WOOD, 10},
-                                                  {Course::BasicResource::STONE, 5},
-                                                  {Course::BasicResource::ORE, 0}};
+    Course::ResourceMapDouble resourceAmounts_ = {};
 
 };
 

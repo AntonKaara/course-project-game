@@ -1,3 +1,6 @@
+#ifndef OBJECTMANAGER_HH
+#define OBJECTMANAGER_HH
+
 #include "interfaces/iobjectmanager.h"
 #include "core/gameobject.h"
 #include "core/coordinate.h"
@@ -7,9 +10,6 @@
 
 #include <memory>
 #include <vector>
-
-#ifndef OBJECTMANAGER_HH
-#define OBJECTMANAGER_HH
 
 namespace Aeta {
 

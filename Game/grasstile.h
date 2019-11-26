@@ -1,11 +1,11 @@
+#ifndef GRASSTILE_H
+#define GRASSTILE_H
+
 #include "tiles/tilebase.h"
 
 #include "player.hh"
 
 #include <string>
-
-#ifndef GRASSTILE_H
-#define GRASSTILE_H
 
 namespace Aeta {
 

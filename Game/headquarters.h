@@ -1,9 +1,9 @@
+#ifndef HEADQUARTERS_H
+#define HEADQUARTERS_H
+
 #include "buildings/buildingbase.h"
 
 #include <QObject>
-
-#ifndef HEADQUARTERS_H
-#define HEADQUARTERS_H
 
 namespace Aeta {
 

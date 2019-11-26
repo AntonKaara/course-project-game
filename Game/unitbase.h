@@ -1,10 +1,10 @@
+#ifndef UNITBASE_H
+#define UNITBASE_H
+
 #include "workers/workerbase.h"
 
 #include <QObject>
 #include <string>
-
-#ifndef UNITBASE_H
-#define UNITBASE_H
 
 namespace Aeta {
 

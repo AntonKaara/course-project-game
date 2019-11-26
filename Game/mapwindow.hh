@@ -1,3 +1,6 @@
+#ifndef MAPWINDOW_HH
+#define MAPWINDOW_HH
+
 #include "graphics/simplegamescene.h"
 #include "core/coordinate.h"
 
@@ -19,9 +22,6 @@
 #include <QDebug>
 #include <map>
 #include <QObject>
-
-#ifndef MAPWINDOW_HH
-#define MAPWINDOW_HH
 
 namespace Ui {
 
@@ -81,6 +81,12 @@ public:
     void addProduction();
     void updateUI();
     void gameOver();
+    bool checkIfEnoughResources(const Course::ResourceMap &resourcesRequired,
+                                const std::shared_ptr<Player> &player);
+    bool showMessageBox(QWidget *parent,
+                        const QString &windowTitle,
+                        const QString &windowMessage,
+                        const bool &cancelButtonMode);
 
     // Events
 

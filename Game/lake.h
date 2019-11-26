@@ -1,7 +1,7 @@
-#include "tiles/tilebase.h"
-
 #ifndef LAKE_H
 #define LAKE_H
+
+#include "tiles/tilebase.h"
 
 namespace Aeta {
 

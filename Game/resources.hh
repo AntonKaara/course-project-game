@@ -1,11 +1,11 @@
+#ifndef RESOURCES_HH
+#define RESOURCES_HH
+
 #include "core/basicresources.h"
 
 #include <map>
 #include <QPixmap>
 #include <string>
-
-#ifndef RESOURCES_HH
-#define RESOURCES_HH
 
 namespace Aeta {
 
@@ -21,10 +21,10 @@ const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
 
 const Course::ResourceMap FARM_BUILD_COST = {
 
-    {Course::BasicResource::MONEY, 10},
+    {Course::BasicResource::MONEY, -10},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, 10},
-    {Course::BasicResource::STONE, 5},
+    {Course::BasicResource::WOOD, -10},
+    {Course::BasicResource::STONE, -5},
     {Course::BasicResource::ORE, 0}
 
 };
@@ -41,11 +41,11 @@ const Course::ResourceMap FARM_PRODUCTION = {
 
 const Course::ResourceMap OUTPOST_BUILD_COST = {
 
-    {Course::BasicResource::MONEY, 30},
+    {Course::BasicResource::MONEY, -30},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, 100},
-    {Course::BasicResource::STONE, 50},
-    {Course::BasicResource::ORE, 20}
+    {Course::BasicResource::WOOD, -100},
+    {Course::BasicResource::STONE, -50},
+    {Course::BasicResource::ORE, -20}
 
 };
 
@@ -81,9 +81,9 @@ const Course::ResourceMap HQ_PRODUCTION = {
 
 const Course::ResourceMap MINE_BUILD_COST = {
 
-    {Course::BasicResource::MONEY, 20},
+    {Course::BasicResource::MONEY, -20},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, 30},
+    {Course::BasicResource::WOOD, -30},
     {Course::BasicResource::STONE, 0},
     {Course::BasicResource::ORE, 0}
 
@@ -101,10 +101,10 @@ const Course::ResourceMap MINE_PRODUCTION = {
 
 const Course::ResourceMap LUMBERMILL_BUILD_COST = {
 
-    {Course::BasicResource::MONEY, 10},
+    {Course::BasicResource::MONEY, -10},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, 20},
-    {Course::BasicResource::STONE, 10},
+    {Course::BasicResource::WOOD, -20},
+    {Course::BasicResource::STONE, -10},
     {Course::BasicResource::ORE, 0}
 
 };

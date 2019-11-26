@@ -1,9 +1,9 @@
+#ifndef MINE_H
+#define MINE_H
+
 #include "buildings/buildingbase.h"
 
 #include <QObject>
-
-#ifndef MINE_H
-#define MINE_H
 
 namespace Aeta {
 

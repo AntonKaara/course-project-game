@@ -1,7 +1,7 @@
-#include "tiles/tilebase.h"
-
 #ifndef MOUNTAIN_H
 #define MOUNTAIN_H
+
+#include "tiles/tilebase.h"
 
 namespace Aeta {
 

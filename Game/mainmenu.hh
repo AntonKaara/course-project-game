@@ -1,7 +1,7 @@
-#include <QDialog>
-
 #ifndef MAINMENU_HH
 #define MAINMENU_HH
+
+#include <QDialog>
 
 namespace Ui {
 

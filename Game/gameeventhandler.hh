@@ -1,12 +1,11 @@
+#ifndef GAMEEVENTHANDLER_HH
+#define GAMEEVENTHANDLER_HH
+
 #include "interfaces/igameeventhandler.h"
 #include "core/playerbase.h"
 #include "core/basicresources.h"
 #include "core/resourcemaps.h"
 #include "player.hh"
-
-
-#ifndef GAMEEVENTHANDLER_HH
-#define GAMEEVENTHANDLER_HH
 
 namespace Aeta {
 

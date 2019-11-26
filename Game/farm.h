@@ -1,12 +1,12 @@
+#ifndef FARM_H
+#define FARM_H
+
 #include "buildings/buildingbase.h"
 #include "core/resourcemaps.h"
 
 #include "gameeventhandler.hh"
 #include "objectmanager.hh"
 #include "player.hh"
-
-#ifndef FARM_H
-#define FARM_H
 
 namespace Aeta {
 

@@ -1,7 +1,7 @@
-#include "unitbase.h"
-
 #ifndef ARCHERY_H
 #define ARCHERY_H
+
+#include "unitbase.h"
 
 namespace Aeta {
 

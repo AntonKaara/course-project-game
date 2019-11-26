@@ -1,8 +1,7 @@
-#include "unitbase.h"
-
-
 #ifndef CAVALRY_H
 #define CAVALRY_H
+
+#include "unitbase.h"
 
 namespace Aeta {
 

@@ -1,9 +1,9 @@
+#ifndef LUMBERMILL_H
+#define LUMBERMILL_H
+
 #include "buildings/buildingbase.h"
 
 #include <QObject>
-
-#ifndef LUMBERMILL_H
-#define LUMBERMILL_H
 
 namespace Aeta {
 

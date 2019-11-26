@@ -1,8 +1,8 @@
-#include "buildings/buildingbase.h"
-#include "objectmanager.hh"
-
 #ifndef OUTPOST_H
 #define OUTPOST_H
+
+#include "buildings/buildingbase.h"
+#include "objectmanager.hh"
 
 namespace Aeta {
 

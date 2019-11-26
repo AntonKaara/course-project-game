@@ -1,7 +1,7 @@
-#include "tiles/tilebase.h"
-
 #ifndef SWAMP_H
 #define SWAMP_H
+
+#include "tiles/tilebase.h"
 
 namespace Aeta {
 

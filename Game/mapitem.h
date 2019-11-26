@@ -1,3 +1,6 @@
+#ifndef MAPITEM_H
+#define MAPITEM_H
+
 #include "core/gameobject.h"
 #include "tiles/tilebase.h"
 
@@ -8,9 +11,6 @@
 #include <map>
 #include <string>
 #include <QSize>
-
-#ifndef MAPITEM_H
-#define MAPITEM_H
 
 namespace Aeta {
 

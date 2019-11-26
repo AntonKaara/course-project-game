@@ -1,3 +1,6 @@
+#ifndef GAMESCENE_H
+#define GAMESCENE_H
+
 #include "core/gameobject.h"
 #include "tiles/tilebase.h"
 
@@ -8,9 +11,6 @@
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <memory>
-
-#ifndef GAMESCENE_H
-#define GAMESCENE_H
 
 namespace Aeta {
 

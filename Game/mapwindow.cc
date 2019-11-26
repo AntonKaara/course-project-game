@@ -394,17 +394,12 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
 
         // create a prompt window to ask if the user really wants to continue
 
-        std::shared_ptr<QMessageBox> warningBox =
-                std::make_shared<QMessageBox>(this);
-        warningBox->setWindowTitle("Warning!");
-        warningBox->setText("Every building on the land conquered only by this"
-                            " outpost will be removed. Are you sure you want"
-                            " to continue?");
-        warningBox->setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
-        warningBox->setDefaultButton(QMessageBox::Yes);
-        int result = warningBox->exec();
-
-        if (result == QMessageBox::Cancel) {
+        bool result = showMessageBox(this, "Warning!",
+                                     "Every building on the land conquered only"
+                                     " by this outpost will be removed. Are you"
+                                     " sure you want to continue?",
+                                     true);
+        if (result == false) {
             return;
         } else {
 
@@ -928,6 +923,44 @@ void MapWindow::gameOver() {
 
 }
 
+bool MapWindow::checkIfEnoughResources(const Course::ResourceMap &resourcesRequired,
+                                       const std::shared_ptr<Player> &player) {
+
+    for (auto resource : player->getResources()) {
+
+        if (abs(resourcesRequired.at(resource.first)) > resource.second) {
+            return false;
+        }
+
+    }
+    return true;
+
+}
+
+bool MapWindow::showMessageBox(QWidget *parent,
+                               const QString &windowTitle,
+                               const QString &windowMessage,
+                               const bool &cancelButtonMode) {
+    auto msgBox = std::make_shared<QMessageBox>(parent);
+    msgBox->setWindowTitle(windowTitle);
+    msgBox->setText(windowMessage);
+    msgBox->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+
+    // set cancelButton inactive if needed
+    if (not cancelButtonMode) {
+       msgBox->button(QMessageBox::Cancel)->setEnabled(false);
+    }
+
+    int result = msgBox->exec();
+
+    if (result == QMessageBox::Ok) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
 void MapWindow::cutForest(const std::shared_ptr<Course::TileBase> &tile) {
 
     //Course::Coordinate location = tile->getCoordinate();
@@ -1145,7 +1178,7 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
 void MapWindow::recruitUnit() {
 
-    // Unit type and location setup
+    // Unit type and location setup.
 
     QString unitToRecruit = ui_->recruitList->currentItem()->text();
     Course::Coordinate location(0,0);
@@ -1163,12 +1196,12 @@ void MapWindow::recruitUnit() {
     // if there is an unit already, ask the player to move the unit first
 
     if (tileToSpawn->getWorkerCount() > 0) {
-        auto msgBox = std::make_shared<QMessageBox>(this);
-        msgBox->setWindowTitle("Alert");
-        msgBox->setText("You got an unit spawned on HQ already."
-                        " Please move the unit first.");
-        msgBox->setStandardButtons(QMessageBox::Ok);
-        msgBox->exec();
+
+        showMessageBox(this,
+                       "Alert",
+                       "You got an unit spawned on HQ already."
+                       " Please move the unit first.", false);
+
         return;
     }
 
@@ -1178,6 +1211,19 @@ void MapWindow::recruitUnit() {
         std::shared_ptr<Infantry> infantry = std::make_shared<
                 Infantry>(gameEventHandler_, objectManager_, playerInTurn_,
                       1, INFANTRY_RECRUITMENT_COST, INFANTRY_UPKEEP);
+
+        bool enoughResources = checkIfEnoughResources(INFANTRY_RECRUITMENT_COST, playerInTurn_);
+
+        if (not enoughResources) {
+
+            showMessageBox(this, "Alert!",
+                           "You don't have enough resources to"
+                           " recruit this unit. Gather some more"
+                           " and try again.",
+                           false);
+            return;
+        }
+
 
         objectManager_->addUnit(infantry);
         playerInTurn_->addObject(infantry);
@@ -1194,6 +1240,18 @@ void MapWindow::recruitUnit() {
                 Archery>(gameEventHandler_, objectManager_, playerInTurn_,
                       1, ARCHERY_RECRUITMENT_COST, ARCHERY_UPKEEP);
 
+        bool enoughResources = checkIfEnoughResources(ARCHERY_RECRUITMENT_COST, playerInTurn_);
+
+        if (not enoughResources) {
+
+            showMessageBox(this, "Alert!",
+                           "You don't have enough resources to"
+                           " recruit this unit. Gather some more"
+                           " and try again.",
+                           false);
+            return;
+        }
+
         objectManager_->addUnit(archery);
         playerInTurn_->addObject(archery);
         archery->setOwner(playerInTurn_);
@@ -1208,6 +1266,18 @@ void MapWindow::recruitUnit() {
         std::shared_ptr<Cavalry> cavalry = std::make_shared<
                 Cavalry>(gameEventHandler_, objectManager_, playerInTurn_,
                       1, CAVALRY_RECRUITMENT_COST, CAVALRY_UPKEEP);
+
+        bool enoughResources = checkIfEnoughResources(CAVALRY_RECRUITMENT_COST, playerInTurn_);
+
+        if (not enoughResources) {
+
+            showMessageBox(this, "Alert!",
+                           "You don't have enough resources to"
+                           " recruit this unit. Gather some more"
+                           " and try again.",
+                           false);
+            return;
+        }
 
         objectManager_->addUnit(cavalry);
         playerInTurn_->addObject(cavalry);

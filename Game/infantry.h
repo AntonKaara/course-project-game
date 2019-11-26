@@ -1,7 +1,7 @@
-#include "unitbase.h"
-
 #ifndef INFANTRY_H
 #define INFANTRY_H
+
+#include "unitbase.h"
 
 namespace Aeta {
 
