@@ -866,13 +866,12 @@ void MapWindow::updateUI() {
             }
 
             // Enable / disable move button
-
             if (selectedUnit_->getMovement() == 0) {
                 ui_->moveButton->setEnabled(false);
                 ui_->moveButton->setToolTip("No movement points");
             } else {
                 ui_->moveButton->setEnabled(true);
-                ui_->moveButton->setToolTip("Just move the unit or attack enemy units");
+                ui_->moveButton->setToolTip("Move the unit or attack enemy units");
             }
 
             // Set UI picture for unit
@@ -1146,18 +1145,32 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
 void MapWindow::recruitUnit() {
 
-    // Unit type and location
+    // Unit type and location setup
 
     QString unitToRecruit = ui_->recruitList->currentItem()->text();
-    std::shared_ptr<Course::TileBase> tile = nullptr;
-    Course::Coordinate location = {3, 3};
+    Course::Coordinate location(0,0);
 
-    // If no tile selected
-    if (selectedTile_ != nullptr) {
-        location = selectedTile_->getCoordinate().neighbours().at(5); // NEEDS WORK
+    // spawn units on the headquarter tile. Location depends on player.
+
+    if(playerInTurn_->getName() == "1") {
+        location = player1HQ_->getCoordinate();
+    } else {
+        location = player2HQ_->getCoordinate();
     }
 
-    tile = objectManager_->getTile(location);
+    std::shared_ptr<Course::TileBase> tileToSpawn = objectManager_->getTile(location);
+
+    // if there is an unit already, ask the player to move the unit first
+
+    if (tileToSpawn->getWorkerCount() > 0) {
+        auto msgBox = std::make_shared<QMessageBox>(this);
+        msgBox->setWindowTitle("Alert");
+        msgBox->setText("You got an unit spawned on HQ already."
+                        " Please move the unit first.");
+        msgBox->setStandardButtons(QMessageBox::Ok);
+        msgBox->exec();
+        return;
+    }
 
 
     if (unitToRecruit == "Infantry") {
@@ -1169,10 +1182,11 @@ void MapWindow::recruitUnit() {
         objectManager_->addUnit(infantry);
         playerInTurn_->addObject(infantry);
         infantry->setOwner(playerInTurn_);
-        tile->addWorker(infantry);
+        tileToSpawn->addWorker(infantry);
         //infantry->onBuildAction();
 
         gameEventHandler_->modifyResources(playerInTurn_, infantry->RECRUITMENT_COST);
+        selectedUnit_ = infantry;
 
     } else if (unitToRecruit == "Archery") {
 
@@ -1183,10 +1197,11 @@ void MapWindow::recruitUnit() {
         objectManager_->addUnit(archery);
         playerInTurn_->addObject(archery);
         archery->setOwner(playerInTurn_);
-        tile->addWorker(archery);
+        tileToSpawn->addWorker(archery);
         //archery->onBuildAction();
 
         gameEventHandler_->modifyResources(playerInTurn_, archery->RECRUITMENT_COST);
+        selectedUnit_ = archery;
 
     } else if (unitToRecruit == "Cavalry") {
 
@@ -1197,10 +1212,11 @@ void MapWindow::recruitUnit() {
         objectManager_->addUnit(cavalry);
         playerInTurn_->addObject(cavalry);
         cavalry->setOwner(playerInTurn_);
-        tile->addWorker(cavalry);
+        tileToSpawn->addWorker(cavalry);
         //cavalry->onBuildAction();
 
         gameEventHandler_->modifyResources(playerInTurn_, cavalry->RECRUITMENT_COST);
+        selectedUnit_ = cavalry;
 
     }
 

@@ -120,11 +120,11 @@ const Course::ResourceMap LUMBERMILL_PRODUCTION = {
 };
 const Course::ResourceMap INFANTRY_RECRUITMENT_COST = {
 
-    {Course::BasicResource::MONEY, 200},
+    {Course::BasicResource::MONEY, -200},
     {Course::BasicResource::FOOD, 0},
     {Course::BasicResource::WOOD, 0},
     {Course::BasicResource::STONE, 0},
-    {Course::BasicResource::ORE, 1}
+    {Course::BasicResource::ORE, -1}
 
 };
 
@@ -139,11 +139,11 @@ const Course::ResourceMapDouble INFANTRY_UPKEEP = {
 };
 const Course::ResourceMap ARCHERY_RECRUITMENT_COST = {
 
-    {Course::BasicResource::MONEY, 150},
+    {Course::BasicResource::MONEY, -150},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, 10},
+    {Course::BasicResource::WOOD, -10},
     {Course::BasicResource::STONE, 0},
-    {Course::BasicResource::ORE, 1}
+    {Course::BasicResource::ORE, -1}
 
 };
 
@@ -159,11 +159,11 @@ const Course::ResourceMapDouble ARCHERY_UPKEEP = {
 
 const Course::ResourceMap CAVALRY_RECRUITMENT_COST = {
 
-    {Course::BasicResource::MONEY, 400},
+    {Course::BasicResource::MONEY, -400},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, 10},
+    {Course::BasicResource::WOOD, -10},
     {Course::BasicResource::STONE, 0},
-    {Course::BasicResource::ORE, 5}
+    {Course::BasicResource::ORE, -5}
 
 };
 
