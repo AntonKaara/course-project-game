@@ -1180,6 +1180,9 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                 // Attack HQ
                 if (building->getType() == "Headquarters") {
                     bool HQDestroyed = attackHQ(tile, selectedUnit_);
+                    showTextAnimation("-" +
+                                      QString::number(selectedUnit_->getDamage()),
+                                      tile->getCoordinate());
                     qDebug() << "HQ took damage";
                     moveIsAttackOnly = true;
 
@@ -1194,12 +1197,16 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                 } else {
                     qDebug() << "ENEMY BUILDING DESTROYED";
                     demolishBuilding(building, tile);
+                    showTextAnimation(QString::fromStdString(building->getType())
+                                      + " destroyed!",
+                                      tile->getCoordinate());
+                    moveIsAttackOnly = true;
                     selectedUnit_->setMovement(0);
                 }
             }
         }
 
-        // Try to move unit
+        // Move the unit if not attacking
         if (!moveIsAttackOnly) {
 
             auto coordinate = selectedTile_->getCoordinate();
@@ -1222,9 +1229,18 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
         // Attack enemy unit
         std::shared_ptr<UnitBase> otherUnit = objectManager_->getUnit(tile->getCoordinate());
+
         if (otherUnit->getOwner() != selectedUnit_->getOwner()) {
             bool enemyDied = selectedUnit_->attackUnit(otherUnit);
-            showTextAnimation("-" + QString::number(selectedUnit_->getDamage()), otherUnit->getCoordinate());
+
+            // show damage amount/enemy died message depending on unit death
+            if (enemyDied) {
+                showTextAnimation(QString::fromStdString(otherUnit->getName())
+                                  + " died", otherUnit->getCoordinate());
+            } else {
+                showTextAnimation("-" + QString::number(selectedUnit_->getDamage()), otherUnit->getCoordinate());
+            }
+
             qDebug() << "Enemy unit took damage";
 
             selectedUnit_->setMovement(0);
@@ -1232,11 +1248,6 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
             // Enemy unit dies
             if (enemyDied) {
                 tile->removeWorker(otherUnit);
-
-                // Return tile ownership to correct value
-                if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
-                    tile->setOwner(playerInTurn_);
-                }
 
                 objectManager_->removeUnit(otherUnit);
                 qDebug() << "Enemy unit died";
@@ -1258,6 +1269,12 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
     moveMode_ = false;
     selectedTile_ = tile;
+
+    // if the attacked unit didn't die, target the attacked unit
+    if (tile->getWorkerCount() > 0) {
+        selectedUnit_ = tile->getWorkers().at(0)
+    }
+
     scene_->update();
     updateUI();
     return true;
