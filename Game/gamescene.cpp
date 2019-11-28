@@ -180,19 +180,24 @@ uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
 
         if (sceneRect().contains(mouseEvent->scenePos())) {
             QPointF point = mouseEvent->scenePos();
-            QGraphicsItem* pressed = itemAt(point, QTransform());
+            point.rx() = floor(point.rx());
+            point.ry() = floor(point.ry());
+
+            // Pressed item has to be the tile which is second last item on the items vector
+            QGraphicsItem* pressed = items(point).at(items(point).size() - 2);
             MapItem* mapItemPressed = static_cast<MapItem*>(pressed);
 
-            if (highlightRectangle_ != nullptr) {
+//            if (highlightRectangle_ != nullptr) {
 
-                if (highlightRectangle_->boundingRect() == mapItemPressed->boundingRect()) {
-                    return lastTileId_;
-                }
+//                if (highlightRectangle_->boundingRect() == mapItemPressed->boundingRect()) {
+//                    return lastTileId_;
+//                }
 
-            }
+//            }
 
             // Move highlightrectangle if needed
             if (moveHighlighter) {
+                QGraphicsScene::removeItem(highlightRectangle_);
 
                 // Configure properties for the the indicator rectangle
                 QPen pen;
@@ -202,10 +207,10 @@ uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
                 pen.setColor(color);
                 pen.setWidth(4);
 
-                QGraphicsScene::removeItem(highlightRectangle_);
                 highlightRectangle_ = addRect(mapItemPressed->boundingRect(), pen);
 
             }
+
             lastTileId_ = mapItemPressed->getBoundObject()->ID;
             return lastTileId_;
         }

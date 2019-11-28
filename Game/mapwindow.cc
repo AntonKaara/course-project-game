@@ -575,8 +575,14 @@ void MapWindow::endTurn() {
         playerInTurn_ = players_.at(0);
     }
 
-    tilesToGiveBack_.clear();
     moveMode_ = false;
+    viableTilesForMove_.clear();
+    viableTilesForAttack_.clear();
+    scene_->removeMoveMarkers();
+    scene_->removeAttackMarkers();
+
+    tilesToGiveBack_.clear();
+
     centerViewtoHQ();
     scene_->update();
     updateUI();
@@ -1024,9 +1030,9 @@ bool MapWindow::showMessageBox(QWidget *parent,
 void MapWindow::showTextAnimation(const QString &text, const Course::Coordinate &startPosition,
                                   const QColor &color) {
 
-    // values for the movement of the animation. scaled with pixel amount 60.
-    QPoint location(startPosition.x() * 60, startPosition.y() * 60);
-    QPoint endLocation(location.x(), location.y() - 60);
+    // values for the movement of the animation
+    QPoint location(startPosition.x() * mapScale_, startPosition.y() * mapScale_ - 1);
+    QPoint endLocation(location.x(), location.y() - 60); // 60 pixels up
 
     // create a object to show
 
@@ -1130,6 +1136,10 @@ void MapWindow::onMoveModeActivate() {
     scene_->removeAttackMarkers();
     scene_->update();
 
+    if (selectedTile_->getWorkerCount() > 0) {
+        selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
+    }
+
     int movementPoints = selectedUnit_->getMovement();
     int attackRange = selectedUnit_->getRange();
     std::vector<Course::Coordinate> neighborCoordinates = {};
@@ -1159,6 +1169,7 @@ void MapWindow::onMoveModeActivate() {
             } else {
                 viableTilesForMove_.push_back(tile);
             }
+
         }
     }
 
@@ -1290,40 +1301,32 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
         }
 
     } else {
+        // Attack enemy unit
         qDebug() << "Tile occupied by unit";
 
-        // Attack enemy unit
         std::shared_ptr<UnitBase> otherUnit = objectManager_->getUnit(tile->getCoordinate());
 
+        // If enemy
         if (otherUnit->getOwner() != selectedUnit_->getOwner()) {
             bool enemyDied = selectedUnit_->attackUnit(otherUnit);
-
-            // show damage amount/enemy died message depending on unit death
-            if (enemyDied) {
-                showTextAnimation(QString::fromStdString(otherUnit->getName())
-                                  + " died!", otherUnit->getCoordinate(), Qt::red);
-            } else {
-                showTextAnimation("-" + QString::number(selectedUnit_->getDamage()),
-                                  otherUnit->getCoordinate(), Qt::red);
-            }
 
             qDebug() << "Enemy unit took damage";
 
             selectedUnit_->setMovement(0);
 
-            // Enemy unit dies
+            // Enemy unit dies and show animation
             if (enemyDied) {
-                tile->removeWorker(otherUnit);
 
+                showTextAnimation(QString::fromStdString(otherUnit->getName())
+                                  + " died!", otherUnit->getCoordinate(), Qt::red);
+
+                tile->removeWorker(otherUnit);
                 objectManager_->removeUnit(otherUnit);
                 qDebug() << "Enemy unit died";
+
             } else {
-
-                // the attacked unit didn't die so target the attacked unit
-                if (tile->getWorkerCount() > 0) {
-                    selectedUnit_ = objectManager_->getUnit(tile->getCoordinate());
-                }
-
+                showTextAnimation("-" + QString::number(selectedUnit_->getDamage()),
+                                  otherUnit->getCoordinate(), Qt::red);
             }
         }
     }
@@ -1502,6 +1505,7 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
 
                     if (moveUnit(toTile)) {
                         scene_->tileClicked(event, true);
+                        break;
                     } else {
                         on_moveButton_clicked();
                     }
