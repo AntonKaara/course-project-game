@@ -19,6 +19,16 @@ const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
 
 };
 
+const Course::ResourceMap FOREST_CHOP_GAIN = {
+
+    {Course::BasicResource::MONEY, 0},
+    {Course::BasicResource::FOOD, 0},
+    {Course::BasicResource::WOOD, 15},
+    {Course::BasicResource::STONE, 0},
+    {Course::BasicResource::ORE, 0}
+
+};
+
 const Course::ResourceMap FARM_BUILD_COST = {
 
     {Course::BasicResource::MONEY, -10},

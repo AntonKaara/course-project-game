@@ -1013,7 +1013,8 @@ bool MapWindow::showMessageBox(QWidget *parent,
 
 }
 
-void MapWindow::showTextAnimation(const QString &text, const Course::Coordinate &startPosition) {
+void MapWindow::showTextAnimation(const QString &text, const Course::Coordinate &startPosition,
+                                  const QColor &color) {
 
     // values for the movement of the animation. scaled with pixel amount 60.
     QPoint location(startPosition.x() * 60, startPosition.y() * 60);
@@ -1023,7 +1024,7 @@ void MapWindow::showTextAnimation(const QString &text, const Course::Coordinate 
 
     QGraphicsTextItem *textItem = new QGraphicsTextItem();
     textItem->setPlainText(text);
-    textItem->setDefaultTextColor("red");
+    textItem->setDefaultTextColor(color);
     textItem->setPos(location);
     scene_->addItem(textItem);
 
@@ -1038,15 +1039,64 @@ void MapWindow::showTextAnimation(const QString &text, const Course::Coordinate 
     // deleting the text object after animation
     connect(anim, SIGNAL(finished()), textItem, SLOT(deleteLater()));
 
+
 }
 
-void MapWindow::cutForest(const std::shared_ptr<Course::TileBase> &tile) {
+std::shared_ptr<Course::TileBase> MapWindow::cutForest(
+        const std::shared_ptr<Course::TileBase> &tile) {
 
-    //Course::Coordinate location = tile->getCoordinate();
+    std::shared_ptr<Course::Coordinate> coordPtr =
+            tile->getCoordinatePtr();
+    Course::Coordinate& coordinate = *coordPtr;
+    std::shared_ptr<Player> tileOwner =
+            std::dynamic_pointer_cast<Player>(tile->getOwner());
+
+    /* Create a new basic grasstile. Put it on the forests place, play
+     * wood gain animation and draw appropriately owned grass on the
+     * forests place. Add the resources to the player and update UI.
+     */
+
+    auto grassTile = std::make_shared<GrassTile>(
+                coordinate, gameEventHandler_, objectManager_, 1, 1,
+                Course::ConstResourceMaps::GRASSLAND_BP);
+
+    // first set the right owner for the new grassTile
+
+    std::size_t notInTurn; // vector location
+
+    if(playerInTurn_->getName() == "1") {
+        notInTurn = 1;
+    } else {
+        notInTurn = 0;
+    }
+
+    if (tileOwner != nullptr) {
+
+        if (tileOwner == playerInTurn_) {
+            grassTile->setOwner(playerInTurn_);
+        } else {
+            grassTile->setOwner(players_.at(notInTurn));
+        }
+
+    }
 
     objectManager_->removeTile(tile);
+    scene_->removeItem(tile);
+    objectManager_->addTiles({grassTile});
+    scene_->drawTile(grassTile);
 
-    // TODO: Add resources to player
+    showTextAnimation("+15 wood!", grassTile->getCoordinate(),
+                      Qt::green);
+    gameEventHandler_->modifyResource(playerInTurn_,
+                                      Course::BasicResource::WOOD,
+                                      15);
+    updateUI();
+
+    // return new tile in right form
+
+    auto newTilePtr = std::dynamic_pointer_cast<Course::TileBase>(grassTile);
+
+    return newTilePtr;
 
 }
 
@@ -1182,7 +1232,7 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                     bool HQDestroyed = attackHQ(tile, selectedUnit_);
                     showTextAnimation("-" +
                                       QString::number(selectedUnit_->getDamage()),
-                                      tile->getCoordinate());
+                                      tile->getCoordinate(), Qt::red);
                     qDebug() << "HQ took damage";
                     moveIsAttackOnly = true;
 
@@ -1199,22 +1249,29 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                     demolishBuilding(building, tile);
                     showTextAnimation(QString::fromStdString(building->getType())
                                       + " destroyed!",
-                                      tile->getCoordinate());
+                                      tile->getCoordinate(), Qt::red);
                     moveIsAttackOnly = true;
                     selectedUnit_->setMovement(0);
                 }
             }
         }
 
-        // Move the unit if not attacking
+        // Move the unit as not attacking
         if (!moveIsAttackOnly) {
 
             auto coordinate = selectedTile_->getCoordinate();
+
+//            if (tile->getType() == "Forest") {
+//                auto newTile = cutForest(tile);
+
+//            }
 
             selectedUnit_->setCoordinate(coordinate);
             selectedTile_->removeWorker(selectedUnit_);
             tile->addWorker(selectedUnit_);
             qDebug() << "Moved to: " << coordinate.x() << coordinate.y();
+
+
 
             if (selectedUnit_->getMovement() >= requiredMovementPoints) {
                 selectedUnit_->changeMovement(-requiredMovementPoints);
@@ -1236,9 +1293,10 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
             // show damage amount/enemy died message depending on unit death
             if (enemyDied) {
                 showTextAnimation(QString::fromStdString(otherUnit->getName())
-                                  + " died", otherUnit->getCoordinate());
+                                  + " died!", otherUnit->getCoordinate(), Qt::red);
             } else {
-                showTextAnimation("-" + QString::number(selectedUnit_->getDamage()), otherUnit->getCoordinate());
+                showTextAnimation("-" + QString::number(selectedUnit_->getDamage()),
+                                  otherUnit->getCoordinate(), Qt::red);
             }
 
             qDebug() << "Enemy unit took damage";
@@ -1251,17 +1309,24 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
                 objectManager_->removeUnit(otherUnit);
                 qDebug() << "Enemy unit died";
+            } else {
+
+                // the attacked unit didn't die so target the attacked unit
+                if (tile->getWorkerCount() > 0) {
+                    selectedUnit_ = objectManager_->getUnit(tile->getCoordinate());
+                }
+
             }
         }
     }
 
     // Give back tile ownerships under units
 
-    for (auto tile : tilesToGiveBack_) {
-        if (tile->getWorkerCount() < 1) {
+    for (auto tileToGiveBack : tilesToGiveBack_) {
+        if (tileToGiveBack->getWorkerCount() < 1) {
             for (auto player : players_) {
                 if (player != playerInTurn_) {
-                    tile->setOwner(player);
+                    tileToGiveBack->setOwner(player);
                 }
             }
         }
@@ -1269,12 +1334,6 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
     moveMode_ = false;
     selectedTile_ = tile;
-
-    // if the attacked unit didn't die, target the attacked unit
-    if (tile->getWorkerCount() > 0) {
-        selectedUnit_ = tile->getWorkers().at(0)
-    }
-
     scene_->update();
     updateUI();
     return true;

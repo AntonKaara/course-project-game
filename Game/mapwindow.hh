@@ -72,8 +72,10 @@ public:
     void drawMovementMarkers(std::vector<std::shared_ptr<Course::TileBase>> tiles);
     void drawAttackMarkers(std::vector<std::shared_ptr<Course::TileBase>> tiles);
     bool moveUnit(const std::shared_ptr<Course::TileBase> &tile);
-    void cutForest(const std::shared_ptr<Course::TileBase> &tile);
-    bool attackHQ(const std::shared_ptr<Course::TileBase> &tile, const std::shared_ptr<UnitBase> &attacker);
+    bool attackHQ(const std::shared_ptr<Course::TileBase> &tile,
+                  const std::shared_ptr<UnitBase> &attacker);
+    std::shared_ptr<Course::TileBase> cutForest(
+            const std::shared_ptr<Course::TileBase> &tile);
 
     // Other mechanics
 
@@ -89,7 +91,8 @@ public:
                         const bool &cancelButtonMode);
 
     void showTextAnimation(const QString &text,
-                           const Course::Coordinate &startPosition);
+                           const Course::Coordinate &startPosition,
+                           const QColor &color);
 
     // Events
 
