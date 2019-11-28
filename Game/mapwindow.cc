@@ -318,6 +318,14 @@ void MapWindow::buildOnTile() {
         return;
     }
 
+    if (tile->getType() == "Lake" ||
+        tile->getType() == "Mountain") {
+        showMessageBox(this, "Alert!", "Your troops can't build on this location"
+                                       ", the land type isn't suitable for building!",
+                       false);
+        return;
+    }
+
     if (buildingToBuild == "Farm") {
 
         std::shared_ptr<Farm> farm = std::make_shared<
@@ -584,7 +592,7 @@ void MapWindow::addProduction() {
                 object->getType() == "Farm" ||
                 object->getType() == "Outpost" ||
                 object->getType() == "Mine" ||
-                object->getType() == "Lumber Mill") {
+                object->getType() == "Lumbermill") {
             auto building = std::dynamic_pointer_cast<Course::BuildingBase>(object);
             gameEventHandler_->modifyResources(playerInTurn_, building->PRODUCTION_EFFECT);
         }
