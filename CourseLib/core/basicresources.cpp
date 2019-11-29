@@ -40,6 +40,10 @@ ResourceMap multiplyResourceMap(const ResourceMap& resmap,
         {
             new_map[left_it->first] = left_it->second * right_it->second;
         }
+        else
+        {
+            new_map[left_it->first] = 0;
+        }
     }
 
     return new_map;
@@ -81,6 +85,10 @@ ResourceMapDouble multiplyResourceMapDoubles(const ResourceMapDouble& left,
         if( right_it != right.end())
         {
             new_map[left_it->first] = left_it->second * right_it->second;
+        }
+        else
+        {
+            new_map[left_it->first] = 0.00;
         }
     }
 
