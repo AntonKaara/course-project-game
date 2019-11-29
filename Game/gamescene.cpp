@@ -126,7 +126,7 @@ void GameScene::drawMoveMarker(std::shared_ptr<Course::TileBase> tile) {
     marker->setPen(pen);
     marker->setPos(tile->getCoordinate().asQpoint() * 60);
     marker->setOpacity(0.4);
-    marker->setBrush(Qt::darkCyan);
+    marker->setBrush(Qt::blue);
     QGraphicsScene::addItem(marker);
     moveMarkers_.push_back(marker);
 
@@ -186,14 +186,6 @@ uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
             // Pressed item has to be the tile which is second last item on the items vector
             QGraphicsItem* pressed = items(point).at(items(point).size() - 2);
             MapItem* mapItemPressed = static_cast<MapItem*>(pressed);
-
-//            if (highlightRectangle_ != nullptr) {
-
-//                if (highlightRectangle_->boundingRect() == mapItemPressed->boundingRect()) {
-//                    return lastTileId_;
-//                }
-
-//            }
 
             // Move highlightrectangle if needed
             if (moveHighlighter) {

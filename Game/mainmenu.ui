@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>542</width>
-    <height>385</height>
+    <width>562</width>
+    <height>377</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="playButton">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>110</y>
+     <x>290</x>
+     <y>100</y>
      <width>251</width>
      <height>81</height>
     </rect>
@@ -38,10 +38,10 @@
   <widget class="QPushButton" name="quitButton">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>330</y>
+     <x>290</x>
+     <y>310</y>
      <width>251</width>
-     <height>41</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -61,7 +61,7 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>501</width>
+     <width>521</width>
      <height>91</height>
     </rect>
    </property>
@@ -82,32 +82,11 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="loadButton">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>200</y>
-     <width>251</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Open Sans</family>
-     <pointsize>16</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Load Game</string>
-   </property>
-  </widget>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>110</y>
+     <x>20</x>
+     <y>100</y>
      <width>251</width>
      <height>261</height>
     </rect>
@@ -150,7 +129,7 @@
      <string/>
     </property>
     <property name="maxLength">
-     <number>14</number>
+     <number>13</number>
     </property>
    </widget>
    <widget class="QLineEdit" name="player2NameEdit">
@@ -163,7 +142,7 @@
      </rect>
     </property>
     <property name="maxLength">
-     <number>14</number>
+     <number>13</number>
     </property>
    </widget>
    <widget class="QLabel" name="player2NameLabel">
@@ -229,17 +208,17 @@
     </item>
     <item>
      <property name="text">
-      <string>Medium (20x20)</string>
+      <string>Medium (15x15)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Large (40x40)</string>
+      <string>Large (20x20)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Ultra (60x60)</string>
+      <string>Ultra (40x40)</string>
      </property>
     </item>
    </widget>
@@ -267,6 +246,26 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="highScoreButton">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>190</y>
+     <width>251</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>High Scores</string>
+   </property>
   </widget>
  </widget>
  <resources/>

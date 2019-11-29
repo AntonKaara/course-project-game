@@ -82,6 +82,7 @@ public:
     void endTurn();
     void addProduction();
     void updateUI();
+    void updateResourceLabels();
     void gameOver();
     bool checkIfEnoughResources(const Course::ResourceMap &resourcesRequired,
                                 const std::shared_ptr<Player> &player);
@@ -111,15 +112,17 @@ private slots:
 
     void on_zoomInButton_clicked();
     void on_zoomOutButton_clicked();
-    void on_confirmBuildButton_clicked();
-    void on_buildPanelButton_clicked();
     void on_endTurnButton_clicked();
-    void on_buildList_itemDoubleClicked(QListWidgetItem *item);
     void on_unitTextBox_editingFinished();
     void on_moveButton_clicked();
+    void on_buildPanelButton_clicked();
+    void on_confirmBuildButton_clicked();
     void on_recruitButton_clicked();
     void on_confirmRecruitButton_clicked();
+    void on_buildList_itemDoubleClicked(QListWidgetItem *item);
     void on_recruitList_doubleClicked(const QModelIndex &index);
+    void on_buildList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_recruitList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
     // Events
 
@@ -137,8 +140,8 @@ private:
 
     std::map<std::string, QPixmap> pixmaps_ = {};
 
-    int mapsizeX_ = 20; // Tile count
-    int mapsizeY_ = 20;
+    int mapsizeX_ = 15; // Tile count
+    int mapsizeY_ = 15;
     int mapScale_ = 60; // Tile pixmap size in px
     int zoomLevel_ = 0; // Normal view = 0
 
@@ -158,19 +161,11 @@ private:
     // Attributes for storing players' information
 
     std::shared_ptr<Player> playerInTurn_ = nullptr;
-    QString player1UiName_ = "Unnamed";
-    QString player2UiName_ = "Unnamed2";
+    QString player1UiName_ = "Player 1";
+    QString player2UiName_ = "Player 2";
 
     std::vector<std::shared_ptr<Player>> players_ = {};
     std::vector<std::shared_ptr<Course::TileBase>> tilesToGiveBack_ = {};
-
-    // Attributes for defining the maps size and scale
-
-    int selectedMapSize = 1;
-    const int MAP_SIZE_SMALL = 10;
-    const int MAP_SIZE_MEDIUM = 20;
-    const int MAP_SIZE_LARGE = 40;
-    const int MAP_SIZE_ULTRA_LARGE = 60;
 
 };
 

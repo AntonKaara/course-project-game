@@ -7,11 +7,7 @@ MainMenu::MainMenu(QWidget *parent) :
 
     // Construct the UI and its style
     ui->setupUi(this);
-
-    //this->setStyleSheet("background-color:black;");
     ui->playButton->setStyleSheet("background-color:green;" "color:white");
-    //ui->loadButton->setStyleSheet("background-color:white;" "color:white");
-    //ui->quitButton->setStyleSheet("background-color:darkRed;" "color:white");
 
     //Tooltips
     ui->mapSizeComboBox->setToolTip("Cool tooltip"); 
@@ -37,11 +33,11 @@ void MainMenu::on_mapSizeComboBox_currentIndexChanged(int index) {
     if (index == 0) {
         emit mapSizeChanged(10, 10);
     } else if ( index == 1) {
-        emit mapSizeChanged(20, 20);
+        emit mapSizeChanged(15, 15);
     } else if ( index == 2) {
-        emit mapSizeChanged(40, 40);
+        emit mapSizeChanged(20, 20);
     } else if ( index == 3) {
-        emit mapSizeChanged(60, 60);
+        emit mapSizeChanged(40, 40);
     }
 
 }

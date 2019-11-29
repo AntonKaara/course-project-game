@@ -86,9 +86,14 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->woodImg->setPixmap(pixmaps_.at("Wood"));
     ui_->stoneImg->setPixmap(pixmaps_.at("Stone"));
     ui_->oreImg->setPixmap(pixmaps_.at("Ore"));
-    ui_->coinImg_2->setPixmap(pixmaps_.at("Coins"));
-    ui_->foodImg_2->setPixmap(pixmaps_.at("Food"));
-    ui_->oreImg_2->setPixmap(pixmaps_.at("Ore"));
+    ui_->buildCoinImg->setPixmap(pixmaps_.at("Coins"));
+    ui_->buildWoodImg->setPixmap(pixmaps_.at("Wood"));
+    ui_->buildStoneImg->setPixmap(pixmaps_.at("Stone"));
+    ui_->buildOreImg->setPixmap(pixmaps_.at("Ore"));
+    ui_->recruitCoinImg->setPixmap(pixmaps_.at("Coins"));
+    ui_->recruitOreImg->setPixmap(pixmaps_.at("Ore"));
+    ui_->recruitCoinImg2->setPixmap(pixmaps_.at("Coins"));
+    ui_->recruitFoodImg->setPixmap(pixmaps_.at("Food"));
 
     // Widget config
 
@@ -103,6 +108,7 @@ MapWindow::MapWindow(QWidget *parent):
     ui_->confirmBuildButton->setStyleSheet("background-color:darkGreen;" "color:white");
     ui_->confirmRecruitButton->setStyleSheet("background-color:darkGreen;" "color:white");
     ui_->moveButton->setStyleSheet("background-color:#165581;" "color:white");
+    ui_->turnLabel->setStyleSheet("color:blue");
 
     /* Build map and setup the player objects and the starting buildings
      * for both
@@ -156,17 +162,18 @@ void MapWindow::drawTile( std::shared_ptr<Course::TileBase> obj) {
 
 void MapWindow::generateMap() {
 
-    unsigned int seed = 123488; // TODO: Add random generation
+    unsigned int seed = 123488;
 
     Course::WorldGenerator& worldGen = worldGen.getInstance();
 
-    // Add tile types
+    // Add tile types to the world generator
     worldGen.addConstructor<GrassTile>(200);
     worldGen.addConstructor<ForestTile>(75);
     worldGen.addConstructor<Swamp>(2);
-    worldGen.addConstructor<Lake>(6);
+    worldGen.addConstructor<Lake>(30);
     worldGen.addConstructor<Mountain>(4);
 
+    // Execute world generation and pass tiles to objectManager
     worldGen.generateMap(static_cast<uint>(mapsizeX_), static_cast<uint>(mapsizeY_),
                          seed, objectManager_, gameEventHandler_);
 
@@ -315,14 +322,6 @@ void MapWindow::buildOnTile() {
 
     // Only build on own tiles
     if (tile->getOwner() != playerInTurn_) {
-        return;
-    }
-
-    if (tile->getType() == "Lake" ||
-        tile->getType() == "Mountain") {
-        showMessageBox(this, "Alert!", "Your troops can't build on this location"
-                                       ", the land type isn't suitable for building!",
-                       false);
         return;
     }
 
@@ -571,8 +570,10 @@ void MapWindow::endTurn() {
 
     if (turn_ % 2 == 0) {
         playerInTurn_ = players_.at(1);
+        ui_->turnLabel->setStyleSheet("color:red");
     } else {
         playerInTurn_ = players_.at(0);
+        ui_->turnLabel->setStyleSheet("color:blue");
     }
 
     moveMode_ = false;
@@ -614,6 +615,56 @@ void MapWindow::addProduction() {
             gameEventHandler_->modifyResources(playerInTurn_, unit->UPKEEP);
         }
     }
+
+}
+
+void MapWindow::updateResourceLabels() {
+
+    int coins = 0;
+    int food = 0;
+    int wood = 0;
+    int stone = 0;
+    int ore = 0;
+
+    // Add producted resources from all owned buildings
+
+    for (auto object : playerInTurn_->getObjects()) {
+        if (object->getType() == "Headquarters" ||
+                object->getType() == "Farm" ||
+                object->getType() == "Outpost" ||
+                object->getType() == "Mine" ||
+                object->getType() == "Lumbermill") {
+            auto building = std::dynamic_pointer_cast<Course::BuildingBase>(object);
+            auto resourceMap = building->getProduction();
+            coins += resourceMap.at(Course::BasicResource::MONEY);
+            food += resourceMap.at(Course::BasicResource::FOOD);
+            wood += resourceMap.at(Course::BasicResource::WOOD);
+            stone += resourceMap.at(Course::BasicResource::STONE);
+            ore += resourceMap.at(Course::BasicResource::ORE);
+        }
+    }
+
+    // Substract units' upkeep
+
+    for (auto object : playerInTurn_->getObjects()) {
+        if (object->getType() == "Infantry" ||
+                object->getType() == "Archery" ||
+                object->getType() == "Cavalry") {
+            auto unit = std::dynamic_pointer_cast<UnitBase>(object);
+            auto resourceMap = unit->UPKEEP;
+            coins += resourceMap.at(Course::BasicResource::MONEY);
+            food += resourceMap.at(Course::BasicResource::FOOD);
+            wood += resourceMap.at(Course::BasicResource::WOOD);
+            stone += resourceMap.at(Course::BasicResource::STONE);
+            ore += resourceMap.at(Course::BasicResource::ORE);
+        }
+    }
+
+    ui_->coinLabel->setText(QString::number(playerInTurn_->getMoney()) + " (" + QString::number(coins) + ")");
+    ui_->foodLabel->setText(QString::number(playerInTurn_->getFood()) + " (" + QString::number(food) + ")");
+    ui_->woodLabel->setText(QString::number(playerInTurn_->getWood()) + " (" + QString::number(wood) + ")");
+    ui_->stoneLabel->setText(QString::number(playerInTurn_->getStone()) + " (" + QString::number(stone) + ")");
+    ui_->oreLabel->setText(QString::number(playerInTurn_->getOre()) + " (" + QString::number(ore) + ")");
 
 }
 
@@ -727,6 +778,67 @@ void MapWindow::on_confirmBuildButton_clicked() {
 void MapWindow::on_buildList_itemDoubleClicked(QListWidgetItem *item) {
 
    on_confirmBuildButton_clicked();
+
+}
+
+void Aeta::MapWindow::on_buildList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+
+    // Update build cost labels
+
+    QString selectedBuilding = ui_->buildList->currentItem()->text(); // Building type
+    Course::ResourceMap resourceMap = {};
+
+    if (selectedBuilding == "Farm") {
+        resourceMap = FARM_BUILD_COST;
+    } else if (selectedBuilding == "Outpost") {
+        resourceMap = OUTPOST_BUILD_COST;
+    } else if (selectedBuilding == "Mine") {
+        resourceMap = MINE_BUILD_COST;
+    } else if (selectedBuilding == "Lumber Mill") {
+        resourceMap = LUMBERMILL_BUILD_COST;
+    }
+
+    QString coins = QString::number(resourceMap.at(Course::BasicResource::MONEY));
+    QString wood = QString::number(resourceMap.at(Course::BasicResource::WOOD));
+    QString stone = QString::number(resourceMap.at(Course::BasicResource::STONE));
+    QString ore = QString::number(resourceMap.at(Course::BasicResource::ORE));
+
+    ui_->buildCoinLabel->setText(coins);
+    ui_->buildWoodLabel->setText(wood);
+    ui_->buildStoneLabel->setText(stone);
+    ui_->buildOreLabel->setText(ore);
+
+}
+
+void Aeta::MapWindow::on_recruitList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+
+    // Update recruitment cost labels
+
+    QString selectedUnit = ui_->recruitList->currentItem()->text(); // Building type
+    Course::ResourceMap recruitmentCostMap = {};
+    Course::ResourceMapDouble upkeepCostMap = {};
+
+    if (selectedUnit == "Infantry") {
+        recruitmentCostMap = INFANTRY_RECRUITMENT_COST;
+        upkeepCostMap = INFANTRY_UPKEEP;
+    } else if (selectedUnit == "Archery") {
+        recruitmentCostMap = ARCHERY_RECRUITMENT_COST;
+        upkeepCostMap = ARCHERY_UPKEEP;
+    } else if (selectedUnit == "Cavalry") {
+        recruitmentCostMap = CAVALRY_RECRUITMENT_COST;
+        upkeepCostMap = CAVALRY_UPKEEP;
+    }
+
+    QString coins = QString::number(recruitmentCostMap.at(Course::BasicResource::MONEY));
+    QString ore = QString::number(recruitmentCostMap.at(Course::BasicResource::ORE));
+
+    QString upkeepCoins = QString::number(upkeepCostMap.at(Course::BasicResource::MONEY));
+    QString upkeepFood = QString::number(upkeepCostMap.at(Course::BasicResource::FOOD));
+
+    ui_->recruitCoinLabel->setText(coins);
+    ui_->recruitOreLabel->setText(ore);
+    ui_->recruitCoinUpkeepLabel->setText(upkeepCoins + " / turn");
+    ui_->recruitFoodLabel->setText(upkeepFood + " / turn");
 
 }
 
@@ -862,10 +974,11 @@ void MapWindow::updateUI() {
             // If no buildings on tile
             ui_->tileHeaderLabel->setText(tileType);
             ui_->tileDescriptionLabel->setText(tileDesc);
-            ui_->buildPanelButton->setEnabled(true);
+            ui_->buildPanelButton->setVisible(true);
             ui_->buildPanelButton->setText("Build");
             ui_->buildPanelButton->setToolTip("Build a building on the this tile");
             ui_->buildPanelButton->setStyleSheet("background-color:darkGreen;" "color:white");
+
         }
 
         if (tile->getOwner() != nullptr) {
@@ -875,8 +988,10 @@ void MapWindow::updateUI() {
             QString playerName = QString::fromStdString(tile->getOwner()->getName());
             if (playerName == "1") {
                 ui_->tileOwnerLabel->setText("Owned by " + player1UiName_);
+                ui_->tileOwnerLabel->setStyleSheet("color:blue");
             } else {
                 ui_->tileOwnerLabel->setText("Owned by " + player2UiName_);
+                ui_->tileOwnerLabel->setStyleSheet("color:red");
             }
 
             // Disable tile buttons if not own tile
@@ -892,6 +1007,7 @@ void MapWindow::updateUI() {
 
         } else {
             ui_->tileOwnerLabel->setText("Owned by nobody");
+            ui_->tileOwnerLabel->setStyleSheet("color:black");
             ui_->buildPanelButton->setVisible(false);
             ui_->recruitButton->setVisible(false);
         }
@@ -908,8 +1024,10 @@ void MapWindow::updateUI() {
             QString playerName = QString::fromStdString(unit->getOwner()->getName());
             if (playerName == "1") {
                 ui_->unitOwnerLabel->setText("Owned by " + player1UiName_);
+                ui_->unitOwnerLabel->setStyleSheet("color:blue");
             } else {
                 ui_->unitOwnerLabel->setText("Owned by " + player2UiName_);
+                ui_->unitOwnerLabel->setStyleSheet("color:red");
             }
 
             ui_->unitTypeLabel->setText("Type: " + unitType);
@@ -950,6 +1068,14 @@ void MapWindow::updateUI() {
 
         ui_->tileImgLabel->setPixmap(pic);
 
+        // Hide move button if build not allowed
+
+        if (selectedTile_->getType() == "Mountain" ||
+                selectedTile_->getType() == "Lake" ||
+                selectedTile_->getType() == "Swamp") {
+            ui_->buildPanelButton->setVisible(false);
+        }
+
     } // End of 'if no tile selected'
 
     // Update move button
@@ -962,14 +1088,6 @@ void MapWindow::updateUI() {
         ui_->moveButton->setText("Move / Attack");
     }
 
-    // Update resource labels
-
-    ui_->coinLabel->setText(QString::number(playerInTurn_->getMoney()));
-    ui_->foodLabel->setText(QString::number(playerInTurn_->getFood()));
-    ui_->woodLabel->setText(QString::number(playerInTurn_->getWood()));
-    ui_->stoneLabel->setText(QString::number(playerInTurn_->getStone()));
-    ui_->oreLabel->setText(QString::number(playerInTurn_->getOre()));
-
     // Update turn labels
 
     ui_->turnCountLabel->setText("Turn: " + QString::fromStdString(std::to_string(turnCount_)));
@@ -980,6 +1098,8 @@ void MapWindow::updateUI() {
     } else {
         ui_->turnLabel->setText(player2UiName_ + "'s turn");
     }
+
+    updateResourceLabels();
 
 }
 
@@ -1035,7 +1155,6 @@ void MapWindow::showTextAnimation(const QString &text, const Course::Coordinate 
     QPoint endLocation(location.x(), location.y() - 60); // 60 pixels up
 
     // create a object to show
-
     QGraphicsTextItem *textItem = new QGraphicsTextItem();
     textItem->setPlainText(text);
     textItem->setDefaultTextColor(color);
@@ -1237,10 +1356,10 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
         if (tile->getOwner() != selectedUnit_->getOwner()) {
 
             // Tile ownership to current player
-            if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
-                tile->setOwner(selectedUnit_->getOwner());
-                tilesToGiveBack_.push_back(tile);
-            }
+//            if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
+//                tile->setOwner(selectedUnit_->getOwner());
+//                tilesToGiveBack_.push_back(tile);
+//            }
 
             // Destroy possible enemy building
             if (tile->getBuildingCount() > 0) {
@@ -1333,15 +1452,15 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
     // Give back tile ownerships under units
 
-    for (auto tileToGiveBack : tilesToGiveBack_) {
-        if (tileToGiveBack->getWorkerCount() < 1) {
-            for (auto player : players_) {
-                if (player != playerInTurn_) {
-                    tileToGiveBack->setOwner(player);
-                }
-            }
-        }
-    }
+//    for (auto tileToGiveBack : tilesToGiveBack_) {
+//        if (tileToGiveBack->getWorkerCount() < 1) {
+//            for (auto player : players_) {
+//                if (player != playerInTurn_) {
+//                    tileToGiveBack->setOwner(player);
+//                }
+//            }
+//        }
+//    }
 
     moveMode_ = false;
     selectedTile_ = tile;
@@ -1535,7 +1654,7 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
 void MapWindow::resizeEvent(QResizeEvent *event) {
 
     qDebug() << "resize event, tabwidget height: " << ui_->tabWidget->height();
-    ui_->buildList->resize(ui_->tabWidget->width(), ui_->tabWidget->height() - 88);
+    ui_->buildList->resize(ui_->tabWidget->width(), ui_->tabWidget->height() - 15);
 
 }
 

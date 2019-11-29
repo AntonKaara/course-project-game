@@ -35,7 +35,7 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     std::shared_ptr<Course::WorkerBase> unit = nullptr;
     std::string unitType = "";
 
-    // Draw building or unit if tile has one
+    // Draw building
     if (tileObject_->getBuildingCount() > 0) {
         building = tileObject_->getBuildings().at(0);
         buildingType = building->getType();
@@ -50,6 +50,7 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         scaledPixmap = mapItemPictures_.at(buildingType).scaled(
                     objectSize_, Qt::IgnoreAspectRatio);
 
+    // Draw unit
     } else if (tileObject_->getWorkerCount() > 0) {
         unit = tileObject_->getWorkers().at(0);
         unitType = unit->getType();

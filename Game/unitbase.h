@@ -22,6 +22,8 @@ public:
     virtual std::string getType() const override;
     virtual void doSpecialAction() override;
     virtual bool attackUnit(std::shared_ptr<UnitBase> unitUnderAttack);
+    virtual bool canBePlacedOnTile(
+            const std::shared_ptr<Course::TileBase> &tile) const override;
 
     virtual void setName(const std::string name);
     virtual void setHealth(const int amount);

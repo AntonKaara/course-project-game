@@ -89,3 +89,5 @@ FORMS += \
 
 RESOURCES += \
     pictures.qrc
+
+DISTFILES +=

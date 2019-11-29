@@ -38,6 +38,13 @@ bool UnitBase::attackUnit(std::shared_ptr<UnitBase> unitUnderAttack) {
 
 }
 
+bool UnitBase::canBePlacedOnTile(
+        const std::shared_ptr<Course::TileBase> &tile) const {
+
+    return true;
+
+}
+
 void UnitBase::setName(const std::string name) {
     unitName_ = name;
 }
