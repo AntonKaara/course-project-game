@@ -1034,6 +1034,7 @@ void MapWindow::updateUI() {
             ui_->unitTextBox->setText(QString::fromStdString(unit->getName()));
             ui_->healthBar->setMaximum(unit->getMaxHealth());
             ui_->healthBar->setValue(unit->getHealth());
+            ui_->healthValueLabel->setText(QString::number(unit->getHealth()));
             ui_->movementPointNumber->setText(QString::fromStdString(std::to_string(unit->getMovement())));
             ui_->damageNumberLabel->setText(QString::fromStdString(std::to_string(unit->getDamage())));
             ui_->rangeNumberLabel->setText(QString::fromStdString(std::to_string(unit->getRange())));

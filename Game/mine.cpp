@@ -17,7 +17,7 @@ Mine::Mine(const std::shared_ptr<Course::iGameEventHandler> &eventHandler,
                    production) {
 
     objectManager_ = objectManager;
-    setDescription("basic", "Mines some real valuable resources.");
+    setDescription("basic", "The mine is mainly a source of stone but it also provides you with some ore.");
 
 
 }

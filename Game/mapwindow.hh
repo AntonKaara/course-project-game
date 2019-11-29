@@ -140,8 +140,8 @@ private:
 
     std::map<std::string, QPixmap> pixmaps_ = {};
 
-    int mapsizeX_ = 15; // Tile count
-    int mapsizeY_ = 15;
+    int mapsizeX_ = 10; // Tile count
+    int mapsizeY_ = 10;
     int mapScale_ = 60; // Tile pixmap size in px
     int zoomLevel_ = 0; // Normal view = 0
 

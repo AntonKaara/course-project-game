@@ -14,10 +14,8 @@ Swamp::Swamp(const Course::Coordinate& location,
                max_build,
                max_work,
                production){
-    setDescription("basic", "Moist land, not suitable for building. Hard to walk through."
-                            " If you assign your soldiers through it'll probably use all"
-                            " of their energy.");
-
+    setDescription("basic", "Moist land, not suitable for building. Difficult to walk across."
+                            " Moving is twice as slow as usual.");
 }
 
 std::string Swamp::getType() const {
