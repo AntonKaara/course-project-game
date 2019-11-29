@@ -124,10 +124,6 @@ private slots:
     void on_buildList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void on_recruitList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
-    // Events
-
-    void resizeEvent(QResizeEvent *event) override;
-
 private:
 
     Ui::MapWindow* ui_;

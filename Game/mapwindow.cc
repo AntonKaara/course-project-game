@@ -715,7 +715,7 @@ void MapWindow::drawMap() {
 void MapWindow::on_zoomInButton_clicked() {
 
     if (zoomLevel_ < 2) {
-        ui_->graphicsView->scale(2, 2);
+        ui_->graphicsView->scale(1.6, 1.6);
         zoomLevel_ += 1;
 
         if (zoomLevel_ == 2) {
@@ -732,7 +732,7 @@ void MapWindow::on_zoomInButton_clicked() {
 void MapWindow::on_zoomOutButton_clicked() {
 
     if (zoomLevel_ > -2) {
-        ui_->graphicsView->scale(0.5, 0.5);
+        ui_->graphicsView->scale(0.625, 0.625);
         zoomLevel_ -= 1;
 
         if (zoomLevel_ == -2) {
@@ -1135,7 +1135,7 @@ bool MapWindow::showMessageBox(QWidget *parent,
 
     // set cancelButton inactive if needed
     if (not cancelButtonMode) {
-       msgBox->button(QMessageBox::Cancel)->setEnabled(false);
+       msgBox->button(QMessageBox::Cancel)->setVisible(false);
     }
 
     int result = msgBox->exec();
@@ -1649,13 +1649,6 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
     }
 
     return false;
-
-}
-
-void MapWindow::resizeEvent(QResizeEvent *event) {
-
-    qDebug() << "resize event, tabwidget height: " << ui_->tabWidget->height();
-    ui_->buildList->resize(ui_->tabWidget->width(), ui_->tabWidget->height() - 15);
 
 }
 

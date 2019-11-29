@@ -11,11 +11,11 @@ namespace Aeta {
 
 const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
 
-    {Course::BasicResource::MONEY, 10000000.0},
-    {Course::BasicResource::FOOD, 10000.0},
-    {Course::BasicResource::WOOD, 500000.0},
-    {Course::BasicResource::STONE, 500000.0},
-    {Course::BasicResource::ORE, 20000.0}
+    {Course::BasicResource::MONEY, 1000.0},
+    {Course::BasicResource::FOOD, 100.0},
+    {Course::BasicResource::WOOD, 5000.0},
+    {Course::BasicResource::STONE, 500.0},
+    {Course::BasicResource::ORE, 200.0}
 
 };
 
