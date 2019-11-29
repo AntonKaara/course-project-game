@@ -7,12 +7,23 @@ namespace Ui {
 class WinDialog;
 }
 
+/**
+ * @brief WinDialog class represents the victory dialog at the end
+ */
 class WinDialog : public QDialog
 {
     Q_OBJECT
 
 public:
+
+    /**
+     * @brief Class constructor
+     */
     explicit WinDialog(QWidget *parent = nullptr);
+
+    /**
+     * @brief Class destructor
+     */
     ~WinDialog();
 
 private slots:

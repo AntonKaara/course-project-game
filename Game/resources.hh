@@ -9,6 +9,8 @@
 
 namespace Aeta {
 
+// RESOURCEMAP STORAGE :D
+
 const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
 
     {Course::BasicResource::MONEY, 1000.0},

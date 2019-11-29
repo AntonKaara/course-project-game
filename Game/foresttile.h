@@ -14,8 +14,17 @@ class ForestTile : public Course::TileBase
 {
 public:
 
+    /**
+     * @brief Disabled default constructor
+     */
     ForestTile() = delete;
 
+    /**
+     * @brief Constructor for the class.
+     *
+     * @param location is the Coordinate where the Tile is located in the game.
+     * @param eventhandler points to the student's GameEventHandler.
+     */
     ForestTile(const Course::Coordinate& location,
                const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
                const std::shared_ptr<Course::iObjectManager>& objectmanager,
@@ -24,8 +33,14 @@ public:
                const Course::ResourceMap& production =
                Course::ConstResourceMaps::FOREST_BP);
 
+    /**
+     * @brief Default destructor
+     */
     virtual ~ForestTile() override = default;
 
+    /**
+     * @copydoc GameObject::getType()
+     */
     virtual std::string getType() const override;
 
 };

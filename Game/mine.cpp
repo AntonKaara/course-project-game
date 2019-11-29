@@ -28,8 +28,4 @@ std::string Mine::getType() const {
 
 }
 
-void Mine::onBuildAction() {
-
-}
-
 } // namespace Aeta

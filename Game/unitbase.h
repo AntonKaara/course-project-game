@@ -19,6 +19,9 @@ public:
              const Course::ResourceMapDouble &efficiency={},
              const std::string &name = "Unit");
 
+    /**
+     * @copydoc GameObject::getType()
+     */
     virtual std::string getType() const override;
     virtual void doSpecialAction() override;
     virtual bool attackUnit(std::shared_ptr<UnitBase> unitUnderAttack);

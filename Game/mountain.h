@@ -8,6 +8,7 @@ namespace Aeta {
 class Mountain : public Course::TileBase {
 
 public:
+
     Mountain(const Course::Coordinate& location,
              const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
              const std::shared_ptr<Course::iObjectManager>& objectmanager,
@@ -15,7 +16,11 @@ public:
              const unsigned int& max_work = 0,
              const Course::ResourceMap& production = {});
 
+    /**
+     * @copydoc GameObject::getType()
+     */
     std::string getType() const override;
+
 };
 
 } // namespace Aeta

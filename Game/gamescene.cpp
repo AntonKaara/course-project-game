@@ -63,12 +63,6 @@ std::pair<int, int> GameScene::getSize() const {
 
 }
 
-int GameScene::getScale() const {
-
-    return tileScale_;
-
-}
-
 void GameScene::updateItem(std::shared_ptr<Course::GameObject> obj) {
 
     QList<QGraphicsItem*> items_list = items();

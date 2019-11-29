@@ -28,8 +28,4 @@ std::string Lumbermill::getType() const {
 
 }
 
-void Lumbermill::onBuildAction() {
-
-}
-
 } // namespace Aeta
