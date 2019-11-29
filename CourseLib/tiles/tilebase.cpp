@@ -110,7 +110,14 @@ void TileBase::removeWorker(const std::shared_ptr<WorkerBase>& worker)
 
 bool TileBase::generateResources()
 {
-    ResourceMapDouble worker_efficiency;
+    ResourceMapDouble worker_efficiency = {
+        {NONE, 0},
+        {MONEY, 0},
+        {FOOD, 0},
+        {WOOD, 0},
+        {STONE, 0},
+        {ORE, 0},
+    };
     ResourceMap total_production;
 
     for( auto work_it = m_workers.begin();
