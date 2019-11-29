@@ -39,6 +39,7 @@ void HeadQuarters::onBuildAction()
             (*it)->setOwner(getOwner());
         }
     }
+    lockObjectManager()->getTile(getCoordinate())->setOwner(getOwner());
 }
 
 
