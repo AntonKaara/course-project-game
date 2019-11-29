@@ -117,6 +117,9 @@ public:
      */
     virtual bool event(QEvent* event) override;
 
+signals:
+    void objectClicked(unsigned int object_id);
+
 private:
     QGraphicsItem* m_mapBoundRect;
     int m_width;

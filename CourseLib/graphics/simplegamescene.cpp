@@ -106,9 +106,10 @@ bool SimpleGameScene::event(QEvent *event)
             if ( pressed == m_mapBoundRect ){
                 qDebug() << "Click on map area.";
             }else{
-                qDebug() << "ObjID: " <<
-                            static_cast<Course::SimpleMapItem*>(pressed)
-                            ->getBoundObject()->ID  << " pressed.";
+                unsigned int id = static_cast<Course::SimpleMapItem*>(pressed)
+                        ->getBoundObject()->ID;
+                qDebug() << "ObjID: " << id << " pressed.";
+                emit objectClicked(id);
                 return true;
             }
 
