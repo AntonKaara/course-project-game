@@ -39,6 +39,7 @@ void Outpost::onBuildAction()
             (*it)->setOwner(getOwner());
         }
     }
+    lockObjectManager()->getTile(getCoordinate())->setOwner(getOwner());
 }
 
 ResourceMap Outpost::getProduction()
