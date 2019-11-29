@@ -21,7 +21,14 @@ GameObject::GameObject(const GameObject &original):
     OBJECTMANAGER(original.OBJECTMANAGER)
 {
     m_owner = original.m_owner;
-    m_coordinate = std::make_unique<Coordinate>(*original.m_coordinate);
+    if(original.m_coordinate)
+    {
+        m_coordinate = std::make_unique<Coordinate>(*original.m_coordinate);
+    }
+    else
+    {
+        m_coordinate = nullptr;
+    }
     m_descriptions = original.m_descriptions;
     ++c_next_id;
 }
