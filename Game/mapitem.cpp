@@ -28,7 +28,8 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     // Location and pixmap texture variable for a tile
     QPointF scaledLocation = sceneLocation_ * tileScale_;
-    QPixmap scaledPixmap = mapItemPictures_.at(tileType);
+    QPixmap tilePixmap = mapItemPictures_.at(tileType);
+    QPixmap unitPixmap = mapItemPictures_.at(tileType);
 
     std::shared_ptr<Course::BuildingBase> building = nullptr;
     std::string buildingType = "";
@@ -36,10 +37,11 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     std::string unitType = "";
 
     // Draw building
+
     if (tileObject_->getBuildingCount() > 0) {
+
         building = tileObject_->getBuildings().at(0);
         buildingType = building->getType();
-
 
         // Determine different building pics for both players
         if (tileObject_->getOwner()->getName() == "1") {
@@ -47,37 +49,13 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         } else {
             buildingType = buildingType + "2";
         }
-        scaledPixmap = mapItemPictures_.at(buildingType).scaled(
+        tilePixmap = mapItemPictures_.at(buildingType).scaled(
                     objectSize_, Qt::IgnoreAspectRatio);
-
-    // Draw unit
-    } else if (tileObject_->getWorkerCount() > 0) {
-        unit = tileObject_->getWorkers().at(0);
-        unitType = unit->getType();
-
-         // Determine different unit pics for both players
-        if (tileObject_->getOwner() != nullptr) {
-            if (tileObject_->getOwner()->getName() == "1") {
-                unitType = unitType + "1Owned";
-            } else {
-                unitType = unitType + "2Owned";
-            }
-            scaledPixmap = mapItemPictures_.at(unitType).scaled(
-                        objectSize_, Qt::IgnoreAspectRatio);
-        } else {
-            if (unit->getOwner()->getName() == "1") {
-                unitType = unitType + "1Free";
-            } else {
-                unitType = unitType + "2Free";
-            }
-            scaledPixmap = mapItemPictures_.at(unitType).scaled(
-                        objectSize_, Qt::IgnoreAspectRatio);
-        }
-
 
     } else {
 
         if (tileObject_->getOwner() != nullptr) {
+
             if (tileObject_->getOwner()->getName() == "1") {
                 tileType = tileType + "1";
             } else if (tileObject_->getOwner()->getName() == "2") {
@@ -85,12 +63,32 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             }
         }
 
-        scaledPixmap = mapItemPictures_.at(tileType).scaled(
+        tilePixmap = mapItemPictures_.at(tileType).scaled(
                     objectSize_, Qt::IgnoreAspectRatio);
 
     }
 
-    painter->drawPixmap(scaledLocation, scaledPixmap);
+    painter->drawPixmap(scaledLocation, tilePixmap);
+
+    // Draw unit
+
+    if (tileObject_->getWorkerCount() > 0) {
+
+        unit = tileObject_->getWorkers().at(0);
+        unitType = unit->getType();
+
+       if (unit->getOwner()->getName() == "1") {
+           unitType = unitType + "1";
+       } else {
+           unitType = unitType + "2";
+       }
+
+       unitPixmap = mapItemPictures_.at(unitType).scaled(
+                    objectSize_, Qt::IgnoreAspectRatio);
+       painter->drawPixmap(scaledLocation, unitPixmap);
+    }
+
+
     painter->drawRect(boundingRect());
     prepareGeometryChange();
 
@@ -139,10 +137,11 @@ void MapItem::setSize(int size) {
 
 void MapItem::addMapItemPictures() {
 
-    std::vector<std::string> types = {"Archery",
+    std::vector<std::string> types = {"Archery", "Archery1", "Archery2",
                                       "Archery1Free", "Archery1Owned",
                                       "Archery2Free", "Archery2Owned",
-                                      "Cavalry", "Cavalry1Free",
+                                      "Cavalry", "Cavalry1", "Cavalry2",
+                                      "Cavalry1Free",
                                       "Cavalry1Owned", "Cavalry2Free",
                                       "Cavalry2Owned",
                                       "Coins", "Farm", "Farm1", "Farm2",
@@ -150,7 +149,7 @@ void MapItem::addMapItemPictures() {
                                       "Forest2", "Grass", "Grass1",
                                       "Grass2", "Headquarters",
                                       "Headquarters1", "Headquarters2",
-                                      "Infantry",
+                                      "Infantry", "Infantry1", "Infantry2",
                                       "Infantry1Free", "Infantry1Owned",
                                       "Infantry2Free", "Infantry2Owned",
                                       "Lake", "Lake1", "Lake2",

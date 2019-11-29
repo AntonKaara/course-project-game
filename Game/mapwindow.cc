@@ -447,20 +447,45 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
      * if other buildings are affected.
      */
     bool found = false;
+    bool result = true;
+    std::shared_ptr<Player> enemy = nullptr;
     std::vector<std::shared_ptr<Course::GameObject>> alreadyOwnedTiles = {};
+    std::vector<std::shared_ptr<Course::GameObject>> alreadyOwnedTilesEnemy = {};
+
+    if (playerInTurn_->getName() == "1") {
+
+        enemy = players_.at(1);
+
+    } else {
+
+        enemy = players_.at(0);
+
+    }
 
     if (building->getType() == "Outpost") {
 
-        // create a prompt window to ask if the user really wants to continue
+        /* create a prompt window to ask if the user really wants to continue.
+         * Popup the prompt window only if the demolish is not done by
+         * attacking (moveMode_ is on)
+         */
 
-        bool result = showMessageBox(this, "Warning!",
-                                     "Every building on the land conquered only"
-                                     " by this outpost will be removed. Are you"
-                                     " sure you want to continue?",
-                                     true);
+        if (!moveMode_) {
+
+            result = showMessageBox(this, "Warning!",
+                                         "Every building on the land conquered only"
+                                         " by this outpost will be removed. Are you"
+                                         " sure you want to continue?",
+                                         true);
+        }
+
+
         if (result == false) {
+
             return;
+
         } else {
+
+            // construct the alreadyOwnedTiles vectors
 
             for(auto object : playerInTurn_->getObjects()) {
 
@@ -483,6 +508,27 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
                 }
             }
 
+            for(auto object : enemy->getObjects()) {
+
+
+                if (object == building) { // skip, if its the one being demolished
+                    continue;
+                } else if (object->getType() == "Headquarters" ||
+                           object->getType() == "Outpost") {
+
+                    std::vector<std::shared_ptr<Course::TileBase>> neighborTiles =
+                            objectManager_->getTiles(object->getCoordinatePtr()->neighbours(2));
+
+                    for (auto neighborTile : neighborTiles) {
+
+                            alreadyOwnedTilesEnemy.push_back(neighborTile);
+                    }
+
+                    // also put the tile of the building itself into the vector
+                    alreadyOwnedTilesEnemy.push_back(objectManager_->getTile(object->getCoordinate()));
+                }
+            }
+
             // change ownership of tiles and remove necessary buildings
 
             for (auto neighbourTileCoord : building->getCoordinatePtr()->neighbours(2)) {
@@ -492,23 +538,49 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
 
                 /* do not do anything if the tile is not owned by the player,
                  * or the tile is "outside" of the coordinate system (nullptr)
+                 * Change tiles according to the demolish type (attack/own building
+                 * demolishing)
                  */
+                if (!moveMode_) {
 
-                if (tileToChange == nullptr) {
-                    continue;
-                } else if (tileToChange->getOwner() != playerInTurn_) {
-                    continue;
-                }
-
-                /* check if the tile which is being changed is already owned
-                 * by a HQ or outpost.
-                 */
-                for (auto ownedTile : alreadyOwnedTiles) {
-
-                    if (ownedTile == tileToChange) {
-                        found = true;
+                    if (tileToChange == nullptr) {
+                        continue;
+                    } else if (tileToChange->getOwner() != playerInTurn_) {
+                        continue;
                     }
+
+                    /* check if the tile which is being changed is already owned
+                     * by HQ or outpost.
+                     */
+                    for (auto ownedTile : alreadyOwnedTiles) {
+
+                        if (ownedTile == tileToChange) {
+                            found = true;
+                        }
+                    }
+
+                } else {
+
+                    if (tileToChange == nullptr) {
+                        continue;
+                    } else if (tileToChange->getOwner() == playerInTurn_) {
+                        continue;
+                    }
+
+                    /* check if the tile which is being changed is already owned
+                     * by enemy's HQ or outpost.
+                     */
+                    for (auto ownedTile : alreadyOwnedTilesEnemy) {
+
+                        if (ownedTile == tileToChange) {
+                            found = true;
+                        }
+                    }
+
                 }
+
+
+
 
                 /* remove ownership and buildings of the tiles conquered by the
                  * outpost if the user wants to.
@@ -517,6 +589,7 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
 
                     if(tileToChange->getBuildingCount() > 0) {
                         objectManager_->removeBuilding(tileToChange->getBuildings().at(0));
+
                     }
                     tileToChange->setOwner(nullptr);
 
@@ -1356,12 +1429,6 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
         // If enemy tile
         if (tile->getOwner() != selectedUnit_->getOwner()) {
 
-            // Tile ownership to current player
-//            if (tile->getOwner() != playerInTurn_ && tile->getOwner() != nullptr) {
-//                tile->setOwner(selectedUnit_->getOwner());
-//                tilesToGiveBack_.push_back(tile);
-//            }
-
             // Destroy possible enemy building
             if (tile->getBuildingCount() > 0) {
                 auto building = tile->getBuildings().at(0);
@@ -1450,18 +1517,6 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
             }
         }
     }
-
-    // Give back tile ownerships under units
-
-//    for (auto tileToGiveBack : tilesToGiveBack_) {
-//        if (tileToGiveBack->getWorkerCount() < 1) {
-//            for (auto player : players_) {
-//                if (player != playerInTurn_) {
-//                    tileToGiveBack->setOwner(player);
-//                }
-//            }
-//        }
-//    }
 
     moveMode_ = false;
     selectedTile_ = tile;
@@ -1654,10 +1709,11 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
 
 void MapWindow::addPixmaps() {
 
-    std::vector<std::string> types = {"Archery",
+    std::vector<std::string> types = {"Archery", "Archery1", "Archery2",
                                       "Archery1Free", "Archery1Owned",
                                       "Archery2Free", "Archery2Owned",
-                                      "Cavalry", "Cavalry1Free",
+                                      "Cavalry", "Cavalry1", "Cavalry2",
+                                      "Cavalry1Free",
                                       "Cavalry1Owned", "Cavalry2Free",
                                       "Cavalry2Owned",
                                       "Coins", "Farm", "Farm1", "Farm2",
@@ -1665,7 +1721,7 @@ void MapWindow::addPixmaps() {
                                       "Forest2", "Grass", "Grass1",
                                       "Grass2", "Headquarters",
                                       "Headquarters1", "Headquarters2",
-                                      "Infantry",
+                                      "Infantry", "Infantry1", "Infantry2",
                                       "Infantry1Free", "Infantry1Owned",
                                       "Infantry2Free", "Infantry2Owned",
                                       "Lake", "Lake1", "Lake2",

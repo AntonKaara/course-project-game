@@ -53,5 +53,11 @@
         <file>pictures/Mountain1.png</file>
         <file>pictures/Mountain2.png</file>
         <file>pictures/Stone.png</file>
+        <file>pictures/Archery1.png</file>
+        <file>pictures/Archery2.png</file>
+        <file>pictures/Cavalry1.png</file>
+        <file>pictures/Cavalry2.png</file>
+        <file>pictures/Infantry1.png</file>
+        <file>pictures/Infantry2.png</file>
     </qresource>
 </RCC>
