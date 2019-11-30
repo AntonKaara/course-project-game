@@ -95,9 +95,28 @@ public:
                            const Course::Coordinate &startPosition,
                            const QColor &color);
 
+    void updateHighScores();
+
     // Events
 
     bool eventFilter(QObject *object, QEvent *event) override;
+
+signals:
+
+    /**
+     * @brief Signal high scores to winDialog
+     */
+    void highScore(int turn,
+                      QString winPlayer,
+                      QString losePlayer,
+                      QString player1Name,
+                      QString player2Name,
+                      int p1TileNumber,
+                      int p2TileNumber,
+                      int p1Buildings,
+                      int p2Buildings,
+                      int p1ArmySize,
+                      int p2ArmySize);
 
 public slots:
 
@@ -162,6 +181,15 @@ private:
 
     std::vector<std::shared_ptr<Player>> players_ = {};
     std::vector<std::shared_ptr<Course::TileBase>> tilesToGiveBack_ = {};
+
+    // High score info
+
+    int player1TilesMax_ = 0;
+    int player2TilesMax_ = 0;
+    int player1BuildingsMax_ = 0;
+    int player2BuildingsMax_ = 0;
+    int player1ArmyMax_ = 0;
+    int player2ArmyMax_ = 0;
 
 };
 

@@ -26,13 +26,28 @@ public:
      */
     ~WinDialog();
 
-private slots:
-    void on_quitButton_clicked();
+public slots:
 
+    void setHighScore(int turn,
+                          QString winPlayer,
+                          QString losePlayer,
+                          QString player1Name,
+                          QString player2Name,
+                          int p1Tiles,
+                          int p2Tiles,
+                          int p1Buildings,
+                          int p2Buildings,
+                          int p1ArmySize,
+                          int p2ArmySize);
+
+private slots:
+
+    void on_quitButton_clicked();
     void on_menuButton_clicked();
 
 private:
     Ui::WinDialog *ui;
+
 };
 
 #endif // WINDIALOG_H

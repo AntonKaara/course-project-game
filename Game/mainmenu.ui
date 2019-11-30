@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>290</x>
-     <y>100</y>
+     <y>150</y>
      <width>251</width>
-     <height>81</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="font">
@@ -39,7 +39,7 @@
    <property name="geometry">
     <rect>
      <x>290</x>
-     <y>310</y>
+     <y>260</y>
      <width>251</width>
      <height>51</height>
     </rect>
@@ -68,7 +68,7 @@
    <property name="font">
     <font>
      <family>Open Sans</family>
-     <pointsize>21</pointsize>
+     <pointsize>22</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -246,26 +246,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-  </widget>
-  <widget class="QPushButton" name="highScoreButton">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>190</y>
-     <width>251</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>High Scores</string>
-   </property>
   </widget>
  </widget>
  <resources/>

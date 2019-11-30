@@ -56,6 +56,11 @@ MapWindow::MapWindow(QWidget *parent):
     connect(&*mainMenu_, &MainMenu::mapSizeChanged,
             this, &MapWindow::setMapSize);
 
+    // Send highscores to victory dialog
+
+    connect(this, &MapWindow::highScore,
+            &*winDialog_, &WinDialog::setHighScore);
+
     // Show menu dialog and if the quit button is pressed end the program
 
     int result = mainMenu_->exec();
@@ -433,6 +438,7 @@ void MapWindow::buildOnTile() {
     }
 
     updateUI();
+    updateHighScores();
     scene_->update();
 
 }
@@ -617,6 +623,7 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
     }
 
     updateUI();
+    updateHighScores();
 
 }
 
@@ -1118,10 +1125,21 @@ void MapWindow::updateUI() {
                 ui_->moveButton->setVisible(true);
             }
 
-            // Enable / disable move button
+            // Update move button
+
+            if (moveMode_) {
+                ui_->moveButton->setStyleSheet("background-color:yellow;" "color:black");
+                ui_->moveButton->setText("Cancel move");
+            } else {
+                ui_->moveButton->setStyleSheet("background-color:#165581;" "color:white");
+                ui_->moveButton->setText("Move / Attack");
+            }
+
+            // Gray out the button when movement points run out
             if (selectedUnit_->getMovement() == 0) {
                 ui_->moveButton->setEnabled(false);
-                ui_->moveButton->setToolTip("No movement points");
+                ui_->moveButton->setStyleSheet("background-color:gray;" "color:black");
+                ui_->moveButton->setToolTip("Your unit is too tired to continue");
             } else {
                 ui_->moveButton->setEnabled(true);
                 ui_->moveButton->setToolTip("Move the unit or attack enemy units");
@@ -1142,7 +1160,7 @@ void MapWindow::updateUI() {
 
         ui_->tileImgLabel->setPixmap(pic);
 
-        // Hide move button if build not allowed
+        // Hide build button if build not allowed
 
         if (selectedTile_->getType() == "Mountain" ||
                 selectedTile_->getType() == "Lake" ||
@@ -1151,16 +1169,6 @@ void MapWindow::updateUI() {
         }
 
     } // End of 'if no tile selected'
-
-    // Update move button
-
-    if (moveMode_) {
-        ui_->moveButton->setStyleSheet("background-color:yellow;" "color:black");
-        ui_->moveButton->setText("Cancel move");
-    } else {
-        ui_->moveButton->setStyleSheet("background-color:#165581;" "color:white");
-        ui_->moveButton->setText("Move / Attack");
-    }
 
     // Update turn labels
 
@@ -1178,6 +1186,24 @@ void MapWindow::updateUI() {
 }
 
 void MapWindow::gameOver() {
+
+    // Get player names
+
+    QString winPlayerName = "winner";
+    QString losePlayerName = "loser";
+
+    if (playerInTurn_->getName() == "1") {
+        winPlayerName = player1UiName_;
+        losePlayerName = player2UiName_;
+    } else {
+        winPlayerName = player2UiName_;
+        losePlayerName = player1UiName_;
+    }
+
+    // Send high scores to winDialog
+    emit highScore(turnCount_, winPlayerName, losePlayerName, player1UiName_, player2UiName_,
+                   player1TilesMax_, player2TilesMax_, player1BuildingsMax_,
+                   player2BuildingsMax_, player1ArmyMax_, player2ArmyMax_);
 
     winDialog_->open();
 
@@ -1246,6 +1272,72 @@ void MapWindow::showTextAnimation(const QString &text, const Course::Coordinate 
     // deleting the text object after animation
     connect(anim, SIGNAL(finished()), textItem, SLOT(deleteLater()));
 
+
+}
+
+void MapWindow::updateHighScores() {
+
+    // Get tile counts
+
+    int player1Tiles = 0;
+    int player2Tiles = 0;
+    for (auto tile : objectManager_->getAllTiles()) {
+        if (tile->getOwner() == players_.at(0)) {
+            player1Tiles += 1;
+        } else if (tile->getOwner() == players_.at(1)) {
+            player2Tiles += 1;
+        }
+    }
+
+    // Get building counts
+
+    int player1Buildings = 0;
+    int player2Buildings = 0;
+    for (auto building : objectManager_->getAllBuildings()) {
+        if (building->getOwner() == players_.at(0)) {
+            player1Buildings += 1;
+        } else if (building->getOwner() == players_.at(1)) {
+            player2Buildings += 1;
+        }
+    }
+
+    // Get army sizes
+
+    int player1Army = 0;
+    int player2Army = 0;
+    for (auto unit : objectManager_->getAllUnits()) {
+        if (unit->getOwner() == players_.at(0)) {
+            player1Army += 1;
+        } else if (unit->getOwner() == players_.at(1)) {
+            player2Army += 1;
+        }
+    }
+
+    // Check if new high score
+
+    if (player1Tiles > player1TilesMax_) {
+        player1TilesMax_ = player1Tiles;
+    }
+
+    if (player2Tiles > player2TilesMax_) {
+        player2TilesMax_ = player2Tiles;
+    }
+
+    if (player1Buildings > player1BuildingsMax_) {
+        player1BuildingsMax_ = player1Buildings;
+    }
+
+    if (player2Buildings > player2BuildingsMax_) {
+        player2BuildingsMax_ = player2Buildings;
+    }
+
+    if (player1Army > player1ArmyMax_) {
+        player1ArmyMax_ = player1Army;
+    }
+
+    if (player2Army > player2ArmyMax_) {
+        player2ArmyMax_ = player2Army;
+    }
 
 }
 
@@ -1641,6 +1733,7 @@ void MapWindow::recruitUnit() {
     }
 
     updateUI();
+    updateHighScores();
     scene_->update();
 
 }
