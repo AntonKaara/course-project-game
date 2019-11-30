@@ -26,8 +26,15 @@ public:
      **/
     ~Welcome();
 
+public slots:
+
+    void setText(const QString &player1Name,
+                 const QString &player2Name);
+
 private:
+
     Ui::Welcome *ui;
+
 };
 
 #endif // WELCOME_H

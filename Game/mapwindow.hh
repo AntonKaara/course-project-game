@@ -118,6 +118,13 @@ signals:
                       int p1ArmySize,
                       int p2ArmySize);
 
+    /**
+     * @brief playerNames signal chosen names to welcome dialog
+     */
+
+    void playerNames(const QString &player1Name,
+                     const QString &player2Name);
+
 public slots:
 
     // Signals from main menu

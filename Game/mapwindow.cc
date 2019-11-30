@@ -56,10 +56,15 @@ MapWindow::MapWindow(QWidget *parent):
     connect(&*mainMenu_, &MainMenu::mapSizeChanged,
             this, &MapWindow::setMapSize);
 
-    // Send highscores to victory dialog
+    // Connect sending highscores to victory dialog
 
     connect(this, &MapWindow::highScore,
             &*winDialog_, &WinDialog::setHighScore);
+
+    // Connect sending player names to welcome dialog
+
+    connect(this, &MapWindow::playerNames,
+            &*welcomeDialog_, &Welcome::setText);
 
     // Show menu dialog and if the quit button is pressed end the program
 
@@ -127,7 +132,8 @@ MapWindow::MapWindow(QWidget *parent):
     updateUI();
     centerViewtoHQ();
 
-    // Show welcome dialog
+    // Signal the player names to welcome dialog and show it.
+    emit playerNames(player1UiName_, player2UiName_);
 
     welcomeDialog_->open();
 
