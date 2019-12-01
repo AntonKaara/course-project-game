@@ -31,6 +31,8 @@ void WinDialog::setHighScore(int turn, QString winPlayer, QString losePlayer,
                              int p1Tiles, int p2Tiles, int p1Buildings,
                              int p2Buildings, int p1ArmySize, int p2ArmySize) {
 
+    // Construct high score text
+
     QString highScoreText = "Congratulations " + winPlayer + "! \n \n"
             "It took " + QString::number(turn) + " turns for " + winPlayer + " to wipe out " + losePlayer +
             "! At its highest point, " + player1Name + " controlled a great number of " +
@@ -61,5 +63,7 @@ void WinDialog::on_menuButton_clicked() {
 }
 
 void WinDialog::reject() {
+
     qApp->quit();
+
 }

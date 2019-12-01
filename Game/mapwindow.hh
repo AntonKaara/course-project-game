@@ -13,6 +13,8 @@
 #include "welcome.h"
 #include "headquarters.h"
 
+#include <map>
+#include <string>
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -20,7 +22,6 @@
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
-#include <map>
 #include <QObject>
 
 namespace Ui {
@@ -320,7 +321,6 @@ private:
     QString player2UiName_ = "Player 2";
 
     std::vector<std::shared_ptr<Player>> players_ = {};
-    std::vector<std::shared_ptr<Course::TileBase>> tilesToGiveBack_ = {};
 
     // High score info
 

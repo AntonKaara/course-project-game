@@ -4,13 +4,13 @@
 #include "core/gameobject.h"
 #include "tiles/tilebase.h"
 
+#include <memory>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QObject>
 #include <QDebug>
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
-#include <memory>
 
 namespace Aeta {
 
@@ -118,9 +118,9 @@ private:
     std::vector<QGraphicsRectItem*> attackMarkers_ = {};
     int mapWidth_ = 0;
     int mapHeight_ = 0;
-    int tileScale_ = 0;
+    int tileScale_ = 0; // tile pixel size
 
-    // used to store previously clicked tile's ID in tileClicked
+    // Used to store previously clicked tile's ID in tileClicked
     uint lastTileId_ = 0;
 
 };

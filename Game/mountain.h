@@ -21,7 +21,7 @@ public:
      * @param max_build The amount of buildings that fit on the tile (not used)
      * @param max_work The amount of units that fit on the tile (not used)
      * @param production has the production per turn listed as a resourcemap.
-
+     *
      */
     Mountain(const Course::Coordinate& location,
              const std::shared_ptr<Course::iGameEventHandler>& eventhandler,

@@ -6,10 +6,10 @@
 
 #include "player.hh"
 
-#include <QPainter>
-#include <QGraphicsItem>
 #include <map>
 #include <string>
+#include <QPainter>
+#include <QGraphicsItem>
 #include <QSize>
 
 namespace Aeta {

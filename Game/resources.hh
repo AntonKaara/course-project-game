@@ -179,9 +179,6 @@ const Course::ResourceMapDouble CAVALRY_UPKEEP = {
 
 };
 
-
-
-
 } // namespace Aeta
 
 #endif // RESOURCES_HH

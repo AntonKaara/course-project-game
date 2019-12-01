@@ -24,9 +24,7 @@
 #include <memory>
 #include <math.h>
 #include <iostream>
-#include <QDirIterator>
 #include <QPixmap>
-#include <string>
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QGraphicsTextItem>
@@ -327,7 +325,7 @@ void MapWindow::buildOnTile() {
     QString buildingToBuild = ui_->buildList->currentItem()->text(); // Building type
     std::shared_ptr<Course::TileBase> tile = selectedTile_;
 
-    // Only build on own tiles
+    // Only build on own tiles - technically shouldn't happen anymore
     if (tile->getOwner() != playerInTurn_) {
         return;
     }
@@ -448,12 +446,13 @@ void MapWindow::buildOnTile() {
 void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
                                  std::shared_ptr<Course::TileBase> tile) {
 
-    /* if the building is an outpost, change the ownership of owned tiles
+    /* If the building is an outpost, change the ownership of owned tiles
      * around it to non-owned first. Do not change the ownership of tiles
      * which are owned by HQ or other outposts. Delete a building on a tile
      * which is owned only by the outpost being demolished. Prompt the user
      * if other buildings are affected.
      */
+
     bool found = false;
     bool result = true;
     std::shared_ptr<Player> enemy = nullptr;
@@ -461,18 +460,16 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
     std::vector<std::shared_ptr<Course::GameObject>> alreadyOwnedTilesEnemy = {};
 
     if (playerInTurn_->getName() == "1") {
-
         enemy = players_.at(1);
-
     } else {
-
         enemy = players_.at(0);
-
     }
+
+    // Special handling for outpost
 
     if (building->getType() == "Outpost") {
 
-        /* create a prompt window to ask if the user really wants to continue.
+        /* Create a prompt window to ask if the user really wants to continue.
          * Popup the prompt window only if the demolish is not done by
          * attacking (moveMode_ is on)
          */
@@ -544,11 +541,12 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
                 std::shared_ptr<Course::TileBase> tileToChange =
                         objectManager_->getTile(neighbourTileCoord);
 
-                /* do not do anything if the tile is not owned by the player,
+                /* Do not do anything if the tile is not owned by the player,
                  * or the tile is "outside" of the coordinate system (nullptr)
                  * Change tiles according to the demolish type (attack/own building
                  * demolishing)
                  */
+
                 if (!moveMode_) {
 
                     if (tileToChange == nullptr) {
@@ -587,18 +585,16 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
 
                 }
 
-
-
-
-                /* remove ownership and buildings of the tiles conquered by the
+                /* Remove ownership and buildings of the tiles conquered by the
                  * outpost if the user wants to.
                  */
+
                 if (not found && tileToChange != nullptr) {
 
                     if(tileToChange->getBuildingCount() > 0) {
                         objectManager_->removeBuilding(tileToChange->getBuildings().at(0));
-
                     }
+
                     tileToChange->setOwner(nullptr);
 
                 }
@@ -612,7 +608,7 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
     tile->removeBuilding(building);
     objectManager_->removeBuilding(building);
 
-    /* update other outposts' conquered tiles in case some tiles were
+    /* Update other outposts' conquered tiles in case some tiles were
      * partially acquired by the outpost which was demolished.
      */
 
@@ -631,9 +627,9 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
 
 void MapWindow::endTurn() {
 
-    turn_ += 1;
+    turn_ += 1; // Keeps count of who should be in turn
     if (playerInTurn_->getName() == "2") {
-        turnCount_ += 1;
+        turnCount_ += 1; // Turncount is shown on UI
     }
 
     // Apply building productions and unit upkeeps
@@ -663,8 +659,6 @@ void MapWindow::endTurn() {
     viableTilesForAttack_.clear();
     scene_->removeMoveMarkers();
     scene_->removeAttackMarkers();
-
-    tilesToGiveBack_.clear();
 
     centerViewtoHQ();
     scene_->update();
@@ -742,11 +736,16 @@ void MapWindow::updateResourceLabels() {
         }
     }
 
-    ui_->coinLabel->setText(QString::number(playerInTurn_->getMoney()) + " (" + QString::number(coins) + ")");
-    ui_->foodLabel->setText(QString::number(playerInTurn_->getFood()) + " (" + QString::number(food) + ")");
-    ui_->woodLabel->setText(QString::number(playerInTurn_->getWood()) + " (" + QString::number(wood) + ")");
-    ui_->stoneLabel->setText(QString::number(playerInTurn_->getStone()) + " (" + QString::number(stone) + ")");
-    ui_->oreLabel->setText(QString::number(playerInTurn_->getOre()) + " (" + QString::number(ore) + ")");
+    ui_->coinLabel->setText(QString::number(playerInTurn_->getMoney())
+                            + " (" + QString::number(coins) + ")");
+    ui_->foodLabel->setText(QString::number(playerInTurn_->getFood())
+                            + " (" + QString::number(food) + ")");
+    ui_->woodLabel->setText(QString::number(playerInTurn_->getWood())
+                            + " (" + QString::number(wood) + ")");
+    ui_->stoneLabel->setText(QString::number(playerInTurn_->getStone())
+                             + " (" + QString::number(stone) + ")");
+    ui_->oreLabel->setText(QString::number(playerInTurn_->getOre())
+                           + " (" + QString::number(ore) + ")");
 
 }
 
@@ -763,10 +762,8 @@ void MapWindow::centerViewtoHQ() {
 
     double xCoordinate = mapFocusLocation->x();
     double yCoordinate = mapFocusLocation->y();
-    ui_->graphicsView->centerOn(QPointF(xCoordinate * 60, yCoordinate * 60));
+    ui_->graphicsView->centerOn(QPointF(xCoordinate * mapScale_, yCoordinate * mapScale_));
 
-//    Course::Coordinate& locationRef = *mapFocusLocation;
-//    selectedTile_ = objectManager_->getTile(locationRef);
 }
 
 void MapWindow::drawMap() {
@@ -891,11 +888,12 @@ void Aeta::MapWindow::on_buildList_currentItemChanged(QListWidgetItem *current, 
 
 }
 
-void Aeta::MapWindow::on_recruitList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+void Aeta::MapWindow::on_recruitList_currentItemChanged(QListWidgetItem *current,
+                                                        QListWidgetItem *previous) {
 
     // Update recruitment cost labels
 
-    QString selectedUnit = ui_->recruitList->currentItem()->text(); // Building type
+    QString selectedUnit = ui_->recruitList->currentItem()->text(); // Unit type
     Course::ResourceMap recruitmentCostMap = {};
     Course::ResourceMapDouble upkeepCostMap = {};
 
@@ -931,7 +929,7 @@ void MapWindow::on_unitTextBox_editingFinished() {
 
 void Aeta::MapWindow::on_moveButton_clicked() {
 
-    // Delete old markers
+    // Delete when clicking cancel move
     scene_->removeMoveMarkers();
     scene_->removeAttackMarkers();
 
@@ -980,8 +978,10 @@ void MapWindow::setPlayerName(const QString &name, const int &playerNumber) {
 }
 
 void MapWindow::setMapSize(const int &sizeX, const int &sizeY) {
+
     mapsizeX_ = sizeX;
     mapsizeY_ = sizeY;
+
 }
 
 void MapWindow::updateUI() {
@@ -1010,6 +1010,8 @@ void MapWindow::updateUI() {
         QString unitType = "Null_unit";
         QPixmap pic = pixmaps_.at(tile->getType());
         QPixmap unitPic = pixmaps_.at(tile->getType());
+
+        // If tile has a building
 
         if (tile->getBuildings().size() > 0) {
             building = tile->getBuildings().at(0);
@@ -1121,6 +1123,7 @@ void MapWindow::updateUI() {
             ui_->rangeNumberLabel->setText(QString::fromStdString(std::to_string(unit->getRange())));
 
             // If unit is enemy, hide movement options
+
             if (playerInTurn_ != unit->getOwner()) {
                 ui_->moveButton->setVisible(false);
                 ui_->movementPointLabel->setVisible(false);
@@ -1142,6 +1145,7 @@ void MapWindow::updateUI() {
             }
 
             // Gray out the button when movement points run out
+
             if (selectedUnit_->getMovement() == 0) {
                 ui_->moveButton->setEnabled(false);
                 ui_->moveButton->setStyleSheet("background-color:gray;" "color:black");
@@ -1207,6 +1211,7 @@ void MapWindow::gameOver() {
     }
 
     // Send high scores to winDialog
+
     emit highScore(turnCount_, winPlayerName, losePlayerName, player1UiName_, player2UiName_,
                    player1TilesMax_, player2TilesMax_, player1BuildingsMax_,
                    player2BuildingsMax_, player1ArmyMax_, player2ArmyMax_);
@@ -1238,7 +1243,7 @@ bool MapWindow::showMessageBox(QWidget *parent,
     msgBox->setText(windowMessage);
     msgBox->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
 
-    // set cancelButton inactive if needed
+    // Set cancelButton invisible if needed
     if (not cancelButtonMode) {
        msgBox->button(QMessageBox::Cancel)->setVisible(false);
     }
@@ -1385,18 +1390,18 @@ void MapWindow::onMoveModeActivate() {
     scene_->removeAttackMarkers();
     scene_->update();
 
-    if (selectedTile_->getWorkerCount() > 0) {
-        selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
-    }
-
+    // Get selected unit
+    selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
     int movementPoints = selectedUnit_->getMovement();
     int attackRange = selectedUnit_->getRange();
+
     std::vector<Course::Coordinate> neighborCoordinates = {};
 
     if (movementPoints > 0) {
         neighborCoordinates = selectedTile_->getCoordinate().neighbours(1);
     }
 
+    // Get the actual neighbor tile objects
     std::vector<std::shared_ptr<Course::TileBase>> neighborTiles =
             objectManager_->getTiles(neighborCoordinates);
 
@@ -1584,7 +1589,7 @@ void MapWindow::recruitUnit() {
     QString unitToRecruit = ui_->recruitList->currentItem()->text();
     Course::Coordinate location(0,0);
 
-    // spawn units on the headquarter tile. Location depends on player.
+    // Spawn units on the headquarter tile. Location depends on player.
 
     if(playerInTurn_->getName() == "1") {
         location = player1HQ_->getCoordinate();
@@ -1594,7 +1599,7 @@ void MapWindow::recruitUnit() {
 
     std::shared_ptr<Course::TileBase> tileToSpawn = objectManager_->getTile(location);
 
-    // if there is an unit already, ask the player to move the unit first
+    // If there is an unit already, ask the player to move the unit first
 
     if (tileToSpawn->getWorkerCount() > 0) {
 
@@ -1630,7 +1635,6 @@ void MapWindow::recruitUnit() {
         playerInTurn_->addObject(infantry);
         infantry->setOwner(playerInTurn_);
         tileToSpawn->addWorker(infantry);
-        //infantry->onBuildAction();
 
         gameEventHandler_->modifyResources(playerInTurn_, infantry->RECRUITMENT_COST);
         selectedUnit_ = infantry;
@@ -1657,7 +1661,6 @@ void MapWindow::recruitUnit() {
         playerInTurn_->addObject(archery);
         archery->setOwner(playerInTurn_);
         tileToSpawn->addWorker(archery);
-        //archery->onBuildAction();
 
         gameEventHandler_->modifyResources(playerInTurn_, archery->RECRUITMENT_COST);
         selectedUnit_ = archery;
@@ -1684,7 +1687,6 @@ void MapWindow::recruitUnit() {
         playerInTurn_->addObject(cavalry);
         cavalry->setOwner(playerInTurn_);
         tileToSpawn->addWorker(cavalry);
-        //cavalry->onBuildAction();
 
         gameEventHandler_->modifyResources(playerInTurn_, cavalry->RECRUITMENT_COST);
         selectedUnit_ = cavalry;
@@ -1727,7 +1729,6 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
             }
 
             for (auto tile : viableTilesForAttack_) {
-
                 if (tile->ID == tileID) {
 
                     if (moveUnit(toTile)) {
@@ -1743,18 +1744,16 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
             }
 
         } else {
-
             uint tileID = scene_->tileClicked(event, true);
             qDebug() << "Got tileID: " << tileID;
             selectedTile_ = objectManager_->getTile(tileID);
             selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
             updateUI();
-            return true;
+            return true; // Don't throw the event again
         }
-
     }
 
-    return false;
+    return false; // Throw if not GraphicsSceneMousePress
 
 }
 

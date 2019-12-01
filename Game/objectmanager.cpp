@@ -62,11 +62,8 @@ std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getAllTiles() {
 void ObjectManager::removeTile(const std::shared_ptr<Course::TileBase> &tile) {
     uint id = tile.get()->ID;
     auto it = find_if(tiles_.begin(), tiles_.end(), [&id](const std::shared_ptr<Course::TileBase>& tile) {return tile->ID == id;});
-    if (it != tiles_.end())
-    {
-      qDebug() << tiles_.size();
+    if (it != tiles_.end()) {
       tiles_.erase(it);
-      qDebug() << tiles_.size();
     }
 }
 

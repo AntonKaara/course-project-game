@@ -5,6 +5,7 @@
 #include "core/playerbase.h"
 #include "core/basicresources.h"
 #include "core/resourcemaps.h"
+
 #include "player.hh"
 
 namespace Aeta {

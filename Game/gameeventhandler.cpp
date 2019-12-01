@@ -20,7 +20,7 @@ bool GameEventHandler::modifyResource(
     Course::ResourceMap newMap = Course::mergeResourceMaps(
                 playerCast->getResources(), map);
 
-    // check if some of the resources are negative and change them to zero
+    // Check if some of the resources are negative and change them to zero
 
     for (auto resource : newMap) {
 
@@ -43,7 +43,7 @@ bool GameEventHandler::modifyResources(
     Course::ResourceMap newMap = Course::mergeResourceMaps(
                 playerCast->getResources(), resources);
 
-    // check if some of the resources are negative and change them to zero
+    // Check if some of the resources are negative and change them to zero
 
     for (auto resource : newMap) {
 
@@ -65,7 +65,7 @@ bool GameEventHandler::modifyResources(
 
     Course::ResourceMapDouble newMap = Course::mergeResourceMapDoubles(playerCast->getResourcesDouble(), resources);
 
-    // check if some of the resources are negative and change them to zero
+    // Check if some of the resources are negative and change them to zero
 
     for (auto resource : newMap) {
 

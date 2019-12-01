@@ -12,7 +12,6 @@ namespace Aeta {
 
 /**
  * @brief The ForestTile class represents a forest tile in the game world
- *
  */
 class ForestTile : public Course::TileBase
 {
@@ -55,4 +54,5 @@ public:
 };
 
 } // namespace Aeta
+
 #endif // FORESTTILE_H

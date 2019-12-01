@@ -11,6 +11,7 @@ namespace Aeta {
  * It has its own stats and the necessary overrides compared to UnitBase.
  */
 class Cavalry : public UnitBase {
+
 public:
 
     /**

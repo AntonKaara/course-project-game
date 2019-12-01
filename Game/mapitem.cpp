@@ -26,7 +26,8 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     std::string tileType = tileObject_->getType();
 
-    // Location and pixmap texture variable for a tile
+    // Location and pixmap texture variable for tile and unit
+
     QPointF scaledLocation = sceneLocation_ * tileScale_;
     QPixmap tilePixmap = mapItemPictures_.at(tileType);
     QPixmap unitPixmap = mapItemPictures_.at(tileType);
@@ -111,7 +112,7 @@ void MapItem::updateLoc() {
     if ( !tileObject_ ){
         delete this;
     } else {
-        update(boundingRect()); // Test if necessary
+        update(boundingRect());
         sceneLocation_ = tileObject_->getCoordinate().asQpoint();
     }
 

@@ -19,7 +19,6 @@ Mine::Mine(const std::shared_ptr<Course::iGameEventHandler> &eventHandler,
     objectManager_ = objectManager;
     setDescription("basic", "The mine is mainly a source of stone but it also provides you with some ore.");
 
-
 }
 
 std::string Mine::getType() const {

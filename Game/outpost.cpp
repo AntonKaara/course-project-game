@@ -35,7 +35,7 @@ void Outpost::onBuildAction() {
 
     for(auto it = neighbours.begin(); it != neighbours.end(); ++it)
     {
-        // If the Tile doesn't have owner, set it's owner to buildings owner.
+        // If the tile doesn't have owner, set it's owner to buildings owner
         if( not (*it)->getOwner() )
         {
             (*it)->setOwner(getOwner());

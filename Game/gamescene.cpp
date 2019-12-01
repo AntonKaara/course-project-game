@@ -42,6 +42,7 @@ void GameScene::setScale(int scale) {
 
 void GameScene::resize() {
 
+    // Remove existing map boundary
     if ( mapBounds_ != nullptr ){
         QGraphicsScene::removeItem(mapBounds_);
     }

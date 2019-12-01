@@ -10,7 +10,7 @@ MainMenu::MainMenu(QWidget *parent) :
     ui->playButton->setStyleSheet("background-color:green;" "color:white");
 
     //Tooltips
-    ui->mapSizeComboBox->setToolTip("Cool tooltip"); 
+    ui->mapSizeComboBox->setToolTip("Select map size");
 
 }
 

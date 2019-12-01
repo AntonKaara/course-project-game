@@ -4,9 +4,7 @@
 #include <QDialog>
 
 namespace Ui {
-
-class MainMenu;
-
+    class MainMenu;
 }
 
 /**
