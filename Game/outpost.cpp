@@ -33,13 +33,13 @@ void Outpost::onBuildAction() {
     std::vector< std::shared_ptr<Course::TileBase> > neighbours =
             objectManager_->getTiles(getCoordinatePtr()->neighbours(2));
 
-    for(auto it = neighbours.begin(); it != neighbours.end(); ++it)
-    {
+    for(auto it = neighbours.begin(); it != neighbours.end(); ++it) {
+
         // If the tile doesn't have owner, set it's owner to buildings owner
-        if( not (*it)->getOwner() )
-        {
+        if( not (*it)->getOwner() ) {
             (*it)->setOwner(getOwner());
         }
+
     }
 
 }

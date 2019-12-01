@@ -67,6 +67,7 @@ MapWindow::MapWindow(QWidget *parent):
     // Show menu dialog and if the quit button is pressed end the program
 
     int result = mainMenu_->exec();
+
     if (result == MainMenu::Rejected) {
         exit(EXIT_SUCCESS);
     }
@@ -132,7 +133,6 @@ MapWindow::MapWindow(QWidget *parent):
 
     // Signal the player names to welcome dialog and show it.
     emit playerNames(player1UiName_, player2UiName_);
-
     welcomeDialog_->open();
 
 }
@@ -509,6 +509,7 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
                     // also put the tile of the building itself into the vector
                     alreadyOwnedTiles.push_back(objectManager_->getTile(object->getCoordinate()));
                 }
+
             }
 
             for(auto object : enemy->getObjects()) {
@@ -530,6 +531,7 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
                     // also put the tile of the building itself into the vector
                     alreadyOwnedTilesEnemy.push_back(objectManager_->getTile(object->getCoordinate()));
                 }
+
             }
 
             // change ownership of tiles and remove necessary buildings
@@ -611,6 +613,7 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
     if (building->getOwner() == playerInTurn_) {
         playerInTurn_->removeObject(building);
     }
+
     tile->removeBuilding(building);
     objectManager_->removeBuilding(building);
 
@@ -635,6 +638,7 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
 void MapWindow::endTurn() {
 
     turn_ += 1; // Keeps count of who should be in turn
+
     if (playerInTurn_->getName() == "2") {
         turnCount_ += 1; // Turncount is shown on UI
     }
@@ -678,6 +682,7 @@ void MapWindow::addProduction() {
     // Add producted resources from all owned buildings
 
     for (auto object : playerInTurn_->getObjects()) {
+
         if (object->getType() == "Headquarters" ||
                 object->getType() == "Farm" ||
                 object->getType() == "Outpost" ||
@@ -686,17 +691,20 @@ void MapWindow::addProduction() {
             auto building = std::dynamic_pointer_cast<Course::BuildingBase>(object);
             gameEventHandler_->modifyResources(playerInTurn_, building->PRODUCTION_EFFECT);
         }
+
     }
 
     // Substract units' upkeep
 
     for (auto object : playerInTurn_->getObjects()) {
+
         if (object->getType() == "Infantry" ||
                 object->getType() == "Archery" ||
                 object->getType() == "Cavalry") {
             auto unit = std::dynamic_pointer_cast<UnitBase>(object);
             gameEventHandler_->modifyResources(playerInTurn_, unit->UPKEEP);
         }
+
     }
 
 }
@@ -712,6 +720,7 @@ void MapWindow::updateResourceLabels() {
     // Add producted resources from all owned buildings
 
     for (auto object : playerInTurn_->getObjects()) {
+
         if (object->getType() == "Headquarters" ||
                 object->getType() == "Farm" ||
                 object->getType() == "Outpost" ||
@@ -725,11 +734,13 @@ void MapWindow::updateResourceLabels() {
             stone += resourceMap.at(Course::BasicResource::STONE);
             ore += resourceMap.at(Course::BasicResource::ORE);
         }
+
     }
 
     // Substract units' upkeep
 
     for (auto object : playerInTurn_->getObjects()) {
+
         if (object->getType() == "Infantry" ||
                 object->getType() == "Archery" ||
                 object->getType() == "Cavalry") {
@@ -741,6 +752,7 @@ void MapWindow::updateResourceLabels() {
             stone += static_cast<int>(resourceMap.at(Course::BasicResource::STONE));
             ore += static_cast<int>(resourceMap.at(Course::BasicResource::ORE));
         }
+
     }
 
     ui_->coinLabel->setText(QString::number(playerInTurn_->getMoney())
@@ -762,9 +774,11 @@ void MapWindow::centerViewtoHQ() {
 
     // Find player HQ
     for (auto obj : playerInTurn_->getObjects()) {
+
         if (obj->getType() == "Headquarters") {
             mapFocusLocation = obj->getCoordinatePtr();
         }
+
     }
 
     double xCoordinate = mapFocusLocation->x();
@@ -791,6 +805,7 @@ void MapWindow::drawMap() {
             drawTile(tile);
             locationRef.set_y(locationRef.y() + 1);
         }
+
         locationRef.set_x(locationRef.x() + 1);
         locationRef.set_y(0);
     }
@@ -842,6 +857,7 @@ void Aeta::MapWindow::on_removeUnitButton_clicked() {
     scene_->removeMoveMarkers();
     scene_->removeAttackMarkers();
     selectedTile_->removeWorker(selectedUnit_);
+    playerInTurn_->removeObject(selectedUnit_);
     objectManager_->removeUnit(selectedUnit_);
     scene_->update();
 
@@ -886,11 +902,16 @@ void MapWindow::on_confirmBuildButton_clicked() {
 
 void MapWindow::on_buildList_itemDoubleClicked(QListWidgetItem *item) {
 
+   Q_UNUSED(item)
+
    on_confirmBuildButton_clicked();
 
 }
 
 void Aeta::MapWindow::on_buildList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+
+    Q_UNUSED(current)
+    Q_UNUSED(previous)
 
     // Update build cost labels
 
@@ -921,6 +942,9 @@ void Aeta::MapWindow::on_buildList_currentItemChanged(QListWidgetItem *current, 
 
 void Aeta::MapWindow::on_recruitList_currentItemChanged(QListWidgetItem *current,
                                                         QListWidgetItem *previous) {
+
+    Q_UNUSED(current)
+    Q_UNUSED(previous)
 
     // Update recruitment cost labels
 
@@ -993,6 +1017,8 @@ void Aeta::MapWindow::on_confirmRecruitButton_clicked() {
 }
 
 void Aeta::MapWindow::on_recruitList_doubleClicked(const QModelIndex &index) {
+
+    Q_UNUSED(index)
 
     on_confirmRecruitButton_clicked();
 
@@ -1268,6 +1294,7 @@ bool MapWindow::checkIfEnoughResources(const Course::ResourceMap &resourcesRequi
         }
 
     }
+
     return true;
 
 }
@@ -1283,6 +1310,7 @@ bool MapWindow::checkIfEnoughResources(
         }
 
     }
+
     return true;
 
 }
@@ -1357,12 +1385,15 @@ void MapWindow::updateHighScores() {
 
     int player1Buildings = 0;
     int player2Buildings = 0;
+
     for (auto building : objectManager_->getAllBuildings()) {
+
         if (building->getOwner() == players_.at(0)) {
             player1Buildings += 1;
         } else if (building->getOwner() == players_.at(1)) {
             player2Buildings += 1;
         }
+
     }
 
     // Get army sizes
@@ -1370,11 +1401,13 @@ void MapWindow::updateHighScores() {
     int player1Army = 0;
     int player2Army = 0;
     for (auto unit : objectManager_->getAllUnits()) {
+
         if (unit->getOwner() == players_.at(0)) {
             player1Army += 1;
         } else if (unit->getOwner() == players_.at(1)) {
             player2Army += 1;
         }
+
     }
 
     // Check if new high score
@@ -1505,6 +1538,7 @@ void MapWindow::onMoveModeActivate() {
         drawMovementMarkers(viableTilesForMove_);
         drawAttackMarkers(viableTilesForAttack_);
     }
+
 }
 
 void MapWindow::drawMovementMarkers(std::vector<std::shared_ptr<Course::TileBase>> tiles) {
@@ -1763,7 +1797,9 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
 
             // Move unit if possible
             for (auto tile : viableTilesForMove_) {
+
                 if (tile->ID == tileID) {
+
                     if (moveUnit(toTile)) {
                         scene_->tileClicked(event, true);
 
@@ -1775,12 +1811,15 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
                     } else {
                         onMoveModeActivate();
                     }
+
                 } else {
                     onMoveModeActivate();
                 }
+
             }
 
             for (auto tile : viableTilesForAttack_) {
+
                 if (tile->ID == tileID) {
 
                     if (moveUnit(toTile)) {
@@ -1793,6 +1832,7 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
                 } else {
                     onMoveModeActivate();
                 }
+
             }
 
         } else {

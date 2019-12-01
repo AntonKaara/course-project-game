@@ -50,6 +50,7 @@ void MapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         } else {
             buildingType = buildingType + "2";
         }
+
         tilePixmap = mapItemPictures_.at(buildingType).scaled(
                     objectSize_, Qt::IgnoreAspectRatio);
 

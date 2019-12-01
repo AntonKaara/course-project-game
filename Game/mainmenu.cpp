@@ -28,11 +28,15 @@ MainMenu::~MainMenu() {
 }
 
 void MainMenu::on_player1NameEdit_textEdited(const QString &name) {
+
     emit playerNameChanged(name, 1);
+
 }
 
 void MainMenu::on_player2NameEdit_textEdited(const QString &name) {
+
     emit playerNameChanged(name, 2);
+
 }
 
 void MainMenu::on_mapSizeComboBox_currentIndexChanged(int index) {

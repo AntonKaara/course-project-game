@@ -132,6 +132,7 @@ void GameScene::removeMoveMarkers() {
     for (auto item : moveMarkers_) {
         QGraphicsScene::removeItem(item);
     }
+
     moveMarkers_.clear();
 
 }
@@ -159,6 +160,7 @@ void GameScene::removeAttackMarkers() {
     for (auto item : attackMarkers_) {
         QGraphicsScene::removeItem(item);
     }
+
     attackMarkers_.clear();
 
 }
@@ -204,7 +206,9 @@ uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
             return lastTileId_;
         }
     }
+
     return 0;
+
 }
 
 } // namespace Aeta

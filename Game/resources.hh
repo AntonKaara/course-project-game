@@ -143,7 +143,7 @@ const Course::ResourceMap ARCHERY_RECRUITMENT_COST = {
 
     {Course::BasicResource::MONEY, -150},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, -10},
+    {Course::BasicResource::WOOD, 0},
     {Course::BasicResource::STONE, 0},
     {Course::BasicResource::ORE, -1}
 

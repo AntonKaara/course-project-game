@@ -6,8 +6,7 @@
 
 Welcome::Welcome(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Welcome)
-{
+    ui(new Ui::Welcome) {
     ui->setupUi(this);
     ui->acceptButton->setStyleSheet("background-color:darkGreen;" "color:white");
     QString filePath = QString::fromStdString(":/pictures/pictures/Logo.png");

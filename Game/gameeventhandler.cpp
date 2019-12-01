@@ -80,5 +80,4 @@ bool GameEventHandler::modifyResources(
 
 }
 
-
 } // namespace Aeta
