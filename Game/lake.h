@@ -7,8 +7,6 @@ namespace Aeta {
 
 /**
  * @brief The Lake class represents lakes in the gameworld.
- *
- * @note can't build on a lake
  */
 class Lake : public Course::TileBase {
 
@@ -18,7 +16,12 @@ public:
      * @brief Constructor for the class.
      *
      * @param location is the Coordinate where the Tile is located in the game.
-     * @param eventhandler points to the game's GameEventHandler.
+     * @param eventhandler points to the student's GameEventHandler.
+     * @param objectmanager points to the games's ObjectManager
+     * @param max_build The amount of buildings that fit on the tile (not used)
+     * @param max_work The amount of units that fit on the tile (not used)
+     * @param production has the production per turn listed as a resourcemap = nothing
+
      */
     Lake(const Course::Coordinate& location,
          const std::shared_ptr<Course::iGameEventHandler>& eventhandler,

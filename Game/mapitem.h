@@ -14,12 +14,22 @@
 
 namespace Aeta {
 
-class MapItem  : public QGraphicsItem {
+/**
+ * @brief The MapItem class is a custom QGraphicsItem class that is used to draw gameobjects to scene
+ */
+class MapItem : public QGraphicsItem {
 
 public:
 
+    /**
+     * @brief Class constructor
+     */
     MapItem(const std::shared_ptr<Course::TileBase> &obj, int size);
 
+    /**
+     * @brief Creates a rectangle the size of the map
+     * @return Map boundary rectangle
+     */
     QRectF boundingRect() const override;
 
     /**
@@ -29,10 +39,13 @@ public:
      * @param option
      * @param widget
      */
-
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget = nullptr) override;
 
+    /**
+     * @brief Used to get access to the actual tile gameobject from the scene graphicsitem
+     * @return TileBase object bound to MapItem in scene
+     */
     const std::shared_ptr<Course::TileBase> &getBoundObject();
 
     /**

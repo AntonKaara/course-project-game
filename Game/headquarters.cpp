@@ -19,7 +19,6 @@ Headquarters::Headquarters(const std::shared_ptr<Course::iGameEventHandler> &eve
     objectManager_ = objectManager;
     setDescription("basic", "This is your base, defend it to the last man!");
 
-
 }
 
 std::string Headquarters::getType() const {

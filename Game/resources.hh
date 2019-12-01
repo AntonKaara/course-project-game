@@ -13,17 +13,17 @@ namespace Aeta {
 
 const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
 
-    {Course::BasicResource::MONEY, 1000.0},
-    {Course::BasicResource::FOOD, 100.0},
-    {Course::BasicResource::WOOD, 5000.0},
-    {Course::BasicResource::STONE, 500.0},
-    {Course::BasicResource::ORE, 200.0}
+    {Course::BasicResource::MONEY, 275.0},
+    {Course::BasicResource::FOOD, 50.0},
+    {Course::BasicResource::WOOD, 120.0},
+    {Course::BasicResource::STONE, 50.0},
+    {Course::BasicResource::ORE, 2.0}
 
 };
 
 const Course::ResourceMap FARM_BUILD_COST = {
 
-    {Course::BasicResource::MONEY, -10},
+    {Course::BasicResource::MONEY, -30},
     {Course::BasicResource::FOOD, 0},
     {Course::BasicResource::WOOD, -10},
     {Course::BasicResource::STONE, -5},
@@ -33,8 +33,8 @@ const Course::ResourceMap FARM_BUILD_COST = {
 
 const Course::ResourceMap FARM_PRODUCTION = {
 
-    {Course::BasicResource::MONEY, 10},
-    {Course::BasicResource::FOOD, 10},
+    {Course::BasicResource::MONEY, 12},
+    {Course::BasicResource::FOOD, 15},
     {Course::BasicResource::WOOD, 0},
     {Course::BasicResource::STONE, 0},
     {Course::BasicResource::ORE, 0}
@@ -43,18 +43,18 @@ const Course::ResourceMap FARM_PRODUCTION = {
 
 const Course::ResourceMap OUTPOST_BUILD_COST = {
 
-    {Course::BasicResource::MONEY, -30},
+    {Course::BasicResource::MONEY, -65},
     {Course::BasicResource::FOOD, 0},
     {Course::BasicResource::WOOD, -100},
-    {Course::BasicResource::STONE, -50},
-    {Course::BasicResource::ORE, -20}
+    {Course::BasicResource::STONE, -45},
+    {Course::BasicResource::ORE, -14}
 
 };
 
 const Course::ResourceMap OUTPOST_PRODUCTION = {
 
-    {Course::BasicResource::MONEY, -15},
-    {Course::BasicResource::FOOD, -5},
+    {Course::BasicResource::MONEY, 0},
+    {Course::BasicResource::FOOD, 0},
     {Course::BasicResource::WOOD, 0},
     {Course::BasicResource::STONE, 0},
     {Course::BasicResource::ORE, 0}
@@ -73,7 +73,7 @@ const Course::ResourceMap HQ_BUILD_COST = {
 
 const Course::ResourceMap HQ_PRODUCTION = {
 
-    {Course::BasicResource::MONEY, 80},
+    {Course::BasicResource::MONEY, 75},
     {Course::BasicResource::FOOD, 0},
     {Course::BasicResource::WOOD, 0},
     {Course::BasicResource::STONE, 0},
@@ -96,17 +96,17 @@ const Course::ResourceMap MINE_PRODUCTION = {
     {Course::BasicResource::MONEY, 0},
     {Course::BasicResource::FOOD, 0},
     {Course::BasicResource::WOOD, 0},
-    {Course::BasicResource::STONE, 20},
+    {Course::BasicResource::STONE, 18},
     {Course::BasicResource::ORE, 2}
 
 };
 
 const Course::ResourceMap LUMBERMILL_BUILD_COST = {
 
-    {Course::BasicResource::MONEY, -10},
+    {Course::BasicResource::MONEY, -30},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, -20},
-    {Course::BasicResource::STONE, -10},
+    {Course::BasicResource::WOOD, -30},
+    {Course::BasicResource::STONE, -20},
     {Course::BasicResource::ORE, 0}
 
 };
@@ -115,7 +115,7 @@ const Course::ResourceMap LUMBERMILL_PRODUCTION = {
 
     {Course::BasicResource::MONEY, 0},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, 40},
+    {Course::BasicResource::WOOD, 25},
     {Course::BasicResource::STONE, 0},
     {Course::BasicResource::ORE, 0}
 
@@ -161,9 +161,9 @@ const Course::ResourceMapDouble ARCHERY_UPKEEP = {
 
 const Course::ResourceMap CAVALRY_RECRUITMENT_COST = {
 
-    {Course::BasicResource::MONEY, -400},
+    {Course::BasicResource::MONEY, -350},
     {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, -10},
+    {Course::BasicResource::WOOD, 0},
     {Course::BasicResource::STONE, 0},
     {Course::BasicResource::ORE, -5}
 

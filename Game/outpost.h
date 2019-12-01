@@ -6,6 +6,9 @@
 
 namespace Aeta {
 
+/**
+ * @brief The Outpost class represents the outpost building in the game
+ */
 class Outpost : public Course::BuildingBase {
 
 public:

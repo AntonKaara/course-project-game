@@ -1,7 +1,5 @@
 #include "infantry.h"
 
-#include <QDebug>
-
 namespace Aeta {
 
 Infantry::Infantry(const std::shared_ptr<Course::iGameEventHandler > &eventhandler,
@@ -30,7 +28,5 @@ std::string Infantry::getType() const {
     return "Infantry";
 
 }
-
-
 
 } // namespace Aeta

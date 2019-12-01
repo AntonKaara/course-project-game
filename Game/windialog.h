@@ -24,7 +24,7 @@ public:
     /**
      * @brief Class destructor
      */
-    ~WinDialog();
+    ~WinDialog() override;
 
 public slots:
 

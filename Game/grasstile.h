@@ -9,6 +9,9 @@
 
 namespace Aeta {
 
+/**
+ * @brief The GrassTile class represents a grass maptile in the game world
+ */
 class GrassTile : public Course::TileBase {
 
 public:
@@ -23,6 +26,11 @@ public:
      *
      * @param location is the Coordinate where the Tile is located in the game.
      * @param eventhandler points to the student's GameEventHandler.
+     * @param objectmanager points to the games's ObjectManager
+     * @param max_build The amount of buildings that fit on the tile (not used)
+     * @param max_work The amount of units that fit on the tile (not used)
+     * @param production has the production per turn listed as a resourcemap.
+
      */
     GrassTile(const Course::Coordinate& location,
               const std::shared_ptr<Course::iGameEventHandler>& eventhandler,

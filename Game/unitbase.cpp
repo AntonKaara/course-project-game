@@ -26,7 +26,6 @@ void UnitBase::doSpecialAction() {
 
 }
 
-
 bool UnitBase::attackUnit(std::shared_ptr<UnitBase> unitUnderAttack) {
 
     unitUnderAttack->changeHealth(-damage_);

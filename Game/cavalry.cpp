@@ -19,7 +19,7 @@ Cavalry::Cavalry(const std::shared_ptr<Course::iGameEventHandler> &eventhandler,
     maxHealthPoints_ = 120;
     movementPoints_ = 5;
     range_ = 1;
-    damage_ = 45;
+    damage_ = 42;
 
 }
 

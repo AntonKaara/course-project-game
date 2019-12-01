@@ -14,7 +14,7 @@ ForestTile::ForestTile(const Course::Coordinate& location,
                max_build,
                max_work,
                production) {
-    setDescription("basic", "Don't get lost in the forest!");
+    setDescription("basic", "Forested land provides you with some wood. Don't get lost in the forest!");
 
 }
 

@@ -125,11 +125,8 @@ void ObjectManager::removeBuilding(const std::shared_ptr<Course::BuildingBase> &
 
     uint id = building.get()->ID;
     auto it = find_if(buildings_.begin(), buildings_.end(), [&id](const std::shared_ptr<Course::BuildingBase>& building) {return building->ID == id;});
-    if (it != buildings_.end())
-    {
-      qDebug() << buildings_.size();
+    if (it != buildings_.end()) {
       buildings_.erase(it);
-      qDebug() << buildings_.size();
     }
 
 }
@@ -185,11 +182,8 @@ void ObjectManager::removeUnit(const std::shared_ptr<UnitBase> &unit) {
 
     uint id = unit.get()->ID;
     auto it = find_if(units_.begin(), units_.end(), [&id](const std::shared_ptr<UnitBase>& unit) {return unit->ID == id;});
-    if (it != units_.end())
-    {
-      qDebug() << units_.size();
+    if (it != units_.end()) {
       units_.erase(it);
-      qDebug() << units_.size();
     }
 
 }

@@ -9,12 +9,15 @@
 
 namespace Aeta {
 
+/**
+ * @brief The GameEventHandler class calculates the player resources using the course-side class.
+ */
 class GameEventHandler : public Course::iGameEventHandler {
 
 public:
 
     /**
-     * @brief The GameEventHandler class calculates the player resources using the course-side class.
+     * @brief Class constructor
      */
     GameEventHandler();
 

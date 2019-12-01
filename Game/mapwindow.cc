@@ -180,9 +180,9 @@ void MapWindow::generateMap() {
     // Add tile types to the world generator
     worldGen.addConstructor<GrassTile>(200);
     worldGen.addConstructor<ForestTile>(75);
-    worldGen.addConstructor<Swamp>(2);
+    worldGen.addConstructor<Swamp>(3);
     worldGen.addConstructor<Lake>(30);
-    worldGen.addConstructor<Mountain>(4);
+    worldGen.addConstructor<Mountain>(5);
 
     // Execute world generation and pass tiles to objectManager
     worldGen.generateMap(static_cast<uint>(mapsizeX_), static_cast<uint>(mapsizeY_),
@@ -202,10 +202,6 @@ void MapWindow::initializePlayer1() {
     /* Create starting buildings and units for the player and add
      * them to the game
      */
-
-    // TODO: Change tile to grass before building
-
-    // Create objects
 
     std::shared_ptr<Headquarters> headquarters = std::make_shared<
             Headquarters>(gameEventHandler_, objectManager_, player,
@@ -738,11 +734,11 @@ void MapWindow::updateResourceLabels() {
                 object->getType() == "Cavalry") {
             auto unit = std::dynamic_pointer_cast<UnitBase>(object);
             auto resourceMap = unit->UPKEEP;
-            coins += resourceMap.at(Course::BasicResource::MONEY);
-            food += resourceMap.at(Course::BasicResource::FOOD);
-            wood += resourceMap.at(Course::BasicResource::WOOD);
-            stone += resourceMap.at(Course::BasicResource::STONE);
-            ore += resourceMap.at(Course::BasicResource::ORE);
+            coins += static_cast<int>(resourceMap.at(Course::BasicResource::MONEY));
+            food += static_cast<int>(resourceMap.at(Course::BasicResource::FOOD));
+            wood += static_cast<int>(resourceMap.at(Course::BasicResource::WOOD));
+            stone += static_cast<int>(resourceMap.at(Course::BasicResource::STONE));
+            ore += static_cast<int>(resourceMap.at(Course::BasicResource::ORE));
         }
     }
 
@@ -762,7 +758,6 @@ void MapWindow::centerViewtoHQ() {
     for (auto obj : playerInTurn_->getObjects()) {
         if (obj->getType() == "Headquarters") {
             mapFocusLocation = obj->getCoordinatePtr();
-            qDebug() << "ID" << QString::fromStdString(std::to_string(obj->ID));
         }
     }
 
@@ -1125,10 +1120,15 @@ void MapWindow::updateUI() {
             ui_->damageNumberLabel->setText(QString::fromStdString(std::to_string(unit->getDamage())));
             ui_->rangeNumberLabel->setText(QString::fromStdString(std::to_string(unit->getRange())));
 
+            // If unit is enemy, hide movement options
             if (playerInTurn_ != unit->getOwner()) {
                 ui_->moveButton->setVisible(false);
+                ui_->movementPointLabel->setVisible(false);
+                ui_->movementPointNumber->setVisible(false);
             } else {
                 ui_->moveButton->setVisible(true);
+                ui_->movementPointLabel->setVisible(true);
+                ui_->movementPointNumber->setVisible(true);
             }
 
             // Update move button
@@ -1395,8 +1395,6 @@ void MapWindow::onMoveModeActivate() {
 
     if (movementPoints > 0) {
         neighborCoordinates = selectedTile_->getCoordinate().neighbours(1);
-    } else {
-        qDebug() << "No movement points";
     }
 
     std::vector<std::shared_ptr<Course::TileBase>> neighborTiles =
@@ -1495,19 +1493,17 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                     showTextAnimation("-" +
                                       QString::number(selectedUnit_->getDamage()),
                                       tile->getCoordinate(), Qt::red);
-                    qDebug() << "HQ took damage";
                     moveIsAttackOnly = true;
 
                     // HQ Destroyed -> Game won
                     if (HQDestroyed) {
                         demolishBuilding(building, tile);
-                        qDebug() << "HQ DESTROYED";
                         moveIsAttackOnly = false;
                         gameOver();
                     }
 
+                // Attack other building
                 } else {
-                    qDebug() << "ENEMY BUILDING DESTROYED";
                     demolishBuilding(building, tile);
                     showTextAnimation(QString::fromStdString(building->getType())
                                       + " destroyed!",
@@ -1751,7 +1747,6 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
             uint tileID = scene_->tileClicked(event, true);
             qDebug() << "Got tileID: " << tileID;
             selectedTile_ = objectManager_->getTile(tileID);
-            qDebug() << "selected tile ID: " << selectedTile_->ID;
             selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
             updateUI();
             return true;

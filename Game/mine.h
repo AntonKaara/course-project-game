@@ -7,6 +7,9 @@
 
 namespace Aeta {
 
+/**
+ * @brief The Mine class represents a mine building in the game
+ */
 class Mine : public Course::BuildingBase {
 
 public:
@@ -20,7 +23,6 @@ public:
      * @param tilespaces points to the amount of spaces taken.
      * @param buildCost has the cost of the building listed as a resourcemap.
      * @param production has the production per turn listed as a resourcemap.
-
      */
     Mine(const std::shared_ptr<Course::iGameEventHandler> &eventHandler,
          const std::shared_ptr<Course::iObjectManager> &objectManager,

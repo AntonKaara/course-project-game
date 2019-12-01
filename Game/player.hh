@@ -12,6 +12,9 @@
 
 namespace Aeta {
 
+/**
+ * @brief The Player class keeps track of player owned items and is used to set and get resources too
+ */
 class Player : public Course::PlayerBase {
 
 public:

@@ -8,6 +8,9 @@
 
 namespace Aeta {
 
+/**
+ * @brief The Unitbase class is a base class for the soldier units
+ */
 class UnitBase : public Course::WorkerBase {
 
 public:

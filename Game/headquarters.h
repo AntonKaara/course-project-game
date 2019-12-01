@@ -7,6 +7,9 @@
 
 namespace Aeta {
 
+/**
+ * @brief The Headquarters class represents a HQ building in the game
+ */
 class Headquarters : public Course::BuildingBase {
 
 public:
