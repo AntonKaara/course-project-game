@@ -1,6 +1,9 @@
 #include "welcome.h"
 #include "ui_welcome.h"
 
+#include <QTextCursor>
+#include <QString>
+
 Welcome::Welcome(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Welcome)
@@ -40,9 +43,10 @@ void Welcome::setText(const QString &player1Name,
            "in Pirkanmaa, a region described to be filled to the brim with much "
            "needed resources and land.\n\n"
 
-           "Everard promoted " + player1Name + " to commander of the army. "
-           + player1Name + " commanded the army to attack. Battlecry echoed "
-           "in the air as the northern warriors charged towards Pirkanmaa..\n\n"
+           "Everard promoted " + player1Name + " to commanders position in "
+           "the army. " + player1Name + " commanded the army to attack. "
+           "Battlecry echoed in the air as the northern warriors charged "
+           "towards Pirkanmaa..\n\n"
 
            "At the same time, in the South, King Cerill 'The Colossus', the "
            "ruler of the Kingdom of Essumos, was upon an inevitable fate of "
@@ -116,7 +120,7 @@ void Welcome::setText(const QString &player1Name,
            "prove useful due to their ranged attacks. Cavalry units are the "
            "fastest and make the most damage.\n\n";
 
-           ui->textBrowser->append(unitGeneral);
+           ui->textBrowser->append(units);
            ui->textBrowser->setFontWeight(QFont::Bold);
 
            QString winnerAndGl =
@@ -125,4 +129,11 @@ void Welcome::setText(const QString &player1Name,
            "Good luck on your Conquest of Pirkanmaa!\n\n";
 
            ui->textBrowser->append(winnerAndGl);
+
+           // lastly set the scrollbar back up after appending all the text
+
+           QTextCursor cursor = ui->textBrowser->textCursor();
+           cursor.setPosition(0);
+           ui->textBrowser->setTextCursor(cursor);
+
 }

@@ -28,6 +28,12 @@ public:
 
 public slots:
 
+    /**
+     * @brief setText Adds a story/help text to the welcome dialog
+     * window's textbrowser.
+     * @param player1Name User specified player name to use in the story.
+     * @param player2Name User specified player name to use in the story.
+     */
     void setText(const QString &player1Name,
                  const QString &player2Name);
 

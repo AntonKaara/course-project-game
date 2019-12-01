@@ -9,7 +9,7 @@
 
 namespace Aeta {
 
-// RESOURCEMAP STORAGE :D
+// RESOURCEMAP STORAGE
 
 const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
 
@@ -18,16 +18,6 @@ const Course::ResourceMapDouble PLAYER_STARTING_RESOURCES = {
     {Course::BasicResource::WOOD, 5000.0},
     {Course::BasicResource::STONE, 500.0},
     {Course::BasicResource::ORE, 200.0}
-
-};
-
-const Course::ResourceMap FOREST_CHOP_GAIN = {
-
-    {Course::BasicResource::MONEY, 0},
-    {Course::BasicResource::FOOD, 0},
-    {Course::BasicResource::WOOD, 15},
-    {Course::BasicResource::STONE, 0},
-    {Course::BasicResource::ORE, 0}
 
 };
 

@@ -19,30 +19,30 @@ UnitBase::UnitBase(const std::shared_ptr<Course::iGameEventHandler > &eventhandl
 }
 
 std::string UnitBase::getType() const {
-    return "Generic unit"; // Override in child classes
+    return "Generic unit";
 }
 
 void UnitBase::doSpecialAction() {
-    // Override in child classes
+
 }
+
 
 bool UnitBase::attackUnit(std::shared_ptr<UnitBase> unitUnderAttack) {
 
     unitUnderAttack->changeHealth(-damage_);
 
+    // return true if enemy died, false otherwise
+
     if (unitUnderAttack->getHealth() <= 0) {
-        return true; // Tell mapwindow the enemy is dead
+        return true;
     } else {
         return false;
     }
 
 }
 
-bool UnitBase::canBePlacedOnTile(
-        const std::shared_ptr<Course::TileBase> &tile) const {
-
+bool UnitBase::canBePlacedOnTile(const std::shared_ptr<Course::TileBase> &tile) const {
     return true;
-
 }
 
 void UnitBase::setName(const std::string name) {

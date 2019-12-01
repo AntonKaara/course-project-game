@@ -1347,61 +1347,19 @@ void MapWindow::updateHighScores() {
 
 }
 
-std::shared_ptr<Course::TileBase> MapWindow::cutForest(
+void MapWindow::cutForest(
         const std::shared_ptr<Course::TileBase> &tile) {
 
-    std::shared_ptr<Course::Coordinate> coordPtr =
-            tile->getCoordinatePtr();
-    Course::Coordinate& coordinate = *coordPtr;
-    std::shared_ptr<Player> tileOwner =
-            std::dynamic_pointer_cast<Player>(tile->getOwner());
-
-    /* Create a new basic grasstile. Put it on the forests place, play
-     * wood gain animation and draw appropriately owned grass on the
-     * forests place. Add the resources to the player and update UI.
+    /* play wood gain animation and add the resources to the
+     * player and update UI.
      */
 
-    auto grassTile = std::make_shared<GrassTile>(
-                coordinate, gameEventHandler_, objectManager_, 1, 1,
-                Course::ConstResourceMaps::GRASSLAND_BP);
-
-    // first set the right owner for the new grassTile
-
-    std::size_t notInTurn; // vector location
-
-    if(playerInTurn_->getName() == "1") {
-        notInTurn = 1;
-    } else {
-        notInTurn = 0;
-    }
-
-    if (tileOwner != nullptr) {
-
-        if (tileOwner == playerInTurn_) {
-            grassTile->setOwner(playerInTurn_);
-        } else {
-            grassTile->setOwner(players_.at(notInTurn));
-        }
-
-    }
-
-    objectManager_->removeTile(tile);
-    scene_->removeItem(tile);
-    objectManager_->addTiles({grassTile});
-    scene_->drawTile(grassTile);
-
-    showTextAnimation("+15 wood!", grassTile->getCoordinate(),
+    showTextAnimation("+5 wood!", tile->getCoordinate(),
                       Qt::green);
     gameEventHandler_->modifyResource(playerInTurn_,
                                       Course::BasicResource::WOOD,
-                                      15);
+                                      5);
     updateUI();
-
-    // return new tile in right form
-
-    auto newTilePtr = std::dynamic_pointer_cast<Course::TileBase>(grassTile);
-
-    return newTilePtr;
 
 }
 
@@ -1565,10 +1523,9 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
             auto coordinate = selectedTile_->getCoordinate();
 
-//            if (tile->getType() == "Forest") {
-//                auto newTile = cutForest(tile);
-
-//            }
+            if (tile->getType() == "Forest") {
+                cutForest(tile);
+            }
 
             selectedUnit_->setCoordinate(coordinate);
             selectedTile_->removeWorker(selectedUnit_);

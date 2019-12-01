@@ -74,8 +74,7 @@ public:
     bool moveUnit(const std::shared_ptr<Course::TileBase> &tile);
     bool attackHQ(const std::shared_ptr<Course::TileBase> &tile,
                   const std::shared_ptr<UnitBase> &attacker);
-    std::shared_ptr<Course::TileBase> cutForest(
-            const std::shared_ptr<Course::TileBase> &tile);
+    void cutForest(const std::shared_ptr<Course::TileBase> &tile);
 
     // Other mechanics
 

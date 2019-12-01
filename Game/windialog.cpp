@@ -59,3 +59,7 @@ void WinDialog::on_menuButton_clicked() {
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 
 }
+
+void WinDialog::reject() {
+    qApp->quit();
+}

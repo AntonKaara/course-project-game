@@ -28,6 +28,21 @@ public:
 
 public slots:
 
+    /**
+     * @brief setHighScore Adds the text and statistics to the victory
+     * dialog window.
+     * @param turn Turn amount in which the game has been won.
+     * @param winPlayer Player who won.
+     * @param losePlayer Player who lost.
+     * @param player1Name User specified name for player 1.
+     * @param player2Name User specified name for player 2.
+     * @param p1Tiles Most tiles owned by player 1.
+     * @param p2Tiles Most tiles owned by player 2.
+     * @param p1Buildings Most buildings owned by player 1.
+     * @param p2Buildings Most buildings owned by player 2.
+     * @param p1ArmySize Most units owned by player 1.
+     * @param p2ArmySize Most units owned by player 2.
+     */
     void setHighScore(int turn,
                           QString winPlayer,
                           QString losePlayer,
@@ -42,8 +57,21 @@ public slots:
 
 private slots:
 
+    /**
+     * @brief on_quitButton_clicked quits the whole program.
+     */
     void on_quitButton_clicked();
+
+    /**
+     * @brief on_menuButton_clicked starts the program again.
+     */
     void on_menuButton_clicked();
+
+    /**
+     * @brief reject Overridden reject to close the whole program
+     * when X-button is pressed.
+     */
+    void reject() override;
 
 private:
     Ui::WinDialog *ui;
