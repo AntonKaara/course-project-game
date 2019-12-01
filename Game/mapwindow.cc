@@ -606,6 +606,7 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
     }
 
     tile->removeBuilding(building);
+    playerInTurn_->removeObject(building);
     objectManager_->removeBuilding(building);
 
     /* Update other outposts' conquered tiles in case some tiles were
@@ -620,6 +621,7 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
 
     }
 
+    updateResourceLabels();
     updateUI();
     updateHighScores();
 
@@ -824,6 +826,26 @@ void MapWindow::on_zoomOutButton_clicked() {
     }
 
 }
+
+void Aeta::MapWindow::on_removeUnitButton_clicked(){
+
+    scene_->removeMoveMarkers();
+    scene_->removeAttackMarkers();
+    selectedTile_->removeWorker(selectedUnit_);
+    objectManager_->removeUnit(selectedUnit_);
+    scene_->update();
+
+    if (moveMode_) {
+        on_moveButton_clicked();
+    }
+
+    updateResourceLabels();
+    updateUI();
+
+
+}
+
+
 
 void MapWindow::on_endTurnButton_clicked() {
 
@@ -1122,16 +1144,18 @@ void MapWindow::updateUI() {
             ui_->damageNumberLabel->setText(QString::fromStdString(std::to_string(unit->getDamage())));
             ui_->rangeNumberLabel->setText(QString::fromStdString(std::to_string(unit->getRange())));
 
-            // If unit is enemy, hide movement options
+            // If unit is enemy, hide movement and remove options
 
             if (playerInTurn_ != unit->getOwner()) {
                 ui_->moveButton->setVisible(false);
                 ui_->movementPointLabel->setVisible(false);
                 ui_->movementPointNumber->setVisible(false);
+                ui_->removeUnitButton->setVisible(false);
             } else {
                 ui_->moveButton->setVisible(true);
                 ui_->movementPointLabel->setVisible(true);
                 ui_->movementPointNumber->setVisible(true);
+                ui_->removeUnitButton->setVisible(true);
             }
 
             // Update move button
@@ -1144,15 +1168,20 @@ void MapWindow::updateUI() {
                 ui_->moveButton->setText("Move / Attack");
             }
 
-            // Gray out the button when movement points run out
+            // Gray out the button when resources or movement points have ran out
 
-            if (selectedUnit_->getMovement() == 0) {
+            if (!checkIfEnoughResources(selectedUnit_->UPKEEP, playerInTurn_)) {
                 ui_->moveButton->setEnabled(false);
                 ui_->moveButton->setStyleSheet("background-color:gray;" "color:black");
-                ui_->moveButton->setToolTip("Your unit is too tired to continue");
+                ui_->moveButton->setToolTip("You don't have enough resources to pay the "
+                                            "unit!");
+            } else if (selectedUnit_->getMovement() == 0) {
+                ui_->moveButton->setEnabled(false);
+                ui_->moveButton->setStyleSheet("background-color:gray;" "color:black");
+                ui_->moveButton->setToolTip("Your unit is too tired to continue!");
             } else {
                 ui_->moveButton->setEnabled(true);
-                ui_->moveButton->setToolTip("Move the unit or attack enemy units");
+                ui_->moveButton->setToolTip("Move the unit or attack enemy units!");
             }
 
             // Set UI picture for unit
@@ -1222,6 +1251,21 @@ void MapWindow::gameOver() {
 
 bool MapWindow::checkIfEnoughResources(const Course::ResourceMap &resourcesRequired,
                                        const std::shared_ptr<Player> &player) {
+
+    for (auto resource : player->getResources()) {
+
+        if (abs(resourcesRequired.at(resource.first)) > resource.second) {
+            return false;
+        }
+
+    }
+    return true;
+
+}
+
+bool MapWindow::checkIfEnoughResources(
+        const Course::ResourceMapDouble &resourcesRequired,
+        const std::shared_ptr<Player> &player) {
 
     for (auto resource : player->getResources()) {
 
@@ -1524,7 +1568,7 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
 
             auto coordinate = selectedTile_->getCoordinate();
 
-            if (tile->getType() == "Forest") {
+            if (tile->getType() == "Forest" && tile->getBuildingCount() == 0) {
                 cutForest(tile);
             }
 
@@ -1760,20 +1804,13 @@ bool MapWindow::eventFilter(QObject *object, QEvent *event) {
 void MapWindow::addPixmaps() {
 
     std::vector<std::string> types = {"Archery", "Archery1", "Archery2",
-                                      "Archery1Free", "Archery1Owned",
-                                      "Archery2Free", "Archery2Owned",
                                       "Cavalry", "Cavalry1", "Cavalry2",
-                                      "Cavalry1Free",
-                                      "Cavalry1Owned", "Cavalry2Free",
-                                      "Cavalry2Owned",
                                       "Coins", "Farm", "Farm1", "Farm2",
                                       "Food", "Forest", "Forest1",
                                       "Forest2", "Grass", "Grass1",
                                       "Grass2", "Headquarters",
                                       "Headquarters1", "Headquarters2",
                                       "Infantry", "Infantry1", "Infantry2",
-                                      "Infantry1Free", "Infantry1Owned",
-                                      "Infantry2Free", "Infantry2Owned",
                                       "Lake", "Lake1", "Lake2",
                                       "Lumbermill", "Lumbermill1",
                                       "Lumbermill2", "Mine", "Mine1",

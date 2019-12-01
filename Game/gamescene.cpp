@@ -178,7 +178,9 @@ uint GameScene::tileClicked(QEvent *event, bool moveHighlighter) {
             point.rx() = floor(point.rx());
             point.ry() = floor(point.ry());
 
-            // Pressed item has to be the tile which is second last item on the items vector
+            /* Pressed item has to be the tile which is second last item on the
+             * items vector
+             */
             QGraphicsItem* pressed = items(point).at(items(point).size() - 2);
             MapItem* mapItemPressed = static_cast<MapItem*>(pressed);
 

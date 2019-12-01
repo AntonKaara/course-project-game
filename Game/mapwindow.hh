@@ -195,11 +195,24 @@ public:
     void gameOver();
 
     /**
-     * @brief Resource amount check to prevent resources from plummeting to negatives when buying
+     * @brief Checks player resource amounts if they are enough to buy/recruit/
+     * pay an upkeep.
      * @param amount of resources required as ResourceMap
      * @param playerInTurn
+     * @return True if enough, false otherwise
      */
     bool checkIfEnoughResources(const Course::ResourceMap &resourcesRequired,
+                                const std::shared_ptr<Player> &player);
+
+    /**
+     * @brief checkIfEnoughResources Checks player resource amounts if they are
+     * enough to buy/recruit/pay an upkeep.
+     * @param resourcesRequired amount of resources required as ResourceMapDouble
+     * @param player playerInTurn
+     * @return True if enough, false otherwise
+     */
+
+    bool checkIfEnoughResources(const Course::ResourceMapDouble &resourcesRequired,
                                 const std::shared_ptr<Player> &player);
 
     /**
@@ -283,6 +296,7 @@ private slots:
     void on_recruitList_doubleClicked(const QModelIndex &index);
     void on_buildList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void on_recruitList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_removeUnitButton_clicked();
 
 private:
 

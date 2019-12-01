@@ -342,7 +342,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>2</number>
         </property>
         <property name="tabBarAutoHide">
          <bool>false</bool>
@@ -1057,6 +1057,23 @@
           </property>
           <property name="text">
            <string>XXX</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="removeUnitButton">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>210</y>
+            <width>111</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(164, 0, 0);
+color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Remove unit</string>
           </property>
          </widget>
         </widget>

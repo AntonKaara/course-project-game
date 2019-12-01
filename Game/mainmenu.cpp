@@ -1,5 +1,7 @@
 #include "mainmenu.hh"
 #include "ui_mainmenu.h"
+#include <QString>
+#include <QPixmap>
 
 MainMenu::MainMenu(QWidget *parent) :
     QDialog(parent),
@@ -8,6 +10,11 @@ MainMenu::MainMenu(QWidget *parent) :
     // Construct the UI and its style
     ui->setupUi(this);
     ui->playButton->setStyleSheet("background-color:green;" "color:white");
+    QString filePath = QString::fromStdString(":/pictures/pictures/Logo.png");
+    QPixmap image(filePath);
+    ui->gameNameLabel->setScaledContents(true);
+    ui->gameNameLabel->setPixmap(image);
+
 
     //Tooltips
     ui->mapSizeComboBox->setToolTip("Select map size");

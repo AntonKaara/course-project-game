@@ -72,10 +72,10 @@ void GameEventHandlerTest::modifyResourcesIntTest() {
     };
 
     Course::ResourceMap expectedResult = {
-        {Course::BasicResource::MONEY, 110},
-        {Course::BasicResource::FOOD, 20},
-        {Course::BasicResource::WOOD, 60},
-        {Course::BasicResource::STONE, 15},
+        {Course::BasicResource::MONEY, 285},
+        {Course::BasicResource::FOOD, 60},
+        {Course::BasicResource::WOOD, 130},
+        {Course::BasicResource::STONE, 60},
         {Course::BasicResource::ORE, 12}
     };
 
@@ -101,10 +101,10 @@ void GameEventHandlerTest::modifyResourcesDoubleTest() {
     };
 
     Course::ResourceMapDouble expectedResult = {
-        {Course::BasicResource::MONEY, 110.5},
-        {Course::BasicResource::FOOD, 20.5},
-        {Course::BasicResource::WOOD, 60.5},
-        {Course::BasicResource::STONE, 15.5},
+        {Course::BasicResource::MONEY, 285.5},
+        {Course::BasicResource::FOOD, 60.5},
+        {Course::BasicResource::WOOD, 130.5},
+        {Course::BasicResource::STONE, 60.5},
         {Course::BasicResource::ORE, 12.5}
     };
 
@@ -124,10 +124,10 @@ void GameEventHandlerTest::modifyResourceTest() {
     gameEventHandler->modifyResource(player, Course::BasicResource::WOOD, 1);
 
     Course::ResourceMap expectedResult = {
-        {Course::BasicResource::MONEY, 100},
-        {Course::BasicResource::FOOD, 10},
-        {Course::BasicResource::WOOD, 51},
-        {Course::BasicResource::STONE, 5},
+        {Course::BasicResource::MONEY, 275},
+        {Course::BasicResource::FOOD, 50},
+        {Course::BasicResource::WOOD, 121},
+        {Course::BasicResource::STONE, 50},
         {Course::BasicResource::ORE, 2}
     };
 

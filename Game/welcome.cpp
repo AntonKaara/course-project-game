@@ -10,6 +10,10 @@ Welcome::Welcome(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->acceptButton->setStyleSheet("background-color:darkGreen;" "color:white");
+    QString filePath = QString::fromStdString(":/pictures/pictures/Logo.png");
+    QPixmap image(filePath);
+    ui->label->setScaledContents(true);
+    ui->label->setPixmap(image);
 }
 
 Welcome::~Welcome() {

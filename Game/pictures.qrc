@@ -1,9 +1,5 @@
 <RCC>
     <qresource prefix="/pictures">
-        <file>pictures/Archery1Free.png</file>
-        <file>pictures/Archery1Owned.png</file>
-        <file>pictures/Archery2Free.png</file>
-        <file>pictures/Archery2Owned.png</file>
         <file>pictures/ArcherLVL2.png</file>
         <file>pictures/Coins.png</file>
         <file>pictures/Farm.png</file>
@@ -19,10 +15,6 @@
         <file>pictures/Headquarters.png</file>
         <file>pictures/Headquarters1.png</file>
         <file>pictures/Headquarters2.png</file>
-        <file>pictures/Infantry1Free.png</file>
-        <file>pictures/Infantry1Owned.png</file>
-        <file>pictures/Infantry2Free.png</file>
-        <file>pictures/Infantry2Owned.png</file>
         <file>pictures/InfantryLVL2.png</file>
         <file>pictures/Ore.png</file>
         <file>pictures/Outpost.png</file>
@@ -36,10 +28,6 @@
         <file>pictures/Archery.png</file>
         <file>pictures/Infantry.png</file>
         <file>pictures/Cavalry.png</file>
-        <file>pictures/Cavalry1Free.png</file>
-        <file>pictures/Cavalry1Owned.png</file>
-        <file>pictures/Cavalry2Free.png</file>
-        <file>pictures/Cavalry2Owned.png</file>
         <file>pictures/Lake.png</file>
         <file>pictures/Lake1.png</file>
         <file>pictures/Lake2.png</file>
@@ -59,5 +47,6 @@
         <file>pictures/Cavalry2.png</file>
         <file>pictures/Infantry1.png</file>
         <file>pictures/Infantry2.png</file>
+        <file>pictures/Logo.png</file>
     </qresource>
 </RCC>
