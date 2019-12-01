@@ -1,0 +1,6 @@
+<map id="Course::PlaceableGameObject::canBePlacedOnTile" name="Course::PlaceableGameObject::canBePlacedOnTile">
+<area shape="rect" id="node2" href="$class_course_1_1_building_base.html#add23c593f509f39654f2d5abc7d8c072" title="Returns boolean based on wheter the building can or can&#39;t be placed on a Tile&#45;object. " alt="" coords="283,5,431,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_placeable_game_object.html#a241f1bdff178b2e0414e57c8a23aa32e" title="Set the PlaceableGameObject&#39;s location. " alt="" coords="256,71,459,112"/>
+<area shape="rect" id="node4" href="$class_course_1_1_worker_base.html#ad80874970ab91bca95b9d3f959e838d2" title="Default placement rule for workers: . " alt="" coords="285,136,430,177"/>
+<area shape="rect" id="node5" href="$class_course_1_1_basic_worker.html#ab12d85004e92d9a1e85396d72c6cac98" title="Check if the worker can be placed on the Tile according to it&#39;s placement rule. Only rule is that the..." alt="" coords="507,136,653,177"/>
+</map>

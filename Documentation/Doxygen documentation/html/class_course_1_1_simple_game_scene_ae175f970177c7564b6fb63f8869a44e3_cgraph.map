@@ -1,0 +1,5 @@
+<map id="Course::SimpleGameScene::updateItem" name="Course::SimpleGameScene::updateItem">
+<area shape="rect" id="node2" href="$class_course_1_1_simple_map_item.html#a95cc703e4962903f3a67bee4eb7c7165" title="checks if this instance has obj as bound obj. " alt="" coords="237,5,400,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_simple_map_item.html#a7b064cd8193aff3a1e810582e9e75786" title="updateLoc moves the item if the position has changed. " alt="" coords="237,71,400,112"/>
+<area shape="rect" id="node4" href="$class_course_1_1_simple_map_item.html#ad103986c7b67b3e1c69e10291e6c4b36" title="boundingRect " alt="" coords="448,71,611,112"/>
+</map>

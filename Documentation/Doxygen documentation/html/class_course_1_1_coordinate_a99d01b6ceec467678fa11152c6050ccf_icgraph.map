@@ -1,0 +1,7 @@
+<map id="Course::Coordinate::translate_direction" name="Course::Coordinate::translate_direction">
+<area shape="rect" id="node2" href="$class_course_1_1_coordinate.html#aafa8af9f2c02d52783125ec0cb995afc" title="travel Increments the coordinate values to given direction. Optionally can give how many increments a..." alt="" coords="189,71,324,112"/>
+<area shape="rect" id="node5" href="$class_course_1_1_coordinate.html#a77709669982458840d25524d80c87d5d" title="neighbour_at Returns a new Coordinate object instead of changing the current one " alt="" coords="189,136,324,177"/>
+<area shape="rect" id="node3" href="$class_course_1_1_coordinate.html#ac9bcd7dd340797833364a448c2be59f4" title="Copy&#45;constructor where the new Coordinate is moved. " alt="" coords="372,5,507,47"/>
+<area shape="rect" id="node4" href="$classdefault__coordinate.html#acdd8347e4ae9325221f1056270d1ef5b" title="default_coordinate\l::test_travel" alt="" coords="375,71,503,112"/>
+<area shape="rect" id="node6" href="$classdefault__coordinate.html#a66fb93f53378b5448839a822e9942c98" title="default_coordinate\l::test_neighbour_at" alt="" coords="373,136,506,177"/>
+</map>

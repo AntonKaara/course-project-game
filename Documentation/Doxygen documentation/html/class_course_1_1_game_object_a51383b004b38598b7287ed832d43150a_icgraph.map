@@ -1,0 +1,6 @@
+<map id="Course::GameObject::getCoordinatePtr" name="Course::GameObject::getCoordinatePtr">
+<area shape="rect" id="node2" href="$class_course_1_1_head_quarters.html#addf7f7f78486ce17024a639f15f25649" title="Sets neighbouring Tiles&#39; ownership to this building&#39;s ownership in 3 tile&#45;radius, if the Tiles don&#39;t ..." alt="" coords="217,5,371,47"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_headquarters.html#abc2674ce3e6d7b9642b60b7a5ede321f" title="Conquers neighboring tiles when built. " alt="" coords="227,71,361,112"/>
+<area shape="rect" id="node4" href="$class_course_1_1_outpost.html#a81849d7b0b1731051e5f26e9df213d6b" title="Sets neighbouring Tiles&#39; ownership to this building&#39;s ownership in 1 tile&#45;radius, if the Tiles don&#39;t ..." alt="" coords="209,136,379,177"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_outpost.html#a09f5d1dc173986be04b6fc82c0173db3" title="Performs building&#39;s possible action after construction. " alt="" coords="199,202,389,229"/>
+</map>

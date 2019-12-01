@@ -1,0 +1,4 @@
+<map id="Aeta::MapItem::isSameObj" name="Aeta::MapItem::isSameObj">
+<area shape="rect" id="node2" href="$class_aeta_1_1_game_scene.html#aa5efdfa0b38d9a781bd9f7f5f15f5cd9" title="Updates a single MapTile object on the scene. " alt="" coords="235,5,438,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_game_scene.html#a702ba513d8400975985412d5b7d5a049" title="Removes a MapTile object from the scene. " alt="" coords="233,56,440,83"/>
+</map>

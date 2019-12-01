@@ -1,0 +1,5 @@
+<map id="Aeta::MapWindow::drawMap" name="Aeta::MapWindow::drawMap">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a1c38519f9c3513b4c1333e10a6e35aba" title="Set the scene size to mapsize. " alt="" coords="247,5,429,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a7ee36c673d2af74e25e5558df16e3fed" title="Set tilesize in px in scene. " alt="" coords="244,56,432,83"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#ad576b83ea4a2ef9d93246723ef218ccd" title="Draw map object as MapItem in scene. " alt="" coords="245,107,431,133"/>
+</map>

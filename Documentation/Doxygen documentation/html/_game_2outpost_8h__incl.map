@@ -1,0 +1,14 @@
+<map id="/home/anton/projekti_ohj3/aeta/Game/outpost.h" name="/home/anton/projekti_ohj3/aeta/Game/outpost.h">
+<area shape="rect" id="node2" href="$buildingbase_8h.html" title="buildings/buildingbase.h" alt="" coords="861,244,1021,271"/>
+<area shape="rect" id="node11" href="$objectmanager_8hh.html" title="objectmanager.hh" alt="" coords="877,95,1003,121"/>
+<area shape="rect" id="node3" href="$placeablegameobject_8h.html" title="core/placeablegameobject.h" alt="" coords="861,319,1045,345"/>
+<area shape="rect" id="node10" href="$basicresources_8h.html" title="core/basicresources.h" alt="" coords="635,319,786,345"/>
+<area shape="rect" id="node4" href="$gameobject_8h.html" title="gameobject.h" alt="" coords="781,393,881,420"/>
+<area shape="rect" id="node9" href="$coordinate_8h.html" title="coordinate.h" alt="" coords="889,468,983,495"/>
+<area shape="rect" id="node12" href="$iobjectmanager_8h.html" title="interfaces/iobjectmanager.h" alt="" coords="94,393,277,420"/>
+<area shape="rect" id="node13" href="$tilebase_8h.html" title="tiles/tilebase.h" alt="" coords="665,169,772,196"/>
+<area shape="rect" id="node17" href="$unitbase_8h.html" title="unitbase.h" alt="" coords="1244,169,1327,196"/>
+<area shape="rect" id="node14" href="$resourcemaps_8h.html" title="core/resourcemaps.h" alt="" coords="592,244,736,271"/>
+<area shape="rect" id="node15" href="$igameeventhandler_8h.html" title="interfaces/igameeventhandler.h" alt="" coords="365,244,568,271"/>
+<area shape="rect" id="node16" href="$workerbase_8h.html" title="workers/workerbase.h" alt="" coords="1046,244,1197,271"/>
+</map>

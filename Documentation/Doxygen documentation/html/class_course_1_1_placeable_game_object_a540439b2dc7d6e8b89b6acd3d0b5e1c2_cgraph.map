@@ -1,0 +1,4 @@
+<map id="Course::PlaceableGameObject::canBePlacedOnTile" name="Course::PlaceableGameObject::canBePlacedOnTile">
+<area shape="rect" id="node2" href="$class_course_1_1_game_object.html#a3c923e5d874cada8661d37002073c111" title="Returns GameObject&#39;s owner. " alt="" coords="449,5,595,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_game_object.html#a1c592d7013f54f62be5eb6a99fcdfd64" title="Function to compare if objects have same owner. " alt="" coords="256,35,401,76"/>
+</map>

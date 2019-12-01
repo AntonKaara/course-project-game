@@ -1,0 +1,5 @@
+<map id="Aeta::MapWindow::showTextAnimation" name="Aeta::MapWindow::showTextAnimation">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a8c442fa1a748e5be53935c1c97381348" title="Produces wood resource when walking over forest. " alt="" coords="248,5,440,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#ad7211d57598eaa727b8b7a26f0694d4d" title="Move/Attack handling &#45; Move unit from to given tile and attack if enemy unit on that tile..." alt="" coords="488,31,681,57"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#a942c73537adfbcca85248e29126d00b1" title="Kidnaps events going to scene to make the movement system possible. " alt="" coords="729,31,928,57"/>
+</map>

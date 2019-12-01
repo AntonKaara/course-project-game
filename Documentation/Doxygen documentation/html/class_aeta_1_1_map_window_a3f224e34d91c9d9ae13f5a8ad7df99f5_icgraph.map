@@ -1,0 +1,5 @@
+<map id="Aeta::MapWindow::centerViewtoHQ" name="Aeta::MapWindow::centerViewtoHQ">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a14ce2a98b5bc4d54c4ce6f1aaff5db6c" title="Class constructor. " alt="" coords="287,5,496,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a84c1dc5621cfad4f987f8ab0f11ebaa2" title="Executed at the end of the turn, change turns, add resources.. " alt="" coords="299,56,483,83"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#a882e5616faaf9e39286307df2c53c29f" title="Aeta::MapWindow::on\l_endTurnButton_clicked" alt="" coords="544,49,707,90"/>
+</map>

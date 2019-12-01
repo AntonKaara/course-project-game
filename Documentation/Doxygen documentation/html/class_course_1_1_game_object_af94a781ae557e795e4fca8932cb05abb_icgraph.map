@@ -1,0 +1,12 @@
+<map id="Course::GameObject::setDescription" name="Course::GameObject::setDescription">
+<area shape="rect" id="node2" href="$class_aeta_1_1_farm.html#a24c88b5569b5e1be8dd62cf0b3ba1ef3" title="Constructor for the class. " alt="" coords="231,5,357,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_headquarters.html#a8d183c6001a49b3b1ed93e12ce79754b" title="Constructor for the class. " alt="" coords="227,57,361,98"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_outpost.html#a9bfa6e41f52408c46a472cb31e763bb0" title="Constructor for the class. " alt="" coords="215,123,373,149"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_forest_tile.html#a322c2a682dfbcfe75f9170f24c6076e4" title="Constructor for the class. " alt="" coords="203,173,385,200"/>
+<area shape="rect" id="node6" href="$class_aeta_1_1_grass_tile.html#abf8bf5ed45da1eb0a0b22c19879a0bcf" title="Constructor for the class. " alt="" coords="205,224,383,251"/>
+<area shape="rect" id="node7" href="$class_aeta_1_1_lake.html#aab332661bf2f6758fc03a6f65b88e541" title="Constructor for the class. " alt="" coords="233,275,355,301"/>
+<area shape="rect" id="node8" href="$class_aeta_1_1_lumbermill.html#a55292c6e811182e414007f61a4c618a4" title="Constructor for the class. " alt="" coords="199,325,389,352"/>
+<area shape="rect" id="node9" href="$class_aeta_1_1_mine.html#afea9201b0273f85a5e7160b00cb540a1" title="Constructor for the class. " alt="" coords="233,376,355,403"/>
+<area shape="rect" id="node10" href="$class_aeta_1_1_mountain.html#a0deae13d02ba3f1837b6e71356e0dfe4" title="Constructor for the class. " alt="" coords="209,427,379,453"/>
+<area shape="rect" id="node11" href="$class_aeta_1_1_swamp.html#a28f30ce7b2362a21a3523e43604364ee" title="Constructor for the class. " alt="" coords="217,477,371,504"/>
+</map>

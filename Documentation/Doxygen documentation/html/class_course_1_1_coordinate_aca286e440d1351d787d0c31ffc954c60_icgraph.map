@@ -1,0 +1,6 @@
+<map id="Course::Coordinate::Coordinate" name="Course::Coordinate::Coordinate">
+<area shape="rect" id="node2" href="$class_course_1_1_coordinate.html#a6768a0e3d3f0bf77253c40a5e31b53d7" title="neighbours Returns a Coordinate for each direction. The created vector has the Coordinates in order o..." alt="" coords="188,5,323,47"/>
+<area shape="rect" id="node4" href="$class_course_1_1_coordinate.html#a991efed796ab24c328b5487a5d7274b4" title="operator + Sums two coordinates&#39; x and y values together and returns a new Coordinate with the summed..." alt="" coords="188,71,323,112"/>
+<area shape="rect" id="node5" href="$class_course_1_1_coordinate.html#a129fba3bd1aec84ced0bf39a74dca902" title="operator &#45; Substracts right side coordinate&#39;s x and y values from this x and y values. Returns a new Coordinate with new x and y values " alt="" coords="188,136,323,177"/>
+<area shape="rect" id="node3" href="$classdefault__coordinate.html#a1d8fe20449e7ace996ce4728c932259b" title="default_coordinate\l::test_neighbours" alt="" coords="371,5,499,47"/>
+</map>

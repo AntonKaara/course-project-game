@@ -1,0 +1,25 @@
+<map id="Aeta::MapWindow::MapWindow" name="Aeta::MapWindow::MapWindow">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#ad3ac1fda5fa773d73c8c5a9cc7cda845" title="Set player UI names inputted in main menu. " alt="" coords="266,5,493,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a5e16f79c7b0636f812a1abb1de224de8" title="Set mapsize selected in main menu. " alt="" coords="276,56,483,83"/>
+<area shape="rect" id="node4" href="$class_win_dialog.html#a3e7384d02b63702c7792fcef85fc7ff1" title="setHighScore Adds the text and statistics to the victory dialog window. " alt="" coords="295,107,464,133"/>
+<area shape="rect" id="node5" href="$class_welcome.html#ab78d1ac3e0d4280314437634ba0c4d0c" title="setText Adds a story/help text to the welcome dialog window&#39;s textbrowser. " alt="" coords="315,157,444,184"/>
+<area shape="rect" id="node6" href="$class_aeta_1_1_map_window.html#a29f3f220b65b13690ec1e03f0f702c48" title="Helper function for adding picture filepaths to map structure. " alt="" coords="275,208,484,235"/>
+<area shape="rect" id="node7" href="$class_aeta_1_1_map_window.html#a310051223f0ba60c3817c0fb875fe42d" title="Passes class constructors to Course::WorldGenerator to generate the tiles. " alt="" coords="273,259,485,285"/>
+<area shape="rect" id="node14" href="$class_aeta_1_1_map_window.html#af961127bf6cc7ad22320ec9919e92154" title="Builds the map taking the tile objects from objectManager. " alt="" coords="284,309,475,336"/>
+<area shape="rect" id="node18" href="$class_aeta_1_1_map_window.html#a1b9ceaecf6c3a87b7f8f8ecdf79a6da1" title="Adds player 1 starting buildings and units. " alt="" coords="287,361,471,402"/>
+<area shape="rect" id="node19" href="$class_aeta_1_1_map_window.html#ab3cf29d32770d1bb815fa54832f60d74" title="Adds player 2 starting buildings and units. " alt="" coords="287,426,471,467"/>
+<area shape="rect" id="node20" href="$class_aeta_1_1_map_window.html#a173c24caeacd075260398fc269d0c2da" title="Update UI elements to match to new data. " alt="" coords="284,492,475,519"/>
+<area shape="rect" id="node24" href="$class_aeta_1_1_map_window.html#a3f224e34d91c9d9ae13f5a8ad7df99f5" title="Focuses the camera above player_in_turn HQ. " alt="" coords="263,543,496,569"/>
+<area shape="rect" id="node8" href="$class_course_1_1_world_generator.html#a2b94f9ec5aa516b6528d90fa81868900" title="Used to get a reference to the Singleton instance. " alt="" coords="579,130,741,171"/>
+<area shape="rect" id="node9" href="$class_course_1_1_world_generator.html#adc7ea4ba3cba155910cdb03130c84e75" title="Register a Tile&#39;s constructor for use in map generation. " alt="" coords="579,247,741,289"/>
+<area shape="rect" id="node10" href="$class_course_1_1_world_generator.html#a7fe4468658c14aac5bc282fda98245e1" title="Generates Tile&#45;objects and sends them to ObjectManager. " alt="" coords="824,189,987,230"/>
+<area shape="rect" id="node11" href="$class_course_1_1_world_generator.html#a0bcd491636df6104f055233f67a0f6d3" title="Find the Tile ctor matching the random number. " alt="" coords="1035,218,1197,259"/>
+<area shape="rect" id="node12" href="$class_course_1_1_world_generator.html#a5f75bf6c9132d395a4ab0e5e68d1c599" title="Default constructor. " alt="" coords="824,306,987,347"/>
+<area shape="rect" id="node13" href="$class_course_1_1_world_generator.html#ae1cdc6937568b2a48b82040f4729e7a9" title="Default destructor. " alt="" coords="824,371,987,413"/>
+<area shape="rect" id="node15" href="$class_aeta_1_1_map_window.html#a1c38519f9c3513b4c1333e10a6e35aba" title="Set the scene size to mapsize. " alt="" coords="569,313,751,340"/>
+<area shape="rect" id="node16" href="$class_aeta_1_1_map_window.html#a7ee36c673d2af74e25e5558df16e3fed" title="Set tilesize in px in scene. " alt="" coords="566,364,754,391"/>
+<area shape="rect" id="node17" href="$class_aeta_1_1_map_window.html#ad576b83ea4a2ef9d93246723ef218ccd" title="Draw map object as MapItem in scene. " alt="" coords="567,415,753,441"/>
+<area shape="rect" id="node21" href="$class_aeta_1_1_map_window.html#a1e3f15bb545ac2080d1bc4f5dac4614a" title="Checks player resource amounts if they are enough to buy/recruit/ pay an upkeep. " alt="" coords="570,477,750,518"/>
+<area shape="rect" id="node22" href="$class_aeta_1_1_map_window.html#ae6bcdc99c70ac15a75a55eaf0fc79f2f" title="Does production calculation and updates resource labels. " alt="" coords="544,542,776,583"/>
+<area shape="rect" id="node23" href="$class_course_1_1_building_base.html#ad53ecc1dea91e3ca51c31759fe1680cb" title="Return&#39;s building&#39;s production as a ResourceMap. . " alt="" coords="831,542,979,583"/>
+</map>

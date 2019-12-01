@@ -1,0 +1,5 @@
+<map id="Aeta::MapWindow::demolishBuilding" name="Aeta::MapWindow::demolishBuilding">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#ab4bbbb2924ad8b3d7a6ac628e376b946" title="Aeta::MapWindow::on\l_buildPanelButton_clicked" alt="" coords="252,5,427,47"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#ad7211d57598eaa727b8b7a26f0694d4d" title="Move/Attack handling &#45; Move unit from to given tile and attack if enemy unit on that tile..." alt="" coords="243,71,436,98"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#a942c73537adfbcca85248e29126d00b1" title="Kidnaps events going to scene to make the movement system possible. " alt="" coords="484,71,683,98"/>
+</map>

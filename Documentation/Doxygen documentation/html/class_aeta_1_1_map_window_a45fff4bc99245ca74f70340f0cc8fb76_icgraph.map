@@ -1,0 +1,12 @@
+<map id="Aeta::MapWindow::updateHighScores" name="Aeta::MapWindow::updateHighScores">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#af206623190980a2f480c3ae4962f4aa0" title="Creates building object and adds to the tile object. " alt="" coords="256,39,459,65"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_map_window.html#aebe9b7984b2e8fa6f1289433a6108c52" title="Removes given building. " alt="" coords="263,126,452,167"/>
+<area shape="rect" id="node9" href="$class_aeta_1_1_map_window.html#a8a3a83f76d00db82661a0020bb4fc6af" title="Creates unit object and adds to recruiter HQ. " alt="" coords="259,195,456,221"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#aedc8953bdf8c28e22fdeaeeedacc7886" title="Aeta::MapWindow::on\l_confirmBuildButton\l_clicked" alt="" coords="528,5,679,61"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#ac0e37ced5aab23ef02ca0145409b49ea" title="Aeta::MapWindow::on\l_buildList_itemDoubleClicked" alt="" coords="750,13,945,54"/>
+<area shape="rect" id="node6" href="$class_aeta_1_1_map_window.html#ab4bbbb2924ad8b3d7a6ac628e376b946" title="Aeta::MapWindow::on\l_buildPanelButton_clicked" alt="" coords="516,86,691,127"/>
+<area shape="rect" id="node7" href="$class_aeta_1_1_map_window.html#ad7211d57598eaa727b8b7a26f0694d4d" title="Move/Attack handling &#45; Move unit from to given tile and attack if enemy unit on that tile..." alt="" coords="507,152,700,179"/>
+<area shape="rect" id="node8" href="$class_aeta_1_1_map_window.html#a942c73537adfbcca85248e29126d00b1" title="Kidnaps events going to scene to make the movement system possible. " alt="" coords="748,152,947,179"/>
+<area shape="rect" id="node10" href="$class_aeta_1_1_map_window.html#a1047ea2af1c3056616959035d3da7cc5" title="Aeta::MapWindow::on\l_confirmRecruitButton\l_clicked" alt="" coords="527,203,679,259"/>
+<area shape="rect" id="node11" href="$class_aeta_1_1_map_window.html#a3b9aca94d720d9e4e6d774f0a7a56330" title="Aeta::MapWindow::on\l_recruitList_doubleClicked" alt="" coords="760,210,935,251"/>
+</map>

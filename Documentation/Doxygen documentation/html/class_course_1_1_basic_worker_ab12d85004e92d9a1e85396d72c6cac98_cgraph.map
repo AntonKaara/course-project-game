@@ -1,0 +1,7 @@
+<map id="Course::BasicWorker::canBePlacedOnTile" name="Course::BasicWorker::canBePlacedOnTile">
+<area shape="rect" id="node2" href="$class_course_1_1_game_object.html#a3c923e5d874cada8661d37002073c111" title="Returns GameObject&#39;s owner. " alt="" coords="837,27,983,68"/>
+<area shape="rect" id="node3" href="$class_course_1_1_worker_base.html#ad80874970ab91bca95b9d3f959e838d2" title="Default placement rule for workers: . " alt="" coords="200,35,345,76"/>
+<area shape="rect" id="node4" href="$class_course_1_1_placeable_game_object.html#a540439b2dc7d6e8b89b6acd3d0b5e1c2" title="Check if the object&#39;s own placement rules allow placement on the specified tile. " alt="" coords="393,35,596,76"/>
+<area shape="rect" id="node6" href="$class_course_1_1_placeable_game_object.html#a450a775065ce0a1c7e7e0aa7436749f3" title="How many spaces does the GameObject take from a Tile&#39;s capacity. " alt="" coords="393,100,596,141"/>
+<area shape="rect" id="node5" href="$class_course_1_1_game_object.html#a1c592d7013f54f62be5eb6a99fcdfd64" title="Function to compare if objects have same owner. " alt="" coords="644,85,789,127"/>
+</map>

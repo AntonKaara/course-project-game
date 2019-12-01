@@ -1,0 +1,16 @@
+<map id="Aeta::MapWindow::moveUnit" name="Aeta::MapWindow::moveUnit">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#ad5cbefa1efb8de81babe200a5ab7b4aa" title="Attack handling for HQ separately. " alt="" coords="249,42,442,69"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#af23f0cac2342efe195cb1e5eaeb7577a" title="Draws animation on attack/forest wood collect. " alt="" coords="517,312,711,353"/>
+<area shape="rect" id="node7" href="$class_aeta_1_1_map_window.html#aebe9b7984b2e8fa6f1289433a6108c52" title="Removes given building. " alt="" coords="251,123,440,164"/>
+<area shape="rect" id="node11" href="$class_aeta_1_1_map_window.html#a173c24caeacd075260398fc269d0c2da" title="Update UI elements to match to new data. " alt="" coords="519,239,709,266"/>
+<area shape="rect" id="node14" href="$class_aeta_1_1_map_window.html#a2efbea7383acb2fa91a7d1b14d8dd1dc" title="Executed when HQ destroyed, ends the game, sends high scores. " alt="" coords="247,290,444,317"/>
+<area shape="rect" id="node15" href="$class_aeta_1_1_map_window.html#a8c442fa1a748e5be53935c1c97381348" title="Produces wood resource when walking over forest. " alt="" coords="249,239,441,266"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_headquarters.html#a5e821f58b73b1cce4fc6219f5f956174" title="Changes the HQ hitpoints by a given value. " alt="" coords="547,5,681,47"/>
+<area shape="rect" id="node5" href="$class_course_1_1_coordinate.html#afeb6f41423c8ed3ed432493bfba4ec59" title="x Return&#39;s the x&#45;value " alt="" coords="825,309,975,335"/>
+<area shape="rect" id="node6" href="$class_course_1_1_coordinate.html#a0319c441f556cf055f302de4e9d0a451" title="y Return&#39;s the y&#45;value " alt="" coords="825,359,975,386"/>
+<area shape="rect" id="node8" href="$class_aeta_1_1_map_window.html#a09b61dd85fb9f7208a824b45e70076d8" title="function to show different alerts " alt="" coords="492,71,736,98"/>
+<area shape="rect" id="node9" href="$class_aeta_1_1_map_window.html#ae6bcdc99c70ac15a75a55eaf0fc79f2f" title="Does production calculation and updates resource labels. " alt="" coords="784,141,1016,183"/>
+<area shape="rect" id="node13" href="$class_aeta_1_1_map_window.html#a45fff4bc99245ca74f70340f0cc8fb76" title="Compares current values to saved high scores. " alt="" coords="513,173,715,215"/>
+<area shape="rect" id="node10" href="$class_course_1_1_building_base.html#ad53ecc1dea91e3ca51c31759fe1680cb" title="Return&#39;s building&#39;s production as a ResourceMap. . " alt="" coords="1064,141,1212,183"/>
+<area shape="rect" id="node12" href="$class_aeta_1_1_map_window.html#a1e3f15bb545ac2080d1bc4f5dac4614a" title="Checks player resource amounts if they are enough to buy/recruit/ pay an upkeep. " alt="" coords="810,232,990,273"/>
+</map>

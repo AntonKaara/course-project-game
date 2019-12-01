@@ -1,0 +1,5 @@
+<map id="Course::TileBase::getBuildingCount" name="Course::TileBase::getBuildingCount">
+<area shape="rect" id="node2" href="$class_course_1_1_tile_base.html#add69a1e9ec009dedb28ce54c8535370b" title="Adds a new Building&#45;object to the tile. " alt="" coords="248,5,447,32"/>
+<area shape="rect" id="node4" href="$class_course_1_1_tile_base.html#aefed0bd9cf73d04e123d31e0e3935f6d" title="Checks if the tile has enough space for buildings. " alt="" coords="253,57,442,98"/>
+<area shape="rect" id="node3" href="$class_course_1_1_forest.html#a16ad633cd25afa705fbaefbc42efc2ae" title="Adds a new building&#45;object to the tile. Building in forest adds one hold&#45;marker to the building..." alt="" coords="495,5,679,32"/>
+</map>

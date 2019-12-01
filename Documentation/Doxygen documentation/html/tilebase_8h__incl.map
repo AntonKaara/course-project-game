@@ -1,0 +1,11 @@
+<map id="/home/anton/projekti_ohj3/aeta/Course/CourseLib/tiles/tilebase.h" name="/home/anton/projekti_ohj3/aeta/Course/CourseLib/tiles/tilebase.h">
+<area shape="rect" id="node4" href="$gameobject_8h.html" title="core/gameobject.h" alt="" coords="522,259,651,285"/>
+<area shape="rect" id="node8" href="$basicresources_8h.html" title="core/basicresources.h" alt="" coords="417,184,567,211"/>
+<area shape="rect" id="node9" href="$resourcemaps_8h.html" title="core/resourcemaps.h" alt="" coords="453,109,597,136"/>
+<area shape="rect" id="node10" href="$buildingbase_8h.html" title="buildings/buildingbase.h" alt="" coords="797,109,957,136"/>
+<area shape="rect" id="node12" href="$igameeventhandler_8h.html" title="interfaces/igameeventhandler.h" alt="" coords="125,109,328,136"/>
+<area shape="rect" id="node13" href="$iobjectmanager_8h.html" title="interfaces/iobjectmanager.h" alt="" coords="94,259,277,285"/>
+<area shape="rect" id="node14" href="$workerbase_8h.html" title="workers/workerbase.h" alt="" coords="622,109,773,136"/>
+<area shape="rect" id="node7" href="$coordinate_8h.html" title="coordinate.h" alt="" coords="624,333,717,360"/>
+<area shape="rect" id="node11" href="$placeablegameobject_8h.html" title="core/placeablegameobject.h" alt="" coords="605,184,789,211"/>
+</map>

@@ -1,0 +1,3 @@
+<map id="Course::WorkerBase::getResourceFocus" name="Course::WorkerBase::getResourceFocus">
+<area shape="rect" id="node2" href="$class_course_1_1_basic_worker.html#a870cf500ea86d30db583ce64299d9df4" title="Returns Worker&#39;s efficiency at resource production. Worker consumes FOOD and MONEY. Resource consumption and resource focus determine final multiplier that is based on WORKER_EFFICIENCY. " alt="" coords="197,5,344,47"/>
+</map>

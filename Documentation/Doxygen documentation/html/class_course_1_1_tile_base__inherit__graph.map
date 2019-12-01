@@ -1,0 +1,10 @@
+<map id="Course::TileBase" name="Course::TileBase">
+<area shape="rect" id="node3" href="$class_aeta_1_1_forest_tile.html" title="The ForestTile class represents a forest tile in the game world. " alt="" coords="5,799,120,920"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_grass_tile.html" title="The GrassTile class represents a grass maptile in the game world. " alt="" coords="145,799,258,920"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_lake.html" title="The Lake class represents lakes in the gameworld. " alt="" coords="282,813,371,905"/>
+<area shape="rect" id="node6" href="$class_aeta_1_1_mountain.html" title="The Mountain class represents a mountain maptile in the game world. " alt="" coords="395,813,506,905"/>
+<area shape="rect" id="node7" href="$class_aeta_1_1_swamp.html" title="Swamp class represents a swamp in the gameworld. " alt="" coords="531,813,632,905"/>
+<area shape="rect" id="node8" href="$class_course_1_1_forest.html" title="The Forest class represents Forest in the gameworld. " alt="" coords="656,791,765,927"/>
+<area shape="rect" id="node9" href="$class_course_1_1_grassland.html" title="The Grassland class represents Grassland in the gameworld. " alt="" coords="789,784,957,935"/>
+<area shape="rect" id="node2" href="$class_course_1_1_game_object.html" title="The GameObject class is base&#45;class that contain&#39;s general information on different Objects in game..." alt="" coords="374,5,527,347"/>
+</map>

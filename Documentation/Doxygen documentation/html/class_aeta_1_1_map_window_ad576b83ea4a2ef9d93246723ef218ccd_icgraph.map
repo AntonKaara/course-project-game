@@ -1,0 +1,4 @@
+<map id="Aeta::MapWindow::drawTile" name="Aeta::MapWindow::drawTile">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#af961127bf6cc7ad22320ec9919e92154" title="Builds the map taking the tile objects from objectManager. " alt="" coords="240,5,431,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a14ce2a98b5bc4d54c4ce6f1aaff5db6c" title="Class constructor. " alt="" coords="479,5,688,32"/>
+</map>

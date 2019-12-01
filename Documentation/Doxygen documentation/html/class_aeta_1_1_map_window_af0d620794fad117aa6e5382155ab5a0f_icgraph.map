@@ -1,0 +1,6 @@
+<map id="Aeta::MapWindow::drawAttackMarkers" name="Aeta::MapWindow::drawAttackMarkers">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a9c1ac0ffcf53b6ab32265ac2e00ad799" title="Determines tiles where the selected unit can move to. " alt="" coords="256,35,471,76"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a1dbe78eebc3e5bc96e0a6fc0214a9119" title="Aeta::MapWindow::on\l_moveButton_clicked" alt="" coords="519,5,669,47"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_map_window.html#a942c73537adfbcca85248e29126d00b1" title="Kidnaps events going to scene to make the movement system possible. " alt="" coords="717,71,916,98"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#a4105ac354866823cd78cbf35e096a089" title="Aeta::MapWindow::on\l_removeUnitButton_clicked" alt="" coords="725,5,908,47"/>
+</map>

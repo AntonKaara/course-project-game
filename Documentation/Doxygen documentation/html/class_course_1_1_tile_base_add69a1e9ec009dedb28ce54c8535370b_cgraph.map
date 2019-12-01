@@ -1,0 +1,4 @@
+<map id="Course::TileBase::addBuilding" name="Course::TileBase::addBuilding">
+<area shape="rect" id="node2" href="$class_course_1_1_game_object.html#a64b5e759e0aa4a6fdae9a112718a87e6" title="This is the primary method for locking ObjectManager inside different GameObject classes. " alt="" coords="277,5,422,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_tile_base.html#a1a2be339a96e122eedcd3d5d8dd7095d" title="Returns the amount of spaces that are being taken from the building&#45;capacity. " alt="" coords="252,71,447,112"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Aeta::MapWindow::addProduction" name="Aeta::MapWindow::addProduction">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a84c1dc5621cfad4f987f8ab0f11ebaa2" title="Executed at the end of the turn, change turns, add resources.. " alt="" coords="273,13,457,39"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a882e5616faaf9e39286307df2c53c29f" title="Aeta::MapWindow::on\l_endTurnButton_clicked" alt="" coords="505,5,668,47"/>
+</map>

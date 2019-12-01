@@ -1,0 +1,5 @@
+<map id="Course::Outpost::onBuildAction" name="Course::Outpost::onBuildAction">
+<area shape="rect" id="node2" href="$class_course_1_1_game_object.html#a64b5e759e0aa4a6fdae9a112718a87e6" title="This is the primary method for locking ObjectManager inside different GameObject classes. " alt="" coords="223,5,368,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_game_object.html#a51383b004b38598b7287ed832d43150a" title="Returns a pointer to a copy of GameObject&#39;s coordinate. " alt="" coords="223,71,368,112"/>
+<area shape="rect" id="node4" href="$class_course_1_1_game_object.html#a3c923e5d874cada8661d37002073c111" title="Returns GameObject&#39;s owner. " alt="" coords="223,136,368,177"/>
+</map>

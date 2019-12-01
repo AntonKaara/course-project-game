@@ -1,0 +1,6 @@
+<map id="Aeta::MapWindow::highScore" name="Aeta::MapWindow::highScore">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a14ce2a98b5bc4d54c4ce6f1aaff5db6c" title="Class constructor. " alt="" coords="248,5,457,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a2efbea7383acb2fa91a7d1b14d8dd1dc" title="Executed when HQ destroyed, ends the game, sends high scores. " alt="" coords="254,56,451,83"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#ad7211d57598eaa727b8b7a26f0694d4d" title="Move/Attack handling &#45; Move unit from to given tile and attack if enemy unit on that tile..." alt="" coords="505,56,699,83"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_map_window.html#a942c73537adfbcca85248e29126d00b1" title="Kidnaps events going to scene to make the movement system possible. " alt="" coords="747,56,945,83"/>
+</map>

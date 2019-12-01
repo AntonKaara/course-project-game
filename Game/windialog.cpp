@@ -35,7 +35,7 @@ void WinDialog::setHighScore(int turn, QString winPlayer, QString losePlayer,
 
     QString highScoreText = "Congratulations " + winPlayer + "! \n \n"
             "It took " + QString::number(turn) + " turns for " + winPlayer + " to wipe out " + losePlayer +
-            "! At its highest point, " + player1Name + " controlled a great number of " +
+            "!\n \nAt its highest point, " + player1Name + " controlled a great number of " +
             QString::number(p1Tiles) + " tiles, " +
             player2Name + " on the other hand owned " + QString::number(p2Tiles) + " tiles at best. \n \n"
 

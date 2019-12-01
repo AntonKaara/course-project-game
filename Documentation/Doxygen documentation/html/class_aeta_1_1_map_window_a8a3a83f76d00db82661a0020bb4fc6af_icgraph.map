@@ -1,0 +1,4 @@
+<map id="Aeta::MapWindow::recruitUnit" name="Aeta::MapWindow::recruitUnit">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a1047ea2af1c3056616959035d3da7cc5" title="Aeta::MapWindow::on\l_confirmRecruitButton\l_clicked" alt="" coords="251,5,403,61"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a3b9aca94d720d9e4e6d774f0a7a56330" title="Aeta::MapWindow::on\l_recruitList_doubleClicked" alt="" coords="451,13,625,54"/>
+</map>

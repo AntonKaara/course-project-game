@@ -1,0 +1,5 @@
+<map id="Aeta::Headquarters::changeHitPoints" name="Aeta::Headquarters::changeHitPoints">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#ad5cbefa1efb8de81babe200a5ab7b4aa" title="Attack handling for HQ separately. " alt="" coords="188,13,381,39"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#ad7211d57598eaa727b8b7a26f0694d4d" title="Move/Attack handling &#45; Move unit from to given tile and attack if enemy unit on that tile..." alt="" coords="429,13,623,39"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#a942c73537adfbcca85248e29126d00b1" title="Kidnaps events going to scene to make the movement system possible. " alt="" coords="671,13,869,39"/>
+</map>

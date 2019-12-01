@@ -1,0 +1,4 @@
+<map id="Course::TileBase::getWorkerCount" name="Course::TileBase::getWorkerCount">
+<area shape="rect" id="node2" href="$class_course_1_1_tile_base.html#ac512085412a2f4b9b30841ed265fd706" title="Adds a new Worker&#45;object to this Tile. " alt="" coords="244,5,439,32"/>
+<area shape="rect" id="node3" href="$class_course_1_1_tile_base.html#aae6c4d2e91f42fc16e5b622ae9c8b0de" title="Checks if the tile has enough space for workers. " alt="" coords="247,57,436,98"/>
+</map>

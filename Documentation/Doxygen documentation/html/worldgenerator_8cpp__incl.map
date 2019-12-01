@@ -1,0 +1,15 @@
+<map id="/home/anton/projekti_ohj3/aeta/Course/CourseLib/core/worldgenerator.cpp" name="/home/anton/projekti_ohj3/aeta/Course/CourseLib/core/worldgenerator.cpp">
+<area shape="rect" id="node2" href="$worldgenerator_8h.html" title="worldgenerator.h" alt="" coords="735,109,854,136"/>
+<area shape="rect" id="node18" href="$forest_8h.html" title="tiles/forest.h" alt="" coords="581,109,675,136"/>
+<area shape="rect" id="node19" href="$grassland_8h.html" title="tiles/grassland.h" alt="" coords="439,109,556,136"/>
+<area shape="rect" id="node6" href="$igameeventhandler_8h.html" title="interfaces/igameeventhandler.h" alt="" coords="925,259,1128,285"/>
+<area shape="rect" id="node9" href="$iobjectmanager_8h.html" title="interfaces/iobjectmanager.h" alt="" coords="926,408,1109,435"/>
+<area shape="rect" id="node10" href="$tilebase_8h.html" title="tiles/tilebase.h" alt="" coords="548,184,655,211"/>
+<area shape="rect" id="node8" href="$basicresources_8h.html" title="core/basicresources.h" alt="" coords="479,333,630,360"/>
+<area shape="rect" id="node11" href="$gameobject_8h.html" title="core/gameobject.h" alt="" coords="386,408,515,435"/>
+<area shape="rect" id="node14" href="$resourcemaps_8h.html" title="core/resourcemaps.h" alt="" coords="504,259,648,285"/>
+<area shape="rect" id="node15" href="$buildingbase_8h.html" title="buildings/buildingbase.h" alt="" coords="93,259,253,285"/>
+<area shape="rect" id="node17" href="$workerbase_8h.html" title="workers/workerbase.h" alt="" coords="278,259,429,285"/>
+<area shape="rect" id="node13" href="$coordinate_8h.html" title="coordinate.h" alt="" coords="404,483,497,509"/>
+<area shape="rect" id="node16" href="$placeablegameobject_8h.html" title="core/placeablegameobject.h" alt="" coords="261,333,445,360"/>
+</map>

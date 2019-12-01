@@ -1,0 +1,4 @@
+<map id="Course::NotEnoughSpace" name="Course::NotEnoughSpace">
+<area shape="rect" id="node2" href="$class_course_1_1_illegal_action.html" title="The IllegalAction exception is usually used in cases, where an illegal game action was attempted..." alt="" coords="21,285,164,377"/>
+<area shape="rect" id="node3" href="$class_course_1_1_base_exception.html" title="The Exception class is a base&#45;class for custom exceptions in project. " alt="" coords="13,131,173,237"/>
+</map>

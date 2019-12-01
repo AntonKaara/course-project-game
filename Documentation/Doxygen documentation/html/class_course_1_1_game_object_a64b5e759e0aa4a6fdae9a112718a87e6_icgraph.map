@@ -1,0 +1,7 @@
+<map id="Course::GameObject::lockObjectManager" name="Course::GameObject::lockObjectManager">
+<area shape="rect" id="node2" href="$class_course_1_1_head_quarters.html#addf7f7f78486ce17024a639f15f25649" title="Sets neighbouring Tiles&#39; ownership to this building&#39;s ownership in 3 tile&#45;radius, if the Tiles don&#39;t ..." alt="" coords="221,5,375,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_outpost.html#a81849d7b0b1731051e5f26e9df213d6b" title="Sets neighbouring Tiles&#39; ownership to this building&#39;s ownership in 1 tile&#45;radius, if the Tiles don&#39;t ..." alt="" coords="213,71,383,112"/>
+<area shape="rect" id="node4" href="$class_course_1_1_tile_base.html#add69a1e9ec009dedb28ce54c8535370b" title="Adds a new Building&#45;object to the tile. " alt="" coords="199,137,397,163"/>
+<area shape="rect" id="node6" href="$class_course_1_1_tile_base.html#ac512085412a2f4b9b30841ed265fd706" title="Adds a new Worker&#45;object to this Tile. " alt="" coords="201,187,395,214"/>
+<area shape="rect" id="node5" href="$class_course_1_1_forest.html#a16ad633cd25afa705fbaefbc42efc2ae" title="Adds a new building&#45;object to the tile. Building in forest adds one hold&#45;marker to the building..." alt="" coords="445,137,629,163"/>
+</map>

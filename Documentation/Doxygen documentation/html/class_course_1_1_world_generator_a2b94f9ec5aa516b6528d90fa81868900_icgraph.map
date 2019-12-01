@@ -1,0 +1,4 @@
+<map id="Course::WorldGenerator::getInstance" name="Course::WorldGenerator::getInstance">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a310051223f0ba60c3817c0fb875fe42d" title="Passes class constructors to Course::WorldGenerator to generate the tiles. " alt="" coords="216,13,428,39"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a14ce2a98b5bc4d54c4ce6f1aaff5db6c" title="Class constructor. " alt="" coords="476,13,685,39"/>
+</map>

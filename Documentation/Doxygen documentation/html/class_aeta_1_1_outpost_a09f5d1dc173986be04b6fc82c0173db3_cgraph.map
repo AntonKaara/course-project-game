@@ -1,0 +1,4 @@
+<map id="Aeta::Outpost::onBuildAction" name="Aeta::Outpost::onBuildAction">
+<area shape="rect" id="node2" href="$class_course_1_1_game_object.html#a51383b004b38598b7287ed832d43150a" title="Returns a pointer to a copy of GameObject&#39;s coordinate. " alt="" coords="244,5,389,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_game_object.html#a3c923e5d874cada8661d37002073c111" title="Returns GameObject&#39;s owner. " alt="" coords="244,71,389,112"/>
+</map>

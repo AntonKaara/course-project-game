@@ -1,0 +1,5 @@
+<map id="Aeta::GameScene::resize" name="Aeta::GameScene::resize">
+<area shape="rect" id="node2" href="$class_aeta_1_1_game_scene.html#a5cb860a0f5dbaa252f8245d0a108f49b" title="Sets the map size to given x and y. " alt="" coords="229,5,410,32"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_game_scene.html#a658b76093a53efda5ed3e6f9485fab54" title="Sets the single tile pixel scale to given px amount. " alt="" coords="225,56,413,83"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_game_scene.html#a8eecb775255e640eaf8b6dc8f0a49f2e" title="Constructor for the class. " alt="" coords="461,31,671,57"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Course::TileBase::generateResources" name="Course::TileBase::generateResources">
+<area shape="rect" id="node2" href="$namespace_course.html#a2a27717372096871145e65bd34313653" title="Creates a new ResourceMapDouble that has summed values of two ResourceMapDoubles. ..." alt="" coords="239,5,429,47"/>
+<area shape="rect" id="node3" href="$namespace_course.html#a04e0d37a3018429b9523ee3b70f0c911" title="Creates a new ResourceMap that has multiplied resmap values with multmap values for the same key..." alt="" coords="235,71,433,98"/>
+<area shape="rect" id="node4" href="$namespace_course.html#ad07efc9b36b8b5bc7b2ed80414709a24" title="Creates a new ResourceMap that contains summed values of two ResourceMaps. " alt="" coords="236,122,432,149"/>
+<area shape="rect" id="node5" href="$class_course_1_1_game_object.html#acca0f382d148f6060a1e9325e3240efc" title="This is the primary method for locking GameEventHandler inside different GameObject&#45;classes. " alt="" coords="261,173,407,215"/>
+<area shape="rect" id="node6" href="$class_course_1_1_game_object.html#a3c923e5d874cada8661d37002073c111" title="Returns GameObject&#39;s owner. " alt="" coords="261,239,407,280"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$class_aeta_1_1_game_scene.html" title="The GameScene is a custom QGraphicsScene that renders the game map and other graphical elements..." alt="" coords="202,5,331,32"/>
+<area shape="rect" id="node3" href="$class_course_1_1_simple_game_scene.html" title="The SimpleGameScene is a custom QGraphicsScene that shows a simple rendering of the game map..." alt="" coords="175,56,359,83"/>
+</map>

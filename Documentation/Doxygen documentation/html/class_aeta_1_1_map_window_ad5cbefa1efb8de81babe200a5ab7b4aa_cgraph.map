@@ -1,0 +1,3 @@
+<map id="Aeta::MapWindow::attackHQ" name="Aeta::MapWindow::attackHQ">
+<area shape="rect" id="node2" href="$class_aeta_1_1_headquarters.html#a5e821f58b73b1cce4fc6219f5f956174" title="Changes the HQ hitpoints by a given value. " alt="" coords="247,5,381,47"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Course::SimpleGameScene::resize" name="Course::SimpleGameScene::resize">
+<area shape="rect" id="node2" href="$class_course_1_1_simple_game_scene.html#a418450a3659d632ff3ba0696ffe88adc" title="Sets the map size and calls resize(). " alt="" coords="237,5,421,47"/>
+<area shape="rect" id="node4" href="$class_course_1_1_simple_game_scene.html#a97c12ca31ae67a45b5cf3e53065c5631" title="set the tile size, aka scale of the map and calls resize(). Function behaviour after objects has been..." alt="" coords="237,71,421,112"/>
+<area shape="rect" id="node3" href="$class_course_1_1_simple_game_scene.html#ae65dfd293c3490dcbb71d7a71ddda65b" title="Constructor for the class. " alt="" coords="469,39,653,80"/>
+</map>

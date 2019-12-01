@@ -1,0 +1,6 @@
+<map id="Course::WorldGenerator::addConstructor" name="Course::WorldGenerator::addConstructor">
+<area shape="rect" id="node2" href="$class_course_1_1_world_generator.html#a7fe4468658c14aac5bc282fda98245e1" title="Generates Tile&#45;objects and sends them to ObjectManager. " alt="" coords="216,5,379,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_world_generator.html#a0bcd491636df6104f055233f67a0f6d3" title="Find the Tile ctor matching the random number. " alt="" coords="427,35,589,76"/>
+<area shape="rect" id="node4" href="$class_course_1_1_world_generator.html#a5f75bf6c9132d395a4ab0e5e68d1c599" title="Default constructor. " alt="" coords="216,123,379,164"/>
+<area shape="rect" id="node5" href="$class_course_1_1_world_generator.html#ae1cdc6937568b2a48b82040f4729e7a9" title="Default destructor. " alt="" coords="216,188,379,229"/>
+</map>

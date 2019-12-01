@@ -1,0 +1,17 @@
+var searchData=
+[
+  ['hassamecoordinateas',['hasSameCoordinateAs',['../class_course_1_1_game_object.html#a8d6a0a93150e7e4ca90176c028a037e1',1,'Course::GameObject']]],
+  ['hassameowneras',['hasSameOwnerAs',['../class_course_1_1_game_object.html#a1c592d7013f54f62be5eb6a99fcdfd64',1,'Course::GameObject']]],
+  ['hasspaceforbuildings',['hasSpaceForBuildings',['../class_course_1_1_tile_base.html#aefed0bd9cf73d04e123d31e0e3935f6d',1,'Course::TileBase']]],
+  ['hasspaceforworkers',['hasSpaceForWorkers',['../class_course_1_1_tile_base.html#aae6c4d2e91f42fc16e5b622ae9c8b0de',1,'Course::TileBase']]],
+  ['headquarters',['Headquarters',['../class_aeta_1_1_headquarters.html',1,'Aeta::Headquarters'],['../class_course_1_1_head_quarters.html',1,'Course::HeadQuarters'],['../class_aeta_1_1_headquarters.html#ad5f26dc207e001dd83b3e5928e36a91d',1,'Aeta::Headquarters::Headquarters()=delete'],['../class_aeta_1_1_headquarters.html#a8d183c6001a49b3b1ed93e12ce79754b',1,'Aeta::Headquarters::Headquarters(const std::shared_ptr&lt; Course::iGameEventHandler &gt; &amp;eventHandler, const std::shared_ptr&lt; Course::iObjectManager &gt; &amp;objectManager, const std::shared_ptr&lt; Course::PlayerBase &gt; &amp;owner, const int &amp;tileSpaces=1, const Course::ResourceMap &amp;buildCost={}, const Course::ResourceMap &amp;production={})'],['../class_course_1_1_head_quarters.html#a117d344b8498b5fee8da099d5f3c06a5',1,'Course::HeadQuarters::HeadQuarters()=delete'],['../class_course_1_1_head_quarters.html#a7c928678452102770fff5d0e5ad1bdf9',1,'Course::HeadQuarters::HeadQuarters(const std::shared_ptr&lt; iGameEventHandler &gt; &amp;eventhandler, const std::shared_ptr&lt; iObjectManager &gt; &amp;objectmanager, const std::shared_ptr&lt; PlayerBase &gt; &amp;owner, const int &amp;tilespaces=1, const ResourceMap &amp;buildcost=ConstResourceMaps::HQ_BUILD_COST, const ResourceMap &amp;production=ConstResourceMaps::HQ_PRODUCTION)']]],
+  ['headquarters_2ecpp',['headquarters.cpp',['../_course_2_course_lib_2buildings_2headquarters_8cpp.html',1,'(Global Namespace)'],['../_game_2headquarters_8cpp.html',1,'(Global Namespace)']]],
+  ['headquarters_2eh',['headquarters.h',['../_course_2_course_lib_2buildings_2headquarters_8h.html',1,'(Global Namespace)'],['../_game_2headquarters_8h.html',1,'(Global Namespace)']]],
+  ['healthpoints_5f',['healthPoints_',['../class_aeta_1_1_unit_base.html#a0d10cbb9f3a4f349d8a3e99974981e98',1,'Aeta::UnitBase']]],
+  ['highlightrectangle_5f',['highlightRectangle_',['../class_aeta_1_1_game_scene.html#a2c0808be302c1dfb619b60d175c2e371',1,'Aeta::GameScene']]],
+  ['highscore',['highScore',['../class_aeta_1_1_map_window.html#af31fbf5f6fb26188031e076e0825e042',1,'Aeta::MapWindow']]],
+  ['hitpoints_5f',['hitPoints_',['../class_aeta_1_1_headquarters.html#a97394e5feb4a3203ce9bcd67706ea98e',1,'Aeta::Headquarters']]],
+  ['holdcount',['holdCount',['../class_course_1_1_building_base.html#afa4f0dd0fdfaf9b600d10fe477080cf6',1,'Course::BuildingBase']]],
+  ['hq_5fbuild_5fcost',['HQ_BUILD_COST',['../namespace_course_1_1_const_resource_maps.html#a629a12b3f9357cd851c54f2126d22502',1,'Course::ConstResourceMaps::HQ_BUILD_COST()'],['../namespace_aeta.html#aff25641f6324a87efa8e98c9e927952f',1,'Aeta::HQ_BUILD_COST()']]],
+  ['hq_5fproduction',['HQ_PRODUCTION',['../namespace_course_1_1_const_resource_maps.html#aabaaa4f78c30eed6e966b596423c8dea',1,'Course::ConstResourceMaps::HQ_PRODUCTION()'],['../namespace_aeta.html#a2a9f8b0884e280299df83e3ab4be61b9',1,'Aeta::HQ_PRODUCTION()']]]
+];

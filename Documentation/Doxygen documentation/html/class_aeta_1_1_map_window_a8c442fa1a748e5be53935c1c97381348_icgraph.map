@@ -1,0 +1,4 @@
+<map id="Aeta::MapWindow::cutForest" name="Aeta::MapWindow::cutForest">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#ad7211d57598eaa727b8b7a26f0694d4d" title="Move/Attack handling &#45; Move unit from to given tile and attack if enemy unit on that tile..." alt="" coords="245,5,439,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a942c73537adfbcca85248e29126d00b1" title="Kidnaps events going to scene to make the movement system possible. " alt="" coords="487,5,685,32"/>
+</map>

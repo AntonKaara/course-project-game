@@ -1,0 +1,6 @@
+<map id="default_coordinate::test_travel" name="default_coordinate::test_travel">
+<area shape="rect" id="node2" href="$class_course_1_1_coordinate.html#afeb6f41423c8ed3ed432493bfba4ec59" title="x Return&#39;s the x&#45;value " alt="" coords="181,5,332,32"/>
+<area shape="rect" id="node3" href="$class_course_1_1_coordinate.html#a0319c441f556cf055f302de4e9d0a451" title="y Return&#39;s the y&#45;value " alt="" coords="181,56,332,83"/>
+<area shape="rect" id="node4" href="$class_course_1_1_coordinate.html#aafa8af9f2c02d52783125ec0cb995afc" title="travel Increments the coordinate values to given direction. Optionally can give how many increments a..." alt="" coords="189,107,324,149"/>
+<area shape="rect" id="node5" href="$class_course_1_1_coordinate.html#a99d01b6ceec467678fa11152c6050ccf" title="Course::Coordinate\l::translate_direction" alt="" coords="380,107,516,149"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="Course::PlaceableGameObject::setLocationTile" name="Course::PlaceableGameObject::setLocationTile">
+<area shape="rect" id="node2" href="$class_course_1_1_placeable_game_object.html#a540439b2dc7d6e8b89b6acd3d0b5e1c2" title="Check if the object&#39;s own placement rules allow placement on the specified tile. " alt="" coords="256,5,459,47"/>
+<area shape="rect" id="node5" href="$class_course_1_1_placeable_game_object.html#a1606cce581f1f77fb3f93b4537e4a000" title="getType Returns a string describing objects type. This should be overriden in each inherited class..." alt="" coords="256,71,459,112"/>
+<area shape="rect" id="node6" href="$class_course_1_1_game_object.html#acdb9942a83ae7247b6b5f241e4c6da3a" title="Change GameObject&#39;s coordinate with a shared pointer to a coordinate. " alt="" coords="285,136,430,177"/>
+<area shape="rect" id="node7" href="$class_course_1_1_game_object.html#a9deee37f01710a4d5b8968caadc01b0e" title="Removes the coordinate from GameObject. " alt="" coords="285,201,430,243"/>
+<area shape="rect" id="node3" href="$class_course_1_1_game_object.html#a3c923e5d874cada8661d37002073c111" title="Returns GameObject&#39;s owner. " alt="" coords="700,5,845,47"/>
+<area shape="rect" id="node4" href="$class_course_1_1_game_object.html#a1c592d7013f54f62be5eb6a99fcdfd64" title="Function to compare if objects have same owner. " alt="" coords="507,35,652,76"/>
+</map>

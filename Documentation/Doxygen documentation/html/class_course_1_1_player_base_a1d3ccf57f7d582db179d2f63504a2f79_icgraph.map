@@ -1,0 +1,3 @@
+<map id="Course::PlayerBase::removeObject" name="Course::PlayerBase::removeObject">
+<area shape="rect" id="node2" href="$class_course_1_1_player_base.html#a1ec03fd654d82d9924f77c1a29b80569" title="Removes a list of weak GameObject&#45;pointers and expired weak pointers. " alt="" coords="192,5,331,47"/>
+</map>

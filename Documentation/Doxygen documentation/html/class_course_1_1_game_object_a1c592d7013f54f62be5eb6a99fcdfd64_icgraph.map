@@ -1,0 +1,7 @@
+<map id="Course::GameObject::hasSameOwnerAs" name="Course::GameObject::hasSameOwnerAs">
+<area shape="rect" id="node2" href="$class_course_1_1_placeable_game_object.html#a540439b2dc7d6e8b89b6acd3d0b5e1c2" title="Check if the object&#39;s own placement rules allow placement on the specified tile. " alt="" coords="199,71,401,112"/>
+<area shape="rect" id="node3" href="$class_course_1_1_building_base.html#add23c593f509f39654f2d5abc7d8c072" title="Returns boolean based on wheter the building can or can&#39;t be placed on a Tile&#45;object. " alt="" coords="477,5,625,47"/>
+<area shape="rect" id="node4" href="$class_course_1_1_placeable_game_object.html#a241f1bdff178b2e0414e57c8a23aa32e" title="Set the PlaceableGameObject&#39;s location. " alt="" coords="449,71,652,112"/>
+<area shape="rect" id="node5" href="$class_course_1_1_worker_base.html#ad80874970ab91bca95b9d3f959e838d2" title="Default placement rule for workers: . " alt="" coords="478,136,623,177"/>
+<area shape="rect" id="node6" href="$class_course_1_1_basic_worker.html#ab12d85004e92d9a1e85396d72c6cac98" title="Check if the worker can be placed on the Tile according to it&#39;s placement rule. Only rule is that the..." alt="" coords="700,136,847,177"/>
+</map>

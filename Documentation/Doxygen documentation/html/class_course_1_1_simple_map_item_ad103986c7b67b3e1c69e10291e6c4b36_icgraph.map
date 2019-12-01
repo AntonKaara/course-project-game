@@ -1,0 +1,5 @@
+<map id="Course::SimpleMapItem::boundingRect" name="Course::SimpleMapItem::boundingRect">
+<area shape="rect" id="node2" href="$class_course_1_1_simple_map_item.html#a42f0b7bd86da05bcc511486362aabb8b" title="paints the item " alt="" coords="216,5,379,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_simple_map_item.html#a7b064cd8193aff3a1e810582e9e75786" title="updateLoc moves the item if the position has changed. " alt="" coords="216,71,379,112"/>
+<area shape="rect" id="node4" href="$class_course_1_1_simple_game_scene.html#ae175f970177c7564b6fb63f8869a44e3" title="updates the position of obj. " alt="" coords="427,71,611,112"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="Aeta::MapWindow::on_confirmRecruitButton_clicked" name="Aeta::MapWindow::on_confirmRecruitButton_clicked">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a8a3a83f76d00db82661a0020bb4fc6af" title="Creates unit object and adds to recruiter HQ. " alt="" coords="205,81,403,108"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a09b61dd85fb9f7208a824b45e70076d8" title="function to show different alerts " alt="" coords="451,5,695,32"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#a1e3f15bb545ac2080d1bc4f5dac4614a" title="Checks player resource amounts if they are enough to buy/recruit/ pay an upkeep. " alt="" coords="769,49,949,90"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_map_window.html#a173c24caeacd075260398fc269d0c2da" title="Update UI elements to match to new data. " alt="" coords="477,107,668,133"/>
+<area shape="rect" id="node8" href="$class_aeta_1_1_map_window.html#a45fff4bc99245ca74f70340f0cc8fb76" title="Compares current values to saved high scores. " alt="" coords="471,158,674,199"/>
+<area shape="rect" id="node6" href="$class_aeta_1_1_map_window.html#ae6bcdc99c70ac15a75a55eaf0fc79f2f" title="Does production calculation and updates resource labels. " alt="" coords="743,114,975,155"/>
+<area shape="rect" id="node7" href="$class_course_1_1_building_base.html#ad53ecc1dea91e3ca51c31759fe1680cb" title="Return&#39;s building&#39;s production as a ResourceMap. . " alt="" coords="1023,114,1171,155"/>
+</map>

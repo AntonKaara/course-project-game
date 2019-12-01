@@ -1,0 +1,6 @@
+<map id="Course::WorldGenerator::findRandCtor" name="Course::WorldGenerator::findRandCtor">
+<area shape="rect" id="node2" href="$class_course_1_1_world_generator.html#a7fe4468658c14aac5bc282fda98245e1" title="Generates Tile&#45;objects and sends them to ObjectManager. " alt="" coords="216,64,379,105"/>
+<area shape="rect" id="node3" href="$class_course_1_1_world_generator.html#adc7ea4ba3cba155910cdb03130c84e75" title="Register a Tile&#39;s constructor for use in map generation. " alt="" coords="427,5,589,47"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#a310051223f0ba60c3817c0fb875fe42d" title="Passes class constructors to Course::WorldGenerator to generate the tiles. " alt="" coords="637,42,849,69"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_map_window.html#a14ce2a98b5bc4d54c4ce6f1aaff5db6c" title="Class constructor. " alt="" coords="897,42,1107,69"/>
+</map>

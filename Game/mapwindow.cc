@@ -483,7 +483,6 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
                                          true);
         }
 
-
         if (result == false) {
 
             return;
@@ -493,7 +492,6 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
             // construct the alreadyOwnedTiles vectors
 
             for(auto object : playerInTurn_->getObjects()) {
-
 
                 if (object == building) { // skip, if its the one being demolished
                     continue;
@@ -605,8 +603,15 @@ void MapWindow::demolishBuilding(std::shared_ptr<Course::BuildingBase> building,
 
     }
 
+    // Show animation
+    QString text = QString::fromStdString(building->getType()) + " destroyed!";
+    showTextAnimation(text, selectedTile_->getCoordinate(), Qt::red);
+
+    // Remove building
+    if (building->getOwner() == playerInTurn_) {
+        playerInTurn_->removeObject(building);
+    }
     tile->removeBuilding(building);
-    playerInTurn_->removeObject(building);
     objectManager_->removeBuilding(building);
 
     /* Update other outposts' conquered tiles in case some tiles were
@@ -827,7 +832,12 @@ void MapWindow::on_zoomOutButton_clicked() {
 
 }
 
-void Aeta::MapWindow::on_removeUnitButton_clicked(){
+void Aeta::MapWindow::on_removeUnitButton_clicked() {
+
+    // Disable move mode if needed
+    if (moveMode_) {
+        on_moveButton_clicked();
+    }
 
     scene_->removeMoveMarkers();
     scene_->removeAttackMarkers();
@@ -835,13 +845,12 @@ void Aeta::MapWindow::on_removeUnitButton_clicked(){
     objectManager_->removeUnit(selectedUnit_);
     scene_->update();
 
-    if (moveMode_) {
-        on_moveButton_clicked();
-    }
+    // Show animation
+    QString text = QString::fromStdString(selectedUnit_->getType()) + " removed!";
+    showTextAnimation(text,selectedTile_->getCoordinate(), Qt::red);
 
     updateResourceLabels();
     updateUI();
-
 
 }
 
@@ -1434,66 +1443,68 @@ void MapWindow::onMoveModeActivate() {
     scene_->removeAttackMarkers();
     scene_->update();
 
-    // Get selected unit
-    selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
-    int movementPoints = selectedUnit_->getMovement();
-    int attackRange = selectedUnit_->getRange();
+    if (selectedTile_->getWorkerCount() > 0) {
 
-    std::vector<Course::Coordinate> neighborCoordinates = {};
+        // Get selected unit
+        selectedUnit_ = objectManager_->getUnit(selectedTile_->getCoordinate());
+        int movementPoints = selectedUnit_->getMovement();
+        int attackRange = selectedUnit_->getRange();
 
-    if (movementPoints > 0) {
-        neighborCoordinates = selectedTile_->getCoordinate().neighbours(1);
-    }
+        std::vector<Course::Coordinate> neighborCoordinates = {};
 
-    // Get the actual neighbor tile objects
-    std::vector<std::shared_ptr<Course::TileBase>> neighborTiles =
-            objectManager_->getTiles(neighborCoordinates);
-
-    // Add free tiles to movevector
-
-    for (auto tile : neighborTiles) {
-
-        if (((tile->getType() == "Swamp") && (movementPoints < 2))
-                || (tile->getType() == "Mountain")
-                || (tile->getType() == "Lake")
-                || ((tile->getWorkerCount() > 0) && (tile->getOwner() == playerInTurn_))) {
-            continue;
-        } else {
-
-            if ((tile->getWorkerCount() > 0)) {
-                continue;
-            } else {
-                viableTilesForMove_.push_back(tile);
-            }
-
+        if (movementPoints > 0) {
+            neighborCoordinates = selectedTile_->getCoordinate().neighbours(1);
         }
-    }
 
-    // Add enemy units and buildings to attackvector
-
-    if (movementPoints > 0) {
-
-        neighborCoordinates =
-                selectedTile_->getCoordinate().neighbours(attackRange);
+        // Get the actual neighbor tile objects
         std::vector<std::shared_ptr<Course::TileBase>> neighborTiles =
                 objectManager_->getTiles(neighborCoordinates);
 
+        // Add free tiles to movevector
+
         for (auto tile : neighborTiles) {
 
-            if ((tile->getWorkerCount() > 0)
-                    && (tile->getWorkers().at(0)->getOwner() != playerInTurn_)) {
-                viableTilesForAttack_.push_back(tile);
-            } else if ((tile->getBuildingCount() > 0) &&
-                       (tile->getBuildings().at(0)->getOwner() != playerInTurn_)) {
-                viableTilesForAttack_.push_back(tile);
+            if (((tile->getType() == "Swamp") && (movementPoints < 2))
+                    || (tile->getType() == "Mountain")
+                    || (tile->getType() == "Lake")
+                    || ((tile->getWorkerCount() > 0) && (tile->getOwner() == playerInTurn_))) {
+                continue;
+            } else {
+
+                if ((tile->getWorkerCount() > 0)) {
+                    continue;
+                } else {
+                    viableTilesForMove_.push_back(tile);
+                }
+
             }
-
         }
+
+        // Add enemy units and buildings to attackvector
+
+        if (movementPoints > 0) {
+
+            neighborCoordinates =
+                    selectedTile_->getCoordinate().neighbours(attackRange);
+            std::vector<std::shared_ptr<Course::TileBase>> neighborTiles =
+                    objectManager_->getTiles(neighborCoordinates);
+
+            for (auto tile : neighborTiles) {
+
+                if ((tile->getWorkerCount() > 0)
+                        && (tile->getWorkers().at(0)->getOwner() != playerInTurn_)) {
+                    viableTilesForAttack_.push_back(tile);
+                } else if ((tile->getBuildingCount() > 0) &&
+                           (tile->getBuildings().at(0)->getOwner() != playerInTurn_)) {
+                    viableTilesForAttack_.push_back(tile);
+                }
+
+            }
+        }
+
+        drawMovementMarkers(viableTilesForMove_);
+        drawAttackMarkers(viableTilesForAttack_);
     }
-
-    drawMovementMarkers(viableTilesForMove_);
-    drawAttackMarkers(viableTilesForAttack_);
-
 }
 
 void MapWindow::drawMovementMarkers(std::vector<std::shared_ptr<Course::TileBase>> tiles) {
@@ -1554,9 +1565,6 @@ bool MapWindow::moveUnit(const std::shared_ptr<Course::TileBase> &tile) {
                 // Attack other building
                 } else {
                     demolishBuilding(building, tile);
-                    showTextAnimation(QString::fromStdString(building->getType())
-                                      + " destroyed!",
-                                      tile->getCoordinate(), Qt::red);
                     moveIsAttackOnly = true;
                     selectedUnit_->setMovement(0);
                 }

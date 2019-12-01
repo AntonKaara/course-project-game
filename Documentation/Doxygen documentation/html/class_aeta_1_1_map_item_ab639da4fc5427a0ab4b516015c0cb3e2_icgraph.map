@@ -1,0 +1,6 @@
+<map id="Aeta::MapItem::boundingRect" name="Aeta::MapItem::boundingRect">
+<area shape="rect" id="node2" href="$class_aeta_1_1_game_scene.html#a0b1ff51fcc876705795bf5c92667c44d" title="Handles clicks on the scene. " alt="" coords="249,5,448,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_item.html#a5a6c468f3994c0666e18181312e01fd2" title="paint By default paints the tile picture. If a building or unit is on the tile paints a picture of th..." alt="" coords="277,56,421,83"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_item.html#aa1b726195301fac80077a42505194fe7" title="updateLoc moves the item if the position has changed. " alt="" coords="261,107,437,133"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_game_scene.html#aa5efdfa0b38d9a781bd9f7f5f15f5cd9" title="Updates a single MapTile object on the scene. " alt="" coords="496,107,699,133"/>
+</map>

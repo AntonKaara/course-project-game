@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_course_1_1i_object_manager.html" title="The iObjectManager class is an interface which the Course&#45;side code uses to interact with the ObjectM..." alt="" coords="5,5,168,32"/>
+<area shape="rect" id="node2" href="$class_aeta_1_1_object_manager.html" title="The ObjectManager class stores and keeps track of gameObjects. " alt="" coords="216,5,361,32"/>
+</map>

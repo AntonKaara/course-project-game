@@ -1,0 +1,5 @@
+<map id="Aeta::GameScene::updateItem" name="Aeta::GameScene::updateItem">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_item.html#af901caa1bd85b1d7a290d65687293af7" title="checks if this instance has obj as bound obj. " alt="" coords="256,5,436,32"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_item.html#aa1b726195301fac80077a42505194fe7" title="updateLoc moves the item if the position has changed. " alt="" coords="258,56,434,83"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_item.html#ab639da4fc5427a0ab4b516015c0cb3e2" title="Creates a rectangle the size of the map. " alt="" coords="484,56,680,83"/>
+</map>

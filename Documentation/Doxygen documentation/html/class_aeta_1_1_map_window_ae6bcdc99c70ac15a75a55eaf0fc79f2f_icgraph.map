@@ -1,0 +1,19 @@
+<map id="Aeta::MapWindow::updateResourceLabels" name="Aeta::MapWindow::updateResourceLabels">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#aebe9b7984b2e8fa6f1289433a6108c52" title="Removes given building. " alt="" coords="534,515,723,557"/>
+<area shape="rect" id="node6" href="$class_aeta_1_1_map_window.html#a4105ac354866823cd78cbf35e096a089" title="Aeta::MapWindow::on\l_removeUnitButton_clicked" alt="" coords="787,86,969,127"/>
+<area shape="rect" id="node7" href="$class_aeta_1_1_map_window.html#a173c24caeacd075260398fc269d0c2da" title="Update UI elements to match to new data. " alt="" coords="285,287,476,313"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#ab4bbbb2924ad8b3d7a6ac628e376b946" title="Aeta::MapWindow::on\l_buildPanelButton_clicked" alt="" coords="791,515,965,557"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#ad7211d57598eaa727b8b7a26f0694d4d" title="Move/Attack handling &#45; Move unit from to given tile and attack if enemy unit on that tile..." alt="" coords="781,439,975,465"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_map_window.html#a942c73537adfbcca85248e29126d00b1" title="Kidnaps events going to scene to make the movement system possible. " alt="" coords="1023,363,1221,389"/>
+<area shape="rect" id="node8" href="$class_aeta_1_1_map_window.html#a14ce2a98b5bc4d54c4ce6f1aaff5db6c" title="Class constructor. " alt="" coords="524,261,733,288"/>
+<area shape="rect" id="node9" href="$class_aeta_1_1_map_window.html#af206623190980a2f480c3ae4962f4aa0" title="Creates building object and adds to the tile object. " alt="" coords="527,43,730,69"/>
+<area shape="rect" id="node12" href="$class_aeta_1_1_map_window.html#a84c1dc5621cfad4f987f8ab0f11ebaa2" title="Executed at the end of the turn, change turns, add resources.. " alt="" coords="537,312,721,339"/>
+<area shape="rect" id="node14" href="$class_aeta_1_1_map_window.html#a1dbe78eebc3e5bc96e0a6fc0214a9119" title="Aeta::MapWindow::on\l_moveButton_clicked" alt="" coords="553,195,704,237"/>
+<area shape="rect" id="node15" href="$class_aeta_1_1_map_window.html#a8c442fa1a748e5be53935c1c97381348" title="Produces wood resource when walking over forest. " alt="" coords="533,464,725,491"/>
+<area shape="rect" id="node16" href="$class_aeta_1_1_map_window.html#a8a3a83f76d00db82661a0020bb4fc6af" title="Creates unit object and adds to recruiter HQ. " alt="" coords="530,144,727,171"/>
+<area shape="rect" id="node10" href="$class_aeta_1_1_map_window.html#aedc8953bdf8c28e22fdeaeeedacc7886" title="Aeta::MapWindow::on\l_confirmBuildButton\l_clicked" alt="" coords="803,5,953,61"/>
+<area shape="rect" id="node11" href="$class_aeta_1_1_map_window.html#ac0e37ced5aab23ef02ca0145409b49ea" title="Aeta::MapWindow::on\l_buildList_itemDoubleClicked" alt="" coords="1025,13,1219,54"/>
+<area shape="rect" id="node13" href="$class_aeta_1_1_map_window.html#a882e5616faaf9e39286307df2c53c29f" title="Aeta::MapWindow::on\l_endTurnButton_clicked" alt="" coords="797,297,959,338"/>
+<area shape="rect" id="node17" href="$class_aeta_1_1_map_window.html#a1047ea2af1c3056616959035d3da7cc5" title="Aeta::MapWindow::on\l_confirmRecruitButton\l_clicked" alt="" coords="802,152,954,208"/>
+<area shape="rect" id="node18" href="$class_aeta_1_1_map_window.html#a3b9aca94d720d9e4e6d774f0a7a56330" title="Aeta::MapWindow::on\l_recruitList_doubleClicked" alt="" coords="1035,159,1209,201"/>
+</map>

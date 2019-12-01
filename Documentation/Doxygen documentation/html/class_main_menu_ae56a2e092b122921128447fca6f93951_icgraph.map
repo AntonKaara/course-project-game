@@ -1,0 +1,5 @@
+<map id="MainMenu::playerNameChanged" name="MainMenu::playerNameChanged">
+<area shape="rect" id="node2" href="$class_main_menu.html#a619c7575f7e32ce46365de537554fbc1" title="Calls playerNameChanged when text input detected. " alt="" coords="276,5,464,47"/>
+<area shape="rect" id="node3" href="$class_main_menu.html#a18d3cf7dfbd6f4dcdfb3f0246c4e02a5" title="Calls playerNameChanged when text input detected. " alt="" coords="276,71,464,112"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#a14ce2a98b5bc4d54c4ce6f1aaff5db6c" title="Class constructor. " alt="" coords="265,137,475,163"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Aeta::MapWindow::onMoveModeActivate" name="Aeta::MapWindow::onMoveModeActivate">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a0d3353ba47c2b7a4fb1d0b8d0f662e26" title="Draws blue indicator rectangles to tiles the selected unit can move to. " alt="" coords="268,5,495,47"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#af0d620794fad117aa6e5382155ab5a0f" title="Draws red indicator rectangles to tiles the selected unit can move to. " alt="" coords="280,71,483,112"/>
+</map>

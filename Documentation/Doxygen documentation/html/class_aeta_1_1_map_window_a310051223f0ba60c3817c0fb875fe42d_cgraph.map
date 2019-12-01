@@ -1,0 +1,8 @@
+<map id="Aeta::MapWindow::generateMap" name="Aeta::MapWindow::generateMap">
+<area shape="rect" id="node2" href="$class_course_1_1_world_generator.html#a2b94f9ec5aa516b6528d90fa81868900" title="Used to get a reference to the Singleton instance. " alt="" coords="265,5,428,47"/>
+<area shape="rect" id="node3" href="$class_course_1_1_world_generator.html#adc7ea4ba3cba155910cdb03130c84e75" title="Register a Tile&#39;s constructor for use in map generation. " alt="" coords="265,123,428,164"/>
+<area shape="rect" id="node4" href="$class_course_1_1_world_generator.html#a7fe4468658c14aac5bc282fda98245e1" title="Generates Tile&#45;objects and sends them to ObjectManager. " alt="" coords="476,64,639,105"/>
+<area shape="rect" id="node5" href="$class_course_1_1_world_generator.html#a0bcd491636df6104f055233f67a0f6d3" title="Find the Tile ctor matching the random number. " alt="" coords="687,93,849,135"/>
+<area shape="rect" id="node6" href="$class_course_1_1_world_generator.html#a5f75bf6c9132d395a4ab0e5e68d1c599" title="Default constructor. " alt="" coords="476,181,639,223"/>
+<area shape="rect" id="node7" href="$class_course_1_1_world_generator.html#ae1cdc6937568b2a48b82040f4729e7a9" title="Default destructor. " alt="" coords="476,247,639,288"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Course::WorkerBase::canBePlacedOnTile" name="Course::WorkerBase::canBePlacedOnTile">
+<area shape="rect" id="node2" href="$class_course_1_1_placeable_game_object.html#a540439b2dc7d6e8b89b6acd3d0b5e1c2" title="Check if the object&#39;s own placement rules allow placement on the specified tile. " alt="" coords="199,5,401,47"/>
+<area shape="rect" id="node5" href="$class_course_1_1_placeable_game_object.html#a450a775065ce0a1c7e7e0aa7436749f3" title="How many spaces does the GameObject take from a Tile&#39;s capacity. " alt="" coords="199,71,401,112"/>
+<area shape="rect" id="node3" href="$class_course_1_1_game_object.html#a3c923e5d874cada8661d37002073c111" title="Returns GameObject&#39;s owner. " alt="" coords="643,5,788,47"/>
+<area shape="rect" id="node4" href="$class_course_1_1_game_object.html#a1c592d7013f54f62be5eb6a99fcdfd64" title="Function to compare if objects have same owner. " alt="" coords="449,35,595,76"/>
+</map>

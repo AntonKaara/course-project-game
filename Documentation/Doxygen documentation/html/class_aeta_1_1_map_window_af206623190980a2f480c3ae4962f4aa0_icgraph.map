@@ -1,0 +1,4 @@
+<map id="Aeta::MapWindow::buildOnTile" name="Aeta::MapWindow::buildOnTile">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#aedc8953bdf8c28e22fdeaeeedacc7886" title="Aeta::MapWindow::on\l_confirmBuildButton\l_clicked" alt="" coords="256,5,407,61"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#ac0e37ced5aab23ef02ca0145409b49ea" title="Aeta::MapWindow::on\l_buildList_itemDoubleClicked" alt="" coords="455,13,649,54"/>
+</map>

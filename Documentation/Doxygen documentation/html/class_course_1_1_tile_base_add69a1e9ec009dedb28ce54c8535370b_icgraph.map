@@ -1,0 +1,3 @@
+<map id="Course::TileBase::addBuilding" name="Course::TileBase::addBuilding">
+<area shape="rect" id="node2" href="$class_course_1_1_forest.html#a16ad633cd25afa705fbaefbc42efc2ae" title="Adds a new building&#45;object to the tile. Building in forest adds one hold&#45;marker to the building..." alt="" coords="252,5,436,32"/>
+</map>

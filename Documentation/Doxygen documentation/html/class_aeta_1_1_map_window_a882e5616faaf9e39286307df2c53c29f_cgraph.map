@@ -1,0 +1,9 @@
+<map id="Aeta::MapWindow::on_endTurnButton_clicked" name="Aeta::MapWindow::on_endTurnButton_clicked">
+<area shape="rect" id="node2" href="$class_aeta_1_1_map_window.html#a84c1dc5621cfad4f987f8ab0f11ebaa2" title="Executed at the end of the turn, change turns, add resources.. " alt="" coords="216,56,400,83"/>
+<area shape="rect" id="node3" href="$class_aeta_1_1_map_window.html#a1d4f929024ef200466606f20cdd8472f" title="Called from endTurn, adds resources. " alt="" coords="455,5,675,32"/>
+<area shape="rect" id="node4" href="$class_aeta_1_1_map_window.html#a3f224e34d91c9d9ae13f5a8ad7df99f5" title="Focuses the camera above player_in_turn HQ. " alt="" coords="448,56,681,83"/>
+<area shape="rect" id="node5" href="$class_aeta_1_1_map_window.html#a173c24caeacd075260398fc269d0c2da" title="Update UI elements to match to new data. " alt="" coords="469,107,660,133"/>
+<area shape="rect" id="node6" href="$class_aeta_1_1_map_window.html#a1e3f15bb545ac2080d1bc4f5dac4614a" title="Checks player resource amounts if they are enough to buy/recruit/ pay an upkeep. " alt="" coords="755,66,935,107"/>
+<area shape="rect" id="node7" href="$class_aeta_1_1_map_window.html#ae6bcdc99c70ac15a75a55eaf0fc79f2f" title="Does production calculation and updates resource labels. " alt="" coords="729,131,961,173"/>
+<area shape="rect" id="node8" href="$class_course_1_1_building_base.html#ad53ecc1dea91e3ca51c31759fe1680cb" title="Return&#39;s building&#39;s production as a ResourceMap. . " alt="" coords="1009,131,1157,173"/>
+</map>

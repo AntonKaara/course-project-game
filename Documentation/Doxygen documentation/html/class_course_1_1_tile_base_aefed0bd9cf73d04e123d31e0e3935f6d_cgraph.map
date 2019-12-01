@@ -1,0 +1,3 @@
+<map id="Course::TileBase::hasSpaceForBuildings" name="Course::TileBase::hasSpaceForBuildings">
+<area shape="rect" id="node2" href="$class_course_1_1_tile_base.html#a1a2be339a96e122eedcd3d5d8dd7095d" title="Returns the amount of spaces that are being taken from the building&#45;capacity. " alt="" coords="243,5,437,47"/>
+</map>
